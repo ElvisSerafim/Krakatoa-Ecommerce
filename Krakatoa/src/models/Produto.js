@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 /* const validCPF = require('../helper/validatecpf'); */
 
-const userSchema = new mongoose.Schema({
+const produtoSchema = new mongoose.Schema({
   nome: {
     type: String,
     unique: true,
@@ -27,6 +27,6 @@ const userSchema = new mongoose.Schema({
     type: Number,
   },
 });
-userSchema.set('toJSON', { virtuals: true });
+produtoSchema.set('toJSON', { virtuals: true });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Produto', produtoSchema);

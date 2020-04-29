@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const UserController = require('./controllers/UserController');
 const ProdutoController = require('./controllers/ProdutoController');
+const ContatoController = require('./controllers/ContatoController');
 
 const routes = Router();
 
@@ -13,5 +14,7 @@ routes.post('/api/produto', ProdutoController.Store);
 routes.put('/api/produto/_id', ProdutoController.Update);
 routes.delete('/api/produto/_id', ProdutoController.Delete);
 routes.get('/api/produtos/', ProdutoController.Index);
+
+routes.post('/api/contato', ContatoController.Store);
 
 module.exports = routes;
