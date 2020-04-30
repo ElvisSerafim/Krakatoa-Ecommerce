@@ -18,6 +18,7 @@ const styles = {
     fontSize:"3.25em",
     fontWeight: '1000',
     fontStyle: 'italic',
+    
     color: "#FF5757",
   },
   subtitle: {
