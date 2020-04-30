@@ -1,3 +1,5 @@
+const Jwt = require('jsonwebtoken');
+
 const User = require('../models/User');
 const Hash = require('../helper/hash');
 
@@ -23,9 +25,10 @@ module.exports = {
   },
   async Update(req, res) {
     const {
-      nome, email, telefone, cpf, password, newPassword, _id,
+      nome, email, telefone, cpf, password, newPassword,
     } = req.body;
-    const user = await User.findById(_id);
+    const { id } = req.params.id;
+    const user = await User.findById(id);
     if (!user) return res.sendStatus(404);
     const valid = await Hash.validadePassword(user.hash, user.salt, password);
     if (valid) {
@@ -52,11 +55,12 @@ module.exports = {
     return res.sendStatus(404);
   },
   async Delete(req, res) {
-    const { password, _id } = req.body;
-    const user = await User.findById(_id);
+    const { id } = req.params.id;
+    const { password } = req.body;
+    const user = await User.findById(id);
     const valid = await Hash.validadePassword(user.hash, user.salt, password);
     if (valid) {
-      const result = await User.deleteOne({ _id });
+      const result = await User.deleteOne({ id });
       return res.json(result) || res.sendStatus(200);
     }
     return res.sendStatus(404);
@@ -68,7 +72,8 @@ module.exports = {
     if (user) {
       valid = await Hash.validadePassword(user.hash, user.salt, password);
       if (valid) {
-        return res.json(user);
+        const accessToken = Jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+        return res.json(user, { accessToken });
       }
       return res.sendStatus(400);
     }
