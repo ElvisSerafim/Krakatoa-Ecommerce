@@ -3,9 +3,13 @@ const Produto = require('../models/User');
 module.exports = {
   async Store(req, res) {
     const {
-      _id, nome, preco, colecao, tipo, tamanho,
+      nome,
+      preco,
+      colecao,
+      tipo,
+      tamanho,
     } = req.body;
-    let produto = await Produto.findOne({ _id });
+    let produto = await Produto.findOne({ nome });
     if (!produto) {
       produto = await Produto.create({
         nome,
@@ -19,9 +23,10 @@ module.exports = {
   },
   async Update(req, res) {
     const {
-      nome, preco, colecao, tipo, tamanho, _id,
+      nome, preco, colecao, tipo, tamanho,
     } = req.body;
-    const produto = await Produto.findById(_id);
+    const { id } = req.params.id;
+    const produto = await Produto.findById(id);
     if (!produto) return res.sendStatus(404);
     if (
       nome !== produto.nome
@@ -40,9 +45,8 @@ module.exports = {
     return res.json(result) || res.sendStatus(200);
   },
   async Delete(req, res) {
-    // eslint-disable-next-line no-underscore-dangle
-    const _id = req.body;
-    const result = await Produto.deleteOne({ _id });
+    const { id } = req.params.id;
+    const result = await Produto.deleteOne({ id });
     if (result) return res.sendStatus(200);
     return res.sendStatus(404);
   },
