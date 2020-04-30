@@ -1,3 +1,5 @@
+const Jwt = require('jsonwebtoken');
+
 const User = require('../models/User');
 const Hash = require('../helper/hash');
 
@@ -68,7 +70,8 @@ module.exports = {
     if (user) {
       valid = await Hash.validadePassword(user.hash, user.salt, password);
       if (valid) {
-        return res.json(user);
+        const accessToken = Jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+        return res.json(user, { accessToken });
       }
       return res.sendStatus(400);
     }

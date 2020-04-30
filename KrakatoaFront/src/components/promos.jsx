@@ -33,7 +33,7 @@ const data = [
     quarter: 'card1',
     title: 'Coleção de Verão!',
     size: 5,
-    img: card1,
+    img: url(card1),
   },
   {
     quarter: 'card2',
