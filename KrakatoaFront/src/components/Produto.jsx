@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Typography, Box } from '@material-ui/core/';
 import { yellow } from '@material-ui/core/colors';
-import ResizeImage from 'react-resize-image'
 import imagem from '../img/vestido.jpg'
 const styles = {
   media: {
