@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import red from '@material-ui/core/colors/red';
+import Button from '@material-ui/core/Button';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,11 +18,7 @@ const theme = createMuiTheme({
         main: red[600]
       }
     },
-    spacing: 20
   })
-  const styles = {
-
-  }
 export default function MultilineTextFields() {
     const classes = useStyles();
     const [value, setValue] = React.useState('Controlled');
@@ -57,7 +54,7 @@ export default function MultilineTextFields() {
                 />
             </div>
             <div>
-            <div style={{ marginTop: 10, width: 741 }}>
+            <div style={{ marginTop: 10, width: 741, paddingBottom:10 }}>
             <form className={classes.root} noValidade autoComplete="off">
                     <TextField
                         multiline
@@ -67,7 +64,10 @@ export default function MultilineTextFields() {
                         fullWidth
                     />
             </form>
+            <div style ={{marginTop: 10, marginLeft:567, width: 176}}>
+            <Button variant="contained" color="primary" fullWidth> Enviar Mensagem</Button>
             </div>
+             </div>
             </div>
             
         </MuiThemeProvider>

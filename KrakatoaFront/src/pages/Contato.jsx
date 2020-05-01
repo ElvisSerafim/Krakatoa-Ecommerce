@@ -12,7 +12,7 @@ import red from '@material-ui/core/colors/red';
 import { makeStyles } from '@material-ui/core/styles';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import ContatoComp from '../components/Contato'
-
+import FooterComp from '../components/Footer'
 const styles = {
   title: {
     fontSize: "3.75em",
@@ -79,7 +79,7 @@ const styles = {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop:10
+    marginTop: 10
   }
 }
 
@@ -110,11 +110,11 @@ export default class Contato extends PureComponent {
                 </div>
                 <div style={styles.social}>
                   <a href="#">
-                    <img src={fb} style={{width:"12px"}}></img>
+                    <img src={fb} style={{ width: "12px" }}></img>
                   </a>
                   <div style={{ backgroundColor: "white", width: 20 }}></div>
                   <a href="#">
-                    <img src={insta} style={{width:"23px"}}></img>
+                    <img src={insta} style={{ width: "23px" }}></img>
                   </a>
                 </div>
               </div>
@@ -124,6 +124,7 @@ export default class Contato extends PureComponent {
             <ContatoComp />
           </div>
         </Container>
+        <FooterComp/>
       </>
     );
   }
