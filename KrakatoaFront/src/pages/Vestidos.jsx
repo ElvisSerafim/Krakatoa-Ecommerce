@@ -7,6 +7,8 @@ import Topo from '../components/Topo';
 import ProductList from '../components/Produtos';
 import ComboBox from '../components/ComboBox';
 import Paginator from '../components/Paginator'
+import Footer from '../components/Footer'
+
 const styles = {
   title: {
     fontSize: "3.75em",
@@ -31,6 +33,7 @@ export default class Vestidos extends PureComponent {
             <Paginator />
           </div>
         </Container>
+        <Footer />
       </>
     );
   }

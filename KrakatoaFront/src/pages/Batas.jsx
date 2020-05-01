@@ -7,6 +7,7 @@ import Topo from '../components/Topo';
 import ProductList from '../components/Produtos'
 import Paginator from '../components/Paginator'
 import ComboBox from '../components/ComboBox'
+import Footer from '../components/Footer'
 const styles = {
     title: {
         fontSize: "3.75em",
@@ -37,6 +38,7 @@ export default class Kangas extends PureComponent {
                         <Paginator />
                     </div>
                 </Container>
+                <Footer />
             </>
         );
     }
