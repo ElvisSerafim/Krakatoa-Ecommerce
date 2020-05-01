@@ -12,7 +12,6 @@ export default class Produto extends PureComponent {
         <Container maxWidth="lg">
           <Topo />
           <Navbar />
-          <Product />
         </Container>
       </>
     );
