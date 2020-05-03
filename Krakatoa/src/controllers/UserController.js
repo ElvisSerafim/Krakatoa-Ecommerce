@@ -1,5 +1,4 @@
 const Jwt = require('jsonwebtoken');
-
 const User = require('../models/User');
 const Hash = require('../helper/hash');
 
@@ -20,50 +19,58 @@ module.exports = {
         hash,
         salt,
       });
+      return res.json(user);
     }
-    return res.json(user);
+    return res.send('email já cadastrado').status(400);
   },
   async Update(req, res) {
     const {
       nome, email, telefone, cpf, password, newPassword,
     } = req.body;
     const { id } = req.params.id;
-    const user = await User.findById(id);
-    if (!user) return res.sendStatus(404);
-    const valid = await Hash.validadePassword(user.hash, user.salt, password);
-    if (valid) {
-      if (newPassword !== password && newPassword !== '') {
-        const secure = await Hash.setPassword(newPassword);
-        const { hash, salt } = secure;
-        user.hash = hash;
-        user.salt = salt;
+    try {
+      const user = await User.findById(id).catch((e) => res.send(e).status(404));
+      const valid = await Hash.validadePassword(user.hash, user.salt, password);
+      if (valid) {
+        if (newPassword !== password && newPassword !== '') {
+          const secure = await Hash.setPassword(newPassword);
+          const { hash, salt } = secure;
+          user.hash = hash;
+          user.salt = salt;
+        }
+        if (
+          nome !== user.nome
+          || email !== user.email
+          || telefone !== user.telefone
+          || cpf !== user.cpf
+        ) {
+          user.nome = nome;
+          user.email = email;
+          user.telefone = telefone;
+          user.cpf = cpf;
+        }
+        const result = await user.save();
+        if (result) return res.sendStatus(200);
       }
-      if (
-        nome !== user.nome
-        || email !== user.email
-        || telefone !== user.telefone
-        || cpf !== user.cpf
-      ) {
-        user.nome = nome;
-        user.email = email;
-        user.telefone = telefone;
-        user.cpf = cpf;
-      }
-      const result = await user.save();
-      if (result) return res.sendStatus(200);
+    } catch (error) {
+      res.send(error).status(404);
     }
-    return res.sendStatus(404);
+    return null;
   },
   async Delete(req, res) {
     const { id } = req.params.id;
     const { password } = req.body;
-    const user = await User.findById(id);
-    const valid = await Hash.validadePassword(user.hash, user.salt, password);
-    if (valid) {
-      const result = await User.deleteOne({ id });
-      return res.json(result) || res.sendStatus(200);
+    try {
+      const user = await User.findById(id);
+      const valid = await Hash.validadePassword(user.hash, user.salt, password);
+      if (valid) {
+        const result = await User.deleteOne({ id });
+        return res.json(result).status(200);
+      }
+    } catch (error) {
+      res.sendStatus(404);
     }
-    return res.sendStatus(404);
+    return null;
   },
   async Login(req, res) {
     const { email, password } = req.body;

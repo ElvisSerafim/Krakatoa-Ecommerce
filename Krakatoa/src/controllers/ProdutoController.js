@@ -8,50 +8,88 @@ module.exports = {
       colecao,
       tipo,
       tamanho,
+      promocao,
+      promopreco,
+      quantidade,
     } = req.body;
-    let produto = await Produto.findOne({ nome });
-    if (!produto) {
-      produto = await Produto.create({
-        nome,
-        preco,
-        colecao,
-        tipo,
-        tamanho,
-      });
+    try {
+      let produto = await Produto.findOne({ nome });
+      if (!produto) {
+        produto = await Produto.create({
+          nome,
+          preco,
+          colecao,
+          tipo,
+          tamanho,
+          promocao,
+          promopreco,
+          quantidade,
+        });
+        return res.json(produto);
+      }
+    } catch (error) {
+      res.status(400).send(error);
     }
-    return res.json(produto);
+    return null;
   },
   async Update(req, res) {
     const {
-      nome, preco, colecao, tipo, tamanho,
+      nome,
+      preco,
+      colecao,
+      tipo,
+      tamanho,
+      promocao,
+      promopreco,
+      quantidade,
     } = req.body;
     const { id } = req.params.id;
-    const produto = await Produto.findById(id);
-    if (!produto) return res.sendStatus(404);
-    if (
-      nome !== produto.nome
-      || preco !== produto.preco
-      || colecao !== produto.colecao
-      || tipo !== produto.tipo
-      || tamanho !== produto.tamanho
-    ) {
-      produto.nome = nome;
-      produto.preco = preco;
-      produto.colecao = colecao;
-      produto.tipo = tipo;
-      produto.tamanho = tamanho;
+    try {
+      const produto = await Produto.findById(id);
+      if (!produto) throw new Error('Produto não encontrado');
+      if (
+        nome !== produto.nome
+        || preco !== produto.preco
+        || colecao !== produto.colecao
+        || tipo !== produto.tipo
+        || tamanho !== produto.tamanho
+        || promocao !== produto.promocao
+        || promopreco !== produto.promopreco
+        || quantidade !== produto.quantidade
+      ) {
+        produto.nome = nome;
+        produto.preco = preco;
+        produto.colecao = colecao;
+        produto.tipo = tipo;
+        produto.tamanho = tamanho;
+        produto.promocao = promocao;
+        produto.promopreco = promopreco;
+        produto.quantidade = quantidade;
+      }
+      const result = await produto.save();
+      return res.json(result).sendStatus(200);
+    } catch (error) {
+      res.status(401).send(error);
     }
-    const result = await produto.save();
-    return res.json(result) || res.sendStatus(200);
+    return null;
   },
   async Delete(req, res) {
-    const { id } = req.params.id;
-    const result = await Produto.deleteOne({ id });
-    if (result) return res.sendStatus(200);
-    return res.sendStatus(404);
+    try {
+      const { id } = req.params.id;
+      const result = await Produto.deleteOne({ id });
+      if (!result) throw new Error('Não foi possivel encontrar o usuario');
+      return res.sendStatus(200);
+    } catch (error) {
+      return res.send('Erro em apagar usuario').status(404);
+    }
   },
   async Index(req, res) {
-    const produtos = await Produto.find();
-    return res.json(produtos);
+    try {
+      const produtos = await Produto.find();
+      return res.json(produtos);
+    } catch (error) {
+      res.send('Não foi possivel encontrar produtos').status(500);
+    }
+    return null;
   },
 };

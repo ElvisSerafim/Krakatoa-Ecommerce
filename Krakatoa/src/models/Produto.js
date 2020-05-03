@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-/* const validCPF = require('../helper/validatecpf'); */
 
 const produtoSchema = new mongoose.Schema({
   nome: {
@@ -24,7 +23,14 @@ const produtoSchema = new mongoose.Schema({
     require: true,
   },
   promocao: {
+    type: Boolean,
+  },
+  promopreco: {
     type: Number,
+  },
+  quantidade: {
+    type: Number,
+    required: true,
   },
 });
 produtoSchema.set('toJSON', { virtuals: true });
