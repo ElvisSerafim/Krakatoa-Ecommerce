@@ -1,6 +1,8 @@
+/* eslint-disable consistent-return */
 const Jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+
 const User = require('../models/User');
-const Hash = require('../helper/hash');
 
 module.exports = {
   async Store(req, res) {
@@ -9,15 +11,12 @@ module.exports = {
     } = req.body;
     let user = await User.findOne({ email });
     if (!user) {
-      const secure = Hash.setPassword(password);
-      const { salt, hash } = secure;
       user = await User.create({
         nome,
         email,
         telefone,
         cpf,
-        hash,
-        salt,
+        password,
       });
       return res.json(user);
     }
@@ -30,60 +29,58 @@ module.exports = {
     const { id } = req.params.id;
     try {
       const user = await User.findById(id).catch((e) => res.send(e).status(404));
-      const valid = await Hash.validadePassword(user.hash, user.salt, password);
-      if (valid) {
-        if (newPassword !== password && newPassword !== '') {
-          const secure = await Hash.setPassword(newPassword);
-          const { hash, salt } = secure;
-          user.hash = hash;
-          user.salt = salt;
+      bcrypt.compare(password, user.password, async (error, result) => {
+        if (result) {
+          if (newPassword !== password && newPassword !== '') user.password = newPassword;
+          if (
+            nome !== user.nome
+            || email !== user.email
+            || telefone !== user.telefone
+            || cpf !== user.cpf
+          ) {
+            user.nome = nome;
+            user.email = email;
+            user.telefone = telefone;
+            user.cpf = cpf;
+          }
+          const save = await user.save();
+          if (save) return res.sendStatus(200);
         }
-        if (
-          nome !== user.nome
-          || email !== user.email
-          || telefone !== user.telefone
-          || cpf !== user.cpf
-        ) {
-          user.nome = nome;
-          user.email = email;
-          user.telefone = telefone;
-          user.cpf = cpf;
-        }
-        const result = await user.save();
-        if (result) return res.sendStatus(200);
-      }
+        return error;
+      });
     } catch (error) {
       res.send(error).status(404);
     }
-    return null;
   },
   async Delete(req, res) {
     const { id } = req.params.id;
     const { password } = req.body;
     try {
-      const user = await User.findById(id);
-      const valid = await Hash.validadePassword(user.hash, user.salt, password);
-      if (valid) {
-        const result = await User.deleteOne({ id });
-        return res.json(result).status(200);
-      }
+      const user = await User.findById(id).catch((e) => res.send(e).status(400));
+      bcrypt.compare(password, user.password, async (error, result) => {
+        if (result) {
+          const worked = await User.deleteOne({ id });
+          return res.json(worked).status(200);
+        }
+        return error;
+      });
     } catch (error) {
-      res.sendStatus(404);
+      res.send('Senha invalida').Status(404);
     }
-    return null;
   },
   async Login(req, res) {
     const { email, password } = req.body;
-    let valid = false;
-    const user = await User.find({ email });
-    if (user) {
-      valid = await Hash.validadePassword(user.hash, user.salt, password);
-      if (valid) {
-        const accessToken = Jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-        return res.json(user, { accessToken });
-      }
-      return res.sendStatus(400);
+    try {
+      const user = await User.find({ email }).catch((e) => res.send(e).status(400));
+      bcrypt.compare(password, user.password, async (error, result) => {
+        if (result) {
+          const accessToken = Jwt.sign(user, process.env.JWT_KEY);
+          return res.json(user, { accessToken });
+        }
+        return error;
+      });
+    } catch (error) {
+      res.send(error).status(404);
     }
-    return res.sendStatus(400);
   },
 };

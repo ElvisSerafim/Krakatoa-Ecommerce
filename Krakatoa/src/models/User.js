@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
   nome: {
@@ -48,6 +49,27 @@ const userSchema = new mongoose.Schema({
       },
     },
   ],
+});
+
+userSchema.pre('save', async function hashPassword(next) {
+  try {
+    const user = this;
+
+    // only hash the password if it has been modified (or is new)
+    if (!user.isModified('password')) return next();
+
+    // generate a salt
+    const salt = await bcrypt.genSalt(10);
+
+    // hash the password along with our new salt
+    const hash = await bcrypt.hash(user.password, salt);
+
+    // override the cleartext password with the hashed one
+    user.password = hash;
+    return next();
+  } catch (e) {
+    return next(e);
+  }
 });
 
 userSchema.methods.generateAuthToken = async function () {
