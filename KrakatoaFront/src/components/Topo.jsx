@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
-import { Typography, Box } from '@material-ui/core/';
+import { Typography, Box, fade, makeStyles } from '@material-ui/core/';
+import SearchBar from '../components/SearchBar'
 import logo from './logo.svg';
 import avatar from '../img/avatar.png';
 import cart from '../img/cart.png';
@@ -10,11 +11,14 @@ const styles = {
     color: 'red',
     fontSize: '3em',
     fontWeight: '700',
-  },
+  }
 };
 
+
 class Topo extends PureComponent {
+
   render() {
+
     return (
       <div style={{ width: '100%' }}>
         <Box
@@ -29,6 +33,9 @@ class Topo extends PureComponent {
             <img src={logo} alt="Logo Krakatoa" height="60" margintop="50px" />
             <Typography style={styles.typography}>KRAKATOA</Typography>
           </Box>
+          <div style={{width: '400px'}}>
+            <SearchBar />
+          </div>
           {/* <BodyData/> */}
           <a href="/minhaconta">
             <img src={avatar} alt="avatar" height="20" margintop="50px" />
