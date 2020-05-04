@@ -13,6 +13,7 @@ import card1 from '../img/card1.jpg';
 import card2 from '../img/card2.jpg';
 import card3 from '../img/card3.jpg';
 import card4 from '../img/card4.jpg';
+
 const styles = {
   root: {
     width: 'auto',
@@ -28,19 +29,19 @@ const styles = {
   },
 };
 const description = {
-    root: {
-        width: 'auto',
-        height: '300px',
-        boxShadow: 'none',
-        borderRadius: 0,
-        backgroundColor: '#B1B1B1',
-        color: 'white',
-        marginTop: '50px',
-      },
-      container: {
-        marginTop: '220px',
-      },
-}
+  root: {
+    width: 'auto',
+    height: '300px',
+    boxShadow: 'none',
+    borderRadius: 0,
+    backgroundColor: '#B1B1B1',
+    color: 'white',
+    marginTop: '50px',
+  },
+  container: {
+    marginTop: '220px',
+  },
+};
 const data = [
   {
     quarter: 'card1',
@@ -82,7 +83,7 @@ export default class Sobre extends PureComponent {
                 <CardActionArea>
                   <CardContent style={styles.container}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      {elem.title} 
+                      {elem.title}
                     </Typography>
                   </CardContent>
                 </CardActionArea>

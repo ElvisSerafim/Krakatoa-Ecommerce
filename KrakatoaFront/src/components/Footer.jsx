@@ -3,6 +3,7 @@ import { Typography, Container, Box } from '@material-ui/core/';
 import logo from '../img/logoVermelha.jpg';
 import fbBranco from '../img/fbBranco.png';
 import instaBranco from '../img/instaBranco.png';
+
 const styles = {
   fundo: {
     backgroundColor: 'gray',
@@ -63,24 +64,24 @@ const styles = {
     borderRadius: 12,
     width: '50px',
   },
-  fb:{
+  fb: {
     marginTop: 10,
     marginRight: 10,
     width: '10px',
     marginBottom: 15,
   },
-  insta:{
+  insta: {
     marginTop: 10,
     marginBottom: 15,
     width: '15px',
   },
-  hrstyle:{
+  hrstyle: {
     marginTop: 50,
     color: '#E8E8E8',
     backgroundColor: '#E8E8E8',
     height: 0.5,
     borderColor: '#E8E8E8',
-  }
+  },
 };
 class Topo extends PureComponent {
   render() {
@@ -103,11 +104,10 @@ class Topo extends PureComponent {
                   </Typography>
                   <Typography>ou com nossa linha de roupa de Praia</Typography>
                   <a href="#">
-                    <img src={fbBranco}style={styles.fb}></img>
+                    <img src={fbBranco} style={styles.fb}></img>
                   </a>
                   <a href="#">
-                    <img
-                      src={instaBranco} style={styles.insta}></img>
+                    <img src={instaBranco} style={styles.insta}></img>
                   </a>
                 </div>
               </Box>
@@ -156,7 +156,7 @@ class Topo extends PureComponent {
           </Box>
         </Container>
         <Container>
-          <hr style={styles.hrstyle}/>
+          <hr style={styles.hrstyle} />
         </Container>
         <div style={{ backgroundColor: 'gray', color: 'gray' }}>a</div>
       </div>

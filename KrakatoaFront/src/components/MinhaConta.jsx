@@ -1,10 +1,9 @@
 import React from 'react';
-import Checkbox from '@material-ui/core/Checkbox';
-import TextFielde from '../components/TextField';
+import { Checkbox, Typography, Button } from '@material-ui/core';
 import red from '@material-ui/core/colors/red';
-import Button from '@material-ui/core/Button';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+import TextFielde from './TextField';
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -12,7 +11,8 @@ const theme = createMuiTheme({
     },
   },
 });
-var styles = {
+
+const styles = {
   row: {
     display: 'flex',
     flex: 1,
@@ -42,13 +42,13 @@ var styles = {
     paddingTop: 9,
     fontWeight: 'bold',
   },
-  perdeuSen:{
+  perdeuSen: {
     fontSize: '1.0em',
     color: '#FF5757',
     paddingTop: 9,
     paddingBottom: 40,
     fontWeight: 'bold',
-  }
+  },
 };
 export default function MultilineTextFields() {
   const [checked, setChecked] = React.useState(true);
@@ -75,7 +75,8 @@ export default function MultilineTextFields() {
             </div>
             <div style={styles.botao}>
               <Button variant="contained" color="primary" fullWidth>
-                Continuar{' '}
+                Continuar
+                {' '}
               </Button>
             </div>
           </div>
@@ -100,6 +101,7 @@ export default function MultilineTextFields() {
     </>
   );
 }
+
 /*
  <div style={styles.row}>
                   <div style={styles.botaoEntrar}>
@@ -114,4 +116,4 @@ export default function MultilineTextFields() {
                     inputProps={{ 'aria-label': 'primary checkbox' }}
                   />
                   </div>
-                </div>*/
+                </div> */
