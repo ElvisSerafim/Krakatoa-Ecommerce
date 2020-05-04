@@ -89,4 +89,8 @@ class ComboBox extends Component {
   }
 }
 
+ComboBox.propTypes = {
+  name: PropTypes.string.isRequired,
+};
+
 export default withStyles(styles)(ComboBox);

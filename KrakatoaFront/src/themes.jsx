@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import { red, grey } from '@material-ui/core/colors';
+import { red, grey } from '@material-ui/core/colors/';
 
 const theme = createMuiTheme({
   palette: {
@@ -27,7 +27,13 @@ const theme = createMuiTheme({
       fontWeight: 700,
     },
     body1: {
+      fontSize: '1.0em',
+    },
+    body2: {
       fontSize: '1.25em',
+      color: '#FF5757',
+      paddingTop: 9,
+      fontWeight: 'bold',
     },
     h6: {
       fontSize: '1.25em',
