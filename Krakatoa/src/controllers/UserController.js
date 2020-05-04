@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable consistent-return */
 const Jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -18,7 +19,9 @@ module.exports = {
         cpf,
         password,
       });
-      return res.json(user);
+      const accessToken = user.generateAuthToken();
+      const obj = { user, accessToken };
+      return res.status(200).json(obj);
     }
     return res.send('email já cadastrado').status(400);
   },
@@ -74,8 +77,13 @@ module.exports = {
       const user = await User.find({ email }).catch((e) => res.send(e).status(400));
       bcrypt.compare(password, user.password, async (error, result) => {
         if (result) {
-          const accessToken = Jwt.sign(user, process.env.JWT_KEY);
-          return res.json(user, { accessToken });
+          const accessToken = Jwt.sign(
+            { email: user.email, userId: user._id },
+            process.env.JWT_KEY,
+            { expiresIn: '1hr' },
+          );
+          const obj = { user, accessToken };
+          return res.json(obj);
         }
         return error;
       });

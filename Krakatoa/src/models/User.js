@@ -21,8 +21,6 @@ const userSchema = new mongoose.Schema({
       }
     },
   },
-  hash: String,
-  salt: String,
   cpf: {
     type: String,
     unique: true,
@@ -32,6 +30,10 @@ const userSchema = new mongoose.Schema({
     type: Number,
     unique: true,
     require: true,
+  },
+  password: {
+    type: String,
+    required: true,
   },
   endereco: {
     cep: Number,
