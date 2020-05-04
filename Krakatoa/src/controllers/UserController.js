@@ -96,4 +96,31 @@ module.exports = {
       res.status(500).send(error);
     }
   },
+  async UpdateEnde(req, res) {
+    try {
+      const { user } = req;
+      const {
+        cep, estado, cidade, bairro, rua, numero,
+      } = req.body;
+      if (
+        cep !== user.endereco.cep
+        || estado !== user.endereco.estado
+        || cidade !== user.endereco.cidade
+        || bairro !== user.endereco.bairro
+        || rua !== user.endereco.rua
+        || numero !== user.endereco.numero
+      ) {
+        user.endereco.cep = cep;
+        user.endereco.estado = estado;
+        user.endereco.bairro = bairro;
+        user.endereco.cidade = cidade;
+        user.endereco.rua = rua;
+        user.endereco.numero = numero;
+      }
+      const save = await user.save();
+      if (save) return res.send(user).status(200);
+    } catch (error) {
+      res.send(error).status(404);
+    }
+  },
 };
