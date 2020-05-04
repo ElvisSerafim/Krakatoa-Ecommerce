@@ -1,7 +1,8 @@
-const Jwt = require('jsonwebtoken');
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable consistent-return */
+const bcrypt = require('bcrypt');
 
 const User = require('../models/User');
-const Hash = require('../helper/hash');
 
 module.exports = {
   async Store(req, res) {
@@ -10,33 +11,28 @@ module.exports = {
     } = req.body;
     let user = await User.findOne({ email });
     if (!user) {
-      const secure = Hash.setPassword(password);
-      const { salt, hash } = secure;
       user = await User.create({
         nome,
         email,
         telefone,
         cpf,
-        hash,
-        salt,
+        password,
       });
+      const accessToken = user.generateAuthToken();
+      const obj = { user, accessToken };
+      return res.status(200).json(obj);
     }
-    return res.json(user);
+    return res.send('email já cadastrado').status(400);
   },
   async Update(req, res) {
-    const {
-      nome, email, telefone, cpf, password, newPassword,
-    } = req.body;
-    const { id } = req.params.id;
-    const user = await User.findById(id);
-    if (!user) return res.sendStatus(404);
-    const valid = await Hash.validadePassword(user.hash, user.salt, password);
-    if (valid) {
-      if (newPassword !== password && newPassword !== '') {
-        const secure = await Hash.setPassword(newPassword);
-        const { hash, salt } = secure;
-        user.hash = hash;
-        user.salt = salt;
+    try {
+      const { user } = req;
+      const {
+        newPassword, nome, telefone, cpf, email,
+      } = req.body;
+      const isPasswordMatch = await bcrypt.compare(newPassword, user.password);
+      if (!isPasswordMatch) {
+        user.password = newPassword;
       }
       if (
         nome !== user.nome
@@ -49,34 +45,55 @@ module.exports = {
         user.telefone = telefone;
         user.cpf = cpf;
       }
-      const result = await user.save();
-      if (result) return res.sendStatus(200);
+      const save = await user.save();
+      if (save) return res.send(user).status(200);
+    } catch (error) {
+      res.send(error).status(404);
     }
-    return res.sendStatus(404);
   },
   async Delete(req, res) {
-    const { id } = req.params.id;
-    const { password } = req.body;
-    const user = await User.findById(id);
-    const valid = await Hash.validadePassword(user.hash, user.salt, password);
-    if (valid) {
-      const result = await User.deleteOne({ id });
-      return res.json(result) || res.sendStatus(200);
+    const { _id } = req.user;
+    try {
+      const result = await User.deleteOne({ _id });
+      return res.json(result).status(200);
+    } catch (error) {
+      res.send(error).Status(404);
     }
-    return res.sendStatus(404);
   },
   async Login(req, res) {
-    const { email, password } = req.body;
-    let valid = false;
-    const user = await User.find({ email });
-    if (user) {
-      valid = await Hash.validadePassword(user.hash, user.salt, password);
-      if (valid) {
-        const accessToken = Jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-        return res.json(user, { accessToken });
+    try {
+      const { email, password } = req.body;
+      const user = await User.findByCredentials(email, password);
+      if (!user) {
+        return res
+          .status(401)
+          .send({ error: 'Login Falhou! Checar Email e Senha' });
       }
-      return res.sendStatus(400);
+      const token = await user.generateAuthToken();
+      const obj = { user, token };
+      res.send(obj);
+    } catch (error) {
+      res.status(400).send(error);
     }
-    return res.sendStatus(400);
+  },
+  async Logout(req, res) {
+    try {
+      req.user.tokens = req.user.tokens.filter(
+        (token) => token.token !== req.token,
+      );
+      await req.user.save();
+      res.send();
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  },
+  async LogoutAll(req, res) {
+    try {
+      req.user.tokens.splice(0, req.user.tokens.length);
+      await req.user.save();
+      res.send();
+    } catch (error) {
+      res.status(500).send(error);
+    }
   },
 };
