@@ -2,14 +2,14 @@
  */
 
 import React, { PureComponent } from 'react';
-import { Container, Grid, Typography, TextField } from '@material-ui/core/';
+import { Container, Grid, Typography } from '@material-ui/core/';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import ContatoComp from '../components/Contato';
 import FooterComp from '../components/Footer';
 import './Contato.css';
 import fb from '../img/fb.png';
-import insta from '../img/insta.png';
+import insta from '../img/insta@2x.png';
 
 const styles = {
   social: {
@@ -17,7 +17,13 @@ const styles = {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 40,
+  },
+  img: {
+    height: 23,
+  },
+  paragrafo: {
+    marginTop: 40,
   },
 };
 
@@ -36,7 +42,7 @@ export default class Contato extends PureComponent {
               <Typography variant="h4" color="primary">
                 FALE CONOSCO
               </Typography>
-              <Typography variant="h6" color="primary">
+              <Typography variant="h6" color="primary" gutterBottom>
                 UTILIZE O FORMULÁRIO ABAIXO PARA ENTRAR EM CONTATO CONOSCO
               </Typography>
               <ContatoComp />
@@ -49,7 +55,7 @@ export default class Contato extends PureComponent {
                 <Typography variant="h5" color="primary">
                   Loja de Itapõa
                 </Typography>
-                <div>
+                <div style={styles.paragrafo}>
                   <Typography variant="body1" color="primary">
                     Rua do Palame, nº 43 – Itapõa
                   </Typography>
@@ -64,12 +70,12 @@ export default class Contato extends PureComponent {
                   </Typography>
                 </div>
                 <div style={styles.social}>
-                  <a href="#">
-                    <img src={fb} style={{ width: '12px' }} />
+                  <a href="https://www.facebook.com/profile.php?id=100013226432242">
+                    <img src={fb} style={styles.img} alt="Facebook Logo" />
                   </a>
                   <div style={{ backgroundColor: 'white', width: 20 }} />
-                  <a href="#">
-                    <img src={insta} style={{ width: '23px' }} />
+                  <a href="https://www.instagram.com/krakatoacangas/?hl=pt-br">
+                    <img src={insta} style={styles.img} alt="Instagram Logo" />
                   </a>
                 </div>
               </div>

@@ -15,7 +15,7 @@ const styles = {
   fundo: {
     backgroundColor: '#C8C8C8',
     AlignItems: 'center',
-    borderRadius: 20
+    borderRadius: 20,
   },
   flexGlobal: {
     display: 'flex',

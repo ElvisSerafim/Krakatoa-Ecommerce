@@ -27,6 +27,10 @@ const theme = createMuiTheme({
       fontWeight: 700,
     },
     body1: {
+      fontSize: '1.25em',
+    },
+    h6: {
+      fontSize: '1.25em',
     },
   },
 });
