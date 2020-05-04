@@ -1,6 +1,5 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable consistent-return */
-const Jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const User = require('../models/User');
@@ -26,69 +25,75 @@ module.exports = {
     return res.send('email já cadastrado').status(400);
   },
   async Update(req, res) {
-    const {
-      nome, email, telefone, cpf, password, newPassword,
-    } = req.body;
-    const { id } = req.params.id;
     try {
-      const user = await User.findById(id).catch((e) => res.send(e).status(404));
-      bcrypt.compare(password, user.password, async (error, result) => {
-        if (result) {
-          if (newPassword !== password && newPassword !== '') user.password = newPassword;
-          if (
-            nome !== user.nome
-            || email !== user.email
-            || telefone !== user.telefone
-            || cpf !== user.cpf
-          ) {
-            user.nome = nome;
-            user.email = email;
-            user.telefone = telefone;
-            user.cpf = cpf;
-          }
-          const save = await user.save();
-          if (save) return res.sendStatus(200);
-        }
-        return error;
-      });
+      const { user } = req;
+      const {
+        newPassword, nome, telefone, cpf, email,
+      } = req.body;
+      const isPasswordMatch = await bcrypt.compare(newPassword, user.password);
+      if (!isPasswordMatch) {
+        user.password = newPassword;
+      }
+      if (
+        nome !== user.nome
+        || email !== user.email
+        || telefone !== user.telefone
+        || cpf !== user.cpf
+      ) {
+        user.nome = nome;
+        user.email = email;
+        user.telefone = telefone;
+        user.cpf = cpf;
+      }
+      const save = await user.save();
+      if (save) return res.send(user).status(200);
     } catch (error) {
       res.send(error).status(404);
     }
   },
   async Delete(req, res) {
-    const { id } = req.params.id;
-    const { password } = req.body;
+    const { _id } = req.user;
     try {
-      const user = await User.findById(id).catch((e) => res.send(e).status(400));
-      bcrypt.compare(password, user.password, async (error, result) => {
-        if (result) {
-          const worked = await User.deleteOne({ id });
-          return res.json(worked).status(200);
-        }
-        return error;
-      });
+      const result = await User.deleteOne({ _id });
+      return res.json(result).status(200);
     } catch (error) {
-      res.send('Senha invalida').Status(404);
+      res.send(error).Status(404);
     }
   },
   async Login(req, res) {
-    const { email, password } = req.body;
     try {
-      const user = await User.find({ email }).catch((e) => res.send(e).status(400));
-      bcrypt.compare(password, user.password, async (error, result) => {
-        if (result) {
-          const accessToken = Jwt.sign(
-            { email: user.email, userId: user._id },
-            process.env.JWT_KEY,
-            { expiresIn: '1hr' },
-          );
-          const obj = { user, accessToken };
-          return res.json(obj);
-        }
-        return error;
-      });
+      const { email, password } = req.body;
+      const user = await User.findByCredentials(email, password);
+      if (!user) {
+        return res
+          .status(401)
+          .send({ error: 'Login Falhou! Checar Email e Senha' });
+      }
+      const token = await user.generateAuthToken();
+      const obj = { user, token };
+      res.send(obj);
     } catch (error) {
-      res.send(error).status(404);
+      res.status(400).send(error);
+    }
+  },
+  async Logout(req, res) {
+    try {
+      req.user.tokens = req.user.tokens.filter(
+        (token) => token.token !== req.token,
+      );
+      await req.user.save();
+      res.send();
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  },
+  async LogoutAll(req, res) {
+    try {
+      req.user.tokens.splice(0, req.user.tokens.length);
+      await req.user.save();
+      res.send();
+    } catch (error) {
+      res.status(500).send(error);
     }
   },
 };

@@ -6,11 +6,15 @@ const auth = require('./middleware/auth');
 
 const routes = Router();
 
-/* routes.get('/api/user/:id', UserController.GetUser); */
-routes.post('/api/user/login', auth, UserController.Login);
-routes.post('/api/user/', UserController.Store);
-routes.put('/api/user/:id', UserController.Update);
-routes.delete('/api/user/:id', UserController.Delete);
+routes.get('/api/user/me', auth, async (req, res) => {
+  res.send(req.user);
+});
+routes.post('/api/user/login', UserController.Login);
+routes.post('/api/user/:id', UserController.Store);
+routes.put('/api/user/me', auth, UserController.Update);
+routes.post('/api/user/me/logout', auth, UserController.Logout);
+routes.post('/api/user/me/logoutall', auth, UserController.LogoutAll);
+routes.delete('/api/user/me', auth, UserController.Delete);
 
 routes.post('/api/produto', ProdutoController.Store);
 routes.put('/api/produto/:id', ProdutoController.Update);
