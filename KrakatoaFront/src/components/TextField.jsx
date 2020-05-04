@@ -77,7 +77,11 @@ const styles = {
     inputs: {
         fontFamily: 'Poppins',
         fontWeight: 'bold'
-    }
+    },
+    inputsMinhaConta: {
+        fontFamily: 'Poppins',
+        color:'#F0F0F0',
+    },
 };
 
 class TextField extends Component {
@@ -91,7 +95,7 @@ class TextField extends Component {
 
     render() {
         const { children, style, classes, onClick } = this.props
-        const { email, password, label, cpf, cnpj, numberOnly, date, time, datetime, phone, search, select, semestre, nomeTurma } = this.props
+        const { login,email, password, label, cpf, cnpj, numberOnly, date, time, datetime, phone, search, select, semestre, nomeTurma } = this.props
 
         if (email) {
             return (
@@ -112,7 +116,7 @@ class TextField extends Component {
         } else if (password) {
             return (
                 <div style={styles.container} >
-                    <p>&nbsp;{label}</p>
+                    <p style={styles.inputsMinhaConta}>&nbsp;{label}</p>
                     <input
                         value={this.props.value}
                         onChange={this.props.onChange}
@@ -258,7 +262,21 @@ class TextField extends Component {
                     </label>
                 </div>
             );
-        } 
+        } else if(login){
+            return (
+                <div style={styles.container} >
+                    {label && <p style={styles.inputsMinhaConta}>&nbsp;{label}</p>}
+                    <input
+                        value={this.props.value}
+                        onChange={this.props.onChange}
+                        onfocus={this.value = ''}
+                        style={{ ...styles.main, ...style }}
+                    >
+                        {children}
+                    </input>
+                </div>
+            );
+        }
         else {
             return (
                 <div style={styles.container} >
