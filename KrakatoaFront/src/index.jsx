@@ -15,7 +15,7 @@ import Cadastro from './pages/Cadastro';
 import Carrinho from './pages/Carrinho';
 import NotFound from './pages/NotFound';
 import MinhaConta from './pages/MinhaConta';
-import Endereco from './pages/Endereço';
+import Endereco from './pages/Endereco';
 import './index.css';
 
 const theme = createMuiTheme({
