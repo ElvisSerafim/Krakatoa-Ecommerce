@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Typography, Box, fade, makeStyles } from '@material-ui/core/';
 import SearchBar from '../components/SearchBar'
-import logo from './logo.svg';
+import logo from '../img/logoNav.svg';
 import avatar from '../img/avatar.png';
 import cart from '../img/cart.png';
 
@@ -30,7 +30,7 @@ class Topo extends PureComponent {
           marginTop="2%"
         >
           <Box display="flex" flexDirection="row" alignItems="center">
-            <img src={logo} alt="Logo Krakatoa" height="60" margintop="50px" />
+            <img src={logo} alt="Logo Krakatoa" height="60" margintop="50px" style={{paddingRight: '20px'}}/>
             <Typography style={styles.typography}>KRAKATOA</Typography>
           </Box>
           <div style={{width: '400px'}}>
