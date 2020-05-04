@@ -19,8 +19,11 @@ const styles = {
     fontSize: '3.25em',
     fontWeight: '1000',
     fontStyle: 'italic',
-
     color: '#FF5757',
+  },
+  h3: {
+    fontSize: '1.5em',
+    marginTop: '0px',
   },
   subtitle: {
     fontSize: '1.5em',
@@ -70,8 +73,12 @@ export default class Sobre extends PureComponent {
           <Navbar />
           <Typography style={styles.title}>Sobre</Typography>
           <section>
-            <Typography style={styles.krakatoa}>KRAKATOA</Typography>
-            <Typography style={styles.subtitle}>
+            <Typography style={styles.krakatoa} color="primary">KRAKATOA</Typography>
+            <Typography
+              style={styles.h3}
+              variant="h5"
+              color="primary"
+            >
               Conheça um pouco da nossa história
             </Typography>
           </section>

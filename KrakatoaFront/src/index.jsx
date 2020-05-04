@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { red, grey } from '@material-ui/core/colors';
+
+import theme from './themes'
 import Home from './pages/Home';
 import Sobre from './pages/Sobre';
 import Contato from './pages/Contato';
@@ -17,12 +20,6 @@ import NotFound from './pages/NotFound';
 import MinhaConta from './pages/MinhaConta';
 import Endereco from './pages/Endereco';
 import './index.css';
-
-const theme = createMuiTheme({
-  typography: {
-    fontFamily: "'Poppins', sans-serif",
-  },
-});
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
