@@ -7,7 +7,6 @@ import Sobre from './pages/Sobre';
 import Contato from './pages/Contato';
 import Login from './pages/Login';
 import Produto from './pages/Produto';
-import Produtos from './pages/Produtos';
 import Kangas from './pages/Kangas';
 import Shorts from './pages/Shorts';
 import Batas from './pages/Batas';
@@ -16,6 +15,7 @@ import Cadastro from './pages/Cadastro';
 import Carrinho from './pages/Carrinho';
 import NotFound from './pages/NotFound';
 import MinhaConta from './pages/MinhaConta';
+import Endereco from './pages/Endereço';
 import './index.css';
 
 const theme = createMuiTheme({
@@ -40,6 +40,7 @@ ReactDOM.render(
         <Route path="/cadastro" component={Cadastro} />
         <Route path="/login" component={Login} />
         <Route path="/minhaconta" component={MinhaConta} />
+        <Route path="/endereco" component={Endereco} />
         <Route component={NotFound} />
       </Switch>
     </BrowserRouter>
