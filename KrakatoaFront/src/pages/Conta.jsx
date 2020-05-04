@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import {
   Container, Grid, Typography, Box,
 } from '@material-ui/core/';
+
 import Cadastro from '../components/Cadastro';
 import Login from '../components/Login';
 import Navbar from '../components/Nav';

@@ -32,8 +32,9 @@ export default class Home extends PureComponent {
   }
 
   componentDidMount() {
+    const { product } = this.state;
     ApiService.ListaProdutos().then((res) => {
-      this.setState({ produtos: [...this.state.produtos, ...res.data] });
+      this.setState({ produtos: [...product, ...res.data] });
     });
   }
 

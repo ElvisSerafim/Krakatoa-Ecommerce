@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Typography, Container, Box } from '@material-ui/core/';
+import { Typography, Container, Box, Grid } from '@material-ui/core/';
 import logo from '../img/logoVermelha.jpg';
 import fbBranco from '../img/fbBranco.png';
 import instaBranco from '../img/instaBranco.png';
@@ -10,39 +10,32 @@ const styles = {
     width: '100%',
     marginTop: '64px',
   },
-  krakatoa: {
-    color: 'white',
-    fontSize: '2.0em',
-  },
-  titlesFlex: {
-    display: 'flex',
-    paddingTop: 64,
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
   shoppingEcontato: {
     color: 'white',
     fontSize: '1.625em',
     fontWeight: 'bold',
     marginBottom: '27px',
   },
-
   nomeElogo: {
     display: 'flex',
     flex: 1,
-    flexDirection: 'column',
+    flexWrap: 'nowrap',
+    flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 40,
   },
   lore: {
     color: '#E8E8E8',
     fontSize: '1.0em',
   },
   loreKrak: {
-    color: '#E8E8E8',
-    fontSize: '1.0em',
     marginTop: 12,
+  },
+  marginDiv: {
+    marginTop: 40,
+  },
+  marginPar: {
+    marginTop: 40,
   },
   loreDesigner: {
     color: 'white',
@@ -64,16 +57,11 @@ const styles = {
     borderRadius: 12,
     width: '50px',
   },
-  fb: {
+  social: {
     marginTop: 10,
     marginRight: 10,
-    width: '10px',
+    height: '16px',
     marginBottom: 15,
-  },
-  insta: {
-    marginTop: 10,
-    marginBottom: 15,
-    width: '15px',
   },
   hrstyle: {
     marginTop: 50,
@@ -89,70 +77,114 @@ class Topo extends PureComponent {
       <div style={styles.fundo}>
         <Container maxWidth="lg">
           <Box>
-            <div style={styles.titlesFlex}>
-              <Box display="flex" flexDirection="column">
-                <Box display="flex" flexDirection="row" alignItems="center">
-                  <img src={logo} style={styles.logostyle}></img>
-                  <Typography style={styles.krakatoa}>KRAKATOA</Typography>
-                </Box>
+            <Grid container spacing={2} direction="row" justify="flex-start">
+              <Grid item Lg={4} md={4}>
+                <div style={styles.nomeElogo}>
+                  <img
+                    src={logo}
+                    style={styles.logostyle}
+                    alt="Logo Krakatoa"
+                  />
+                  <Typography variant="h4" color="secondary">
+                    KRAKATOA
+                  </Typography>
+                </div>
                 <div style={styles.loreKrak}>
-                  <Typography>
+                  <Typography variant="body1" color="secondary">
                     Krakatoa, sua marca feita pra aquele dia de praia
                   </Typography>
-                  <Typography>
+                  <Typography variant="body1" color="secondary">
                     no sol forte de Salvador! Seja com nossas Kangas
                   </Typography>
-                  <Typography>ou com nossa linha de roupa de Praia</Typography>
-                  <a href="#">
-                    <img src={fbBranco} style={styles.fb}></img>
-                  </a>
-                  <a href="#">
-                    <img src={instaBranco} style={styles.insta}></img>
-                  </a>
-                </div>
-              </Box>
-              <Box display="flex" flexDirection="column" alignItems="center">
-                <Typography style={styles.shoppingEcontato}>
-                  Shopping Online
-                </Typography>
-                <div>
-                  <a href="#" style={{ textDecoration: 'none' }}>
-                    <Typography style={styles.lore}>Pedidos</Typography>
-                  </a>
-                  <a href="#" style={{ textDecoration: 'none' }}>
-                    <Typography style={styles.lore}>Entregas</Typography>
-                  </a>
-                  <a href="#" style={{ textDecoration: 'none' }}>
-                    <Typography style={styles.lore}>
-                      Política de retorno
-                    </Typography>
-                  </a>
-                  <a href="#" style={{ textDecoration: 'none' }}>
-                    <Typography style={styles.lore}>
-                      Opções de pagamento
-                    </Typography>
-                  </a>
-                  <a href="#" style={{ textDecoration: 'none' }}>
-                    <Typography style={styles.lore}>Contatos</Typography>
-                  </a>
-                </div>
-              </Box>
-              <Box display="flex" flexDirection="column" alignItems="center">
-                <Typography style={styles.loreContato}>Contato</Typography>
-                <div>
-                  <Typography style={styles.lore}>
-                    Email: contato@krakotoacangas.com.br
+                  <Typography variant="body1" color="secondary">
+                    ou com nossa linha de roupa de Praia
                   </Typography>
-                  <Typography style={styles.lore}>
-                    Telefone: (71) 3375-3856
-                  </Typography>
+                  <a href="https://www.facebook.com/profile.php?id=100013226432242">
+                    <img
+                      src={fbBranco}
+                      style={styles.social}
+                      alt="Logo facebook"
+                    />
+                  </a>
+                  <a href="https://www.instagram.com/krakatoacangas/?hl=pt-br">
+                    <img
+                      src={instaBranco}
+                      style={styles.social}
+                      alt="Logo Instagram"
+                    />
+                  </a>
                 </div>
-                <Typography style={styles.loreDesigner}>Designer </Typography>
-                <Typography style={styles.lore}>
-                  Gustavo, Gabriel e Elvis
-                </Typography>
-              </Box>
-            </div>
+              </Grid>
+              <Grid item Lg={4} md={4}>
+                <div style={{ marginTop: 40, marginLeft: 20 }}>
+                  <Typography variant="h4" color="secondary">
+                    Shopping Online
+                  </Typography>
+                  <div style={styles.marginPar}>
+                    <a
+                      href="/minhaconta/pedidos"
+                      style={{ textDecoration: 'none' }}
+                    >
+                      <Typography style={styles.lore} variant="body1">
+                        Pedidos
+                      </Typography>
+                    </a>
+                    <a
+                      href="/tipo/entrega"
+                      style={{ textDecoration: 'none' }}
+                      variant="body1"
+                    >
+                      <Typography style={styles.lore}>Entregas</Typography>
+                    </a>
+                    <a
+                      href="/politicas"
+                      style={{ textDecoration: 'none' }}
+                      variant="body1"
+                    >
+                      <Typography style={styles.lore}>
+                        Políticas da Loja
+                      </Typography>
+                    </a>
+                    <a
+                      href="/tipo/pagamento"
+                      style={{ textDecoration: 'none' }}
+                    >
+                      <Typography style={styles.lore} variant="body1">
+                        Opções de pagamento
+                      </Typography>
+                    </a>
+                    <a href="/contato" style={{ textDecoration: 'none' }}>
+                      <Typography style={styles.lore} variant="body1">
+                        Contatos
+                      </Typography>
+                    </a>
+                  </div>
+                </div>
+              </Grid>
+              <Grid item Lg={4} md={4}>
+                <div style={{ marginTop: 40 }}>
+                  <Typography variant="h4" color="secondary">
+                    Contato
+                  </Typography>
+                  <div>
+                    <Typography style={styles.lore} variant="body1">
+                      Email: contato@krakotoacangas.com.br
+                    </Typography>
+                    <Typography style={styles.lore} variant="body1">
+                      Telefone: (71) 3375-3856
+                    </Typography>
+                  </div>
+                  <div style={styles.marginDiv}>
+                    <Typography variant="h4" color="secondary">
+                      Designer{' '}
+                    </Typography>
+                    <Typography style={styles.lore}>
+                      Gustavo, Gabriel e Elvis
+                    </Typography>
+                  </div>
+                </div>
+              </Grid>
+            </Grid>
           </Box>
         </Container>
         <Container>
