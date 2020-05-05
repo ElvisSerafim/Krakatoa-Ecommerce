@@ -1,18 +1,11 @@
 import React, { PureComponent } from 'react';
-import { Typography, Box, fade, makeStyles } from '@material-ui/core/';
+import { Typography, Box } from '@material-ui/core/';
+import { Link } from 'react-router-dom';
+import Carrinho from '@material-ui/icons/ShoppingCartOutlined';
+import Conta from '@material-ui/icons/AccountCircleOutlined';
+
 import SearchBar from './SearchBar';
 import logo from '../img/logoNav.svg';
-import avatar from '../img/avatar.png';
-import cart from '../img/cart.png';
-
-const styles = {
-  typography: {
-    textDecoration: 'none',
-    color: 'red',
-    fontSize: '3em',
-    fontWeight: '700',
-  },
-};
 
 class Topo extends PureComponent {
   render() {
@@ -26,25 +19,33 @@ class Topo extends PureComponent {
           alignItems="center"
           marginTop="2%"
         >
-          <Box display="flex" flexDirection="row" alignItems="center">
-            <img
-              src={logo}
-              alt="Logo Krakatoa"
-              height="60"
-              margintop="50px"
-              style={{ paddingRight: '20px' }}
-            />
-            <Typography style={styles.typography}>KRAKATOA</Typography>
-          </Box>
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <Box display="flex" flexDirection="row" alignItems="center">
+              <img
+                src={logo}
+                alt="Logo Krakatoa"
+                height="60"
+                margintop="50px"
+                style={{ paddingRight: '20px' }}
+              />
+              <Typography
+                variant="h3"
+                style={{ fontStyle: 'normal', marginTop: 0 }}
+                color="primary"
+              >
+                KRAKATOA
+              </Typography>
+            </Box>
+          </Link>
           <div style={{ width: '400px' }}>
             <SearchBar />
           </div>
           {/* <BodyData/> */}
           <a href="/minhaconta">
-            <img src={avatar} alt="avatar" height="20" margintop="50px" />
+            <Conta color="primary" fontSize="large" />
           </a>
           <a href="/carrinho">
-            <img src={cart} alt="cart" height="20" margintop="50px" />
+            <Carrinho color="primary" fontSize="large" />
           </a>
         </Box>
       </div>

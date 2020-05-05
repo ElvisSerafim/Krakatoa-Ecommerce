@@ -5,9 +5,9 @@ import { Typography } from '@material-ui/core/';
 
 const styles = {
   pagination: {
-    fontSize: 12
-  }
-}
+    fontSize: 12,
+  },
+};
 export default class Paginator extends Component {
   constructor(props) {
     super(props);
@@ -17,6 +17,7 @@ export default class Paginator extends Component {
   }
 
   render() {
+    const { actualPage } = this.state;
     return (
       <div
         style={{
@@ -25,13 +26,13 @@ export default class Paginator extends Component {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          fontFamily: 'Poppins', 
+          fontFamily: 'Poppins',
         }}
       >
         <Typography>Página</Typography>
         <Pagination
           style={styles.pagination}
-          count={this.state.actualPage}
+          count={actualPage}
           variant="outlined"
           shape="rounded"
         />
