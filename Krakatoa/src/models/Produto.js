@@ -39,6 +39,10 @@ const produtoSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  vendas: {
+    type: Number,
+    required: true,
+  },
 });
 produtoSchema.set('toJSON', { virtuals: true });
 

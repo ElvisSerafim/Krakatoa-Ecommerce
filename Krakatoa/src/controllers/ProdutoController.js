@@ -90,33 +90,19 @@ module.exports = {
       res.send('Não foi possivel encontrar produtos').status(500);
     }
   },
-  async IndexKangas(req, res) {
+  async IndexQuerry(req, res) {
     try {
-      const produtos = await Produto.find({ tipo: 'kangas' });
-      return res.json(produtos);
-    } catch (error) {
-      res.send('Não foi possivel encontrar produtos').status(500);
-    }
-  },
-  async IndexBatas(req, res) {
-    try {
-      const produtos = await Produto.find({ tipo: 'batas' });
-      return res.json(produtos);
-    } catch (error) {
-      res.send('Não foi possivel encontrar produtos').status(500);
-    }
-  },
-  async IndexVestidos(req, res) {
-    try {
-      const produtos = await Produto.find({ tipo: 'vestidos' });
-      return res.json(produtos);
-    } catch (error) {
-      res.send('Não foi possivel encontrar produtos').status(500);
-    }
-  },
-  async IndexShorts(req, res) {
-    try {
-      const produtos = await Produto.find({ tipo: 'shorts' });
+      const { tipo, chave } = req.body;
+      const produtos = await Produto.find({ tipo });
+      if (chave === 'menorP') {
+        produtos.sort({ preco: -1 });
+      }
+      if (chave === 'maiorP') {
+        produtos.sort({ preco: 1 });
+      }
+      if (chave === 'maiorV') {
+        produtos.sort({ vendas: -1 });
+      }
       return res.json(produtos);
     } catch (error) {
       res.send('Não foi possivel encontrar produtos').status(500);
