@@ -18,9 +18,9 @@ export default class Produtos extends Component {
     };
   }
 
-
   componentWillMount() {
     this.getProducts();
+    console.log(this.props);
   }
 
   getProducts = async () => {
@@ -41,7 +41,7 @@ export default class Produtos extends Component {
 
   orderBy = async (value) => {
     console.log("estado atual: " + value)
-    var key = '';
+    let key = '';
     if (value == '') {
       return;
     } else if (value == 'Mais vendidos') {

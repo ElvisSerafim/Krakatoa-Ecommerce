@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { MuiThemeProvider } from '@material-ui/core/styles';
@@ -8,7 +9,7 @@ import Home from './pages/Home';
 import Sobre from './pages/Sobre';
 import Contato from './pages/Contato';
 import Produto from './pages/Produto';
-import Cadastro from './pages/Cadastro';
+/* import Cadastro from './pages/Cadastro'; */
 import Carrinho from './pages/Carrinho';
 import NotFound from './pages/NotFound';
 import Conta from './pages/Conta';
@@ -47,7 +48,7 @@ ReactDOM.render(
         />
         <Route path="/carrinho" component={Carrinho} />
         <Route path="/id" component={Produto} />
-        <Route path="/cadastro" component={Cadastro} />
+        {/* <Route path="/minhaconta/cadastro" component={Cadastro} /> */}
         <Route path="/minhaconta" component={Conta} />
         <Route path="/endereco" component={Endereco} />
         <Route component={NotFound} />
