@@ -12,6 +12,7 @@ module.exports = {
       promocao,
       promopreco,
       quantidade,
+      vendas,
     } = req.body;
     try {
       let produto = await Produto.findOne({ nome });
@@ -25,6 +26,7 @@ module.exports = {
           promocao,
           promopreco,
           quantidade,
+          vendas,
         });
         return res.json(produto);
       }
@@ -42,6 +44,7 @@ module.exports = {
       promocao,
       promopreco,
       quantidade,
+      vendas,
     } = req.body;
     const { id } = req.params.id;
     try {
@@ -65,6 +68,7 @@ module.exports = {
         produto.promocao = promocao;
         produto.promopreco = promopreco;
         produto.quantidade = quantidade;
+        produto.vendas = vendas;
       }
       const result = await produto.save();
       return res.json(result).sendStatus(200);
@@ -90,7 +94,7 @@ module.exports = {
       res.send('Não foi possivel encontrar produtos').status(500);
     }
   },
-  async IndexQuerry(req, res) {
+  async IndexQuery(req, res) {
     try {
       const { tipo, chave } = req.body;
       const produtos = await Produto.find({ tipo });
@@ -103,9 +107,10 @@ module.exports = {
       if (chave === 'maiorV') {
         produtos.sort({ vendas: -1 });
       }
-      return res.json(produtos);
+      if(produtos.length !== 0) return res.json(produtos).status(200);
+      throw new Error ('Categoria invalida');
     } catch (error) {
-      res.send('Não foi possivel encontrar produtos').status(500);
+      res.status(500).send('Não foi possivel encontrar produtos');
     }
   },
 };
