@@ -7,11 +7,7 @@ import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import theme from '../themes';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import LocalShippingOutlinedIcon from '@material-ui/icons/LocalShippingOutlined';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { green } from '@material-ui/core/colors';
-import LocalShippingIcon from '@material-ui/icons/LocalShipping';
-import Radio from '@material-ui/core/Radio';
+import ProdutoEmSi from '../components/ProdutoEmSi';
 const styles = {
   foto: {
     backgroundColor: '#C3C3C3',
@@ -81,6 +77,16 @@ export default class Produto extends PureComponent {
                   <div style={styles.foto}>
                     <Typography style={{}} color="primary"></Typography>
                   </div>
+                  <div style={{backgroundColor:'#C3C3C3', width:200, height:35,marginTop:400}}>
+                    <Typography variant = 'body2' color='secondary' style={{marginLeft:'50px',paddingTop:'10px'}}>Descrição</Typography>    
+                  </div>
+                  <div style={{backgroundColor:'#C3C3C3', width:1240, height:350}}>
+                    <div style={{width:1100}}>
+                    <Typography variant = 'h6' color='secondary' style={{paddingLeft:'50px', paddingTop:'64px',width:'100%'}} >
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris augue neque gravida in fermentum et sollicitudin ac orci. Consectetur lorem donec massa sapien faucibus et molestie ac feugiat. Aenean sed adipiscing diam donec adipiscing tristique risus nec feugiat. Nulla pellentesque dignissim enim sit amet venenatis urna. Ac tincidunt vitae semper quis lectus nulla at volutpat diam. Nec nam aliquam sem et tortor consequat. Quis commodo odio aenean sed. Nunc mi ipsum faucibus vitae aliquet. Vitae tortor condimentum lacinia quis vel eros donec ac odio. Sit amet mattis vulputate enim nulla aliquet. In dictum non consectetur a erat nam.
+                      </Typography>    
+                    </div>
+                  </div>
                 </div>
               </Grid>
               <Grid item lg={4} md={4}>
@@ -111,81 +117,7 @@ export default class Produto extends PureComponent {
                   >
                     R$ 89,90
                   </Typography>
-                  <div style={{ paddingTop: 80, paddingLeft: 400 }}>
-                    <div style={styles.flexRow}>
-                      <LocalShippingOutlinedIcon
-                        style={{ paddingTop: 10, paddingRight: 20 }}
-                        color="secondary"
-                      />
-                      <div>
-                        <a href="#" style={{ textDecoration: 'none' }}>
-                          <Typography variant="body1" color="secondary">
-                            Entrega Normal
-                          </Typography>
-                        </a>
-                        <Typography
-                          variant="body1"
-                          style={{ color: '#F0F0F0' }}
-                        >
-                          Prazo de N dias
-                        </Typography>
-                      </div>
-                    </div>
-                  </div>
-                  <Typography
-                    style={{ paddingLeft: 100 }}
-                    variant="h6"
-                    color="secondary"
-                  >
-                    {' '}
-                    Cores:
-                  </Typography>
-                  <div style={styles.flexRow}>
-                    <FormControlLabel
-                      style={{ paddingLeft: 100 }}
-                      value="pink"
-                      control={<Radio />}
-                    />
-                    <FormControlLabel
-                      style={{ paddingLeft: 20 }}
-                      value="red"
-                      control={<Radio />}
-                    />
-                    <FormControlLabel
-                      style={{ paddingLeft: 20 }}
-                      value="yellow"
-                      control={<Radio />}
-                    />
-                    <FormControlLabel
-                      style={{ paddingLeft: 20 }}
-                      value="black"
-                      control={<Radio />}
-                    />
-                  </div>
-                  <div style={{ paddingTop: 54, paddingLeft: 400 }}>
-                    <div style={styles.flexRow}>
-                      <LocalShippingIcon
-                        style={{ paddingTop: 10, paddingRight: 20 }}
-                        color="secondary"
-                      />
-                      <div>
-                        <a href="#" style={{ textDecoration: 'none' }}>
-                          <Typography variant="body1" color="secondary">
-                            Entrega Rápida
-                          </Typography>
-                        </a>
-                        <Typography
-                          variant="body1"
-                          style={{ color: '#F0F0F0' }}
-                        >
-                          Prazo de N dias
-                        </Typography>
-                      </div>
-                    </div>
-                  </div>
-                  <div style={{ paddingLeft: '70px', paddingTop: 30 }}>
-                    <ComboBox color="Secondary" />
-                  </div>
+                  <ProdutoEmSi />
                 </div>
               </Grid>
             </Grid>
