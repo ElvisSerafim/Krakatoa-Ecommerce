@@ -1,15 +1,10 @@
 import React, { PureComponent } from 'react';
 import { Typography, Box } from '@material-ui/core/';
-import { yellow } from '@material-ui/core/colors';
 
 const styles = {
   typography: {
-    textDecoration: 'none',
     color: 'red',
     fontSize: '1.5em',
-  },
-  '&:hover': {
-    color: yellow,
   },
   a: {
     textDecoration: 'none',
@@ -29,25 +24,25 @@ export default class NavBar extends PureComponent {
           marginTop="2%"
         >
           <a href="/" style={styles.a}>
-            <Typography style={styles.typography}>Inicio</Typography>
+            <Typography variant="h5" color="primary">Inicio</Typography>
           </a>
           <a href="/kangas" style={styles.a}>
-            <Typography style={styles.typography}>Kangas</Typography>
+            <Typography variant="h5" color="primary">Kangas</Typography>
           </a>
           <a href="/vestidos" style={styles.a}>
-            <Typography style={styles.typography}>Vestidos</Typography>
+            <Typography variant="h5" color="primary">Vestidos</Typography>
           </a>
           <a href="/batas" style={styles.a}>
-            <Typography style={styles.typography}>Batas</Typography>
+            <Typography variant="h5" color="primary">Batas</Typography>
           </a>
           <a href="/shorts" style={styles.a}>
-            <Typography style={styles.typography}>Shorts</Typography>
+            <Typography variant="h5" color="primary">Shorts</Typography>
           </a>
           <a href="/sobre" style={styles.a}>
-            <Typography style={styles.typography}>Sobre</Typography>
+            <Typography variant="h5" color="primary">Sobre</Typography>
           </a>
           <a href="/contato" style={styles.a}>
-            <Typography style={styles.typography}>Contato</Typography>
+            <Typography variant="h5" color="primary">Contato</Typography>
           </a>
         </Box>
       </div>

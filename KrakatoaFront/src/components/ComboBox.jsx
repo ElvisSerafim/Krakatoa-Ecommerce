@@ -36,12 +36,16 @@ class ComboBox extends Component {
     super(props);
     this.state = {
       orderBy: '',
-      count: 0
+      count: 0,
     };
   }
 
   render() {
-    const {children, classes, items, style } = this.props;
+
+    const {
+      children, classes, items, value, onChange, label,
+    } = this.props;
+    
     const { orderBy } = this.state;
     return (
 
@@ -59,21 +63,21 @@ class ComboBox extends Component {
               color="primary"
               htmlFor="outlined-age-native-simple"
             >
-              {this.props.label}
+              {label}
               {' '}
             </InputLabel>
             <Select
               style={styles.selectInput}
               native
-              value={this.props.value}
-              onChange={this.props.onChange}
+              value={value}
+              onChange={onChange}
               label="Ordenar por: "
               inputProps={{
                 name: 'age',
                 id: 'outlined-age-native-simple',
               }}
             >
-              <option style={styles.selectInput} value=""></option>
+              <option style={styles.selectInput} value="" />
               {items.map((item) => (
                 <option style={styles.selectInput} value={item}>{item}</option>
               ))}

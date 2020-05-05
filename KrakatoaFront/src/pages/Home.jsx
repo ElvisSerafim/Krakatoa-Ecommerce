@@ -24,19 +24,6 @@ const styles = {
 };
 
 export default class Home extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      produtos: [],
-    };
-  }
-
-  componentDidMount() {
-    const { product } = this.state;
-    ApiService.ListaProdutos().then((res) => {
-      this.setState({ produtos: [...product, ...res.data] });
-    });
-  }
 
   render() {
     return (

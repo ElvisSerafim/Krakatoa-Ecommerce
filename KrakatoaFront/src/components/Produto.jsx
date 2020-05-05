@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Typography, Box } from '@material-ui/core/';
 import imagem from '../img/vestido.jpg';
-import './Produto.css'
+import './Produto.css';
+
 const styles = {
   media: {
     display: 'flex',
@@ -17,7 +18,7 @@ const styles = {
 };
 
 
-export default class Product extends Component {
+export default class Produto extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,7 +29,6 @@ export default class Product extends Component {
       typeProduct: ''
     };
   }
-
 
   render() {
     return (
