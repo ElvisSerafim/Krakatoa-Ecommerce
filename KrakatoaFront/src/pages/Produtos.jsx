@@ -95,6 +95,7 @@ export default class Produtos extends Component {
               this.setState({ orderBy: event.target.value })
               this.orderBy(event.target.value);
             }}
+              style={{width:300}}
               value={this.state.orderBy}
               items={['Mais vendidos', 'Menor Preço', 'Maior Preço']}
               label="Ordenar por: "
