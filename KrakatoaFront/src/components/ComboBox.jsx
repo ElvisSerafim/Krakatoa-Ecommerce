@@ -36,11 +36,12 @@ class ComboBox extends Component {
     super(props);
     this.state = {
       orderBy: '',
+      count: 0
     };
   }
 
   render() {
-    const { classes } = this.props;
+    const {children, classes, items } = this.props;
     const { orderBy } = this.state;
     return (
       <div>
@@ -57,32 +58,25 @@ class ComboBox extends Component {
               color="primary"
               htmlFor="outlined-age-native-simple"
             >
-              Ordenar por:
+              {this.props.label}
               {' '}
             </InputLabel>
             <Select
               style={styles.selectInput}
               native
-              value={orderBy}
-              onChange={(event) => {
-                this.setState({ orderBy: event.target.value });
-              }}
+              value={this.props.value}
+              onChange={this.props.onChange}
               label="Ordenar por: "
               inputProps={{
                 name: 'age',
                 id: 'outlined-age-native-simple',
               }}
             >
-              <option aria-label="None" value="" />
-              <option style={styles.selectInput} value={10}>
-                Mais vendidos
-              </option>
-              <option style={styles.selectInput} value={20}>
-                Menor Preço
-              </option>
-              <option style={styles.selectInput} value={30}>
-                Maior Preço
-              </option>
+              <option style={styles.selectInput} value=""></option>
+              {items.map((item) => (
+                <option style={styles.selectInput} value={item}>{item}</option>
+              ))}
+              {children}
             </Select>
           </FormControl>
         </MuiThemeProvider>
