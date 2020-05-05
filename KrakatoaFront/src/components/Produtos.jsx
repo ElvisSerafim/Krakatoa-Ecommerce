@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-import Product from './Produto';
 import Grid from '@material-ui/core/Grid';
+import Product from './Produto';
 
-const styles = {
-  root: {
-    flexGrow: 1,
-  },
-};
 export default class Produtos extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +17,8 @@ export default class Produtos extends Component {
   }
 
   render() {
-    return this.state.product.map((item) => (
+    const { product } = this.state;
+    return product.map((item) => (
       <Grid container justify="center" spacing="2">
         {item.map((value) => (
           <Grid key={value} item>

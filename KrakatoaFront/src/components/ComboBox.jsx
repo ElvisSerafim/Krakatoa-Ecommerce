@@ -8,6 +8,7 @@ import {
   withStyles,
 } from '@material-ui/core/styles';
 import { red } from '@material-ui/core/colors';
+import PropTypes from 'prop-types';
 
 const styles = {
   root: {
@@ -40,7 +41,7 @@ class ComboBox extends Component {
 
   render() {
     const { classes } = this.props;
-
+    const { orderBy } = this.state;
     return (
       <div>
         <MuiThemeProvider theme={theme}>
@@ -56,12 +57,13 @@ class ComboBox extends Component {
               color="primary"
               htmlFor="outlined-age-native-simple"
             >
-              Ordenar por:{' '}
+              Ordenar por:
+              {' '}
             </InputLabel>
             <Select
               style={styles.selectInput}
               native
-              value={this.state.orderBy}
+              value={orderBy}
               onChange={(event) => {
                 this.setState({ orderBy: event.target.value });
               }}
@@ -88,5 +90,9 @@ class ComboBox extends Component {
     );
   }
 }
+
+ComboBox.propTypes = {
+  classes: PropTypes.string.isRequired,
+};
 
 export default withStyles(styles)(ComboBox);

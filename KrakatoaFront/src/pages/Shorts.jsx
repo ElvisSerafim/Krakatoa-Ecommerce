@@ -8,6 +8,7 @@ import ProductList from '../components/Produtos';
 import Paginator from '../components/Paginator';
 import ComboBox from '../components/ComboBox';
 import Footer from '../components/Footer';
+
 const styles = {
   title: {
     fontSize: '3.75em',

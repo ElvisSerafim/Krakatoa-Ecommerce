@@ -1,5 +1,1 @@
-<svg id="Nav" xmlns="http://www.w3.org/2000/svg" width="122" height="122" viewBox="0 0 122 122">
-  <g id="Logo">
-    <circle id="Elipse_1" data-name="Elipse 1" cx="61" cy="61" r="61" fill="red"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="122" height="122"><circle data-name="Elipse 1" cx="61" cy="61" r="61" fill="red"/></svg>
