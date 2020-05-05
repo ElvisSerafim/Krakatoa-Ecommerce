@@ -55,7 +55,7 @@ class ComboBox extends Component {
             color="primary"
             variant="outlined"
             size="small"
-            style={{ ...style }}
+            style={{ ...styles }}
           >
             <InputLabel
               classes={{ input: classes.input }}
