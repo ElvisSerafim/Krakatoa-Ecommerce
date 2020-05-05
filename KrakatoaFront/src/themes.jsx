@@ -8,6 +8,10 @@ const theme = createMuiTheme({
     secondary: {
       main: '#ffffff',
     },
+    background:{
+      backgroundColor:grey,
+      color:'#FF'
+    },
   },
   typography: {
     fontFamily: "'Poppins', sans-serif",
