@@ -10,6 +10,7 @@ const routes = Router();
 routes.get('/api/user/me', auth, async (req, res) => {
   res.send(req.user);
 });
+
 routes.post('/api/user/login', UserController.Login);
 routes.post('/api/user/', UserController.Store);
 routes.put('/api/user/me', auth, UserController.Update);

@@ -19,7 +19,8 @@ const produtoSchema = new mongoose.Schema({
     type: String,
     require: true,
     validate: (value) => {
-      if (!tipos.includes(value)) {
+      const test = tipos.includes(value);
+      if (!test) {
         throw new Error({ error: 'Categoria de Produto Invalida' });
       }
     },
