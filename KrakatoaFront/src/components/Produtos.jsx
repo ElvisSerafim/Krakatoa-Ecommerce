@@ -6,13 +6,14 @@ export default class Produtos extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      product:[]
+      product: [],
     };
   }
 
-  componentWillMount(){
-    this.setState({product: this.props.products})
+  componentWillMount() {
+    this.setState({ product: this.props.products });
   }
+
   render() {
     const { product } = this.state;
     return this.props.products.map((item) => (

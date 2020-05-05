@@ -8,14 +8,7 @@ import ProductList from '../components/Produtos';
 import ComboBox from '../components/ComboBox';
 import Paginator from '../components/Paginator';
 import Footer from '../components/Footer';
-const styles = {
-  title: {
-    fontSize: '3.75em',
-    textAlign: 'center',
-    margin: '64px',
-    color: '#FF5757',
-  },
-};
+
 export default class Produtos extends Component {
   constructor(props) {
     super(props);
@@ -80,7 +73,7 @@ export default class Produtos extends Component {
         <Container maxWidth="lg">
           <Topo />
           <Navbar />
-          <Typography style={styles.title}>{this.props.title}</Typography>
+          <Typography variant="h2" color="primary" >{this.props.title}</Typography>
           <div
             style={{
               display: 'flex',

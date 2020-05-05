@@ -31,13 +31,6 @@ export default class Home extends PureComponent {
     };
   }
 
-  componentDidMount() {
-    const { product } = this.state;
-    ApiService.ListaProdutos().then((res) => {
-      this.setState({ produtos: [...product, ...res.data] });
-    });
-  }
-
   render() {
     return (
       <>
