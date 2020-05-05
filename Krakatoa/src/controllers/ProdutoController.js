@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const Produto = require('../models/User');
 
 module.exports = {
@@ -30,7 +31,6 @@ module.exports = {
     } catch (error) {
       res.status(400).send(error);
     }
-    return null;
   },
   async Update(req, res) {
     const {
@@ -60,7 +60,7 @@ module.exports = {
         produto.nome = nome;
         produto.preco = preco;
         produto.colecao = colecao;
-        produto.tipo = tipo;
+        produto.tipo = tipo.toLowerCase();
         produto.tamanho = tamanho;
         produto.promocao = promocao;
         produto.promopreco = promopreco;
@@ -71,7 +71,6 @@ module.exports = {
     } catch (error) {
       res.status(401).send(error);
     }
-    return null;
   },
   async Delete(req, res) {
     try {
@@ -90,6 +89,37 @@ module.exports = {
     } catch (error) {
       res.send('Não foi possivel encontrar produtos').status(500);
     }
-    return null;
+  },
+  async IndexKangas(req, res) {
+    try {
+      const produtos = await Produto.find({ tipo: 'kangas' });
+      return res.json(produtos);
+    } catch (error) {
+      res.send('Não foi possivel encontrar produtos').status(500);
+    }
+  },
+  async IndexBatas(req, res) {
+    try {
+      const produtos = await Produto.find({ tipo: 'batas' });
+      return res.json(produtos);
+    } catch (error) {
+      res.send('Não foi possivel encontrar produtos').status(500);
+    }
+  },
+  async IndexVestidos(req, res) {
+    try {
+      const produtos = await Produto.find({ tipo: 'vestidos' });
+      return res.json(produtos);
+    } catch (error) {
+      res.send('Não foi possivel encontrar produtos').status(500);
+    }
+  },
+  async IndexShorts(req, res) {
+    try {
+      const produtos = await Produto.find({ tipo: 'shorts' });
+      return res.json(produtos);
+    } catch (error) {
+      res.send('Não foi possivel encontrar produtos').status(500);
+    }
   },
 };

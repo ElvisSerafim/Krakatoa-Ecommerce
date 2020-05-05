@@ -21,7 +21,12 @@ routes.delete('/api/user/me', auth, UserController.Delete);
 routes.post('/api/produto', ProdutoController.Store);
 routes.put('/api/produto/:id', ProdutoController.Update);
 routes.delete('/api/produto/:id', ProdutoController.Delete);
+
 routes.get('/api/produtos/', ProdutoController.Index);
+routes.get('/api/produtos/kangas', ProdutoController.IndexKangas);
+routes.get('/api/produtos/vestidos', ProdutoController.IndexVestidos);
+routes.get('/api/produtos/batas', ProdutoController.IndexBatas);
+routes.get('/api/produtos/shorts', ProdutoController.IndexShorts);
 
 routes.post('/api/contato', ContatoController.Store);
 

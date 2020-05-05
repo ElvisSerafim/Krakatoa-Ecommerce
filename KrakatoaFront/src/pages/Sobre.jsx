@@ -10,7 +10,6 @@ import Footer from '../components/Footer';
 
 const styles = {
   story: {
-    color: 'white',
     marginTop: '20px',
     backgroundColor: 'gray',
     padding: '2em 1.75em',
@@ -41,8 +40,8 @@ export default class Sobre extends PureComponent {
               Conheça um pouco da nossa história
             </Typography>
           </section>
-          <section>
-            <Typography style={styles.story}>
+          <section style={styles.story}>
+            <Typography variant="body1" color="secondary">
               Fundada em 2004 em Salvador na Bahia, a KRAKATOA trabalha com
               produtos originais do Sudoeste Asiático. Fruto da Arte e de
               Técnicas Milenares de pintura e tingimento, nossas peças são

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const tipos = ['kangas', 'vestido', 'satas', 'shorts'];
+
 const produtoSchema = new mongoose.Schema({
   nome: {
     type: String,
@@ -12,11 +14,15 @@ const produtoSchema = new mongoose.Schema({
   },
   colecao: {
     type: String,
-    require: true,
   },
   tipo: {
     type: String,
     require: true,
+    validate: (value) => {
+      if (!tipos.includes(value)) {
+        throw new Error({ error: 'Categoria de Produto Invalida' });
+      }
+    },
   },
   tamanho: {
     type: String,
