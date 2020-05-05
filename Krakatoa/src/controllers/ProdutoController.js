@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-const Produto = require('../models/User');
+const Produto = require('../models/Produto');
 
 module.exports = {
   async Store(req, res) {

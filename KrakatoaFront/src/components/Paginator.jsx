@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import Pagination from '@material-ui/lab/Pagination';
 import { Typography } from '@material-ui/core/';
 
+
+const styles = {
+  pagination: {
+    fontSize: 12
+  }
+}
 export default class Paginator extends Component {
   constructor(props) {
     super(props);
@@ -19,10 +25,12 @@ export default class Paginator extends Component {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
+          fontFamily: 'Poppins', 
         }}
       >
         <Typography>Página</Typography>
         <Pagination
+          style={styles.pagination}
           count={this.state.actualPage}
           variant="outlined"
           shape="rounded"
