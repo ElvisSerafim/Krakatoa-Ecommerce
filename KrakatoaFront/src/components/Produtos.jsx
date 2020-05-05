@@ -17,9 +17,9 @@ export default class Produtos extends Component {
   render() {
     const { product } = this.state;
     return this.props.products.map((item) => (
-      <Grid container justify="center" spacing="2">
+      <Grid container justify="flex-start" spacing="2">
         {item.map((value) => (
-          <Grid key={value} item>
+          <Grid key={value} item lg={3}>
             <Product />
           </Grid>
         ))}

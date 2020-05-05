@@ -11,9 +11,6 @@ const ApiService = {
       body: {
         email,
         password,
-        nome,
-        telefone,
-        cpf,
       },
     });
     return res.json();

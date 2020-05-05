@@ -34,8 +34,8 @@ export default class Product extends Component {
     return (
       <div
         style={{
-          height: '373px',
-          width: 200,
+          height: 454,
+          width: 270,
         }}
       >
         <Box

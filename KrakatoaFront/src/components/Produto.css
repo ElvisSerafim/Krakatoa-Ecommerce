@@ -1,6 +1,6 @@
 .container {
-  height: 200px;
-  width: 150px;
+  height: 280px;
+  width: 210px;
   margin: 0;
   transition: .2s ease-out;
   }
@@ -23,8 +23,7 @@
   }
   
   .container:hover{
-    height: 230px;
-    width: 170px;
+    transform: scale(1.05);
   }
   
   .container:hover .middle {

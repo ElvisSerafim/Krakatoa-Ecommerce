@@ -48,9 +48,8 @@ export default class Produtos extends Component {
           <div
             style={{
               display: 'flex',
-              width: '85%',
+              width: '98%',
               paddingBottom: '20px',
-              marginLeft: '100px',
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'flex-end',
