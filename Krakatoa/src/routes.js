@@ -24,7 +24,7 @@ routes.put('/api/produto/:id', ProdutoController.Update);
 routes.delete('/api/produto/:id', ProdutoController.Delete);
 
 routes.get('/api/produtos/', ProdutoController.Index);
-routes.get('/api/produtos/query', ProdutoController.IndexQuerry);
+routes.post('/api/produtos/query', ProdutoController.IndexQuerry);
 
 routes.post('/api/contato', ContatoController.Store);
 

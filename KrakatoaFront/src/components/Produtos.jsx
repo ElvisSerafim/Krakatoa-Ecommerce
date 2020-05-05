@@ -12,7 +12,6 @@ export default class Produtos extends Component {
 
   componentWillMount(){
     this.setState({product: this.props.products})
-    console.log("Produto no componente: " + this.state.product)
   }
   render() {
     const { product } = this.state;
