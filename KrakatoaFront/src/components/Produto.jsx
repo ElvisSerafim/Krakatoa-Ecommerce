@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Typography, Box } from '@material-ui/core/';
 import imagem from '../img/vestido.jpg';
-
+import './Produto.css'
 const styles = {
   media: {
     display: 'flex',
@@ -16,6 +16,7 @@ const styles = {
   },
 };
 
+
 export default class Product extends Component {
   constructor(props) {
     super(props);
@@ -24,8 +25,10 @@ export default class Product extends Component {
       promoPrice: '',
       productName: 'Vestido Verão',
       collection: ' Primavera',
+      typeProduct: ''
     };
   }
+
 
   render() {
     return (
@@ -46,8 +49,8 @@ export default class Product extends Component {
           bgcolor="#9e9e9e"
         >
           <div style={styles.media}>
-            <div style={styles.imagemContainer}>
-              <img src={imagem} style={{ maxHeight: '100%', width: '150px' }} alt="Imagem produto" />
+            <div className="container">
+              <img src={imagem} className="image" alt="Imagem produto" />
             </div>
           </div>
           <p
