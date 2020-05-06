@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* Vestidos,Batas,Shorts,Kangas */
 
 import React, { Component } from 'react';
@@ -42,7 +43,7 @@ class ComboBox extends Component {
 
   render() {
     const {
-      children, classes, items, value, onChange, label,
+      children, classes, items, value, onChange, label, style,
     } = this.props;
     const { orderBy } = this.state;
     return (
@@ -53,7 +54,7 @@ class ComboBox extends Component {
             color="primary"
             variant="outlined"
             size="small"
-            style={{ ...styles }}
+            style={{ ...style }}
           >
             <InputLabel
               classes={{ input: classes.input }}
