@@ -1,13 +1,14 @@
 /* Produto em Si */
 
 import React, { PureComponent } from 'react';
-import ComboBox from '../components/ComboBox';
 import { Container, Grid, Typography } from '@material-ui/core/';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import theme from '../themes';
-import { MuiThemeProvider } from '@material-ui/core/styles';
 import ProdutoEmSi from '../components/ProdutoEmSi';
+
 const styles = {
   foto: {
     backgroundColor: '#C3C3C3',
@@ -50,7 +51,9 @@ const styles = {
   },
   product: { marginLeft: 310, marginTop: 30, color: '#F0F0F0' },
   num: { paddingLeft: 350, color: '#F0F0F0' },
-  lore: { paddingTop: 30, paddingLeft: 90, color: 'white', fontSize: '2.25em' },
+  lore: {
+    paddingTop: 30, paddingLeft: 90, color: 'white', fontSize: '2.25em',
+  },
   price: {
     paddingLeft: 90,
     paddingTop: 30,
@@ -68,29 +71,63 @@ export default class Produto extends PureComponent {
             <Grid container spacing={2} diretion="row" justify="flex-start">
               <Grid item Lg={1} md={1}>
                 <div style={styles.marginDiv}>
-                  <div style={styles.foto}>
-                    <Typography color="primary"></Typography>
+                  <div style={styles.foto} />
+                  <div style={styles.foto} />
+                  <div style={styles.foto} />
+                  <div
+                    style={{
+                      backgroundColor: '#C3C3C3',
+                      width: 200,
+                      height: 35,
+                      marginTop: 400,
+                    }}
+                  >
+                    <Typography
+                      variant="body2"
+                      color="secondary"
+                      style={{ marginLeft: '50px', paddingTop: '10px' }}
+                    >
+                      Descrição
+                    </Typography>
                   </div>
-                  <div style={styles.foto}>
-                    <Typography style={{}} color="primary"></Typography>
-                  </div>
-                  <div style={styles.foto}>
-                    <Typography style={{}} color="primary"></Typography>
-                  </div>
-                  <div style={{backgroundColor:'#C3C3C3', width:200, height:35,marginTop:400}}>
-                    <Typography variant = 'body2' color='secondary' style={{marginLeft:'50px',paddingTop:'10px'}}>Descrição</Typography>    
-                  </div>
-                  <div style={{backgroundColor:'#C3C3C3', width:1240, height:350}}>
-                    <div style={{width:1100}}>
-                    <Typography variant = 'h6' color='secondary' style={{paddingLeft:'50px', paddingTop:'64px',width:'100%'}} >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris augue neque gravida in fermentum et sollicitudin ac orci. Consectetur lorem donec massa sapien faucibus et molestie ac feugiat. Aenean sed adipiscing diam donec adipiscing tristique risus nec feugiat. Nulla pellentesque dignissim enim sit amet venenatis urna. Ac tincidunt vitae semper quis lectus nulla at volutpat diam. Nec nam aliquam sem et tortor consequat. Quis commodo odio aenean sed. Nunc mi ipsum faucibus vitae aliquet. Vitae tortor condimentum lacinia quis vel eros donec ac odio. Sit amet mattis vulputate enim nulla aliquet. In dictum non consectetur a erat nam.
-                      </Typography>    
+                  <div
+                    style={{
+                      backgroundColor: '#C3C3C3',
+                      width: 1240,
+                      height: 350,
+                    }}
+                  >
+                    <div style={{ width: 1100 }}>
+                      <Typography
+                        variant="h6"
+                        color="secondary"
+                        style={{
+                          paddingLeft: '50px',
+                          paddingTop: '64px',
+                          width: '100%',
+                        }}
+                      >
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua. Mauris augue neque gravida in fermentum et
+                        sollicitudin ac orci. Consectetur lorem donec massa
+                        sapien faucibus et molestie ac feugiat. Aenean sed
+                        adipiscing diam donec adipiscing tristique risus nec
+                        feugiat. Nulla pellentesque dignissim enim sit amet
+                        venenatis urna. Ac tincidunt vitae semper quis lectus
+                        nulla at volutpat diam. Nec nam aliquam sem et tortor
+                        consequat. Quis commodo odio aenean sed. Nunc mi ipsum
+                        faucibus vitae aliquet. Vitae tortor condimentum lacinia
+                        quis vel eros donec ac odio. Sit amet mattis vulputate
+                        enim nulla aliquet. In dictum non consectetur a erat
+                        nam.
+                      </Typography>
                     </div>
                   </div>
                 </div>
               </Grid>
               <Grid item lg={4} md={4}>
-                <div style={styles.quadradao1}></div>
+                <div style={styles.quadradao1} />
               </Grid>
               <Grid item lg={1} md={1} />
               <Grid item lg={6} md={6}>

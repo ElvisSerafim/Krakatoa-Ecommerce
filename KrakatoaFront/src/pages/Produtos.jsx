@@ -1,79 +1,73 @@
+/* eslint-disable react/prop-types */
 /* Vestidos,Batas,Shorts,Kangas */
 
 import React, { Component } from 'react';
-import { Container, Grid, Typography } from '@material-ui/core/';
+import { Container, Typography } from '@material-ui/core/';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import ProductList from '../components/Produtos';
 import ComboBox from '../components/ComboBox';
 import Paginator from '../components/Paginator';
 import Footer from '../components/Footer';
+import api from '../Services/ApiService';
 
 export default class Produtos extends Component {
   constructor(props) {
     super(props);
     this.state = {
       product: [],
-      orderBy: ''
+      orderBy: '',
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getProducts();
-    console.log(this.props);
   }
 
-  getProducts = async () => {
-    console.log('Propriedade ' + this.props.name)
-    const data = await fetch("http://localhost:4000/api/produtos/query", {
-      method: 'POST',
-      headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify({
-        tipo: this.props.name,
-        chave: ''
-      })  // <-- Post parameters
-    })
-    const items = await data.json();
-    const a = [items];
-    this.setState({ product: a })
-    console.log(this.state.product)
+  async getProducts() {
+    const { name } = this.props;
+    const data = {
+      tipo: name,
+      chave: '',
+    };
+
+    const request = await api.GetProdutos(data);
+
+    const a = [request];
+    this.setState({ product: a });
   }
 
-  orderBy = async (value) => {
-    console.log("estado atual: " + value)
-    let key = '';
-    if (value == '') {
-      return;
-    } else if (value == 'Mais vendidos') {
-      key = "maiorV";
-    } else if (value == 'Menor Preço') {
-      key = "menorP";
-    } else {
-      key = "maiorP";
-    }
-    console.log("key: " + key)
-    const dat = await fetch("http://localhost:4000/api/produtos/query", {
-      method: 'POST',
-      headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify({
-        tipo: this.props.name,
-        chave: key
-      })  // <-- Post parameters
-    })
-    const itens = await dat.json();
-    const b = [itens];
-    this.setState({ product: b })
-    console.log(b)
+  async orderBy(value) {
+    const { name } = this.props;
 
+    let chave = '';
+    if (value === '') return;
+    if (value === 'Mais vendidos') chave = 'maiorV';
+    if (value === 'Menor Preço') chave = 'menorP';
+    if (value === 'Maior Preço') chave = 'maiorP';
+
+    const data = {
+      tipo: name,
+      chave,
+    };
+
+    const request = await api.GetProdutos(data);
+
+    const b = [request];
+    this.setState({ product: b });
   }
 
   render() {
+    const { title } = this.props;
+    const { orderBy, product } = this.state;
     return (
       <>
         <Container maxWidth="lg">
           <Topo />
           <Navbar />
-          <Typography variant="h2" color="primary" >{this.props.title}</Typography>
+          <Typography variant="h2" color="primary">
+            {title}
+          </Typography>
           <div
             style={{
               display: 'flex',
@@ -84,17 +78,18 @@ export default class Produtos extends Component {
               justifyContent: 'flex-end',
             }}
           >
-            <ComboBox onChange={(event) => {
-              this.setState({ orderBy: event.target.value })
-              this.orderBy(event.target.value);
-            }}
-              style={{width:300}}
-              value={this.state.orderBy}
+            <ComboBox
+              onChange={(event) => {
+                this.setState({ orderBy: event.target.value });
+                this.orderBy(event.target.value);
+              }}
+              style={{ width: 300 }}
+              value={orderBy}
               items={['Mais vendidos', 'Menor Preço', 'Maior Preço']}
               label="Ordenar por: "
             />
           </div>
-          <ProductList products={this.state.product} />
+          <ProductList products={product} />
           <div style={{ marginTop: '50px' }}>
             <Paginator />
           </div>

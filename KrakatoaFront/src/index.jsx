@@ -11,7 +11,7 @@ import Contato from './pages/Contato';
 import Produto from './pages/Produto';
 /* import Cadastro from './pages/Cadastro'; */
 import Carrinho from './pages/Carrinho';
-import NotFound from './pages/NotFound';
+/* import NotFound from './pages/NotFound'; */
 import Conta from './pages/Conta';
 import Produtos from './pages/Produtos';
 import Endereco from './pages/Endereco';
@@ -51,7 +51,7 @@ ReactDOM.render(
         {/* <Route path="/minhaconta/cadastro" component={Cadastro} /> */}
         <Route path="/minhaconta" component={Conta} />
         <Route path="/endereco" component={Endereco} />
-        <Route component={NotFound} />
+        {/* <Route component={NotFound} /> */}
       </Switch>
     </BrowserRouter>
   </MuiThemeProvider>,
