@@ -99,37 +99,28 @@ module.exports = {
       const { tipo, chave } = req.body;
       const produtos = await Produto.find({ tipo });
       if (chave === 'menorP') {
-        produtos.sort(function(a, b) {
-            if(a.preco > b.preco){
-               return 1;
-            }else if(a.preco < b.preco){
-              return -1;
-            }
-            return 0;
-        })
+        produtos.sort((a, b) => {
+          if (a.preco > b.preco) return 1;
+          if (a.preco < b.preco) return -1;
+          return 0;
+        });
       }
       if (chave === 'maiorP') {
-        produtos.sort(function(a, b) {
-          if(a.preco < b.preco){
-             return 1;
-          }else if(a.preco > b.preco){
-            return -1;
-          }
+        produtos.sort((a, b) => {
+          if (a.preco < b.preco) return 1;
+          if (a.preco > b.preco) return -1;
           return 0;
         });
       }
       if (chave === 'maiorV') {
-        produtos.sort(function(a, b) {
-          if(a.vendas < b.vendas){
-             return 1;
-          }else if(a.vendas > b.vendas){
-            return -1;
-          }
+        produtos.sort((a, b) => {
+          if (a.vendas < b.vendas) return 1;
+          if (a.vendas > b.vendas) return -1;
           return 0;
         });
       }
-      if(produtos.length !== 0) return res.json(produtos).status(200);
-      throw new Error ('Categoria invalida');
+      if (produtos.length !== 0) return res.json(produtos).status(200);
+      throw new Error('Categoria invalida');
     } catch (error) {
       res.status(500).send('Não foi possivel encontrar produtos');
     }

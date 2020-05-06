@@ -8,7 +8,6 @@ const userSchema = new mongoose.Schema({
   nome: {
     type: String,
     unique: true,
-    require: true,
     trim: true,
   },
   email: {
@@ -24,12 +23,10 @@ const userSchema = new mongoose.Schema({
   cpf: {
     type: String,
     unique: true,
-    require: true,
   },
   telefone: {
     type: Number,
     unique: true,
-    require: true,
   },
   password: {
     type: String,

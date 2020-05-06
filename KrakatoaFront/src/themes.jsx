@@ -3,10 +3,16 @@ import { red, grey } from '@material-ui/core/colors/';
 
 const theme = createMuiTheme({
   palette: {
-    primary: red,
+    primary: {
+      main: red.A400,
+    },
     terciary: grey,
     secondary: {
       main: '#ffffff',
+    },
+    background: {
+      backgroundColor: grey,
+      color: '#FFF',
     },
   },
   typography: {

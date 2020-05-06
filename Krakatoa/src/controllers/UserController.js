@@ -7,15 +7,12 @@ const User = require('../models/User');
 module.exports = {
   async Store(req, res) {
     const {
-      nome, email, telefone, cpf, password,
+      email, password,
     } = req.body;
     let user = await User.findOne({ email });
     if (!user) {
       user = await User.create({
-        nome,
         email,
-        telefone,
-        cpf,
         password,
       });
       const accessToken = user.generateAuthToken();
@@ -30,23 +27,30 @@ module.exports = {
       const {
         newPassword, nome, telefone, cpf, email,
       } = req.body;
-      const isPasswordMatch = await bcrypt.compare(newPassword, user.password);
-      if (!isPasswordMatch) {
-        user.password = newPassword;
+
+      if (newPassword !== undefined) {
+        const isPasswordMatch = await bcrypt.compare(
+          newPassword,
+          user.password,
+        );
+        user.password = !isPasswordMatch
+          ? (user.password = newPassword)
+          : user.password;
       }
-      if (
-        nome !== user.nome
-        || email !== user.email
-        || telefone !== user.telefone
-        || cpf !== user.cpf
-      ) {
-        user.nome = nome;
-        user.email = email;
-        user.telefone = telefone;
-        user.cpf = cpf;
-      }
+
+      user.nome = nome !== undefined && user.nome !== nome
+        ? (user.nome = nome)
+        : user.nome;
+      user.email = email !== undefined && user.email !== email
+        ? (user.email = email)
+        : user.email;
+      user.telefone = telefone !== undefined && user.telefone !== telefone
+        ? (user.telefone = telefone)
+        : user.telefone;
+      user.cpf = cpf !== undefined && user.cpf !== cpf ? (user.cpf = cpf) : user.cpf;
+
       const save = await user.save();
-      if (save) return res.send(user).status(200);
+      if (save) return res.json(user).status(200);
     } catch (error) {
       res.send(error).status(404);
     }
@@ -100,23 +104,54 @@ module.exports = {
     try {
       const { user } = req;
       const {
-        cep, estado, cidade, bairro, rua, numero,
+        cep, estado, cidade, bairro, rua, numero, nome, telefone, cpf,
       } = req.body;
-      if (
-        cep !== user.endereco.cep
-        || estado !== user.endereco.estado
-        || cidade !== user.endereco.cidade
-        || bairro !== user.endereco.bairro
-        || rua !== user.endereco.rua
-        || numero !== user.endereco.numero
-      ) {
-        user.endereco.cep = cep;
-        user.endereco.estado = estado;
-        user.endereco.bairro = bairro;
-        user.endereco.cidade = cidade;
-        user.endereco.rua = rua;
-        user.endereco.numero = numero;
-      }
+
+      user.endereco.cep = cep !== undefined
+       && user.endereco.cep !== cep
+        ? cep
+        : user.endereco.cep;
+
+      user.endereco.estado = estado !== undefined
+       && user.endereco.estado !== estado
+        ? estado
+        : user.endereco.estado;
+
+      user.endereco.cidade = cidade !== undefined
+       && user.endereco.cidade !== cidade
+        ? cidade
+        : user.endereco.cidade;
+
+      user.endereco.bairro = bairro !== undefined
+       && user.endereco.bairro !== bairro
+        ? bairro
+        : user.endereco.bairro;
+
+      user.endereco.rua = rua !== undefined
+       && user.endereco.rua !== rua
+        ? rua
+        : user.endereco.rua;
+
+      user.endereco.numero = numero !== undefined
+       && user.endereco.numero !== numero
+        ? numero
+        : user.endereco.numero;
+
+      user.nome = nome !== undefined
+       && user.nome !== nome
+        ? nome
+        : user.nome;
+
+      user.telefone = telefone !== undefined
+       && user.telefone !== telefone
+        ? telefone
+        : user.telefone;
+
+      user.cpf = cpf !== undefined
+       && user.cpf !== cpf
+        ? cpf
+        : user.cpf;
+
       const save = await user.save();
       if (save) return res.send(user).status(200);
     } catch (error) {

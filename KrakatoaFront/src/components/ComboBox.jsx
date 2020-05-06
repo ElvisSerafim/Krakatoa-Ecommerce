@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* Vestidos,Batas,Shorts,Kangas */
 
 import React, { Component } from 'react';
@@ -36,21 +37,24 @@ class ComboBox extends Component {
     super(props);
     this.state = {
       orderBy: '',
-      count: 0
+      count: 0,
     };
   }
 
   render() {
-    const {children, classes, items } = this.props;
+    const {
+      children, classes, items, value, onChange, label, style,
+    } = this.props;
     const { orderBy } = this.state;
     return (
+
       <div>
         <MuiThemeProvider theme={theme}>
           <FormControl
             color="primary"
             variant="outlined"
             size="small"
-            style={{ width: '300px' }}
+            style={{ ...style }}
           >
             <InputLabel
               classes={{ input: classes.input }}
@@ -58,21 +62,21 @@ class ComboBox extends Component {
               color="primary"
               htmlFor="outlined-age-native-simple"
             >
-              {this.props.label}
+              {label}
               {' '}
             </InputLabel>
             <Select
               style={styles.selectInput}
               native
-              value={this.props.value}
-              onChange={this.props.onChange}
+              value={value}
+              onChange={onChange}
               label="Ordenar por: "
               inputProps={{
                 name: 'age',
                 id: 'outlined-age-native-simple',
               }}
             >
-              <option style={styles.selectInput} value=""></option>
+              <option style={styles.selectInput} value="" />
               {items.map((item) => (
                 <option style={styles.selectInput} value={item}>{item}</option>
               ))}
