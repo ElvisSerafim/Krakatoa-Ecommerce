@@ -184,6 +184,7 @@ class TextField extends Component {
         <div style={styles.container}>
           <p style={styles.inputs}>&nbsp;{label}</p>
           <Cleave
+            placeholder={this.props.placeholder}
             value={this.props.value}
             onChange={this.props.onChange}
             options={{
