@@ -11,7 +11,7 @@ import Footer from '../components/Footer';
 const styles = {
   story: {
     marginTop: '20px',
-    backgroundColor: 'gray',
+    backgroundColor: 'black',
     padding: '2em 1.75em',
     borderRadius: 10,
   },

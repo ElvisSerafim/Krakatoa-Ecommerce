@@ -6,7 +6,7 @@ import instaBranco from '../img/instaBranco.png';
 
 const styles = {
   fundo: {
-    backgroundColor: 'gray',
+    backgroundColor: 'black',
     width: '100%',
     marginTop: '64px',
   },
@@ -190,7 +190,7 @@ class Topo extends PureComponent {
         <Container>
           <hr style={styles.hrstyle} />
         </Container>
-        <div style={{ backgroundColor: 'gray', color: 'gray' }}>a</div>
+        <div style={{ backgroundColor: 'black', color: 'black' }}>a</div>
       </div>
     );
   }
