@@ -3,9 +3,11 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const auth = async (req, res, next) => {
-  const token = req.header('Authorization').replace('Bearer ', '');
-  const data = jwt.verify(token, process.env.JWT_KEY);
   try {
+    const teste = req.header('Authorization');
+    const token = teste.length > 0 ? teste.replace('Bearer ', '') : 'error';
+    const data = token === 'error' ? 'error' : jwt.verify(token, process.env.JWT_KEY);
+    if (data === 'error') throw new Error('Falta Token');
     const user = await User.findOne({ _id: data._id, 'tokens.token': token });
     if (!user) {
       throw new Error();

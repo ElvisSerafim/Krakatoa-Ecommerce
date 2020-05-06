@@ -41,21 +41,19 @@ class ComboBox extends Component {
   }
 
   render() {
-
     const {
       children, classes, items, value, onChange, label,
     } = this.props;
-    
     const { orderBy } = this.state;
     return (
 
-      <div >
+      <div>
         <MuiThemeProvider theme={theme}>
           <FormControl
             color="primary"
             variant="outlined"
             size="small"
-            style={{ ...style }}
+            style={{ ...styles }}
           >
             <InputLabel
               classes={{ input: classes.input }}

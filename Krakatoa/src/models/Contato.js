@@ -4,18 +4,30 @@ const contatoSchema = new mongoose.Schema({
   nome: {
     type: String,
     require: true,
+    validate: ((value) => {
+      if (value === undefined) throw new Error('Nome Vazio');
+    }),
   },
   email: {
     type: String,
     require: true,
+    validate: ((value) => {
+      if (value === undefined) throw new Error('Email Vazio');
+    }),
   },
   assunto: {
     type: String,
     require: true,
+    validate: ((value) => {
+      if (value === undefined) throw new Error('Assunto Vazio');
+    }),
   },
   mensagem: {
     type: String,
     require: true,
+    validate: ((value) => {
+      if (value === undefined) throw new Error('Mensagem Vazia');
+    }),
   },
 });
 contatoSchema.set('toJSON', { virtuals: true });
