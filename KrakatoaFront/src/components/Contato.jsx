@@ -23,8 +23,10 @@ export default class MultilineTextFields extends Component {
     };
   }
 
-  enviar = () => {
-    const { nome, mensagem, email, assunto } = this.state;
+  async enviar() {
+    const {
+      nome, mensagem, email, assunto,
+    } = this.state;
     try {
       if (nome === '') throw new Error('Nome Vazio');
       if (mensagem === '') throw new Error('Mensagem Vazia');
@@ -38,28 +40,13 @@ export default class MultilineTextFields extends Component {
         assunto,
       };
 
-      const requestInfo = {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: new Headers({
-          'Content-Type': 'application/json',
-        }),
-      };
-      fetch('http://localhost:4000/api/contato', requestInfo)
-        .then((response) => {
-          if (response.ok) {
-            return alert('Mensagem enviada');
-          }
-          throw new Error('Não foi possivel acessar o servidor');
-        })
-        .catch((e) => {
-          alert(e);
-        });
-        
+      const request = await api.Contato(data);
+      console.log(request);
+      if (request) alert(request);
     } catch (error) {
       alert(error);
     }
-  };
+  }
 
   render() {
     return (

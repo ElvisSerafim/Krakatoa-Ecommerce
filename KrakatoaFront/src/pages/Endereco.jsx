@@ -1,5 +1,10 @@
 import React, { PureComponent } from 'react';
-import { Container, Grid, Typography, Box, Button } from '@material-ui/core/';
+import {
+  Container, Grid, Typography, Box, Button,
+} from '@material-ui/core/';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import red from '@material-ui/core/colors/red';
+
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import Footer from '../components/Footer';
@@ -9,8 +14,6 @@ import delivery from '../img/delivery.svg';
 import payment from '../img/payment.svg';
 import Sedex from '../img/Sedex.svg';
 import Pac from '../img/Pac.svg';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import red from '@material-ui/core/colors/red';
 
 const styles = {
   title: {
@@ -56,7 +59,9 @@ export default class Endereco extends PureComponent {
   }
 
   render() {
-    const { children, style, classes, onClick } = this.props;
+    const {
+      children, style, classes, onClick,
+    } = this.props;
     return (
       <>
         <Container maxWidth="lg">
@@ -203,7 +208,9 @@ export default class Endereco extends PureComponent {
                     {this.state.pricePac}
                   </p>
                   <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
-                    {this.state.diasUteisPac} dias úteis
+                    {this.state.diasUteisPac}
+                    {' '}
+                    dias úteis
                   </p>
                 </Box>
 
@@ -229,7 +236,9 @@ export default class Endereco extends PureComponent {
                     {this.state.priceSedex}
                   </p>
                   <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
-                    {this.state.diasUteisSedex} dias úteis
+                    {this.state.diasUteisSedex}
+                    {' '}
+                    dias úteis
                   </p>
                 </Box>
               </div>

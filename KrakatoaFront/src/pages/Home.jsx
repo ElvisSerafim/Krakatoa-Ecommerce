@@ -24,7 +24,6 @@ const styles = {
 };
 
 export default class Home extends PureComponent {
-
   render() {
     return (
       <>

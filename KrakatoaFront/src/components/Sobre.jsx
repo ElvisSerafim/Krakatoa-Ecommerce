@@ -28,20 +28,7 @@ const styles = {
     marginTop: '220px',
   },
 };
-const description = {
-  root: {
-    width: 'auto',
-    height: '300px',
-    boxShadow: 'none',
-    borderRadius: 0,
-    backgroundColor: '#B1B1B1',
-    color: 'white',
-    marginTop: '50px',
-  },
-  container: {
-    marginTop: '220px',
-  },
-};
+
 const data = [
   {
     quarter: 'card1',
