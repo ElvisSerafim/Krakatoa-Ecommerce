@@ -1,18 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import red from '@material-ui/core/colors/red';
 import { Button, TextField } from '@material-ui/core';
-import {
-  createMuiTheme,
-  MuiThemeProvider,
-  makeStyles,
-} from '@material-ui/core/styles';
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-    },
-  },
-}));
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import api from '../Services/ApiService';
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -20,52 +11,122 @@ const theme = createMuiTheme({
     },
   },
 });
-export default function MultilineTextFields() {
-  const classes = useStyles();
-  const [value, setValue] = React.useState('Controlled');
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
+export default class MultilineTextFields extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      nome: '',
+      mensagem: '',
+      email: '',
+      assunto: '',
+    };
+  }
+
+  enviar = () => {
+    const { nome, mensagem, email, assunto } = this.state;
+    try {
+      if (nome === '') throw new Error('Nome Vazio');
+      if (mensagem === '') throw new Error('Mensagem Vazia');
+      if (email === '') throw new Error('Email Vazio');
+      if (assunto === '') throw new Error('Assunto Vazio');
+
+      const data = {
+        nome,
+        mensagem,
+        email,
+        assunto,
+      };
+
+      const requestInfo = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      };
+      fetch('http://localhost:4000/api/contato', requestInfo)
+        .then((response) => {
+          if (response.ok) {
+            return alert('Mensagem enviada');
+          }
+          throw new Error('Não foi possivel acessar o servidor');
+        })
+        .catch((e) => {
+          alert(e);
+        });
+        
+    } catch (error) {
+      alert(error);
+    }
   };
-  return (
-    <>
-      <div style={{ display: 'flex', flex: 1, flexDirection: 'row' }}>
-        <MuiThemeProvider theme={theme}>
-          <TextField id="filled-secondary" label="Nome" variant="filled" />
-          <div style={{ marginLeft: 20, width: 500 }}>
-            <TextField label="Assunto" variant="filled" fullWidth />
-          </div>
-        </MuiThemeProvider>
-      </div>
-      <MuiThemeProvider theme={theme}>
-        <div style={{ marginTop: 10, width: 741 }}>
-          <TextField
-            id="filled-secondary"
-            label="Email"
-            variant="filled"
-            fullWidth
-          />
-        </div>
-        <div>
-          <div style={{ marginTop: 10, width: 741, paddingBottom: 10 }}>
-            <form className={classes.root} noValidade autoComplete="off">
+
+  render() {
+    return (
+      <>
+        <div style={{ display: 'flex', flex: 1, flexDirection: 'row' }}>
+          <MuiThemeProvider theme={theme}>
+            <TextField
+              id="filled-secondary"
+              label="Nome"
+              variant="filled"
+              onChange={(e) => {
+                this.setState({ nome: e.target.value });
+              }}
+            />
+            <div style={{ marginLeft: 20, width: 500 }}>
               <TextField
-                multiline
-                rows={6}
-                label="Mensagem"
+                label="Assunto"
                 variant="filled"
                 fullWidth
+                onChange={(e) => {
+                  this.setState({ assunto: e.target.value });
+                }}
               />
-            </form>
-            <div style={{ marginTop: 10, marginLeft: 567, width: 176 }}>
-              <Button variant="contained" color="primary" fullWidth>
-                {' '}
-                Enviar Mensagem
-              </Button>
+            </div>
+          </MuiThemeProvider>
+        </div>
+        <MuiThemeProvider theme={theme}>
+          <div style={{ marginTop: 10, width: 741 }}>
+            <TextField
+              id="filled-secondary"
+              label="Email"
+              variant="filled"
+              fullWidth
+              onChange={(e) => {
+                this.setState({ email: e.target.value });
+              }}
+            />
+          </div>
+          <div>
+            <div style={{ marginTop: 10, width: 741, paddingBottom: 10 }}>
+              <form noValidade autoComplete="off">
+                <TextField
+                  multiline
+                  rows={6}
+                  label="Mensagem"
+                  variant="filled"
+                  fullWidth
+                  onChange={(e) => {
+                    this.setState({ mensagem: e.target.value });
+                  }}
+                />
+              </form>
+              <div style={{ marginTop: 10, marginLeft: 567, width: 176 }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  onClick={this.enviar}
+                >
+                  {' '}
+                  Enviar Mensagem
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      </MuiThemeProvider>
-    </>
-  );
+        </MuiThemeProvider>
+      </>
+    );
+  }
 }

@@ -14,6 +14,7 @@ routes.get('/api/user/me', auth, async (req, res) => {
 routes.post('/api/user/login', UserController.Login);
 routes.post('/api/user/', UserController.Store);
 routes.put('/api/user/me', auth, UserController.Update);
+routes.get('/api/user/me', auth, UserController.GetUser);
 routes.put('/api/user/me/endereco', auth, UserController.UpdateEnde);
 routes.post('/api/user/me/logout', auth, UserController.Logout);
 routes.post('/api/user/me/logoutall', auth, UserController.LogoutAll);

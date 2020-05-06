@@ -7,15 +7,12 @@ const User = require('../models/User');
 module.exports = {
   async Store(req, res) {
     const {
-      nome, email, telefone, cpf, password,
+      email, password,
     } = req.body;
     let user = await User.findOne({ email });
     if (!user) {
       user = await User.create({
-        nome,
         email,
-        telefone,
-        cpf,
         password,
       });
       const accessToken = user.generateAuthToken();
@@ -107,7 +104,7 @@ module.exports = {
     try {
       const { user } = req;
       const {
-        cep, estado, cidade, bairro, rua, numero,
+        cep, estado, cidade, bairro, rua, numero, nome, telefone, cpf,
       } = req.body;
 
       user.endereco.cep = cep !== undefined
@@ -134,10 +131,26 @@ module.exports = {
        && user.endereco.rua !== rua
         ? rua
         : user.endereco.rua;
+
       user.endereco.numero = numero !== undefined
        && user.endereco.numero !== numero
         ? numero
         : user.endereco.numero;
+
+      user.nome = nome !== undefined
+       && user.nome !== nome
+        ? nome
+        : user.nome;
+
+      user.telefone = telefone !== undefined
+       && user.telefone !== telefone
+        ? telefone
+        : user.telefone;
+
+      user.cpf = cpf !== undefined
+       && user.cpf !== cpf
+        ? cpf
+        : user.cpf;
 
       const save = await user.save();
       if (save) return res.send(user).status(200);
