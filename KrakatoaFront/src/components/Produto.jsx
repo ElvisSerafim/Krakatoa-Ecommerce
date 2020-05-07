@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Typography, Box } from '@material-ui/core/';
 import imagem from '../img/vestido.jpg';
 import './Produto.css';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 const styles = {
   media: {
@@ -68,7 +69,7 @@ export default class Produto extends Component {
             {this.state.productName}
           </p>
 
-          <Box display="flex" flex="1" flexDirection="row">
+          <Box display="flex" flex="1" flexDirection="row" justifyContent='space-between'>
             <p
               style={{
                 margin: 0,
@@ -88,6 +89,7 @@ export default class Produto extends Component {
             >
               {this.state.promoPrice}
             </p>
+              <AddShoppingCartIcon style={{color: 'white'}} onClick={()=>{console.log('Cliquei no produdin')}}/>
           </Box>
         </Box>
       </div>
