@@ -10,7 +10,7 @@ class Produtos extends Component {
       <Grid container justify="flex-start" spacing="2">
         {item.map((value) => (
           <Grid key={value} item lg={3}>
-            <Produto />
+            <Produto produto={value} />
           </Grid>
         ))}
       </Grid>

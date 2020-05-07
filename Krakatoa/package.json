@@ -9,13 +9,14 @@
     "start": "env-cmd -f ./.env nodemon server.js"
   },
   "dependencies": {
-    "@material-ui/core": "^4.9.13",
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "frete": "^0.2.4",
+    "jimp": "^0.10.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.9",
+    "path": "^0.12.7",
     "secure-env": "^1.2.0",
     "soap": "^0.31.0",
     "validator": "^13.0.0"

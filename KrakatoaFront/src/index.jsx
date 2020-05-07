@@ -13,7 +13,7 @@ import Produto from './pages/Produto';
 import Carrinho from './pages/Carrinho';
 /* import NotFound from './pages/NotFound'; */
 import Conta from './pages/Conta';
-import MinhaConta from './pages/MinhaConta'
+import MinhaConta from './pages/MinhaConta';
 import Produtos from './pages/Produtos';
 import Endereco from './pages/Endereco';
 import './index.css';
@@ -49,7 +49,7 @@ ReactDOM.render(
         />
         <Route path="/carrinho" component={Carrinho} />
         <Route path="/id" component={Produto} />
-        <Route path = "/conta" component={MinhaConta}/>
+        <Route path="/conta" component={MinhaConta} />
         {/* <Route path="/minhaconta/cadastro" component={Cadastro} /> */}
         <Route path="/minhaconta" component={Conta} />
         <Route path="/endereco" component={Endereco} />

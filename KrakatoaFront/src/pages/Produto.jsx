@@ -60,7 +60,7 @@ const styles = {
     fontWeight: '500',
   },
 };
-export default class Produto extends PureComponent {
+export default class ProdutoPage extends PureComponent {
   render() {
     return (
       <>
