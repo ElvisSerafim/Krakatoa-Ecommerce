@@ -5,24 +5,22 @@ import './Home.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
-import ph1 from '../img/r_card1.jpg';
-import ph2 from '../img/r_card2.jpg';
-import ph3 from '../img/r_card3.jpg';
 
 const photos = [
   {
     name: 'Photo1',
-    url: ph1,
+    url: 'http://localhost:4000/static/imgs/r_card1.jpg',
   },
   {
     name: 'Photo2',
-    url: ph2,
+    url: 'http://localhost:4000/static/imgs/r_card2.jpg',
   },
   {
     name: 'Photo3',
-    url: ph3,
+    url: 'http://localhost:4000/static/imgs/r_card3.jpg',
   },
 ];
+
 export default class Home extends Component {
   render() {
     const settings = {

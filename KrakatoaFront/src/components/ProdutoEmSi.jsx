@@ -1,9 +1,10 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { PureComponent } from 'react';
 import LocalShippingOutlinedIcon from '@material-ui/icons/LocalShippingOutlined';
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
-import ComboBox from '../components/ComboBox';
 import { Typography, Button } from '@material-ui/core/';
 import Box from '@material-ui/core/Box';
+import ComboBox from './ComboBox';
 import './ProdutoEmSi.css';
 import fav from '../img/favorite.svg';
 
@@ -61,6 +62,7 @@ export default class ProdutoEmSi extends PureComponent {
       size: 0,
     };
   }
+
   render() {
     return (
       <>
@@ -152,8 +154,8 @@ export default class ProdutoEmSi extends PureComponent {
                   ADICIONAR AO CARRINHO
                 </Button>
               </div>
-              <a style = {{marginLeft:120,height:10}}href="##">
-                <img src={fav} style={styles.img} alt="Favorite"/>
+              <a style={{ marginLeft: 120, height: 10 }} href="##">
+                <img src={fav} style={styles.img} alt="Favorite" />
               </a>
             </div>
           </div>

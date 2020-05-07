@@ -1,6 +1,9 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable class-methods-use-this */
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import { Typography, Box } from '@material-ui/core/';
-import imagem from '../img/vestido.jpg';
+
 import './Produto.css';
 
 const styles = {
@@ -17,20 +20,52 @@ const styles = {
   },
 };
 
+/*
+id: "5eb0eb84027f1c2ae9efd09e"
+nome: "gabriel kanga4"
+preco: 69
+quantidade: 24
+tamanho: "gg"
+tipo: "kangas"
+__v: 0
+_id: "5eb0eb84027f1c2ae9efd09e"
+ */
 
 export default class Produto extends Component {
   constructor(props) {
     super(props);
+    const { produto } = this.props;
+
+    const { id, nome, preco, colecao } = produto;
+    const Imageurl = `http://localhost:4000/static/imgs/${id}.jpeg`;
+    const Produtourl = `http://localhost:4000/${id}`;
     this.state = {
-      price: '0,00',
+      preco,
       promoPrice: '',
-      productName: 'Vestido Verão',
-      collection: ' Primavera',
-      typeProduct: ''
+      nome,
+      colecao,
+      Imageurl,
+      Produtourl,
     };
   }
 
+  FuncCapitalize(str) {
+    str = str.split(' ');
+    for (let i = 0, x = str.length; i < x; i++) {
+      str[i] = str[i][0].toUpperCase() + str[i].substr(1);
+    }
+    return str.join(' ');
+  }
+
   render() {
+    const {
+      nome,
+      colecao,
+      preco,
+      promoPrice,
+      Imageurl,
+      Produtourl,
+    } = this.state;
     return (
       <div
         style={{
@@ -50,7 +85,7 @@ export default class Produto extends Component {
         >
           <div style={styles.media}>
             <div className="container">
-              <img src={imagem} className="image" alt="Imagem produto" />
+              <img src={Imageurl} className="image" alt="Imagem produto" />
             </div>
           </div>
           <p
@@ -61,11 +96,11 @@ export default class Produto extends Component {
               fontSize: '0.9em',
             }}
           >
-            Coleção:{this.state.collection}
+            {colecao}
           </p>
 
           <p style={{ marginTop: 2, color: 'white', fontSize: '1.1em' }}>
-            {this.state.productName}
+            {this.FuncCapitalize(nome)}
           </p>
 
           <Box display="flex" flex="1" flexDirection="row">
@@ -75,7 +110,7 @@ export default class Produto extends Component {
                 color: 'white',
               }}
             >
-              {this.state.price}
+              {preco}
             </p>
 
             <p
@@ -86,7 +121,7 @@ export default class Produto extends Component {
                 color: 'red',
               }}
             >
-              {this.state.promoPrice}
+              {promoPrice}
             </p>
           </Box>
         </Box>
