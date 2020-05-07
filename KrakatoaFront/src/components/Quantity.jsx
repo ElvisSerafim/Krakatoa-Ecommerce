@@ -37,6 +37,7 @@ export default class Quantity extends Component {
           }}
         >
           <RemoveOutlinedIcon
+            style={{cursor:'pointer'}}
             onClick={(event) => {
               console.log(event.key);
               this.setState({ quantidade: this.state.quantidade - 1 });
@@ -59,6 +60,7 @@ export default class Quantity extends Component {
           }}
         >
           <AddOutlinedIcon
+            style={{cursor:'pointer'}}
             onClick={(event) => {
               this.setState({ quantidade: this.state.quantidade + 1 });
             }}

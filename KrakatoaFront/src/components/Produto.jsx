@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { Typography, Box } from '@material-ui/core/';
 
 import './Produto.css';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 const styles = {
   media: {
@@ -103,7 +104,7 @@ export default class Produto extends Component {
             {this.FuncCapitalize(nome)}
           </p>
 
-          <Box display="flex" flex="1" flexDirection="row">
+          <Box display="flex" flex="1" flexDirection="row" justifyContent='space-between'>
             <p
               style={{
                 margin: 0,
@@ -123,6 +124,7 @@ export default class Produto extends Component {
             >
               {promoPrice}
             </p>
+              <AddShoppingCartIcon style={{color: 'white'}} onClick={()=>{console.log('Cliquei no produdin')}}/>
           </Box>
         </Box>
       </div>
