@@ -16,9 +16,9 @@ import Conta from './pages/Conta';
 import MinhaConta from './pages/MinhaConta';
 import Produtos from './pages/Produtos';
 import Endereco from './pages/Endereco';
-import Checkout from './pages/Checkout'
+import Checkout from './pages/Checkout';
+import store from './store';
 import './index.css';
-import store from '../src/store'
 
 
 ReactDOM.render(
