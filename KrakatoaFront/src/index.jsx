@@ -16,6 +16,7 @@ import Conta from './pages/Conta';
 import MinhaConta from './pages/MinhaConta'
 import Produtos from './pages/Produtos';
 import Endereco from './pages/Endereco';
+import Checkout from './pages/Checkout'
 import './index.css';
 
 ReactDOM.render(
@@ -48,6 +49,7 @@ ReactDOM.render(
           )}
         />
         <Route path="/carrinho" component={Carrinho} />
+        <Route path="/checkout" component={Checkout} />
         <Route path="/id" component={Produto} />
         <Route path = "/conta" component={MinhaConta}/>
         {/* <Route path="/minhaconta/cadastro" component={Cadastro} /> */}

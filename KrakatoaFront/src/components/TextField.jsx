@@ -199,7 +199,7 @@ class TextField extends Component {
     } else if (date) {
       return (
         <div style={styles.container}>
-          <p>&nbsp;{label}</p>
+           <p style={styles.inputs}>&nbsp;{label}</p>
           <Cleave
             value={this.props.value}
             onChange={this.props.onChange}
