@@ -1,9 +1,8 @@
-import {createStore} from 'redux'
+import {createStore, combineReducers} from 'redux'
+import productsReducers from '../reducers/products'
 
-function reducer(state = [], action){
+const rootReducer = combineReducers({
+    products: productsReducers
+})
 
-    return state;
-}
-
-
-export default createStore(reducer);
+export default createStore(rootReducer);
