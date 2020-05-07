@@ -13,9 +13,10 @@ import Produto from './pages/Produto';
 import Carrinho from './pages/Carrinho';
 /* import NotFound from './pages/NotFound'; */
 import Conta from './pages/Conta';
-import MinhaConta from './pages/MinhaConta'
+import MinhaConta from './pages/MinhaConta';
 import Produtos from './pages/Produtos';
 import Endereco from './pages/Endereco';
+import Checkout from './pages/Checkout'
 import './index.css';
 import store from '../src/store'
 
