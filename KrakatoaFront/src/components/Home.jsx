@@ -1,3 +1,5 @@
+/* eslint-disable react/prefer-stateless-function */
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { Component } from 'react';
 import './Home.css';
 import 'slick-carousel/slick/slick.css';
@@ -6,6 +8,7 @@ import Slider from 'react-slick';
 import ph1 from '../img/r_card1.jpg';
 import ph2 from '../img/r_card2.jpg';
 import ph3 from '../img/r_card3.jpg';
+
 const photos = [
   {
     name: 'Photo1',
@@ -32,17 +35,16 @@ export default class Home extends Component {
       slidesToScrow: 1,
       className: 'slides',
     };
-    return <div className="Home">
+    return (
+      <div className="Home">
         <Slider {...settings}>
-           { photos.map((photo)=> {
-               return(
-                <div styles={{marginTop:64}}>
-                    <img  height= "750" width="100%"  src = {photo.url}/>
-                </div>
-               );
-           })}
-
+          {photos.map((photo) => (
+            <div styles={{ marginTop: 64 }}>
+              <img height="750" width="100%" src={photo.url} alt={photo.name} />
+            </div>
+          ))}
         </Slider>
-    </div>;
+      </div>
+    );
   }
 }

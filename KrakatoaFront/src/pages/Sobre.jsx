@@ -56,7 +56,6 @@ export default class Sobre extends PureComponent {
             <iframe
               style={styles.showmap}
               src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d289.00561859633353!2d-38.368623842546945!3d-12.947479138519634!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xc7930f5df7de9567!2sKRAKATOA%20COM%20DE%20ROUPAS%20LTDA!5e0!3m2!1spt-BR!2sbr!4v1588209418337!5m2!1spt-BR!2sbr"
-              allowFullscreen=""
               aria-hidden="false"
               title="map"
             />

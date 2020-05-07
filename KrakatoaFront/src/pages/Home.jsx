@@ -8,6 +8,7 @@ import Promos from '../components/promos';
 import ApiService from '../Services/ApiService';
 import HomeComp from '../components/Home';
 import Footer from '../components/Footer';
+
 const styles = {
   Promos: { width: 'auto', height: '373px', backgroundColor: '#B1B1B1' },
   container: {
@@ -28,15 +29,15 @@ export default class Home extends PureComponent {
   render() {
     return (
       <>
-      <Container maxWidth="lg">
-      <Topo />
-      <div style={{ marginBottom: 64 }}>
+        <Container maxWidth="lg">
+          <Topo />
+          <div style={{ marginBottom: 64 }}>
             <Navbar />
           </div>
-      </Container>
-            <Grid item lg={12} md={2}>
-              <HomeComp />
-            </Grid>
+        </Container>
+        <Grid item lg={12} md={2}>
+          <HomeComp />
+        </Grid>
         <Container maxWidth="lg">
           <Grid container spacing={2} justify="space-evenly">
             <Grid item lg={12} md={2}>
@@ -56,7 +57,7 @@ export default class Home extends PureComponent {
             </Grid>
           </Grid>
         </Container>
-        <Footer/>
+        <Footer />
       </>
     );
   }
