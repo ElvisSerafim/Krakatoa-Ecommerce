@@ -57,6 +57,7 @@ ReactDOM.render(
           {/* <Route path="/minhaconta/cadastro" component={Cadastro} /> */}
           <Route path="/minhaconta" component={Conta} />
           <Route path="/endereco" component={Endereco} />
+          <Route path="/checkout" component={Checkout} />
           {/* <Route component={NotFound} /> */}
         </Switch>
       </BrowserRouter>

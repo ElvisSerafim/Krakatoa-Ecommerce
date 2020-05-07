@@ -36,10 +36,18 @@ function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
 }
 
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 1124, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 1237, 4.3),
-];
+const rows = [[{id: "5eb0eb84027f1c2ae9efd09e", 
+nome: "gabriel kanga4",
+preco: 69,
+quantidade: 24,
+tamanho: "gg",
+tipo: "kangas"}],
+[{id: "5eb0eb84027f1c2ae9efd09e", 
+nome: "gabriel kanga4",
+preco: 69,
+quantidade: 24,
+tamanho: "gg",
+tipo: "kangas"}]];
 
 const useStyles = makeStyles({
     table: {
@@ -58,8 +66,7 @@ function aumentarQuantidade(key){
 
 export default function CustomizedTables() {
     const classes = useStyles();
-    const [quantity, setQuantity] = useState(0);
-
+    const [quantity, setQuantity] = useState([1, 1]);
    
     
     return (
@@ -75,7 +82,7 @@ export default function CustomizedTables() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
+                    {rows.map((row, i) => (
                         <StyledTableRow key={row.name}>
                             <StyledTableCell component="th" scope="row">
                                 <div style={{ display: 'flex', flexDirection: 'row', }}>
@@ -97,8 +104,17 @@ export default function CustomizedTables() {
                             <StyledTableCell align="center">
                                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                                     <Quantity 
-                                     reactKey={row.name}
-
+                                     onClickPlus={()=>{
+                                         const aux = [...quantity];
+                                         aux[i]++;
+                                         setQuantity(aux);
+                                     }}
+                                     onClickMinus={()=>{
+                                        const aux = [...quantity];
+                                        aux[i]--;
+                                        setQuantity(aux);
+                                    }}
+                                    quantidade={quantity[i]}
                                     />
 
                                 </div>

@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 /* Vestidos,Batas,Shorts,Kangas */
 
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { updateProducts } from '../reducers/products';
 import { Container, Typography } from '@material-ui/core/';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
@@ -11,6 +13,68 @@ import Paginator from '../components/Paginator';
 import Footer from '../components/Footer';
 import api from '../Services/ApiService';
 
+const Produtos = ({ title, name }) => {
+  const [product, setProduct] = useState([]);
+  const [orderBy, setOrderBy] = useState('');
+
+  useEffect(() => {
+    const getProducts = async () => {
+      const data = {
+        tipo: name,
+        chave: '',
+      };
+
+      const request = await api.GetProdutos(data);
+
+      const a = [request];
+      setProduct(a);
+    };
+
+    getProducts();
+  }, []);
+  const dispatch = useDispatch();
+  dispatch(updateProducts(product));
+
+  return (
+
+    <>
+      <Container maxWidth="lg">
+        <Topo />
+        <Navbar />
+        <Typography variant="h2" color="primary">
+          {title}
+        </Typography>
+        <div
+          style={{
+            display: 'flex',
+            width: '98%',
+            paddingBottom: '20px',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <ComboBox
+            onChange={(event) => {
+              setOrderBy(event.target.value);
+            }}
+            style={{ width: 300 }}
+            value={orderBy}
+            items={['Mais vendidos', 'Menor Preço', 'Maior Preço']}
+            label="Ordenar por: "
+          />
+        </div>
+        <ProductList products={product} />
+        <div style={{ marginTop: '50px' }}>
+          <Paginator />
+        </div>
+      </Container>
+      <Footer />
+    </>
+  )
+}
+export default Produtos;
+/*
 export default class Produtos extends Component {
   constructor(props) {
     super(props);
@@ -50,11 +114,12 @@ export default class Produtos extends Component {
       tipo: name,
       chave,
     };
-
+    const dispatch = useDispatch()
     const request = await api.GetProdutos(data);
 
     const b = [request];
     this.setState({ product: b });
+    dispatch(updateProducts(b));
   }
 
   render() {
@@ -99,3 +164,4 @@ export default class Produtos extends Component {
     );
   }
 }
+ */
