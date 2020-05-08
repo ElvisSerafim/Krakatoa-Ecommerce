@@ -67,6 +67,13 @@ export default class Produto extends Component {
       Imageurl,
       Produtourl,
     } = this.state;
+    const product = {
+      nome,
+      colecao,
+      preco,
+      promoPrice,
+      Imageurl
+    };
     return (
       <div
         style={{
@@ -124,7 +131,9 @@ export default class Produto extends Component {
             >
               {promoPrice}
             </p>
-              <AddShoppingCartIcon style={{color: 'white'}} onClick={()=>{console.log('Cliquei no produdin')}}/>
+              <AddShoppingCartIcon style={{color: 'white'}} onClick={()=>{
+                this.props.addItem(product)
+              }}/>
           </Box>
         </Box>
       </div>

@@ -1,14 +1,15 @@
 const INITIAL_STATE = [
-        
+
 ];
 
 export default function reducer(state = INITIAL_STATE, action) {
     if(action.type == 'ADD_CART'){
-        console.log("Produto adicionado:  "+ action.product)
-        return [...state, ...action.product];
+        console.log('Produtos no carrinho: '+ [...state, action.product]);
+        return [...state, action.product];
     }
     return state;
 }
+
 
 export const addCart = (product) => {
     return {

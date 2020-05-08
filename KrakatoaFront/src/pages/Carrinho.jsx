@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
-import { Container, Grid, Typography, Box, Button, makeStyles} from '@material-ui/core/';
+import { useSelector, useDispatch} from 'react-redux';
+import { Container, Grid, Typography, Box, Button, makeStyles } from '@material-ui/core/';
 import TextField from '../components/TextField';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
@@ -8,8 +9,6 @@ import delivery from '../img/noDelivery.svg';
 import payment from '../img/payment.svg';
 import circle from '../img/circle.svg';
 import Table from '../components/Table';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import red from '@material-ui/core/colors/red';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 const styles = {
@@ -33,7 +32,7 @@ const styles = {
   },
   cupomField: {
     borderRadius: 100
-  }, 
+  },
   searchIcon: {
     display: 'flex',
     justifyContent: 'center',
@@ -47,119 +46,118 @@ const styles = {
 };
 
 
+const Carrinho = ({children, style, onClick}) => {
 
-export default class Endereco extends PureComponent {
-  
+  const products = useSelector((state) => state.productsCart)
+  console.log(products)
 
-  render() {
-    const { children, style, onClick } = this.props;
-    return (
-      <>
-        <Container maxWidth="lg">
-          <Topo />
-          <Navbar />
+  return (
+    <>
+      <Container maxWidth="lg">
+        <Topo />
+        <Navbar />
+        <div
+          style={{
+            display: 'flex',
+            flex: '1',
+            flexDirection: 'row',
+            marginTop: '64px',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Typography style={styles.title}>Carrinho</Typography>
           <div
             style={{
               display: 'flex',
-              flex: '1',
-              flexDirection: 'row',
-              marginTop: '64px',
-              justifyContent: 'space-between',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
-            <Typography style={styles.title}>Carrinho</Typography>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <a href="/">
-                  <div style={styles.searchIcon}>
-                    <ShoppingCartIcon />
-                </div>
-              </a>
+            <a href="/">
+              <div style={styles.searchIcon}>
+                <ShoppingCartIcon />
+              </div>
+            </a>
 
-              <hr style={styles.hrstyle} />
-              <a href="/">
-                <img src={delivery} alt="React Logo" />
-              </a>
-              <hr style={styles.hrstyle} />
-              <a href="/">
-                <img src={payment} alt="React Logo" />
-              </a>
+            <hr style={styles.hrstyle} />
+            <a href="/">
+              <img src={delivery} alt="React Logo" />
+            </a>
+            <hr style={styles.hrstyle} />
+            <a href="/">
+              <img src={payment} alt="React Logo" />
+            </a>
+          </div>
+        </div>
+        <div style={{ marginTop: '30px' }}>
+          <Table />
+        </div>
+        <div style={{ display: 'flex', flex: '1', flexDirection: 'row' }}>
+          <div style={{ display: 'flex', flexDirection: 'row', width: '50%', justifyContent: 'flex-start' }}>
+            <div>
+              <TextField placeholder="Código do Cupom" style={{ color: 'white', backgroundColor: 'black', borderRadius: 7, height: 50 }} numberOnly />
+            </div>
+            <div style={{ marginLeft: 20, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', width: 120 }}>
+              <Button variant="contained" color="primary" fullWidth style={{ borderRadius: 7, height: 50 }}>
+                Aplicar
+        </Button>
             </div>
           </div>
-          <div style={{ marginTop: '30px' }}>
-            <Table />
+
+          <div style={{ display: 'flex', flexDirection: 'row', width: '50%', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+            <Button variant="contained" color="primary" style={{ borderRadius: 7, height: 50 }}>
+              Continuar Comprando
+        </Button>
+            <Button variant="contained" color="primary" style={{ borderRadius: 7, height: 50, width: 120 }}>
+              Limpar
+        </Button>
           </div>
-          <div style={{ display: 'flex', flex: '1', flexDirection: 'row' }}>
-            <div style={{ display: 'flex', flexDirection: 'row', width: '50%', justifyContent: 'flex-start' }}>
+          <div>
+          </div>
+        </div>
+        <div style={{ display: 'flex', flex: '1', flexDirection: 'row', paddingTop: '40px', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', width: '35%', color: 'white', backgroundColor: 'black', borderRadius: 10, height: 120, fontFamily: 'Poppins', fontSize: 20, padding: '20px' }}>
+            <Typography style={{ margin: 0, fontWeight: '600' }}>Frete: </Typography>
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
               <div>
-                <TextField placeholder="Código do Cupom" style={{ color: 'white', backgroundColor: 'black', borderRadius: 7, height: 50 }} numberOnly />
+                <TextField placeholder="Insira seu CEP" style={{ color: 'red', backgroundColor: 'white', borderRadius: 7, height: 50 }} numberOnly />
               </div>
               <div style={{ marginLeft: 20, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', width: 120 }}>
                 <Button variant="contained" color="primary" fullWidth style={{ borderRadius: 7, height: 50 }}>
-                  Aplicar
-              </Button>
+                  Calcular
+        </Button>
               </div>
             </div>
+          </div>
 
-            <div style={{ display: 'flex', flexDirection: 'row', width: '50%', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-              <Button variant="contained" color="primary" style={{ borderRadius: 7, height: 50 }}>
-                Continuar Comprando
-              </Button>
-              <Button variant="contained" color="primary" style={{ borderRadius: 7, height: 50, width: 120 }}>
-                Limpar
-              </Button>
-            </div>
+          <div style={{ display: 'flex', flexDirection: 'column', width: '30%', color: 'white', backgroundColor: 'black', borderRadius: 10, fontFamily: 'Poppins', fontSize: 20, padding: '20px' }}>
+            <p style={{ margin: 0, fontWeight: '600' }}>Total no Carrinho: </p>
             <div>
-            </div>
-          </div>
-          <div style={{ display: 'flex', flex: '1', flexDirection: 'row', paddingTop: '40px', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', width: '35%', color: 'white', backgroundColor: 'black', borderRadius: 10, height: 120, fontFamily: 'Poppins', fontSize: 20, padding: '20px' }}>
-              <Typography style={{ margin: 0, fontWeight: '600' }}>Frete: </Typography>
-              <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <div>
-                  <TextField placeholder="Insira seu CEP" style={{ color: 'red', backgroundColor: 'white', borderRadius: 7, height: 50 }} numberOnly />
-                </div>
-                <div style={{ marginLeft: 20, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', width: 120 }}>
-                  <Button variant="contained" color="primary" fullWidth style={{ borderRadius: 7, height: 50 }}>
-                    Calcular
-              </Button>
-                </div>
-              </div>
+              <hr style={{ color: "red", backgroundColor: 'red', height: 1, borderColor: 'red', width: '100%' }} />
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', width: '30%', color: 'white', backgroundColor: 'black', borderRadius: 10, fontFamily: 'Poppins', fontSize: 20, padding: '20px' }}>
-              <p style={{ margin: 0, fontWeight: '600' }}>Total no Carrinho: </p>
-              <div>
-                <hr style={{ color: "red", backgroundColor: 'red', height: 1, borderColor: 'red', width: '100%' }} />
-              </div>
+            <div>
+              <p>SubTotal: </p>
+            </div>
 
-              <div>
-                <p>SubTotal: </p>
-              </div>
+            <div>
+              <p>Entrega: </p>
+            </div>
 
-              <div>
-                <p>Entrega: </p>
-              </div>
-
-              <div style={{ paddingTop: '20px' }}>
-                <p>Total: </p>
-              </div>
+            <div style={{ paddingTop: '20px' }}>
+              <p>Total: </p>
             </div>
           </div>
+        </div>
 
-          <div style={{ display: 'flex', flex: '1', justifyContent: 'flex-end', alignItems: 'flex-end', paddingTop: 50 }}>
-            <Button variant="contained" color="primary" style={{ borderRadius: 7, height: 50 }}>
-              Finalizar Compra
-              </Button>
-          </div>
-        </Container >
-        <Footer />
-      </>
-    );
-  }
+        <div style={{ display: 'flex', flex: '1', justifyContent: 'flex-end', alignItems: 'flex-end', paddingTop: 50 }}>
+          <Button variant="contained" color="primary" style={{ borderRadius: 7, height: 50 }}>
+            Finalizar Compra
+        </Button>
+        </div>
+      </Container >
+      <Footer />
+    </>
+  )
 }
+export default Carrinho;
