@@ -130,6 +130,7 @@ export default function CustomizedTables({ produtos, actualTotal}) {
                                             actualTotal(totally);
 
                                         }}
+                                        
                                         onClickMinus={() => {
                                             const aux = [...quantity];
                                             aux[i]--;

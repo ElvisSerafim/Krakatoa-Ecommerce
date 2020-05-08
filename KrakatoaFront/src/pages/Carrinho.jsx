@@ -48,6 +48,7 @@ const styles = {
 
 const Carrinho = ({ children, style, onClick }) => {
   const [totalFinal, setFinalTotal] = useState(0);
+  
   const products = useSelector((state) => state.productsCart)
   console.log(products)
 
