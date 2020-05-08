@@ -7,7 +7,7 @@ export default function reducer(state = INITIAL_STATE, action) {
         console.log('Entrei na funcao reducer')
         console.log("Produtos: "+ action.products)
         return action.products;
-    } 
+    }
     return state;
 }
 
