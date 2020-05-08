@@ -90,7 +90,7 @@ const Carrinho = ({children, style, onClick}) => {
           </div>
         </div>
         <div style={{ marginTop: '30px' }}>
-          <Table />
+          <Table produtos={products}/>
         </div>
         <div style={{ display: 'flex', flex: '1', flexDirection: 'row' }}>
           <div style={{ display: 'flex', flexDirection: 'row', width: '50%', justifyContent: 'flex-start' }}>
