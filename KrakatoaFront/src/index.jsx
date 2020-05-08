@@ -16,6 +16,7 @@ import Conta from './pages/Conta';
 import MinhaConta from './pages/MinhaConta';
 import Produtos from './pages/Produtos';
 import Endereco from './pages/Endereco';
+import Sumario from './pages/Sumario';
 import Checkout from './pages/Checkout';
 import store from './store';
 import './index.css';
@@ -57,6 +58,7 @@ ReactDOM.render(
           {/* <Route path="/minhaconta/cadastro" component={Cadastro} /> */}
           <Route path="/minhaconta" component={Conta} />
           <Route path="/endereco" component={Endereco} />
+          <Route path="/sumario" component={Sumario} />
           <Route path="/checkout" component={Checkout} />
           {/* <Route component={NotFound} /> */}
         </Switch>
