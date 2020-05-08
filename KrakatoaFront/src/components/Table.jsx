@@ -65,7 +65,7 @@ const useStyles = makeStyles({
 });
 
 
-export default function CustomizedTables({ produtos }) {
+export default function CustomizedTables({ produtos, actualTotal}) {
     const classes = useStyles();
     const [quantity, setQuantity] = useState([]);
     const [total, setTotal] = useState([]);
@@ -78,7 +78,9 @@ export default function CustomizedTables({ produtos }) {
             setQuantity(quantidades);
             totais.push(item.preco);
             setTotal(totais);
-        })
+        });
+        
+        actualTotal(totais);
     }, []);
 
 
@@ -125,6 +127,8 @@ export default function CustomizedTables({ produtos }) {
                                             const totally = [...total];
                                             totally[i] = row.preco * aux[i];
                                             setTotal(totally);
+                                            actualTotal(totally);
+
                                         }}
                                         onClickMinus={() => {
                                             const aux = [...quantity];
@@ -136,6 +140,7 @@ export default function CustomizedTables({ produtos }) {
                                                 var newTotal = totally[i] - row.preco;
                                                 totally[i] = newTotal;
                                                 setTotal(totally);
+                                                actualTotal(totally);
                                             }
                                         }}
                                         quantidade={quantity[i]}
