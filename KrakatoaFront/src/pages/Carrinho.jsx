@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import { useSelector, useDispatch} from 'react-redux';
+import React, { PureComponent, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Container, Grid, Typography, Box, Button, makeStyles } from '@material-ui/core/';
 import TextField from '../components/TextField';
 import Navbar from '../components/Nav';
@@ -46,11 +46,19 @@ const styles = {
 };
 
 
-const Carrinho = ({children, style, onClick}) => {
-
+const Carrinho = ({ children, style, onClick }) => {
+  const [totalFinal, setFinalTotal] = useState(0);
+  
   const products = useSelector((state) => state.productsCart)
   console.log(products)
 
+  const atualizarTotal = (total) => {
+    var auxTotal = 0;
+      total.map((item) => {
+        auxTotal = auxTotal + item;
+      });
+      setFinalTotal(auxTotal);
+  }
   return (
     <>
       <Container maxWidth="lg">
@@ -90,7 +98,7 @@ const Carrinho = ({children, style, onClick}) => {
           </div>
         </div>
         <div style={{ marginTop: '30px' }}>
-          <Table produtos={products}/>
+          <Table produtos={products} actualTotal={atualizarTotal} />
         </div>
         <div style={{ display: 'flex', flex: '1', flexDirection: 'row' }}>
           <div style={{ display: 'flex', flexDirection: 'row', width: '50%', justifyContent: 'flex-start' }}>
@@ -136,8 +144,10 @@ const Carrinho = ({children, style, onClick}) => {
               <hr style={{ color: "red", backgroundColor: 'red', height: 1, borderColor: 'red', width: '100%' }} />
             </div>
 
-            <div>
-              <p>SubTotal: </p>
+            <div style={{display: 'flex', flexDirection:'row', justifyContent: 'space-between'}}>
+              <p>SubTotal:</p>
+              <p>R$ {totalFinal}</p>
+              
             </div>
 
             <div>
