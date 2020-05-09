@@ -9,7 +9,6 @@ import Home from './pages/Home';
 import Sobre from './pages/Sobre';
 import Contato from './pages/Contato';
 import Produto from './pages/Produto';
-/* import Cadastro from './pages/Cadastro'; */
 import Carrinho from './pages/Carrinho';
 /* import NotFound from './pages/NotFound'; */
 import Conta from './pages/Conta';
@@ -32,26 +31,34 @@ ReactDOM.render(
           <Route path="/contato" component={Contato} />
           <Route
             path="/kangas"
+            exact
             render={(props) => (
               <Produtos {...props} name="kangas" title="Kangas" />
             )}
           />
           <Route
             path="/vestidos"
+            exact
             render={(props) => (
               <Produtos {...props} name="vestidos" title="Vestidos" />
             )}
           />
           <Route
             path="/batas"
+            exact
             render={(props) => <Produtos {...props} name="batas" title="Batas" />}
           />
           <Route
             path="/shorts"
+            exact
             render={(props) => (
               <Produtos {...props} name="shorts" title="Shorts" />
             )}
           />
+          <Route path="/kangas/:id" component={Produto} />
+          <Route path="/batas/:id" component={Produto} />
+          <Route path="/shorts/:id" component={Produto} />
+          <Route path="/vestidos/:id" component={Produto} />
           <Route path="/carrinho" component={Carrinho} />
           <Route path="/id" component={Produto} />
           <Route path="/conta" component={MinhaConta} />
