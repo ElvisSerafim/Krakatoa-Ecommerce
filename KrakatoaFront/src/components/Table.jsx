@@ -73,7 +73,13 @@ export default function CustomizedTables({ produtos, actualTotal, removerItem })
 
         products[index].quantidade++;
         dispatch(productsUpdate(products));
+    }
 
+    const updateRemoveTotal = (i) => {
+        const auxiliar = [...total];
+        auxiliar.splice(i, 1);
+        setTotal(auxiliar);
+        actualTotal(auxiliar);
     }
 
 
@@ -152,7 +158,8 @@ export default function CustomizedTables({ produtos, actualTotal, removerItem })
                             <StyledTableCell align="right">
                                 <Box style={{ cursor: 'pointer', padding: 20 }} >
                                     <HighlightOffIcon style={{ height: 30, width: 30 }} onClick={() => {
-                                        removerItem(products[i])
+                                        removerItem(products[i]);
+                                        updateRemoveTotal(i);                                        
                                     }} />
                                 </Box>
                             </StyledTableCell>
