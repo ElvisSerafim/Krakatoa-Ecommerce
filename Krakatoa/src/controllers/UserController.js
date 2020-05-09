@@ -6,20 +6,24 @@ const User = require('../models/User');
 
 module.exports = {
   async Store(req, res) {
-    const {
-      email, password,
-    } = req.body;
-    let user = await User.findOne({ email });
-    if (!user) {
-      user = await User.create({
-        email,
-        password,
-      });
-      const accessToken = user.generateAuthToken();
-      const obj = { user, accessToken };
-      return res.status(200).json(obj);
+    try {
+      const {
+        email, password,
+      } = req.body;
+      let user = await User.findOne({ email });
+      if (!user) {
+        user = await User.create({
+          email,
+          password,
+        });
+        const accessToken = await user.generateAuthToken();
+        const obj = { user, accessToken };
+        return res.json(obj).status(200);
+      }
+      throw new Error('Email já cadastrado');
+    } catch (error) {
+      return res.send(error).status(401);
     }
-    return res.send('email já cadastrado').status(400);
   },
   async Update(req, res) {
     try {
@@ -107,47 +111,47 @@ module.exports = {
         cep, estado, cidade, bairro, rua, numero, nome, telefone, cpf,
       } = req.body;
 
-      user.endereco.cep = cep !== undefined
+      user.endereco.cep = cep !== ''
        && user.endereco.cep !== cep
         ? cep
         : user.endereco.cep;
 
-      user.endereco.estado = estado !== undefined
+      user.endereco.estado = estado !== ''
        && user.endereco.estado !== estado
         ? estado
         : user.endereco.estado;
 
-      user.endereco.cidade = cidade !== undefined
+      user.endereco.cidade = cidade !== ''
        && user.endereco.cidade !== cidade
         ? cidade
         : user.endereco.cidade;
 
-      user.endereco.bairro = bairro !== undefined
+      user.endereco.bairro = bairro !== ''
        && user.endereco.bairro !== bairro
         ? bairro
         : user.endereco.bairro;
 
-      user.endereco.rua = rua !== undefined
+      user.endereco.rua = rua !== ''
        && user.endereco.rua !== rua
         ? rua
         : user.endereco.rua;
 
-      user.endereco.numero = numero !== undefined
+      user.endereco.numero = numero !== ''
        && user.endereco.numero !== numero
         ? numero
         : user.endereco.numero;
 
-      user.nome = nome !== undefined
+      user.nome = nome !== ''
        && user.nome !== nome
         ? nome
         : user.nome;
 
-      user.telefone = telefone !== undefined
+      user.telefone = telefone !== ''
        && user.telefone !== telefone
         ? telefone
         : user.telefone;
 
-      user.cpf = cpf !== undefined
+      user.cpf = cpf !== ''
        && user.cpf !== cpf
         ? cpf
         : user.cpf;

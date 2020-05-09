@@ -1,8 +1,9 @@
 import React, { useState, Component } from 'react';
 import { fade, makeStyles } from '@material-ui/core/';
 import SearchIcon from '@material-ui/icons/Search';
+import {sendSearch} from '../reducers/search.js'
 import InputBase from '@material-ui/core/InputBase';
-
+import { useDispatch} from 'react-redux';
 const useStyles = makeStyles((theme) => ({
   search: {
     position: 'relative',
@@ -49,20 +50,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SearchBar() {
+const SearchBar=({redrec}) =>  {
   const classes = useStyles();
   const [search, setSearch] = useState('');
-
+  const dispatch = useDispatch()
   return (
     <div className={classes.search}>
       <div className={classes.searchIcon}>
         <SearchIcon />
       </div>
-      <InputBase
+      <InputBase onKeyPress={(event)=>{
+        if(event.key=='Enter'){
+          if(search.length==0)return 0;
+          else {
+            dispatch(sendSearch(search))
+          }
+          setSearch('');
+        }
+      }}
+        value={search}
         onChange={(event) => {
           setSearch(event.target.value);
         }}
-        placeholder="Search…"
+        placeholder="Pesquisar…"
         classes={{
           root: classes.inputRoot,
           input: classes.inputInput,
@@ -71,4 +81,6 @@ export default function SearchBar() {
       />
     </div>
   );
-}
+    }
+    export default SearchBar;
+    

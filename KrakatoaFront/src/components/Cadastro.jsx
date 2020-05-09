@@ -31,8 +31,10 @@ export default class Login extends Component {
     };
   }
 
-  async Cadastro() {
+   Cadastro = async () => {
     const { email, password } = this.state;
+    console.log(email);
+    
     if (email === '') throw new Error('Email Vazio');
     if (password === '') throw new Error('Senha Vazia');
     const data = {
@@ -40,6 +42,7 @@ export default class Login extends Component {
       password,
     };
     const request = api.Cadastro(data);
+    console.log(request);
     /* Redirect Pagina do Usuario */
   }
 
@@ -78,7 +81,7 @@ export default class Login extends Component {
                 variant="contained"
                 color="primary"
                 fullWidth
-                onClick={this.cadastro}
+                onClick={this.Cadastro}
               >
                 Continuar
               </Button>

@@ -9,7 +9,6 @@ import Home from './pages/Home';
 import Sobre from './pages/Sobre';
 import Contato from './pages/Contato';
 import Produto from './pages/Produto';
-/* import Cadastro from './pages/Cadastro'; */
 import Carrinho from './pages/Carrinho';
 /* import NotFound from './pages/NotFound'; */
 import Conta from './pages/Conta';
@@ -17,9 +16,11 @@ import MinhaConta from './pages/MinhaConta';
 import Produtos from './pages/Produtos';
 import Endereco from './pages/Endereco';
 import Sumario from './pages/Sumario';
+import testeGabriel from './pages/testeGabriel';
 import Checkout from './pages/Checkout';
 import store from './store';
 import './index.css';
+import TesteGabriel from './pages/testeGabriel';
 
 
 ReactDOM.render(
@@ -32,26 +33,34 @@ ReactDOM.render(
           <Route path="/contato" component={Contato} />
           <Route
             path="/kangas"
+            exact
             render={(props) => (
               <Produtos {...props} name="kangas" title="Kangas" />
             )}
           />
           <Route
             path="/vestidos"
+            exact
             render={(props) => (
               <Produtos {...props} name="vestidos" title="Vestidos" />
             )}
           />
           <Route
             path="/batas"
+            exact
             render={(props) => <Produtos {...props} name="batas" title="Batas" />}
           />
           <Route
             path="/shorts"
+            exact
             render={(props) => (
               <Produtos {...props} name="shorts" title="Shorts" />
             )}
           />
+          <Route path="/kangas/:id" component={Produto} />
+          <Route path="/batas/:id" component={Produto} />
+          <Route path="/shorts/:id" component={Produto} />
+          <Route path="/vestidos/:id" component={Produto} />
           <Route path="/carrinho" component={Carrinho} />
           <Route path="/id" component={Produto} />
           <Route path="/conta" component={MinhaConta} />
@@ -60,6 +69,7 @@ ReactDOM.render(
           <Route path="/endereco" component={Endereco} />
           <Route path="/sumario" component={Sumario} />
           <Route path="/checkout" component={Checkout} />
+          <Route path="/testeGabriel" component={TesteGabriel} />
           {/* <Route component={NotFound} /> */}
         </Switch>
       </BrowserRouter>

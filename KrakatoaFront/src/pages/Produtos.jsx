@@ -87,7 +87,7 @@ const Produtos = ({ title, name }) => {
             label="Ordenar por: "
           />
         </div>
-        <ProductList products={product} />
+        <ProductList products={product} title={title} />
         <div style={{ marginTop: '50px' }}>
           <Paginator />
         </div>

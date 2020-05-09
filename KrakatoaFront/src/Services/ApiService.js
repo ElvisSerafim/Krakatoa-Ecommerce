@@ -40,14 +40,13 @@ const ApiService = {
       };
 
       const request = await fetch(url, requestInfo);
-
       if (request.ok) {
-        const response = request.json();
-        const { token } = response;
-        sessionStorage.setItem('token', token);
+        const response = await request.json();
+        const { accessToken } = await response;
+        sessionStorage.setItem('token', accessToken);
+        return response;
       }
-
-      throw new Error();
+      return Error('Erro Na hora de Cadastrar');
     } catch (error) {
       return error;
     }
@@ -93,6 +92,28 @@ const ApiService = {
         return request.json();
       }
       throw new Error('Não foi possivel alterar seus dados');
+    } catch (error) {
+      return error;
+    }
+  },
+  UsuarioEndereco: async (data) => {
+    try {
+      const url = 'http://localhost:4000/api/user/me/endereco';
+      const { token } = data;
+      const Authorization = `Bearer ${token}`;
+      const requestInfo = {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Authorization': Authorization,
+          'Content-Type': 'application/json',
+        }),
+      };
+      const request = await fetch(url, requestInfo);
+      if (request.ok) {
+        return request.json();
+      }
+      throw new Error('Não foi possivel continuar com a compra');
     } catch (error) {
       return error;
     }

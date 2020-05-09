@@ -2,6 +2,7 @@ import {createStore, combineReducers} from 'redux'
 import productsReducers from '../reducers/products'
 import productsCartsReducers from '../reducers/productsCart'
 import allProductsReducers from '../reducers/allProducts'
+import SearchReducer from '../reducers/search.js'
 
 const saveState = (state) => {
     try {
@@ -40,7 +41,9 @@ const loadState =() => {
 const rootReducer = combineReducers({
     products: productsReducers,
     productsCart: productsCartsReducers, 
-    allProducts: allProductsReducers
+    allProducts: allProductsReducers,
+    productsCart: productsCartsReducers,
+    pesquisaBarra: SearchReducer
 })
 const oldState = loadState();
 const store = createStore(rootReducer, oldState);

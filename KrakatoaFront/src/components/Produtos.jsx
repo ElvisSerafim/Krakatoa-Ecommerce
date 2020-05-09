@@ -2,36 +2,40 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch} from 'react-redux';
 import Grid from '@material-ui/core/Grid';
+import { Link } from 'react-router-dom';
 import Produto from './Produto';
 import {addCart} from '../reducers/productsCart';
 
-const Produtos = () => {
+
+const Produtos = ({ title }) => {
   const [produtos, setProdutos] = useState([]);
   const dispatch = useDispatch();
-
-  const addItemCart = (product) => {
-    product['quantidade'] = 1;
-    console.log(product);
-    dispatch(addCart(product));
-  }
   
+  const addItemCart = (productCart) => {
+    productCart['quantidade'] = 1;
+    console.log(productCart);
+    dispatch(addCart(productCart));
+  };
+  const lower = title.toLowerCase();
   const products = useSelector((state) => state.products);
-  useEffect(() => {
-    setProdutos(products);   
+   useEffect(() => {
+   setProdutos(products);   
   }, [products]);
 
   return (
     products.map((item) => (
       <Grid container justify="flex-start" spacing="2">
         {item.map((value) => (
-          <Grid key={value} item lg={3}>
-            <Produto produto={value} addItem={addItemCart}/>
+          <Grid key={value.id} item lg={3}>
+            <Link to={`${lower}/${value.id}`} style={{ textDecoration: 'none' }}>
+              <Produto produto={value} addItem={addItemCart} />
+            </Link>
           </Grid>
         ))}
       </Grid>
     ))
   );
-}
+};
 
 export default Produtos;
 
