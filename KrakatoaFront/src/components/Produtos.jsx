@@ -1,21 +1,27 @@
 /* eslint-disable react/prop-types */
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch} from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import Produto from './Produto';
-import {addCart} from '../reducers/productsCart'
+import {addCart} from '../reducers/productsCart';
 
 const Produtos = () => {
-
+  const [produtos, setProdutos] = useState([]);
   const dispatch = useDispatch();
 
   const addItemCart = (product) => {
+    product['quantidade'] = 1;
     console.log(product);
     dispatch(addCart(product));
   }
-  const products = useSelector((state) => state.products)
+  
+  const products = useSelector((state) => state.products);
+  useEffect(() => {
+    setProdutos(products);   
+  }, [products]);
+
   return (
-    products && products.map((item) => (
+    products.map((item) => (
       <Grid container justify="flex-start" spacing="2">
         {item.map((value) => (
           <Grid key={value} item lg={3}>

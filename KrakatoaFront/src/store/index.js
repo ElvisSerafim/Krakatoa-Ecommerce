@@ -1,6 +1,7 @@
 import {createStore, combineReducers} from 'redux'
 import productsReducers from '../reducers/products'
 import productsCartsReducers from '../reducers/productsCart'
+import allProductsReducers from '../reducers/allProducts'
 
 const saveState = (state) => {
     try {
@@ -38,7 +39,8 @@ const loadState =() => {
 
 const rootReducer = combineReducers({
     products: productsReducers,
-    productsCart: productsCartsReducers
+    productsCart: productsCartsReducers, 
+    allProducts: allProductsReducers
 })
 const oldState = loadState();
 const store = createStore(rootReducer, oldState);

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* Vestidos,Batas,Shorts,Kangas */
 
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateProducts } from '../reducers/products';
 import { Container, Typography } from '@material-ui/core/';
@@ -12,6 +12,7 @@ import ComboBox from '../components/ComboBox';
 import Paginator from '../components/Paginator';
 import Footer from '../components/Footer';
 import api from '../Services/ApiService';
+
 
 const Produtos = ({ title, name }) => {
   const [product, setProduct] = useState([]);
@@ -35,6 +36,26 @@ const Produtos = ({ title, name }) => {
   const dispatch = useDispatch();
   dispatch(updateProducts(product));
 
+
+  const ordenar = async(value) => {
+
+    let chave = '';
+    if (value === '') return;
+    if (value === 'Mais vendidos') chave = 'maiorV';
+    if (value === 'Menor Preço') chave = 'menorP';
+    if (value === 'Maior Preço') chave = 'maiorP';
+
+    const data = {
+      tipo: name,
+      chave,
+    };
+    const request = await api.GetProdutos(data);
+    const b = [request];
+    setProduct(b);
+    dispatch(updateProducts(b));
+  }
+  
+
   return (
 
     <>
@@ -57,6 +78,8 @@ const Produtos = ({ title, name }) => {
           <ComboBox
             onChange={(event) => {
               setOrderBy(event.target.value);
+              console.log(event.target.value)
+              ordenar(event.target.value);
             }}
             style={{ width: 300 }}
             value={orderBy}
