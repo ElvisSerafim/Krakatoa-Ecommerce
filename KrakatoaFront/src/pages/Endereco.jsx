@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
-  Container, Grid, Typography, Box, Button,
+  Container, Typography, Box, Button,
 } from '@material-ui/core/';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
@@ -14,6 +14,7 @@ import delivery from '../img/delivery.svg';
 import payment from '../img/payment.svg';
 import Sedex from '../img/Sedex.svg';
 import Pac from '../img/Pac.svg';
+import api from '../Services/ApiService';
 
 const styles = {
   title: {
@@ -55,13 +56,63 @@ export default class Endereco extends PureComponent {
       deliverySelected: '',
       borderColorPac: 'black',
       borderColorSedex: 'black',
+      cep: ' ',
+      telefone: ' ',
+      bairro: ' ',
+      rua: ' ',
+      nome: ' ',
+      sobrenome: ' ',
+      cpf: ' ',
+      cidade: ' ',
+      numero: ' ',
+      complemento: ' ',
     };
+  }
+
+  enviar = async () => {
+    try {
+      const token = localStorage.getItem('token') !== null
+        ? localStorage.getItem('token')
+        : sessionStorage.getItem('token');
+      if (!token) throw new Error('Acesso não autorizado');
+      const {
+        cep,
+        telefone,
+        bairro,
+        rua,
+        nome,
+        sobrenome,
+        cpf,
+        cidade,
+        numero,
+        complemento,
+      } = this.state;
+      const nomeCompleto = [nome, sobrenome].join(' ');
+      const data = {
+        cep,
+        telefone,
+        bairro,
+        rua,
+        cpf,
+        cidade,
+        numero,
+        complemento,
+        nome: nomeCompleto,
+        token,
+      };
+      console.log(data);
+      const request = await api.UsuarioEndereco(data);
+      console.log(request);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   render() {
     const {
       children, style, classes, onClick,
     } = this.props;
+
     return (
       <>
         <Container maxWidth="lg">
@@ -112,25 +163,20 @@ export default class Endereco extends PureComponent {
                 }}
               >
                 <div style={{ width: '40%' }}>
-                  <TextField label="Nome" />
+                  <TextField
+                    label="Nome"
+                    onChange={(e) => {
+                      this.setState({ nome: e.target.value });
+                    }}
+                  />
                 </div>
                 <div style={{ width: '40%' }}>
-                  <TextField label="Sobrenome" />
-                </div>
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingTop: '20px',
-                }}
-              >
-                <div style={{ width: '40%' }}>
-                  <TextField label="CEP" numberOnly />
-                </div>
-                <div style={{ width: '40%' }}>
-                  <TextField label="Cidade" />
+                  <TextField
+                    label="Sobrenome"
+                    onChange={(e) => {
+                      this.setState({ sobrenome: e.target.value });
+                    }}
+                  />
                 </div>
               </div>
               <div
@@ -142,10 +188,22 @@ export default class Endereco extends PureComponent {
                 }}
               >
                 <div style={{ width: '40%' }}>
-                  <TextField label="Endereço" />
+                  <TextField
+                    label="Celular"
+                    onChange={(e) => {
+                      this.setState({ telefone: e.target.value });
+                    }}
+                    numberOnly
+                  />
                 </div>
                 <div style={{ width: '40%' }}>
-                  <TextField label="Celular" numberOnly />
+                  <TextField
+                    label="CPF"
+                    onChange={(e) => {
+                      this.setState({ cpf: e.target.value });
+                    }}
+                    numberOnly
+                  />
                 </div>
               </div>
               <div
@@ -157,7 +215,72 @@ export default class Endereco extends PureComponent {
                 }}
               >
                 <div style={{ width: '40%' }}>
-                  <TextField label="Email" email />
+                  <TextField
+                    label="CEP"
+                    onChange={(e) => {
+                      this.setState({ cep: e.target.value });
+                    }}
+                  />
+                </div>
+                <div style={{ width: '40%' }}>
+                  <TextField
+                    label="Bairro"
+                    onChange={(e) => {
+                      this.setState({ bairro: e.target.value });
+                    }}
+                  />
+                </div>
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  paddingTop: '20px',
+                }}
+              >
+                <div style={{ width: '40%' }}>
+                  <TextField
+                    label="Cidade"
+                    onChange={(e) => {
+                      this.setState({ cidade: e.target.value });
+                    }}
+                  />
+                </div>
+                <div style={{ width: '40%' }}>
+                  <TextField
+                    label="Rua"
+                    onChange={(e) => {
+                      this.setState({ rua: e.target.value });
+                    }}
+                  />
+                </div>
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  paddingTop: '20px',
+                }}
+              >
+                <div style={{ width: '40%' }}>
+                  <TextField
+                    label="Numero"
+                    onChange={(e) => {
+                      this.setState({ numero: e.target.value });
+                    }}
+                    numberOnly
+                  />
+                </div>
+                <div style={{ width: '40%' }}>
+                  <TextField
+                    label="Complemento"
+                    onChange={(e) => {
+                      this.setState({ complemento: e.target.value });
+                    }}
+                    email
+                  />
                 </div>
               </div>
             </div>
@@ -254,9 +377,14 @@ export default class Endereco extends PureComponent {
                   }}
                 >
                   <Button
-                    style={{ width: '30%' }}
                     variant="contained"
                     color="primary"
+                    style={{
+                      width: '30%',
+                      height: '50%',
+                      textDecoration: 'none',
+                    }}
+                    onClick={this.enviar}
                   >
                     Continuar
                   </Button>

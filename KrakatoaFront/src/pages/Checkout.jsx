@@ -35,8 +35,8 @@ const styles = {
     width: 40,
     borderRadius: 200,
     backgroundColor: 'red',
-    color: 'white'
-  }
+    color: 'white',
+  },
 };
 
 const theme = createMuiTheme({
@@ -51,7 +51,7 @@ export default class Checkout extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      paymentMethod:'none',
+      paymentMethod: 'none',
       borderColorPay: 'gray',
       borderColorVisa: 'gray',
       borderColorMaster: 'gray',
@@ -99,9 +99,9 @@ export default class Checkout extends PureComponent {
               </a>
               <hr style={styles.hrstyle} />
               <div style={styles.payment}>
-              <a href="/">
-                <img src={payment} alt="React Logo" />
-              </a>
+                <a href="/">
+                  <img src={payment} alt="React Logo" />
+                </a>
               </div>
             </div>
           </div>
@@ -122,7 +122,7 @@ export default class Checkout extends PureComponent {
                   <TextField label="Nome do Titular do cartão" />
                 </div>
                 <div style={{ width: '40%' }}>
-                  <TextField label="Número do cartão"numberOnly/>
+                  <TextField label="Número do cartão" numberOnly />
                 </div>
               </div>
               <div
@@ -140,8 +140,8 @@ export default class Checkout extends PureComponent {
                   <TextField label="Data de validade" date />
                 </div>
               </div>
-          
-              
+
+
             </div>
 
             <div
@@ -156,8 +156,7 @@ export default class Checkout extends PureComponent {
                   justifyContent: 'space-around',
                   marginLeft: '20px',
                 }}
-              >
-              </div>
+              />
               <MuiThemeProvider theme={theme}>
                 <div
                   style={{
@@ -165,13 +164,13 @@ export default class Checkout extends PureComponent {
                     display: 'flex',
                     flexDirection: 'column',
                     flex: '1',
-                    alignItems:'flex-end',
+                    alignItems: 'flex-end',
                     justifyContent: 'flex-end',
                     fontFamily: 'Poppins',
                   }}
                 >
                   <Button
-                    style={{ height:50,width: '30%' }}
+                    style={{ height: 50, width: '30%' }}
                     variant="contained"
                     color="primary"
                   >

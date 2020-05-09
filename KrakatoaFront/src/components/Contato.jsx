@@ -23,7 +23,7 @@ export default class MultilineTextFields extends Component {
     };
   }
 
-  async enviar() {
+  enviar = async () => {
     const {
       nome, mensagem, email, assunto,
     } = this.state;
