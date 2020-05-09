@@ -1,7 +1,7 @@
 import {createStore, combineReducers} from 'redux'
 import productsReducers from '../reducers/products'
 import productsCartsReducers from '../reducers/productsCart'
-
+import SearchReducer from '../reducers/search.js'
 const saveState = (state) => {
     try {
        //Convert the state to a JSON string 
@@ -38,7 +38,8 @@ const loadState =() => {
 
 const rootReducer = combineReducers({
     products: productsReducers,
-    productsCart: productsCartsReducers
+    productsCart: productsCartsReducers,
+    pesquisaBarra: SearchReducer
 })
 const oldState = loadState();
 const store = createStore(rootReducer, oldState);

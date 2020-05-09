@@ -16,9 +16,11 @@ import MinhaConta from './pages/MinhaConta';
 import Produtos from './pages/Produtos';
 import Endereco from './pages/Endereco';
 import Sumario from './pages/Sumario';
+import testeGabriel from './pages/testeGabriel';
 import Checkout from './pages/Checkout';
 import store from './store';
 import './index.css';
+import TesteGabriel from './pages/testeGabriel';
 
 
 ReactDOM.render(
@@ -67,6 +69,7 @@ ReactDOM.render(
           <Route path="/endereco" component={Endereco} />
           <Route path="/sumario" component={Sumario} />
           <Route path="/checkout" component={Checkout} />
+          <Route path="/testeGabriel" component={TesteGabriel} />
           {/* <Route component={NotFound} /> */}
         </Switch>
       </BrowserRouter>

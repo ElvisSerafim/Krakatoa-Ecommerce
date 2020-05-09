@@ -38,7 +38,7 @@ class Topo extends PureComponent {
             </Box>
           </Link>
           <div style={{ width: '400px' }}>
-            <SearchBar />
+            <SearchBar/>
           </div>
           {/* <BodyData/> */}
           <a href="/minhaconta">
