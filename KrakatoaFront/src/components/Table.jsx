@@ -55,24 +55,25 @@ export default function CustomizedTables({ produtos, actualTotal, removerItem })
     const [total, setTotal] = useState([]);
     const [products, setProducts] = useState([]);
     const dispatch = useDispatch();
-
+    const allProducts = useSelector((state) => state.productsCart)
+ 
     useEffect(() => {
-        setProducts(produtos);
+        setProducts(allProducts);
         const quantidades = [];
         const totais = [];
-        produtos.map((item, i) => {
+        allProducts.map((item, i) => {
             quantidades.push(item.quantidade);
             totais.push(item.preco * item.quantidade);
             setTotal(totais);
             setQuantity(quantidades);
         });
         actualTotal(totais);
-    }, []);
+    }, [allProducts]);
 
     const updateTotal = (index) => {
 
-        products[index].quantidade++;
-        dispatch(productsUpdate(products));
+        allProducts[index].quantidade++;
+        dispatch(productsUpdate(allProducts));
     }
 
     const updateRemoveTotal = (i) => {
@@ -96,7 +97,7 @@ export default function CustomizedTables({ produtos, actualTotal, removerItem })
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {produtos.map((row, i) => (
+                    {allProducts.map((row, i) => (
 
                         <StyledTableRow key={row.id}>
                             <StyledTableCell component="th" scope="row">
@@ -158,7 +159,7 @@ export default function CustomizedTables({ produtos, actualTotal, removerItem })
                             <StyledTableCell align="right">
                                 <Box style={{ cursor: 'pointer', padding: 20 }} >
                                     <HighlightOffIcon style={{ height: 30, width: 30 }} onClick={() => {
-                                        removerItem(products[i]);
+                                        removerItem(allProducts[i]);
                                         updateRemoveTotal(i);                                        
                                     }} />
                                 </Box>
