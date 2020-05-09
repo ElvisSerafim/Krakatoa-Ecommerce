@@ -38,7 +38,7 @@ export default class Login extends Component {
     this.setState({ sessao: event.target.checked });
   }
 
-  async login() {
+  login = async () => {
     const { email, password, sessao } = this.state;
     if (email === '') throw new Error('Email Vazio');
     if (password === '') throw new Error('Senha Vazia');
