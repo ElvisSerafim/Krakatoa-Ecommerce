@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { useSelector, useDispatch } from 'react-redux';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import imagem from '../img/vestido.jpg';
-import remover from '../img/remove.svg';
-import Quantity from '../components/Quantity'
+import { Box } from '@material-ui/core/';
+import Quantity from '../components/Quantity';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import { productsUpdate } from '../reducers/productsCart';
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -32,26 +33,9 @@ const StyledTableRow = withStyles((theme) => ({
     },
 }))(TableRow);
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
 
-const rows = [[{
-    id: "5eb0eb84027f1c2ae9efd09e",
-    nome: "gabriel kanga4",
-    preco: 69,
-    quantidade: 24,
-    tamanho: "gg",
-    tipo: "kangas"
-}],
-[{
-    id: "5eb0eb84027f1c2ae9efd09e",
-    nome: "gabriel kanga4",
-    preco: 69,
-    quantidade: 24,
-    tamanho: "gg",
-    tipo: "kangas"
-}]];
+
+
 
 const useStyles = makeStyles({
     table: {
@@ -65,23 +49,32 @@ const useStyles = makeStyles({
 });
 
 
-export default function CustomizedTables({ produtos, actualTotal}) {
+export default function CustomizedTables({ produtos, actualTotal, removerItem }) {
     const classes = useStyles();
     const [quantity, setQuantity] = useState([]);
     const [total, setTotal] = useState([]);
+    const [products, setProducts] = useState([]);
+    const dispatch = useDispatch();
 
     useEffect(() => {
+        setProducts(produtos);
         const quantidades = [];
         const totais = [];
         produtos.map((item, i) => {
-            quantidades.push(1);
-            setQuantity(quantidades);
-            totais.push(item.preco);
+            quantidades.push(item.quantidade);
+            totais.push(item.preco * item.quantidade);
             setTotal(totais);
+            setQuantity(quantidades);
         });
-        
         actualTotal(totais);
     }, []);
+
+    const updateTotal = (index) => {
+
+        products[index].quantidade++;
+        dispatch(productsUpdate(products));
+
+    }
 
 
     return (
@@ -128,9 +121,9 @@ export default function CustomizedTables({ produtos, actualTotal}) {
                                             totally[i] = row.preco * aux[i];
                                             setTotal(totally);
                                             actualTotal(totally);
-
+                                            updateTotal(i);
                                         }}
-                                        
+
                                         onClickMinus={() => {
                                             const aux = [...quantity];
                                             aux[i]--;
@@ -149,14 +142,20 @@ export default function CustomizedTables({ produtos, actualTotal}) {
 
                                 </div>
                             </StyledTableCell>
-                            <StyledTableCell align="center"><div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                <p>R$</p>
-                                <p>{total[i]}</p>
-                            </div></StyledTableCell>
-                            <StyledTableCell align="right">
-                                <div style={{ width: '40px', height: '40px' }}>
-                                    <img src={remover} style={{ width: '100%', height: '100%', cursor: 'pointer' }} alt="Imagem produto" />
+                            <StyledTableCell align="center">
+                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                    <p>R$</p>
+                                    <div style={{ width: 20 }}>
+                                        <p>{total[i]}</p>
+                                    </div>
                                 </div></StyledTableCell>
+                            <StyledTableCell align="right">
+                                <Box style={{ cursor: 'pointer', padding: 20 }} >
+                                    <HighlightOffIcon style={{ height: 30, width: 30 }} onClick={() => {
+                                        removerItem(products[i])
+                                    }} />
+                                </Box>
+                            </StyledTableCell>
                         </StyledTableRow>
                     ))}
                 </TableBody>

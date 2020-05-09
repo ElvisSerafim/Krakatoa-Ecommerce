@@ -1,7 +1,9 @@
 import {createStore, combineReducers} from 'redux'
 import productsReducers from '../reducers/products'
 import productsCartsReducers from '../reducers/productsCart'
+import allProductsReducers from '../reducers/allProducts'
 import SearchReducer from '../reducers/search.js'
+
 const saveState = (state) => {
     try {
        //Convert the state to a JSON string 
@@ -38,6 +40,8 @@ const loadState =() => {
 
 const rootReducer = combineReducers({
     products: productsReducers,
+    productsCart: productsCartsReducers, 
+    allProducts: allProductsReducers,
     productsCart: productsCartsReducers,
     pesquisaBarra: SearchReducer
 })

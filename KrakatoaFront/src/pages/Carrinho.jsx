@@ -1,4 +1,4 @@
-import React, { PureComponent, useState } from 'react';
+import React, { PureComponent, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Grid, Typography, Box, Button, makeStyles } from '@material-ui/core/';
 import TextField from '../components/TextField';
@@ -10,6 +10,7 @@ import payment from '../img/payment.svg';
 import circle from '../img/circle.svg';
 import Table from '../components/Table';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import {removerCart} from '../reducers/productsCart';
 
 const styles = {
   title: {
@@ -48,9 +49,9 @@ const styles = {
 
 const Carrinho = ({ children, style, onClick }) => {
   const [totalFinal, setFinalTotal] = useState(0);
-  
   const products = useSelector((state) => state.productsCart)
-  console.log(products)
+  console.log(products);
+  const dispatch = useDispatch();
 
   const atualizarTotal = (total) => {
     var auxTotal = 0;
@@ -59,6 +60,13 @@ const Carrinho = ({ children, style, onClick }) => {
       });
       setFinalTotal(auxTotal);
   }
+ 
+  const removerProduct = (produto) => {
+    console.log(`Item: ${produto}`)
+    dispatch(removerCart(produto));
+  }
+
+
   return (
     <>
       <Container maxWidth="lg">
@@ -81,14 +89,14 @@ const Carrinho = ({ children, style, onClick }) => {
               alignItems: 'center',
             }}
           >
-            <a href="/">
+            <a href="/carrinho">
               <div style={styles.searchIcon}>
                 <ShoppingCartIcon />
               </div>
             </a>
 
             <hr style={styles.hrstyle} />
-            <a href="/">
+            <a href="/endereco">
               <img src={delivery} alt="React Logo" />
             </a>
             <hr style={styles.hrstyle} />
@@ -98,7 +106,7 @@ const Carrinho = ({ children, style, onClick }) => {
           </div>
         </div>
         <div style={{ marginTop: '30px' }}>
-          <Table produtos={products} actualTotal={atualizarTotal} />
+          <Table produtos={products} actualTotal={atualizarTotal} removerItem={removerProduct} />
         </div>
         <div style={{ display: 'flex', flex: '1', flexDirection: 'row' }}>
           <div style={{ display: 'flex', flexDirection: 'row', width: '50%', justifyContent: 'flex-start' }}>
