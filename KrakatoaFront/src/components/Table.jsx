@@ -69,6 +69,7 @@ export default function CustomizedTables({ produtos, actualTotal, removerItem })
         });
         actualTotal(totais);
     }, [allProducts]);
+    
 
     const updateTotal = (index) => {
 
