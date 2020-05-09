@@ -82,7 +82,6 @@ export default class Produto extends Component {
         }}
       >
         <Box
-          onClick={() => {}}
           fontFamily="Poppins"
           style={{ cursor: 'pointer' }}
           display="flex"
