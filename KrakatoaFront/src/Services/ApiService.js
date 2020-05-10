@@ -152,6 +152,51 @@ const ApiService = {
       return 'Não foi possivel acessar o servidor';
     }
   },
+  CalcPrazo: async (data) => {
+    try {
+      const requestInfo = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      };
+      const request = await fetch(
+        'http://localhost:4000/api/calcPrazo',
+        requestInfo,
+      );
+      if (request.ok) {
+        return request.json()  ;
+      }
+      throw new Error('Não foi possivel acessar o servidor');
+    } catch (error) {
+      return 'Não foi possivel acessar o servidor';
+    }
+
+  },
+  CalcPrazoPreco: async (data) => {
+    try {
+      const requestInfo = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      };
+      const url = 'http://localhost:4000/api/calcPrazoPreco';
+      const request = await fetch(
+        url,
+        requestInfo,
+      );
+      if (request.ok) {
+        return request.json();
+      }
+      throw new Error('Não foi possivel acessar o servidor');
+    } catch (error) {
+      return 'Não foi possivel acessar o servidor';
+    }
+
+  }
 };
 
 export default ApiService;

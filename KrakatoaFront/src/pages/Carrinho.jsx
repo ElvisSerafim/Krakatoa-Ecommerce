@@ -12,7 +12,10 @@ import delivery from '../img/noDelivery.svg';
 import payment from '../img/payment.svg';
 import circle from '../img/circle.svg';
 import Table from '../components/Table';
-import { removerCart } from '../reducers/productsCart';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { removerCart, removeProducts} from '../reducers/productsCart';
+import api from '../Services/ApiService';
+
 
 const styles = {
   title: {
@@ -51,23 +54,51 @@ const styles = {
 
 const Carrinho = ({ children, style, onClick }) => {
   const [totalFinal, setFinalTotal] = useState(0);
+  const [totalFrete, setTotalFrete] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [cep, setCep] = useState('');
+  
   const products = useSelector((state) => state.productsCart);
   console.log(products);
   const dispatch = useDispatch();
 
   const atualizarTotal = (total) => {
-    let auxTotal = 0;
+    var auxTotal = 0;
     total.map((item) => {
-      auxTotal += item;
+      auxTotal = auxTotal + item;
     });
     setFinalTotal(auxTotal);
-  };
+  }
 
   const removerProduct = (produto) => {
     console.log(`Item: ${produto}`);
     dispatch(removerCart(produto));
   };
 
+  useEffect(() => {
+      var totally = 0;
+      totally = totalFinal + totalFrete;
+      setTotal(totally.toFixed(2));
+  }, [totalFinal, totalFrete]);
+
+
+  const calcularPrazo = async () => {
+
+    const data = {
+      cepOrigem: '41610200',
+      cepDestino: cep,
+      valorDeclarado: 500,
+      codigoServico: 41106
+    };
+    const request = await api.CalcPrazoPreco(data);
+    const val = parseFloat(request[0].valor.toString().replace(",", "."));
+    setTotalFrete(val);
+  }
+
+  const removeAllProducts = () =>{
+    dispatch(removeProducts());
+
+  }
 
   return (
     <>
@@ -134,43 +165,32 @@ const Carrinho = ({ children, style, onClick }) => {
             </div>
           </div>
 
-          <div style={{
-            display: 'flex', flexDirection: 'row', width: '50%', justifyContent: 'space-between', alignItems: 'flex-end',
-          }}
-          >
-            <Button variant="contained" color="primary" style={{ borderRadius: 7, height: 50 }}>
+          <div style={{ display: 'flex', flexDirection: 'row', width: '50%', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+            <Button variant="contained" color="primary" style={{ borderRadius: 7, height: 50 }} href="/" >
               Continuar Comprando
-            </Button>
-            <Button variant="contained" color="primary" style={{ borderRadius: 7, height: 50, width: 120 }}>
+        </Button>
+            <Button variant="contained" color="primary" onClick={removeAllProducts} style={{ borderRadius: 7, height: 50, width: 120 }}>
               Limpar
             </Button>
           </div>
           <div />
         </div>
-        <div style={{
-          display: 'flex', flex: '1', flexDirection: 'row', paddingTop: '40px', justifyContent: 'space-between',
-        }}
-        >
-          <div style={{
-            display: 'flex', flexDirection: 'column', width: '35%', color: 'white', backgroundColor: 'black', borderRadius: 10, height: 120, fontFamily: 'Poppins', fontSize: 20, padding: '20px',
-          }}
-          >
-            <Typography style={{ margin: 0, fontWeight: '600' }}>Frete: </Typography>
+
+         <div style={{ display: 'flex', flex: '1', flexDirection: 'row', paddingTop: '40px', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', width: '35%', color: 'white', backgroundColor: 'black', borderRadius: 10, height: 120, fontFamily: 'Poppins', fontSize: 20, padding: '20px' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Typography style={{ margin: 0, fontWeight: '600' }}>Frete: </Typography>
+              <Typography style={{ margin: 0, fontWeight: '600' }}>R$ {totalFrete}</Typography>
+            </div>
+
             <div style={{ display: 'flex', flexDirection: 'row' }}>
               <div>
-                <TextField
-                  placeholder="Insira seu CEP"
-                  style={{
-                    color: 'red', backgroundColor: 'white', borderRadius: 7, height: 50,
-                  }}
-                  numberOnly
-                />
+                <TextField placeholder="Insira seu CEP" onChange={(event) => {
+                  setCep(event.target.value);
+                }} style={{ color: 'red', backgroundColor: 'white', borderRadius: 7, height: 50 }} numberOnly />
               </div>
-              <div style={{
-                marginLeft: 20, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', width: 120,
-              }}
-              >
-                <Button variant="contained" color="primary" fullWidth style={{ borderRadius: 7, height: 50 }}>
+              <div style={{ marginLeft: 20, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', width: 120 }}>
+                <Button variant="contained" color="primary" onClick={calcularPrazo} fullWidth style={{ borderRadius: 7, height: 50 }}>
                   Calcular
                 </Button>
               </div>
@@ -191,19 +211,17 @@ const Carrinho = ({ children, style, onClick }) => {
 
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
               <p>SubTotal:</p>
-              <p>
-                R$
-                {totalFinal}
-              </p>
-
+              <p>R$ {totalFinal}</p>
             </div>
 
-            <div>
-              <p>Entrega: </p>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Typography style={{ margin: 0}}>Entrega: </Typography>
+              <Typography style={{ margin: 0}}>R$ {totalFrete}</Typography>
             </div>
 
-            <div style={{ paddingTop: '20px' }}>
-              <p>Total: </p>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingTop: '30px'}}>
+              <Typography style={{ margin: 0}}>Total: </Typography>
+              <Typography style={{ margin: 0, fontWeight: '600' }}>R$ {total}</Typography>
             </div>
           </div>
         </div>

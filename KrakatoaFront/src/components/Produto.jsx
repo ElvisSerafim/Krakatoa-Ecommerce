@@ -3,7 +3,7 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import { Typography, Box } from '@material-ui/core/';
-
+import { Link } from 'react-router-dom';
 import './Produto.css';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
@@ -35,18 +35,20 @@ _id: "5eb0eb84027f1c2ae9efd09e"
 export default class Produto extends Component {
   constructor(props) {
     super(props);
-    const { produto } = this.props;
+    const { produto, title } = this.props;
 
     const { id, nome, preco, colecao } = produto;
     const Imageurl = `http://localhost:4000/static/imgs/${id}.jpeg`;
     const Produtourl = `http://localhost:4000/${id}`;
     this.state = {
       preco,
+      id,
       promoPrice: '',
       nome,
       colecao,
       Imageurl,
       Produtourl,
+      type: title, 
     };
   }
 
@@ -65,7 +67,9 @@ export default class Produto extends Component {
       preco,
       promoPrice,
       Imageurl,
+      id,
       Produtourl,
+      type,
     } = this.state;
     const product = {
       nome,
@@ -91,9 +95,11 @@ export default class Produto extends Component {
           bgcolor="#9e9e9e"
         >
           <div style={styles.media}>
+          <Link to={`${type}/${id}`} style={{ textDecoration: 'none' }}>
             <div className="container">
               <img src={Imageurl} className="image" alt="Imagem produto" />
             </div>
+          </Link>
           </div>
           <p
             style={{

@@ -21,6 +21,21 @@ import Checkout from './pages/Checkout';
 import store from './store';
 import './index.css';
 import TesteGabriel from './pages/testeGabriel';
+import { sendAllProducts } from './reducers/allProducts';
+import { useDispatch } from 'react-redux';
+import api from './Services/ApiService';
+
+
+
+var request;
+const getProducts = async () => {
+  request = await api.ListaProdutos();
+  console.log(request);
+};
+
+getProducts();
+
+
 
 
 ReactDOM.render(
@@ -57,10 +72,22 @@ ReactDOM.render(
               <Produtos {...props} name="shorts" title="Shorts" />
             )}
           />
-          <Route path="/kangas/:id" component={Produto} />
-          <Route path="/batas/:id" component={Produto} />
-          <Route path="/shorts/:id" component={Produto} />
-          <Route path="/vestidos/:id" component={Produto} />
+          <Route
+            path="/kangas/:id"
+            render={(props) => <Produto {...props} produtos={request} />}
+          />
+          <Route
+            path="/batas/:id"
+            render={(props) => <Produto {...props} produtos={request} />}
+          />
+          <Route
+            path="/shorts/:id"
+            render={(props) => <Produto {...props} produtos={request} />}
+          />
+          <Route
+            path="/vestidos/:id"
+            render={(props) => <Produto {...props} produtos={request} />}
+          />
           <Route path="/carrinho" component={Carrinho} />
           <Route path="/id" component={Produto} />
           <Route path="/conta" component={MinhaConta} />

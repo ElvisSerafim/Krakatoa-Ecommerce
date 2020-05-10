@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* Produto em Si */
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Container, Grid, Typography } from '@material-ui/core/';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -63,11 +63,17 @@ const styles = {
 };
 
 
-const ProdutoPage = ({ match }) => (
+const ProdutoPage = ({ match, produtos }) => {
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    console.log(produtos);
+    setProducts(produtos);
+  }, [produtos]);
 
   /* let produtos = useSelector((state)=>{}) */
 
-  <>
+  return (
+    <>
       <Container maxWidth="lg">
         <Topo />
         <Navbar />
@@ -103,6 +109,7 @@ const ProdutoPage = ({ match }) => (
                 <Typography
                   variant="h6"
                   color="secondary"
+
                   style={{
                     paddingLeft: '50px',
                     paddingTop: '64px',
