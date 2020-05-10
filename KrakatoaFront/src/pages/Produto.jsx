@@ -3,12 +3,10 @@
 
 import React from 'react';
 import { Container, Grid, Typography } from '@material-ui/core/';
-import { MuiThemeProvider } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
-import theme from '../themes';
 import ProdutoEmSi from '../components/ProdutoEmSi';
 
 

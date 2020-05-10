@@ -178,10 +178,10 @@ module.exports = {
         : user.cpf;
 
       const save = await user.save();
-      if (save) return res.send(user).status(200);
+      if (save) return res.status(200).send(user);
       throw new Error('Não foi possivel Salvar');
     } catch (error) {
-      res.send(error).status(404);
+      return res.status(404).send(error);
     }
   },
 };
