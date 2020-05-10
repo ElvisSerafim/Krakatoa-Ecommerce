@@ -23,10 +23,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && rsync build ../Krakatoa/src/ -a && rm build -r",
+    "build": "react-scripts build && rsync build ../Prod/ -a && rm build -r",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "mv": "react-scripts eject"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
