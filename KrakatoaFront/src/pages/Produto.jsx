@@ -3,12 +3,10 @@
 
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography } from '@material-ui/core/';
-
-import { useSelector, useDispatch } from 'react-redux';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import ProdutoEmSi from '../components/ProdutoEmSi';
-import Footer from '../components/Footer'
+import Footer from '../components/Footer';
 
 const styles = {
   foto: {
@@ -38,45 +36,47 @@ const styles = {
     borderRadius: '10px 0px 20px 0px',
     height: 33,
     width: '150px',
+    padding: '3px',
+    textAlign: 'center',
   },
   promoText: {
     color: 'white',
-    paddingLeft: 25,
-    paddingTop: 4,
   },
   flexRow: {
     display: 'flex',
     flex: 1,
     flexDirection: 'row',
     paddingBottom: '50',
+    justifyContent: 'space-between',
   },
-  product: { marginLeft: 310, marginTop: 30, color: '#F0F0F0' },
+  product: { color: 'white', fontSize: '0.7em', padding: 10 },
   num: { paddingLeft: 350, color: '#F0F0F0' },
   lore: {
-    paddingTop: 30, paddingLeft: 90, color: 'white', fontSize: '2.25em', fontWeight: 'bold'
+    paddingTop: 30, paddingLeft: 90, color: 'white', fontSize: '2.25em', fontWeight: 'bold',
   },
   price: {
     paddingLeft: 90,
     paddingTop: 30,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
 };
 
-
 const ProdutoPage = ({ match, produtos }) => {
+  const [product, setProduct] = useState([]);
   const [products, setProducts] = useState([]);
-  const [product, setProduct] = useState('');
-  useEffect(() => {
-    console.log(produtos);
-    /* setProducts(produtos);
-    produtos.map((item) => {
-      if(item.id === match.params.id){
-        console.log('Encontrado')
-      }
-    }) */
-  }, [produtos]);
 
-  /* let produtos = useSelector((state)=>{}) */
+  /* useEffect(() => {
+    const getProduto = () => {
+      setProducts(produtos);
+      products.map((item) => {
+        if (item.id === match.params.id) {
+          setProduct(item);
+        }
+        return [];
+      });
+    };
+    getProduto();
+  }, [produtos, products, match]); */
 
   return (
     <>
@@ -95,7 +95,7 @@ const ProdutoPage = ({ match, produtos }) => {
                   width: 200,
                   height: 35,
                   marginTop: 400,
-                }}>
+                }}
               >
                 <Typography
                   variant="body2"
@@ -103,7 +103,7 @@ const ProdutoPage = ({ match, produtos }) => {
                   style={{ marginLeft: '50px', paddingTop: '10px' }}
                 >
                   Descrição
-              </Typography>
+                </Typography>
               </div>
               <div
                 style={{
@@ -137,7 +137,7 @@ const ProdutoPage = ({ match, produtos }) => {
                     quis vel eros donec ac odio. Sit amet mattis vulputate
                     enim nulla aliquet. In dictum non consectetur a erat
                     nam.
-                </Typography>
+                  </Typography>
                 </div>
               </div>
             </div>
@@ -152,27 +152,32 @@ const ProdutoPage = ({ match, produtos }) => {
                 <div style={styles.promo}>
                   <Typography style={styles.promoText} variant="body1">
                     Promoção
-                </Typography>
+                  </Typography>
                 </div>
                 <div>
-                  <Typography style={styles.product}>
-                    Product ID:
-                  {' '}
+                  <Typography
+                    style={styles.product}
+                    variant="body1"
+                  >
+                    ID do Produto:
+                    {' '}
                     {match.params.id}
                   </Typography>
-                  <Typography style={styles.num}>261311</Typography>
                 </div>
               </div>
-              <Typography style={styles.lore}>LOREM IPSUM</Typography>
-              <Typography
-                style={styles.price}
-                variant="h5"
-                color="primary"
-                id="price"
-              >
-                R$ 89,90
-            </Typography>
-              <ProdutoEmSi />
+              <div style={{ padding: '2em 4em' }}>
+                <Typography style={{ color: 'white' }} variant="h4">{product.nome}</Typography>
+                <Typography
+                  style={styles.price}
+                  variant="h5"
+                  color="primary"
+                  id="price"
+                >
+                  {product.preco}
+                </Typography>
+                <ProdutoEmSi />
+
+              </div>
             </div>
           </Grid>
         </Grid>
@@ -180,6 +185,15 @@ const ProdutoPage = ({ match, produtos }) => {
       <Footer />
     </>
   );
-}
+};
 
 export default ProdutoPage;
+
+/* id: "5eb0eb73027f1c2ae9efd09c"
+nome: "gabriel kanga2"
+preco: 69
+quantidade: 24
+tamanho: "gg"
+tipo: "kangas"
+__v: 0
+_id: "5eb0eb73027f1c2ae9efd09c" */

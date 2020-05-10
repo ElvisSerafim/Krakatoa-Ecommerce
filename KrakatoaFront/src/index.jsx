@@ -26,13 +26,12 @@ import api from './Services/ApiService';
 
 
 const getProducts = async () => {
-  const request = await api.ListaProdutos()
-    .then((response) => console.log(`funcao ${response}`));
+  const request = await api.ListaProdutos();
   return request;
 };
 
 const request = getProducts();
-console.log(`teste ${request}`);
+console.log(request);
 
 
 ReactDOM.render(
@@ -86,15 +85,13 @@ ReactDOM.render(
             render={(props) => <Produto {...props} produtos={request} />}
           />
           <Route path="/carrinho" component={Carrinho} />
-          <Route path="/id" component={Produto} />
           <Route path="/conta" component={MinhaConta} />
-          {/* <Route path="/minhaconta/cadastro" component={Cadastro} /> */}
           <Route path="/minhaconta" component={Conta} />
           <Route path="/endereco" component={Endereco} />
           <Route path="/sumario" component={Sumario} />
           <Route path="/checkout" component={Checkout} />
           <Route path="/testeGabriel" component={TesteGabriel} />
-          <Route path="/detalhes" component={Detalhes}/>
+          <Route path="/detalhes" component={Detalhes} />
           {/* <Route component={NotFound} /> */}
         </Switch>
       </BrowserRouter>
