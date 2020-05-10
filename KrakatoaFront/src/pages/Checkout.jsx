@@ -51,22 +51,10 @@ export default class Checkout extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      paymentMethod: 'none',
-      borderColorPay: 'gray',
-      borderColorVisa: 'gray',
-      borderColorMaster: 'gray',
-      borderColorMaestro: 'gray',
-      borderColorDisc: 'gray',
-      borderColorId: 'gray',
-      borderColorUnselec: 'gray',
-
     };
   }
 
   render() {
-    const {
-      children, style, classes, onClick,
-    } = this.props;
     return (
       <>
         <Container maxWidth="lg">
@@ -89,18 +77,18 @@ export default class Checkout extends PureComponent {
                 alignItems: 'center',
               }}
             >
-              <a href="/">
-                <img src={cartBlank} alt="React Logo" />
+              <a href="/carinho">
+                <img src={cartBlank} alt="Carinho" />
               </a>
 
               <hr style={styles.hrstyle} />
-              <a href="/">
-                <img src={nodeli} alt="React Logo" />
+              <a href="/entrega">
+                <img src={nodeli} alt="Entrega" />
               </a>
               <hr style={styles.hrstyle} />
               <div style={styles.payment}>
                 <a href="/">
-                  <img src={payment} alt="React Logo" />
+                  <img src={payment} alt="Pagamento" />
                 </a>
               </div>
             </div>

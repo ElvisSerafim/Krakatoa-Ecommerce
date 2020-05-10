@@ -135,18 +135,16 @@ export default class Endereco extends PureComponent {
                 alignItems: 'center',
               }}
             >
-              <a href="/">
-                <img src={cartBlank} alt="React Logo" />
+              <a href="/carrinho">
+                <img src={cartBlank} alt="Carinho" />
               </a>
 
               <hr style={styles.hrstyle} />
               <a href="/">
-                <img src={delivery} alt="React Logo" />
+                <img src={delivery} alt="Endereço" />
               </a>
               <hr style={styles.hrstyle} />
-              <a href="/">
                 <img src={payment} alt="React Logo" />
-              </a>
             </div>
           </div>
           <div
@@ -385,6 +383,7 @@ export default class Endereco extends PureComponent {
                       textDecoration: 'none',
                     }}
                     onClick={this.enviar}
+                    href="/checkout"
                   >
                     Continuar
                   </Button>

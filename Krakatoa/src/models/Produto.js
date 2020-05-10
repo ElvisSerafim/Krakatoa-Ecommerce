@@ -29,6 +29,10 @@ const produtoSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  descricao: {
+    type: String,
+    require: true,
+  },
   promocao: {
     type: Boolean,
   },
