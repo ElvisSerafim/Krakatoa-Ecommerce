@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* Produto em Si */
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Container, Grid, Typography } from '@material-ui/core/';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
@@ -65,11 +65,17 @@ const styles = {
 };
 
 
-const ProdutoPage = ({ match }) => (
+const ProdutoPage = ({ match, produtos }) => {
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    console.log(produtos);
+    setProducts(produtos);
+  }, [produtos]);
 
-/* let produtos = useSelector((state)=>{}) */
+  /* let produtos = useSelector((state)=>{}) */
 
-  <>
+  return (
+    <>
       <Container maxWidth="lg">
         <Topo />
         <Navbar />
@@ -90,7 +96,8 @@ const ProdutoPage = ({ match }) => (
                 <Typography
                   variant="body2"
                   color="secondary"
-                  style={{ marginLeft: '50px', paddingTop: '10px' }}
+                  style
+                  ={{ marginLeft: '50px', paddingTop: '10px' }}
                 >
                   Descrição
                 </Typography>
@@ -166,7 +173,8 @@ const ProdutoPage = ({ match }) => (
           </Grid>
         </Grid>
       </Container>
-  </>
-);
+    </>
+  )
+};
 
 export default ProdutoPage;

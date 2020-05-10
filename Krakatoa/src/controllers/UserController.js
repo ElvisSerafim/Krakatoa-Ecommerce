@@ -29,7 +29,7 @@ module.exports = {
     try {
       const { user } = req;
       const {
-        newPassword, nome, telefone, cpf, email,
+        newPassword, nome, telefone
       } = req.body;
 
       if (newPassword !== undefined) {
@@ -45,13 +45,10 @@ module.exports = {
       user.nome = nome !== undefined && user.nome !== nome
         ? (user.nome = nome)
         : user.nome;
-      user.email = email !== undefined && user.email !== email
-        ? (user.email = email)
-        : user.email;
+
       user.telefone = telefone !== undefined && user.telefone !== telefone
         ? (user.telefone = telefone)
         : user.telefone;
-      user.cpf = cpf !== undefined && user.cpf !== cpf ? (user.cpf = cpf) : user.cpf;
 
       const save = await user.save();
       if (save) return res.json(user).status(200);

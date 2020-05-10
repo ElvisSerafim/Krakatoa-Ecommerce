@@ -30,19 +30,7 @@ const styles = {
 
 
 const Home = ({ })=> {
-  const [allProducts, setAllProducts] = useState([]);
-  useEffect(() => {
-    const getProducts = async () => {
-     
-      const request = await api.ListaProdutos();
-      setAllProducts(request);
-    };
-
-    getProducts();
-  }, []);
-
-  const dispatch = useDispatch();
-  dispatch(sendAllProducts(allProducts));
+ 
 
   return (
     <>

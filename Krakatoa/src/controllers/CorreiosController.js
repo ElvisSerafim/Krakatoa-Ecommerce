@@ -12,4 +12,28 @@ module.exports = {
         }
       });
   },
-};
+  async calcularPrazoPreco(req, res) {
+
+    //    sedex: 40010, pac: 41106
+
+    const { cepOrigem, cepDestino, valorDeclarado, codigoServico } = req.body;
+    Correios.cepOrigem(cepOrigem).servico(codigoServico);
+    Correios({
+      cepDestino: cepDestino,
+      peso: 1,
+      formato: 1,
+      comprimento: 16,
+      altura: 2,
+      largura: 11,
+      diametro: 1,
+      maoPropria: 'N',
+      valorDeclarado: valorDeclarado,
+      avisoRecebimento: 'S'
+    }).preco((err, result) => {
+      if (!err) {
+        return res.send(result);
+      }
+      res.status(404);
+    })
+  }
+}
