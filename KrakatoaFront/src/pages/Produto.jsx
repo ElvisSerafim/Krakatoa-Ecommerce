@@ -95,7 +95,7 @@ const ProdutoPage = ({ match, produtos }) => {
                   width: 200,
                   height: 35,
                   marginTop: 400,
-                }}
+                }}>
               >
                 <Typography
                   variant="body2"
@@ -175,6 +175,7 @@ const ProdutoPage = ({ match, produtos }) => {
               <ProdutoEmSi />
             </div>
           </Grid>
+        </Grid>
         </Grid>
       </Container>
       <Footer />

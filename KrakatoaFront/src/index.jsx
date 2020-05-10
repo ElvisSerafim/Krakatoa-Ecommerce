@@ -16,11 +16,11 @@ import MinhaConta from './pages/MinhaConta';
 import Produtos from './pages/Produtos';
 import Endereco from './pages/Endereco';
 import Sumario from './pages/Sumario';
-import testeGabriel from './pages/testeGabriel';
 import Checkout from './pages/Checkout';
 import store from './store';
 import './index.css';
 import TesteGabriel from './pages/testeGabriel';
+import Detalhes from './pages/Detalhes';
 import { sendAllProducts } from './reducers/allProducts';
 import { useDispatch } from 'react-redux';
 import api from './Services/ApiService';
@@ -34,8 +34,6 @@ const getProducts = async () => {
 };
 
 getProducts();
-
-
 
 
 ReactDOM.render(
@@ -97,6 +95,7 @@ ReactDOM.render(
           <Route path="/sumario" component={Sumario} />
           <Route path="/checkout" component={Checkout} />
           <Route path="/testeGabriel" component={TesteGabriel} />
+          <Route path="/detalhes" component={Detalhes}/>
           {/* <Route component={NotFound} /> */}
         </Switch>
       </BrowserRouter>
