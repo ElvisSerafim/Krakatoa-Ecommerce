@@ -6,7 +6,8 @@
   "author": "Equipe",
   "license": "MIT",
   "scripts": {
-    "start": "env-cmd -f ./.env nodemon server.js"
+    "start": "env-cmd -f ./.env nodemon server.js",
+    "test": "env-cmd -f ./.env node ./src/server.js --trace-warnings"
   },
   "dependencies": {
     "bcrypt": "^4.0.1",

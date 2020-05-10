@@ -37,21 +37,32 @@ module.exports = {
           newPassword,
           user.password,
         );
-        user.password = !isPasswordMatch
+        user.password = isPasswordMatch
           ? (user.password = newPassword)
           : user.password;
       }
 
-      user.nome = nome !== undefined && user.nome !== nome
+      user.nome = typeof (nome) === 'string'
+        && nome.length > 0
+        && user.nome !== nome
         ? (user.nome = nome)
         : user.nome;
-      user.email = email !== undefined && user.email !== email
+
+      user.email = typeof (email) === 'string'
+      && email.length > 0
         ? (user.email = email)
         : user.email;
-      user.telefone = telefone !== undefined && user.telefone !== telefone
+
+      user.telefone = typeof (telefone) === 'string'
+        && telefone.length === 11
+        && user.telefone !== telefone
         ? (user.telefone = telefone)
         : user.telefone;
-      user.cpf = cpf !== undefined && user.cpf !== cpf ? (user.cpf = cpf) : user.cpf;
+
+      user.cpf = typeof (cpf) === 'number'
+        && user.cpf !== cpf
+        ? (user.cpf = cpf)
+        : user.cpf;
 
       const save = await user.save();
       if (save) return res.json(user).status(200);
@@ -71,15 +82,19 @@ module.exports = {
   async Login(req, res) {
     try {
       const { email, password } = req.body;
+
+      if (!(typeof (email) === 'string' && email.length > 0)) return new Error('Email Invalido');
+      if (!(typeof (password) === 'string' && password.length > 0)) return new Error('Email Invalido');
+
       const user = await User.findByCredentials(email, password);
-      if (!user) {
-        return res
-          .status(401)
-          .send({ error: 'Login Falhou! Checar Email e Senha' });
+
+      if (user) {
+        const token = await user.generateAuthToken();
+        const obj = { user, token };
+        res.send(obj);
       }
-      const token = await user.generateAuthToken();
-      const obj = { user, token };
-      res.send(obj);
+
+      throw new Error('Login Falhou! Checar Email e Senha');
     } catch (error) {
       res.status(400).send(error);
     }
@@ -111,53 +126,60 @@ module.exports = {
         cep, estado, cidade, bairro, rua, numero, nome, telefone, cpf,
       } = req.body;
 
-      user.endereco.cep = cep !== ''
+      user.endereco.cep = typeof (cep) === 'number'
        && user.endereco.cep !== cep
         ? cep
         : user.endereco.cep;
 
-      user.endereco.estado = estado !== ''
+      user.endereco.estado = typeof (estado) === 'string'
+       && estado.trim().length > 0
        && user.endereco.estado !== estado
         ? estado
         : user.endereco.estado;
 
-      user.endereco.cidade = cidade !== ''
+      user.endereco.cidade = typeof (cidade) === 'string'
+       && cidade.trim().length > 0
        && user.endereco.cidade !== cidade
         ? cidade
         : user.endereco.cidade;
 
-      user.endereco.bairro = bairro !== ''
+      user.endereco.bairro = typeof (bairro) === 'string'
+       && bairro.trim().length > 0
        && user.endereco.bairro !== bairro
         ? bairro
         : user.endereco.bairro;
 
-      user.endereco.rua = rua !== ''
+      user.endereco.rua = typeof (rua) === 'string'
+       && rua.trim().length > 0
        && user.endereco.rua !== rua
         ? rua
         : user.endereco.rua;
 
-      user.endereco.numero = numero !== ''
+      user.endereco.numero = typeof (numero) === 'number'
        && user.endereco.numero !== numero
         ? numero
         : user.endereco.numero;
 
-      user.nome = nome !== ''
+      user.nome = typeof (nome) === 'string'
+       && nome.trim().length > 0
        && user.nome !== nome
         ? nome
         : user.nome;
 
-      user.telefone = telefone !== ''
+      user.telefone = typeof (telefone) === 'string'
+       && telefone.trim().length === 11
        && user.telefone !== telefone
         ? telefone
         : user.telefone;
 
-      user.cpf = cpf !== ''
+      user.cpf = typeof (cpf) === 'number'
        && user.cpf !== cpf
         ? cpf
         : user.cpf;
 
       const save = await user.save();
       if (save) return res.send(user).status(200);
+      throw new Error('Não foi possivel Salvar');
     } catch (error) {
       res.send(error).status(404);
     }
