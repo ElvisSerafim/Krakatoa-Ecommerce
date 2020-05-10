@@ -1,0 +1,11 @@
+{
+  "name": "producaokrakatoa",
+  "version": "1.0.0",
+  "description": "Build run",
+  "main": "server.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "path": "^0.12.7"
+  }
+}

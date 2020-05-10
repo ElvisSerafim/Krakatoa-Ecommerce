@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import theme from './themes';
@@ -22,18 +22,16 @@ import './index.css';
 import TesteGabriel from './pages/testeGabriel';
 import Detalhes from './pages/Detalhes';
 import { sendAllProducts } from './reducers/allProducts';
-import { useDispatch } from 'react-redux';
 import api from './Services/ApiService';
 
 
-
-var request;
 const getProducts = async () => {
-  request = await api.ListaProdutos();
-  console.log(request);
+  const request = await api.ListaProdutos();
+  return request;
 };
 
-getProducts();
+const request = getProducts();
+console.log(request);
 
 
 ReactDOM.render(
@@ -87,15 +85,13 @@ ReactDOM.render(
             render={(props) => <Produto {...props} produtos={request} />}
           />
           <Route path="/carrinho" component={Carrinho} />
-          <Route path="/id" component={Produto} />
           <Route path="/conta" component={MinhaConta} />
-          {/* <Route path="/minhaconta/cadastro" component={Cadastro} /> */}
           <Route path="/minhaconta" component={Conta} />
           <Route path="/endereco" component={Endereco} />
           <Route path="/sumario" component={Sumario} />
           <Route path="/checkout" component={Checkout} />
           <Route path="/testeGabriel" component={TesteGabriel} />
-          <Route path="/detalhes" component={Detalhes}/>
+          <Route path="/detalhes" component={Detalhes} />
           {/* <Route component={NotFound} /> */}
         </Switch>
       </BrowserRouter>

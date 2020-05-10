@@ -29,17 +29,20 @@ module.exports = {
     try {
       const { user } = req;
       const {
-        newPassword, nome, telefone
+        newPassword, nome, telefone, password,
       } = req.body;
 
       if (newPassword !== undefined) {
-        const isPasswordMatch = await bcrypt.compare(
-          newPassword,
-          user.password,
-        );
-        user.password = isPasswordMatch
-          ? (user.password = newPassword)
-          : user.password;
+        const passwordMatchUser = await bcrypt.compare(password, user.password);
+        if (passwordMatchUser) {
+          const isPasswordMatch = await bcrypt.compare(
+            newPassword,
+            user.password,
+          );
+          user.password = isPasswordMatch
+            ? (user.password = newPassword)
+            : user.password;
+        }
       }
 
       user.nome = typeof (nome) === 'string'
@@ -48,17 +51,11 @@ module.exports = {
         ? (user.nome = nome)
         : user.nome;
 
-      user.telefone = telefone !== undefined && user.telefone !== telefone
-        ? (user.telefone = telefone)
-        : user.telefone;
-
       user.telefone = typeof (telefone) === 'string'
         && telefone.length === 11
         && user.telefone !== telefone
         ? (user.telefone = telefone)
         : user.telefone;
-
- 
 
       const save = await user.save();
       if (save) return res.json(user).status(200);

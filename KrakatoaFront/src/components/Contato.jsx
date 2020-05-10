@@ -12,7 +12,7 @@ const theme = createMuiTheme({
   },
 });
 
-export default class MultilineTextFields extends Component {
+export default class Contato extends Component {
   constructor(props) {
     super(props);
     this.state = {

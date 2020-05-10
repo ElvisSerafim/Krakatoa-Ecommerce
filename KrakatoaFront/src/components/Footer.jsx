@@ -78,7 +78,7 @@ class Topo extends PureComponent {
         <Container maxWidth="lg">
           <Box>
             <Grid container spacing={2} direction="row" justify="flex-start">
-              <Grid item Lg={4} md={4}>
+              <Grid item lg={4} md={4}>
                 <div style={styles.nomeElogo}>
                   <img
                     src={logo}
@@ -115,7 +115,7 @@ class Topo extends PureComponent {
                   </a>
                 </div>
               </Grid>
-              <Grid item Lg={4} md={4}>
+              <Grid item lg={4} md={4}>
                 <div style={{ marginTop: 40, marginLeft: 20 }}>
                   <Typography variant="h4" color="secondary">
                     Shopping Online
@@ -161,7 +161,7 @@ class Topo extends PureComponent {
                   </div>
                 </div>
               </Grid>
-              <Grid item Lg={4} md={4}>
+              <Grid item lg={4} md={4}>
                 <div style={{ marginTop: 40 }}>
                   <Typography variant="h4" color="secondary">
                     Contato

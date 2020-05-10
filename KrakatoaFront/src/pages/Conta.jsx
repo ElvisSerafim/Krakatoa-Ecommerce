@@ -42,18 +42,18 @@ export default class Conta extends PureComponent {
           </Typography>
           <Box style={styles.fundo}>
             <Grid container spacing={2} diretion="row" justify="flex-start">
-              <Grid item Lg={6} md={6}>
+              <Grid item lg={6} md={6}>
                 <Typography style={styles.topico} variant="h5" color="primary">Entrar</Typography>
               </Grid>
-              <Grid item Lg={6} md={6}>
+              <Grid item lg={6} md={6}>
                 <Typography style={styles.topico} variant="h5" color="primary">Registrar</Typography>
               </Grid>
-              <Grid item Lg={6} md={6}>
+              <Grid item lg={6} md={6}>
                 <div style={styles.input}>
                   <Login />
                 </div>
               </Grid>
-              <Grid item Lg={6} md={6}>
+              <Grid item lg={6} md={6}>
                 <div style={styles.input}>
                   <Cadastro />
                 </div>

@@ -23,7 +23,7 @@ const pagamentoSchema = new mongoose.Schema({
     require: true,
     unique: true,
   },
-});
+}, { timestamps: true });
 pagamentoSchema.set('toJSON', { virtuals: true });
 
 module.exports = mongoose.model('Pagamento', pagamentoSchema);

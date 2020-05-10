@@ -123,7 +123,7 @@ module.exports = {
     try {
       const produtos = await Produto.find();
       if (produtos) {
-        return res.json(produtos);
+        return res.status(200).json(produtos);
       }
       throw new Error('Não foi possivel encontrar produtos');
     } catch (error) {
