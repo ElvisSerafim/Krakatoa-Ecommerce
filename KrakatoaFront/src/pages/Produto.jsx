@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* Produto em Si */
 
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography } from '@material-ui/core/';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -53,21 +53,27 @@ const styles = {
   product: { marginLeft: 310, marginTop: 30, color: '#F0F0F0' },
   num: { paddingLeft: 350, color: '#F0F0F0' },
   lore: {
-    paddingTop: 30, paddingLeft: 90, color: 'white', fontSize: '2.25em',
+    paddingTop: 30, paddingLeft: 90, color: 'white', fontSize: '2.25em', fontWeight: 'bold'
   },
   price: {
     paddingLeft: 90,
     paddingTop: 30,
-    fontWeight: '500',
+    fontWeight: 'bold'
   },
 };
 
 
 const ProdutoPage = ({ match, produtos }) => {
   const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState('');
   useEffect(() => {
     console.log(produtos);
     setProducts(produtos);
+    produtos.map((item) => {
+      if(item.id === match.params.id){
+        console.log('Encontrado')
+      }
+    })
   }, [produtos]);
 
   /* let produtos = useSelector((state)=>{}) */
@@ -90,87 +96,90 @@ const ProdutoPage = ({ match, produtos }) => {
                   height: 35,
                   marginTop: 400,
                 }}
-              <Typography
-                variant="body2"
-                color="secondary"
-                style={{ marginLeft: '50px', paddingTop: '10px' }}
               >
-                Descrição
-              </Typography>
-            </div>
-            <div
-              style={{
-                backgroundColor: 'black',
-                width: 1240,
-                height: 350,
-              }}
-            >
-              <div style={{ width: 1100 }}>
                 <Typography
-                  variant="h6"
+                  variant="body2"
                   color="secondary"
-
-                  style={{
-                    paddingLeft: '50px',
-                    paddingTop: '64px',
-                    width: '100%',
-                  }}
+                  style={{ marginLeft: '50px', paddingTop: '10px' }}
                 >
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  sed do eiusmod tempor incididunt ut labore et dolore
-                  magna aliqua. Mauris augue neque gravida in fermentum et
-                  sollicitudin ac orci. Consectetur lorem donec massa
-                  sapien faucibus et molestie ac feugiat. Aenean sed
-                  adipiscing diam donec adipiscing tristique risus nec
-                  feugiat. Nulla pellentesque dignissim enim sit amet
-                  venenatis urna. Ac tincidunt vitae semper quis lectus
-                  nulla at volutpat diam. Nec nam aliquam sem et tortor
-                  consequat. Quis commodo odio aenean sed. Nunc mi ipsum
-                  faucibus vitae aliquet. Vitae tortor condimentum lacinia
-                  quis vel eros donec ac odio. Sit amet mattis vulputate
-                  enim nulla aliquet. In dictum non consectetur a erat
-                  nam.
+                  Descrição
+              </Typography>
+              </div>
+              <div
+                style={{
+                  backgroundColor: 'black',
+                  width: 1240,
+                  height: 350,
+                }}
+              >
+                <div style={{ width: 1100 }}>
+                  <Typography
+                    variant="h6"
+                    color="secondary"
+
+                    style={{
+                      paddingLeft: '50px',
+                      paddingTop: '64px',
+                      width: '100%',
+                    }}
+                  >
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore
+                    magna aliqua. Mauris augue neque gravida in fermentum et
+                    sollicitudin ac orci. Consectetur lorem donec massa
+                    sapien faucibus et molestie ac feugiat. Aenean sed
+                    adipiscing diam donec adipiscing tristique risus nec
+                    feugiat. Nulla pellentesque dignissim enim sit amet
+                    venenatis urna. Ac tincidunt vitae semper quis lectus
+                    nulla at volutpat diam. Nec nam aliquam sem et tortor
+                    consequat. Quis commodo odio aenean sed. Nunc mi ipsum
+                    faucibus vitae aliquet. Vitae tortor condimentum lacinia
+                    quis vel eros donec ac odio. Sit amet mattis vulputate
+                    enim nulla aliquet. In dictum non consectetur a erat
+                    nam.
                 </Typography>
+                </div>
               </div>
             </div>
-          </div>
-        </Grid>
-        <Grid item lg={4} md={4}>
-          <div style={styles.quadradao1} />
-        </Grid>
-        <Grid item lg={1} md={1} />
-        <Grid item lg={6} md={6}>
-          <div style={styles.quadradao2}>
-            <div style={styles.flexRow}>
-              <div style={styles.promo}>
-                <Typography style={styles.promoText} variant="body1">
-                  Promoção
+          </Grid>
+          <Grid item lg={4} md={4}>
+            <div style={styles.quadradao1} />
+          </Grid>
+          <Grid item lg={1} md={1} />
+          <Grid item lg={6} md={6}>
+            <div style={styles.quadradao2}>
+              <div style={styles.flexRow}>
+                <div style={styles.promo}>
+                  <Typography style={styles.promoText} variant="body1">
+                    Promoção
                 </Typography>
-              </div>
-              <div>
-                <Typography style={styles.product}>
-                  Product ID:
+                </div>
+                <div>
+                  <Typography style={styles.product}>
+                    Product ID:
                   {' '}
-                  {match.params.id}
-                </Typography>
-                <Typography style={styles.num}>261311</Typography>
+                    {match.params.id}
+                  </Typography>
+                  <Typography style={styles.num}>261311</Typography>
+                </div>
               </div>
-            </div>
-            <Typography style={styles.lore}>LOREM IPSUM</Typography>
-            <Typography
-              style={styles.price}
-              variant="h5"
-              color="primary"
-              id="price"
-            >
-              R$ 89,90
+              <Typography style={styles.lore}>LOREM IPSUM</Typography>
+              <Typography
+                style={styles.price}
+                variant="h5"
+                color="primary"
+                id="price"
+              >
+                R$ 89,90
             </Typography>
-            <ProdutoEmSi />
-          </div>
+              <ProdutoEmSi />
+            </div>
+          </Grid>
         </Grid>
       </Container>
-      <Footer/>
-  </>
-);
+      <Footer />
+    </>
+  );
+}
 
 export default ProdutoPage;

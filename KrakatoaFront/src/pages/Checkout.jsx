@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core/';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
-
+import {Link} from 'react-router-dom';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import Footer from '../components/Footer';
@@ -157,13 +157,16 @@ export default class Checkout extends PureComponent {
                     fontFamily: 'Poppins',
                   }}
                 >
+                <Link to="/sumario" style={{ textDecoration: 'none' }}>
                   <Button
-                    style={{ height: 50, width: '30%' }}
+                    style={{ height: 50, width: '100%' }}
                     variant="contained"
                     color="primary"
+                    
                   >
                     Continuar
                   </Button>
+                </Link>
                 </div>
               </MuiThemeProvider>
             </div>

@@ -12,7 +12,6 @@ import delivery from '../img/noDelivery.svg';
 import payment from '../img/payment.svg';
 import circle from '../img/circle.svg';
 import Table from '../components/Table';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { removerCart, removeProducts} from '../reducers/productsCart';
 import api from '../Services/ApiService';
 
