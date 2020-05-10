@@ -29,5 +29,6 @@ routes.post('/api/produtos/query', ProdutoController.IndexQuery);
 routes.post('/api/contato', ContatoController.Store);
 
 routes.post('/api/calcPrazo', CorreioController.calculaPrazo);
+routes.post('/api/calcPrazoPreco', CorreioController.calcularPrazoPreco);
 
 module.exports = routes;

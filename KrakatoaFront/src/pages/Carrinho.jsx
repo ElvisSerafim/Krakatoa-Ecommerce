@@ -1,6 +1,9 @@
 import React, { PureComponent, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Container, Grid, Typography, Box, Button, makeStyles } from '@material-ui/core/';
+import {
+  Container, Grid, Typography, Box, Button, makeStyles,
+} from '@material-ui/core/';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import TextField from '../components/TextField';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
@@ -9,8 +12,9 @@ import delivery from '../img/noDelivery.svg';
 import payment from '../img/payment.svg';
 import circle from '../img/circle.svg';
 import Table from '../components/Table';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import {removerCart} from '../reducers/productsCart';
+import { removerCart, removeProducts} from '../reducers/productsCart';
+import api from '../Services/ApiService';
+
 
 const styles = {
   title: {
@@ -32,7 +36,7 @@ const styles = {
     padding: '40px',
   },
   cupomField: {
-    borderRadius: 100
+    borderRadius: 100,
   },
   searchIcon: {
     display: 'flex',
@@ -42,30 +46,58 @@ const styles = {
     width: 40,
     borderRadius: 200,
     backgroundColor: 'red',
-    color: 'white'
-  }
+    color: 'white',
+  },
 };
 
 
 const Carrinho = ({ children, style, onClick }) => {
   const [totalFinal, setFinalTotal] = useState(0);
-  const products = useSelector((state) => state.productsCart)
+  const [totalFrete, setTotalFrete] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [cep, setCep] = useState('');
+  
+  const products = useSelector((state) => state.productsCart);
   console.log(products);
   const dispatch = useDispatch();
 
   const atualizarTotal = (total) => {
     var auxTotal = 0;
-      total.map((item) => {
-        auxTotal = auxTotal + item;
-      });
-      setFinalTotal(auxTotal);
-  }
- 
-  const removerProduct = (produto) => {
-    console.log(`Item: ${produto}`)
-    dispatch(removerCart(produto));
+    total.map((item) => {
+      auxTotal = auxTotal + item;
+    });
+    setFinalTotal(auxTotal);
   }
 
+  const removerProduct = (produto) => {
+    console.log(`Item: ${produto}`);
+    dispatch(removerCart(produto));
+  };
+
+  useEffect(() => {
+      var totally = 0;
+      totally = totalFinal + totalFrete;
+      setTotal(totally.toFixed(2));
+  }, [totalFinal, totalFrete]);
+
+
+  const calcularPrazo = async () => {
+
+    const data = {
+      cepOrigem: '41610200',
+      cepDestino: cep,
+      valorDeclarado: 500,
+      codigoServico: 41106
+    };
+    const request = await api.CalcPrazoPreco(data);
+    const val = parseFloat(request[0].valor.toString().replace(",", "."));
+    setTotalFrete(val);
+  }
+
+  const removeAllProducts = () =>{
+    dispatch(removeProducts());
+
+  }
 
   return (
     <>
@@ -109,73 +141,101 @@ const Carrinho = ({ children, style, onClick }) => {
           <Table produtos={products} actualTotal={atualizarTotal} removerItem={removerProduct} />
         </div>
         <div style={{ display: 'flex', flex: '1', flexDirection: 'row' }}>
-          <div style={{ display: 'flex', flexDirection: 'row', width: '50%', justifyContent: 'flex-start' }}>
+          <div style={{
+            display: 'flex', flexDirection: 'row', width: '50%', justifyContent: 'flex-start',
+          }}
+          >
             <div>
-              <TextField placeholder="Código do Cupom" style={{ color: 'white', backgroundColor: 'black', borderRadius: 7, height: 50 }} numberOnly />
+              <TextField
+                placeholder="Código do Cupom"
+                style={{
+                  color: 'white', backgroundColor: 'black', borderRadius: 7, height: 50,
+                }}
+                numberOnly
+              />
             </div>
-            <div style={{ marginLeft: 20, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', width: 120 }}>
+            <div style={{
+              marginLeft: 20, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', width: 120,
+            }}
+            >
               <Button variant="contained" color="primary" fullWidth style={{ borderRadius: 7, height: 50 }}>
                 Aplicar
-        </Button>
+              </Button>
             </div>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'row', width: '50%', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-            <Button variant="contained" color="primary" style={{ borderRadius: 7, height: 50 }}>
+            <Button variant="contained" color="primary" style={{ borderRadius: 7, height: 50 }} href="/" >
               Continuar Comprando
         </Button>
-            <Button variant="contained" color="primary" style={{ borderRadius: 7, height: 50, width: 120 }}>
+            <Button variant="contained" color="primary" onClick={removeAllProducts} style={{ borderRadius: 7, height: 50, width: 120 }}>
               Limpar
-        </Button>
+            </Button>
           </div>
-          <div>
-          </div>
+          <div />
         </div>
-        <div style={{ display: 'flex', flex: '1', flexDirection: 'row', paddingTop: '40px', justifyContent: 'space-between' }}>
+
+         <div style={{ display: 'flex', flex: '1', flexDirection: 'row', paddingTop: '40px', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', flexDirection: 'column', width: '35%', color: 'white', backgroundColor: 'black', borderRadius: 10, height: 120, fontFamily: 'Poppins', fontSize: 20, padding: '20px' }}>
-            <Typography style={{ margin: 0, fontWeight: '600' }}>Frete: </Typography>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Typography style={{ margin: 0, fontWeight: '600' }}>Frete: </Typography>
+              <Typography style={{ margin: 0, fontWeight: '600' }}>R$ {totalFrete}</Typography>
+            </div>
+
             <div style={{ display: 'flex', flexDirection: 'row' }}>
               <div>
-                <TextField placeholder="Insira seu CEP" style={{ color: 'red', backgroundColor: 'white', borderRadius: 7, height: 50 }} numberOnly />
+                <TextField placeholder="Insira seu CEP" onChange={(event) => {
+                  setCep(event.target.value);
+                }} style={{ color: 'red', backgroundColor: 'white', borderRadius: 7, height: 50 }} numberOnly />
               </div>
               <div style={{ marginLeft: 20, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', width: 120 }}>
-                <Button variant="contained" color="primary" fullWidth style={{ borderRadius: 7, height: 50 }}>
+                <Button variant="contained" color="primary" onClick={calcularPrazo} fullWidth style={{ borderRadius: 7, height: 50 }}>
                   Calcular
-        </Button>
+                </Button>
               </div>
             </div>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', width: '30%', color: 'white', backgroundColor: 'black', borderRadius: 10, fontFamily: 'Poppins', fontSize: 20, padding: '20px' }}>
+          <div style={{
+            display: 'flex', flexDirection: 'column', width: '30%', color: 'white', backgroundColor: 'black', borderRadius: 10, fontFamily: 'Poppins', fontSize: 20, padding: '20px',
+          }}
+          >
             <p style={{ margin: 0, fontWeight: '600' }}>Total no Carrinho: </p>
             <div>
-              <hr style={{ color: "red", backgroundColor: 'red', height: 1, borderColor: 'red', width: '100%' }} />
+              <hr style={{
+                color: 'red', backgroundColor: 'red', height: 1, borderColor: 'red', width: '100%',
+              }}
+              />
             </div>
 
-            <div style={{display: 'flex', flexDirection:'row', justifyContent: 'space-between'}}>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
               <p>SubTotal:</p>
               <p>R$ {totalFinal}</p>
-              
             </div>
 
-            <div>
-              <p>Entrega: </p>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Typography style={{ margin: 0}}>Entrega: </Typography>
+              <Typography style={{ margin: 0}}>R$ {totalFrete}</Typography>
             </div>
 
-            <div style={{ paddingTop: '20px' }}>
-              <p>Total: </p>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingTop: '30px'}}>
+              <Typography style={{ margin: 0}}>Total: </Typography>
+              <Typography style={{ margin: 0, fontWeight: '600' }}>R$ {total}</Typography>
             </div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', flex: '1', justifyContent: 'flex-end', alignItems: 'flex-end', paddingTop: 50 }}>
-          <Button variant="contained" color="primary" style={{ borderRadius: 7, height: 50 }}>
-            Finalizar Compra
-        </Button>
+        <div style={{
+          display: 'flex', flex: '1', justifyContent: 'flex-end', alignItems: 'flex-end', paddingTop: 50,
+        }}
+        >
+          <Button variant="contained" color="primary" style={{ borderRadius: 7, height: 50 }} href="/endereco">
+            Checkout
+          </Button>
         </div>
-      </Container >
+      </Container>
       <Footer />
     </>
-  )
-}
+  );
+};
 export default Carrinho;

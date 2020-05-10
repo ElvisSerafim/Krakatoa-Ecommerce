@@ -205,7 +205,7 @@ class TextField extends Component {
             onChange={this.props.onChange}
             options={{
               date: true,
-              datePattern: ['d', 'm', 'Y'],
+              datePattern: ['m', 'Y'],
             }}
             style={{ ...styles.main, ...style }}
           >

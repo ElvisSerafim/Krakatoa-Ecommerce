@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core/';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
-
+import {Link} from 'react-router-dom';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import Footer from '../components/Footer';
@@ -51,22 +51,10 @@ export default class Checkout extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      paymentMethod: 'none',
-      borderColorPay: 'gray',
-      borderColorVisa: 'gray',
-      borderColorMaster: 'gray',
-      borderColorMaestro: 'gray',
-      borderColorDisc: 'gray',
-      borderColorId: 'gray',
-      borderColorUnselec: 'gray',
-
     };
   }
 
   render() {
-    const {
-      children, style, classes, onClick,
-    } = this.props;
     return (
       <>
         <Container maxWidth="lg">
@@ -89,18 +77,18 @@ export default class Checkout extends PureComponent {
                 alignItems: 'center',
               }}
             >
-              <a href="/">
-                <img src={cartBlank} alt="React Logo" />
+              <a href="/carinho">
+                <img src={cartBlank} alt="Carinho" />
               </a>
 
               <hr style={styles.hrstyle} />
-              <a href="/">
-                <img src={nodeli} alt="React Logo" />
+              <a href="/entrega">
+                <img src={nodeli} alt="Entrega" />
               </a>
               <hr style={styles.hrstyle} />
               <div style={styles.payment}>
                 <a href="/">
-                  <img src={payment} alt="React Logo" />
+                  <img src={payment} alt="Pagamento" />
                 </a>
               </div>
             </div>
@@ -169,13 +157,16 @@ export default class Checkout extends PureComponent {
                     fontFamily: 'Poppins',
                   }}
                 >
+                <Link to="/sumario" style={{ textDecoration: 'none' }}>
                   <Button
-                    style={{ height: 50, width: '30%' }}
+                    style={{ height: 50, width: '100%' }}
                     variant="contained"
                     color="primary"
+                    
                   >
                     Continuar
                   </Button>
+                </Link>
                 </div>
               </MuiThemeProvider>
             </div>
