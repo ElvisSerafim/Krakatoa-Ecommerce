@@ -19,7 +19,7 @@ module.exports = {
     const { cepOrigem, cepDestino, valorDeclarado, codigoServico } = req.body;
     Correios.cepOrigem(cepOrigem).servico(codigoServico);
     Correios({
-      cepDestino: cepDestino,
+      cepDestino,
       peso: 1,
       formato: 1,
       comprimento: 16,
@@ -27,7 +27,7 @@ module.exports = {
       largura: 11,
       diametro: 1,
       maoPropria: 'N',
-      valorDeclarado: valorDeclarado,
+      valorDeclarado,
       avisoRecebimento: 'S'
     }).preco((err, result) => {
       if (!err) {

@@ -1,4 +1,5 @@
-const app = require('./config/custom-express');
+
+const app = require('./custom-express');
 const routes = require('./routes');
 
 const port = process.env.PORT;
