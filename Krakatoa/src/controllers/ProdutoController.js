@@ -13,6 +13,7 @@ module.exports = {
       promopreco,
       quantidade,
       vendas,
+      descricao,
     } = req.body;
     try {
       let produto = await Produto.findOne({ nome });
@@ -27,6 +28,7 @@ module.exports = {
           promopreco,
           quantidade,
           vendas,
+          descricao,
         });
         return res.json(produto);
       }
@@ -45,33 +47,64 @@ module.exports = {
       promopreco,
       quantidade,
       vendas,
+      descricao,
     } = req.body;
     const { id } = req.params.id;
     try {
       const produto = await Produto.findById(id);
       if (!produto) throw new Error('Produto não encontrado');
-      if (
-        nome !== produto.nome
-        || preco !== produto.preco
-        || colecao !== produto.colecao
-        || tipo !== produto.tipo
-        || tamanho !== produto.tamanho
-        || promocao !== produto.promocao
-        || promopreco !== produto.promopreco
-        || quantidade !== produto.quantidade
-      ) {
-        produto.nome = nome;
-        produto.preco = preco;
-        produto.colecao = colecao;
-        produto.tipo = tipo.toLowerCase();
-        produto.tamanho = tamanho;
-        produto.promocao = promocao;
-        produto.promopreco = promopreco;
-        produto.quantidade = quantidade;
-        produto.vendas = vendas;
-      }
+      produto.nome = typeof nome === 'string'
+          && nome.trim().length > 0
+          && nome !== produto.nome
+        ? nome
+        : produto.nome;
+      produto.preco = typeof preco === 'number'
+          && preco > 0
+          && preco !== produto.preco
+        ? preco
+        : produto.preco;
+      produto.colecao = typeof colecao === 'string'
+          && colecao.trim().length > 0
+          && colecao !== produto.colecao
+        ? colecao
+        : produto.colecao;
+      produto.tamanho = typeof tamanho === 'string'
+          && tamanho.trim().length > 0
+          && tamanho !== produto.tamanho
+        ? tamanho
+        : produto.tamanho;
+      produto.tipo = typeof tipo === 'string'
+          && tipo.trim().length > 0
+          && tipo !== produto.tipo
+        ? tipo.toLowerCase()
+        : produto.tipo;
+      produto.promocao = !!(typeof promocao === 'boolean'
+          && promocao === true);
+      produto.promopreco = typeof promopreco === 'number'
+          && promopreco > 0
+          && promopreco !== produto.promopreco
+        ? promopreco
+        : produto.promopreco;
+      produto.quantidade = typeof quantidade === 'number'
+          && quantidade > 0
+          && quantidade !== produto.quantidade
+        ? quantidade
+        : produto.quantidade;
+      produto.vendas = typeof vendas === 'number'
+          && vendas >= 0
+          && vendas !== produto.vendas
+        ? vendas
+        : produto.vendas;
+      produto.descricao = typeof descricao === 'string'
+          && descricao.trim().length > 0
+          && descricao !== produto.descricao
+        ? descricao
+        : produto.descricao;
       const result = await produto.save();
-      return res.json(result).sendStatus(200);
+      if (result) {
+        return res.json(result).sendStatus(200);
+      }
+      throw new Error('Error a Salvar');
     } catch (error) {
       res.status(401).send(error);
     }
@@ -80,16 +113,19 @@ module.exports = {
     try {
       const { id } = req.params.id;
       const result = await Produto.deleteOne({ id });
-      if (!result) throw new Error('Não foi possivel encontrar o usuario');
-      return res.sendStatus(200);
+      if (result) return res.sendStatus(200);
+      throw new Error('Não foi possivel encontrar o usuario');
     } catch (error) {
-      return res.send('Erro em apagar usuario').status(404);
+      return res.send('Erro em apagar usuario').status(400);
     }
   },
   async Index(req, res) {
     try {
       const produtos = await Produto.find();
-      return res.json(produtos);
+      if (produtos) {
+        return res.json(produtos);
+      }
+      throw new Error('Não foi possivel encontrar produtos');
     } catch (error) {
       res.send('Não foi possivel encontrar produtos').status(500);
     }
