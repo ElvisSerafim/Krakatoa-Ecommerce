@@ -3,6 +3,7 @@
 
 import React, { PureComponent } from 'react';
 import { Container, Typography, Box, Button } from '@material-ui/core/';
+import {Link} from 'react-router-dom';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import Footer from '../components/Footer';
@@ -210,7 +211,9 @@ export default class Sumario extends PureComponent {
                   alignItems="center"
                   {...styles.btn}
                 >
+                <Link to="/endereco" style={{ textDecoration: 'none' }}>
                   <Typography>MUDAR ENDEREÇO</Typography>
+                </Link>
                 </Box>
               </div>
             </div>
@@ -273,6 +276,8 @@ export default class Sumario extends PureComponent {
           </div>
         </Container>
         <div style={{width:200}}>
+
+        <Link to="/" style={{ textDecoration: 'none' }}>
         <Button
                 style={{marginLeft:1175,marginTop:50}}
                   variant="contained"
@@ -282,6 +287,7 @@ export default class Sumario extends PureComponent {
                 >
                Concluir
                 </Button>
+        </Link>
         </div>
         <Footer />
       </>
