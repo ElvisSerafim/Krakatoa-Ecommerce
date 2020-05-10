@@ -23,37 +23,38 @@ const styles = {
     flexDirection: 'row',
     paddingBottom: '50',
   },
-  quadrado1:{
-    backgroundColor: 'black',
-    width: 300,
-    height: 230,
-    marginTop: 20,
-    marginLeft: 20,
-    borderRadius: 10,
-  },
-  quadrado2:{
-    backgroundColor: 'black',
-    width: 812,
-    height: 230,
-    marginTop: 68,
-    marginLeft: 20,
-    borderRadius: 10,
-  },
-  txt1:{
-    paddingLeft: 20,
-    paddingTop: 10 },
-  
-  txt2: {
-    paddingLeft: 5, 
-    paddingTop: 10
- },
- txt3:{ 
-     paddingLeft: 20,
-      paddingTop: 30
-     },
-txt4:{ 
+  txt1: {
     paddingLeft: 5,
-     paddingTop: 30 }
+    paddingTop: 26,
+    paddingBottom: 40,
+    fontWeight: 'bold',
+  },
+  txt2: {
+    paddingLeft: 20,
+    paddingTop: 26,
+  },
+  txt3:{
+    paddingLeft:20
+  },
+  txt4:{ 
+     paddingLeft: 5,
+     color: 'gray'
+     },
+    txt5:{ 
+     paddingLeft: 5
+     },
+     txt6:{
+          paddingLeft: 20, 
+        color: 'gray' 
+    },
+    quadrado2:{
+      backgroundColor: 'black',
+      width: 812,
+      height: 230,
+      marginTop: 68,
+      marginLeft: 20,
+      borderRadius: 10,
+    },
 };
 
 export default class MinhaConta extends PureComponent {
@@ -69,86 +70,25 @@ export default class MinhaConta extends PureComponent {
               <Typography variant="h4" color="primary">
                 Minha Conta
               </Typography>
-              <div
-                style={styles.quadrado1}
-              >
-                <div fullwidth style={styles.flexRow}>
-                  <SettingsIcon
-                    style={styles.txt3}
-                    color="secondary"
-                  />
-                  <a style={{ textDecoration: 'none' }} href="#">
-                    <Typography
-                      style={styles.txt4}
-                      color="secondary"
-                    >
-                      Painel
-                    </Typography>
-                  </a>
-                </div>
-
-                <div style={styles.flexRow}>
-                  <EventAvailableIcon
-                    style={styles.txt1}
-                    color="secondary"
-                  />
-                  <a style={{ textDecoration: 'none' }} href="#">
-                    <Typography
-                      style={styles.txt2}
-                      color="secondary"
-                    >
-                      Pedidos
-                    </Typography>
-                  </a>
-                </div>
-                <div style={styles.flexRow}>
-                  <RoomIcon
-                    style={styles.txt1 }
-                    color="secondary"
-                  />
-                  <a style={{ textDecoration: 'none' }} href="#">
-                    <Typography
-                      style={styles.txt2}
-                      color="secondary"
-                    >
-                      Endereços
-                    </Typography>
-                  </a>
-                </div>
-                <div style={styles.flexRow}>
-                  <PermIdentityTwoToneIcon
-                    style={styles.txt1}
-                    color="secondary"
-                  />
-                  <a style={{ textDecoration: 'none' }} href="#">
-                    <Typography
-                      style={styles.txt2}
-                      color="secondary"
-                    >
-                      Detalhes da conta
-                    </Typography>
-                  </a>
-                </div>
-                <div style={styles.flexRow}>
-                  <ExitToAppTwoToneIcon
-                    style={styles.txt1}
-                    color="secondary"
-                  />
-                  <a style={{ textDecoration: 'none' }} href="#">
-                    <Typography
-                      style={styles.txt2}
-                      color="secondary"
-                    >
-                      Sair
-                    </Typography>
-                  </a>
-                </div>
-              </div>
+            <ContaComp />
             </Grid>
             <div
               style={styles.quadrado2}
             >
-              <ContaComp />
+              <div style={styles.flexRow}>
+          <Typography style={styles.txt2} color="secondary">Olá,</Typography>
+          <Typography color="primary" style={styles.txt1}>Usuário </Typography>
+        </div>
+        <div style={styles.flexRow}>
+          <Typography style={styles.txt3} color="secondary">   A partir do painel de controle da sua conta, você pode ver suas</Typography>
+          <Typography style={styles.txt4}>compras recentes</Typography>
+          <Typography style={styles.txt5} color="secondary">gerenciar seus</Typography>
+        </div>
+        <div style={styles.flexRow}>
+          <Typography style={styles.txt6}>endereços de entrega e cobrança</Typography>
+          <Typography style={styles.txt5} color="secondary">e editar suas</Typography>
+          <Typography style={styles.txt4}>senhas e detalhes da conta</Typography>
+        </div>
             </div>
           </Grid>
         </Container>
