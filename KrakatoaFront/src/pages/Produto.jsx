@@ -3,31 +3,28 @@
 
 import React from 'react';
 import { Container, Grid, Typography } from '@material-ui/core/';
-import { MuiThemeProvider } from '@material-ui/core/styles';
-import { useSelector, useDispatch } from 'react-redux';
-
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import theme from '../themes';
 import ProdutoEmSi from '../components/ProdutoEmSi';
-
+import Footer from '../components/Footer'
 
 const styles = {
   foto: {
-    backgroundColor: '#C3C3C3',
+    backgroundColor: 'black',
     borderRadius: 5,
     height: 122,
     marginTop: 10,
     maxWidth: 116,
   },
   quadradao1: {
-    backgroundColor: '#C3C3C3',
+    backgroundColor: 'black',
     borderRadius: 10,
     height: 700,
     marginTop: 40,
   },
   quadradao2: {
-    backgroundColor: '#D0D0D0',
+    backgroundColor: 'black',
     borderRadius: 10,
     height: 700,
     marginTop: 40,
@@ -81,7 +78,7 @@ const ProdutoPage = ({ match }) => (
               <div style={styles.foto} />
               <div
                 style={{
-                  backgroundColor: '#C3C3C3',
+                  backgroundColor: 'black',
                   width: 200,
                   height: 35,
                   marginTop: 400,
@@ -97,7 +94,7 @@ const ProdutoPage = ({ match }) => (
               </div>
               <div
                 style={{
-                  backgroundColor: '#C3C3C3',
+                  backgroundColor: 'black',
                   width: 1240,
                   height: 350,
                 }}
@@ -166,6 +163,7 @@ const ProdutoPage = ({ match }) => (
           </Grid>
         </Grid>
       </Container>
+      <Footer/>
   </>
 );
 
