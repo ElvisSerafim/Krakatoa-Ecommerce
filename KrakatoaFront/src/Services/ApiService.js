@@ -2,8 +2,23 @@
 /* eslint-disable consistent-return */
 const ApiService = {
   ListaProdutos: async () => {
-    const res = await fetch('http://localhost:4000/api/produtos');
-    return res.json();
+    try {
+      const url = 'http://localhost:4000/api/produtos/';
+      const requestInfo = {
+        method: 'GET',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      };
+      const request = await fetch(url, requestInfo);
+      if (request.ok) {
+        const response = await request.json();
+        return response;
+      }
+      throw new Error('Não foi possivel acessar o servidor');
+    } catch (error) {
+      return (error);
+    }
   },
   GetProdutos: async (data) => {
     try {
@@ -166,13 +181,13 @@ const ApiService = {
         requestInfo,
       );
       if (request.ok) {
-        return request.json()  ;
+        const response = await request.json();
+        return response;
       }
       throw new Error('Não foi possivel acessar o servidor');
     } catch (error) {
       return 'Não foi possivel acessar o servidor';
     }
-
   },
   CalcPrazoPreco: async (data) => {
     try {
@@ -195,8 +210,7 @@ const ApiService = {
     } catch (error) {
       return 'Não foi possivel acessar o servidor';
     }
-
-  }
+  },
 };
 
 export default ApiService;

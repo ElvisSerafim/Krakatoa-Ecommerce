@@ -3,8 +3,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateProducts } from '../reducers/products';
 import { Container, Typography } from '@material-ui/core/';
+import { updateProducts } from '../reducers/products';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import ProductList from '../components/Produtos';
@@ -37,8 +37,7 @@ const Produtos = ({ title, name }) => {
   dispatch(updateProducts(product));
 
 
-  const ordenar = async(value) => {
-
+  const ordenar = async (value) => {
     let chave = '';
     if (value === '') return;
     if (value === 'Mais vendidos') chave = 'maiorV';
@@ -53,8 +52,8 @@ const Produtos = ({ title, name }) => {
     const b = [request];
     setProduct(b);
     dispatch(updateProducts(b));
-  }
-  
+  };
+
 
   return (
 
@@ -78,7 +77,7 @@ const Produtos = ({ title, name }) => {
           <ComboBox
             onChange={(event) => {
               setOrderBy(event.target.value);
-              console.log(event.target.value)
+              console.log(event.target.value);
               ordenar(event.target.value);
             }}
             style={{ width: 300 }}
@@ -94,8 +93,8 @@ const Produtos = ({ title, name }) => {
       </Container>
       <Footer />
     </>
-  )
-}
+  );
+};
 export default Produtos;
 /*
 export default class Produtos extends Component {

@@ -68,12 +68,12 @@ const ProdutoPage = ({ match, produtos }) => {
   const [product, setProduct] = useState('');
   useEffect(() => {
     console.log(produtos);
-    setProducts(produtos);
+    /* setProducts(produtos);
     produtos.map((item) => {
       if(item.id === match.params.id){
         console.log('Encontrado')
       }
-    })
+    }) */
   }, [produtos]);
 
   /* let produtos = useSelector((state)=>{}) */
@@ -84,7 +84,7 @@ const ProdutoPage = ({ match, produtos }) => {
         <Topo />
         <Navbar />
         <Grid container spacing={2} diretion="row" justify="flex-start">
-          <Grid item Lg={1} md={1}>
+          <Grid item lg={1} md={1}>
             <div style={styles.marginDiv}>
               <div style={styles.foto} />
               <div style={styles.foto} />

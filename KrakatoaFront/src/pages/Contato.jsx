@@ -38,7 +38,7 @@ export default class Contato extends PureComponent {
             Contato
           </Typography>
           <Grid container spacing={2} diretion="row" justify="flex-start">
-            <Grid item Lg={8} md={8}>
+            <Grid item lg={8} md={8}>
               <Typography variant="h4" color="primary">
                 FALE CONOSCO
               </Typography>
@@ -47,7 +47,7 @@ export default class Contato extends PureComponent {
               </Typography>
               <ContatoComp />
             </Grid>
-            <Grid item Lg={4} md={4}>
+            <Grid item lg={4} md={4}>
               <Typography variant="h4" color="primary">
                 KRAKATOA KANGAS
               </Typography>

@@ -47,7 +47,7 @@ const produtoSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-});
+}, { timestamps: true });
 produtoSchema.set('toJSON', { virtuals: true });
 
 module.exports = mongoose.model('Produto', produtoSchema);

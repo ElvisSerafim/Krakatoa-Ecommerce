@@ -10,13 +10,15 @@ module.exports = {
         if (!err) {
           res.send(results);
         }
+        return res.status(400).send(err);
       });
   },
   async calcularPrazoPreco(req, res) {
-
     //    sedex: 40010, pac: 41106
 
-    const { cepOrigem, cepDestino, valorDeclarado, codigoServico } = req.body;
+    const {
+      cepOrigem, cepDestino, valorDeclarado, codigoServico,
+    } = req.body;
     Correios.cepOrigem(cepOrigem).servico(codigoServico);
     Correios({
       cepDestino,
@@ -28,12 +30,12 @@ module.exports = {
       diametro: 1,
       maoPropria: 'N',
       valorDeclarado,
-      avisoRecebimento: 'S'
+      avisoRecebimento: 'S',
     }).preco((err, result) => {
       if (!err) {
         return res.send(result);
       }
-      res.status(404);
-    })
-  }
-}
+      return res.status(404).send(err);
+    });
+  },
+};

@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import theme from './themes';
@@ -22,18 +22,17 @@ import './index.css';
 import TesteGabriel from './pages/testeGabriel';
 import Detalhes from './pages/Detalhes';
 import { sendAllProducts } from './reducers/allProducts';
-import { useDispatch } from 'react-redux';
 import api from './Services/ApiService';
 
 
-
-var request;
 const getProducts = async () => {
-  request = await api.ListaProdutos();
-  console.log(request);
+  const request = await api.ListaProdutos()
+    .then((response) => console.log(`funcao ${response}`));
+  return request;
 };
 
-getProducts();
+const request = getProducts();
+console.log(`teste ${request}`);
 
 
 ReactDOM.render(

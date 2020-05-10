@@ -37,9 +37,10 @@ export default class Produto extends Component {
     super(props);
     const { produto, title } = this.props;
 
-    const { id, nome, preco, colecao } = produto;
+    const {
+      id, nome, preco, colecao,
+    } = produto;
     const Imageurl = `http://localhost:4000/static/imgs/${id}.jpeg`;
-    const Produtourl = `http://localhost:4000/${id}`;
     this.state = {
       preco,
       id,
@@ -47,8 +48,7 @@ export default class Produto extends Component {
       nome,
       colecao,
       Imageurl,
-      Produtourl,
-      type: title, 
+      type: title,
     };
   }
 
@@ -68,7 +68,6 @@ export default class Produto extends Component {
       promoPrice,
       Imageurl,
       id,
-      Produtourl,
       type,
     } = this.state;
     const product = {
@@ -76,7 +75,7 @@ export default class Produto extends Component {
       colecao,
       preco,
       promoPrice,
-      Imageurl
+      Imageurl,
     };
     return (
       <div
@@ -95,11 +94,11 @@ export default class Produto extends Component {
           bgcolor="#9e9e9e"
         >
           <div style={styles.media}>
-          <Link to={`${type}/${id}`} style={{ textDecoration: 'none' }}>
-            <div className="container">
-              <img src={Imageurl} className="image" alt="Imagem produto" />
-            </div>
-          </Link>
+            <Link to={`${type}/${id}`} style={{ textDecoration: 'none' }}>
+              <div className="container">
+                <img src={Imageurl} className="image" alt="Imagem produto" />
+              </div>
+            </Link>
           </div>
           <p
             style={{
@@ -116,7 +115,7 @@ export default class Produto extends Component {
             {this.FuncCapitalize(nome)}
           </p>
 
-          <Box display="flex" flex="1" flexDirection="row" justifyContent='space-between'>
+          <Box display="flex" flex="1" flexDirection="row" justifyContent="space-between">
             <p
               style={{
                 margin: 0,
@@ -136,9 +135,12 @@ export default class Produto extends Component {
             >
               {promoPrice}
             </p>
-              <AddShoppingCartIcon style={{color: 'white'}} onClick={()=>{
-                this.props.addItem(product)
-              }}/>
+            <AddShoppingCartIcon
+              style={{ color: 'white' }}
+              onClick={() => {
+                this.props.addItem(product);
+              }}
+            />
           </Box>
         </Box>
       </div>

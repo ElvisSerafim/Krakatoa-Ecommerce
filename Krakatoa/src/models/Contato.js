@@ -29,7 +29,7 @@ const contatoSchema = new mongoose.Schema({
       if (value === undefined) throw new Error('Mensagem Vazia');
     }),
   },
-});
+}, { timestamps: true });
 contatoSchema.set('toJSON', { virtuals: true });
 
 module.exports = mongoose.model('Contato', contatoSchema);

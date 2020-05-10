@@ -55,7 +55,7 @@ export default class Login extends Component {
     return (
       <>
         <Grid container spacing={2} diretion="row" justify="flex-start">
-          <Grid item Lg={12} md={12}>
+          <Grid item lg={12} md={12}>
             <div style={styles.senha}>
               <TextFielde
                 login
@@ -68,7 +68,7 @@ export default class Login extends Component {
               />
             </div>
           </Grid>
-          <Grid item Lg={12} md={12}>
+          <Grid item lg={12} md={12}>
             <div style={styles.senha}>
               <TextFielde
                 label="Senha"
@@ -80,7 +80,7 @@ export default class Login extends Component {
               />
             </div>
           </Grid>
-          <Grid item Lg={6} md={6} flexDirection="row">
+          <Grid item lg={6} md={6} flexDirection="row">
             <div style={styles.row}>
               <div style={styles.botaoEntrar} onClick={this.login}>
                 <Button variant="contained" color="primary" fullWidth>
@@ -103,7 +103,7 @@ export default class Login extends Component {
               </div>
             </div>
           </Grid>
-          <Grid item Lg={12} md={12}>
+          <Grid item lg={12} md={12}>
             <Typography
               variant="body2"
               color="primary"
