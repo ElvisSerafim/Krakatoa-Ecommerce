@@ -176,7 +176,6 @@ const ProdutoPage = ({ match, produtos }) => {
             </div>
           </Grid>
         </Grid>
-        </Grid>
       </Container>
       <Footer />
     </>
