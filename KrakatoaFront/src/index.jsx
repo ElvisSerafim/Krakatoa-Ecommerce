@@ -24,8 +24,7 @@ import Detalhes from './pages/Detalhes';
 import MyAddress from './pages/MyAddress';
 import { sendAllProducts } from './reducers/allProducts';
 import api from './Services/ApiService';
-
-
+import Pedidos from './pages/Pedidos';
 
 
 
@@ -90,6 +89,7 @@ ReactDOM.render(
           <Route path="/checkout" component={Checkout} />
           <Route path="/testeGabriel" component={TesteGabriel} />
           <Route path="/myaddress" component={MyAddress} />
+          <Route path="/pedidos" component={Pedidos} />
           <Route path="/detalhes" component={Detalhes} />
           {/* <Route component={NotFound} /> */}
         </Switch>
