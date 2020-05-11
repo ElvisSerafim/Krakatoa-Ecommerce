@@ -33,11 +33,11 @@ const styles = {
     paddingBottom: '50',
   },
   quadrado1: {
-    backgroundColor: '#707070',
+    backgroundColor: 'white',
     width: 800,
     height: 300,
-    marginTop: 50,
-    marginLeft: 20,
+    paddingTop: 50,
+    paddingeft: 20,
     borderRadius: 10,
   },
   botao: {
@@ -87,7 +87,7 @@ function TextMaskCustom(props) {
 export default function Datalhes() {
   const classes = useStyles();
   const [values, setValues] = React.useState({
-    textmask: '(  )    -     ',
+    default:'7199936221',
     numberformat: '1320',
   });
   const handleChange = (event) => {
@@ -137,7 +137,8 @@ export default function Datalhes() {
                   Telefone
                 </InputLabel>
                 <Input
-                  value={values.textmask}
+                 
+                  defaultValue={values.default}
                   onChange={handleChange}
                   name="textmask"
                   id="formatted-text-mask-input"

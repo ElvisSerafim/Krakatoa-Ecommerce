@@ -21,6 +21,9 @@ import store from './store';
 import './index.css';
 import TesteGabriel from './pages/testeGabriel';
 import Detalhes from './pages/Detalhes';
+import MyAddress from './pages/MyAddress';
+import { sendAllProducts } from './reducers/allProducts';
+import api from './Services/ApiService';
 
 
 
@@ -86,6 +89,7 @@ ReactDOM.render(
           <Route path="/sumario" component={Sumario} />
           <Route path="/checkout" component={Checkout} />
           <Route path="/testeGabriel" component={TesteGabriel} />
+          <Route path="/myaddress" component={MyAddress} />
           <Route path="/detalhes" component={Detalhes} />
           {/* <Route component={NotFound} /> */}
         </Switch>
