@@ -1,6 +1,7 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* Pagina de Contato
  */
-import React, { PureComponent } from 'react';
+import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import {
   Container, Grid, Typography, Button,
