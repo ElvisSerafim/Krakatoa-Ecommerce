@@ -148,9 +148,11 @@ export default function Datalhes() {
                 />
               </FormControl>
             </div>
+            <div>
             <Button style={styles.botao} variant="contained" color="primary">
               SALVAR
             </Button>
+            </div>
           </div>
         </Grid>
       </Container>

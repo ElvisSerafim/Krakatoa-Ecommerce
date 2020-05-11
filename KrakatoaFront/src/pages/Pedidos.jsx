@@ -6,6 +6,7 @@ import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import FooterComp from '../components/Footer';
 import './Contato.css';
+import Lista from '../components/ListaPedidos'
 import ContaComp from '../components/MinhaConta';
 const styles = {
   background: {
@@ -63,15 +64,7 @@ export default class Pedidos extends PureComponent {
             </Grid>
             <Grid item lg={8}>
               <Grid container spacing={2} diretion="row" justify="flex-start">
-                <Grid style={styles.produtoBack} item lg={4}>
-                  <Typography style={styles.padding}>Produto</Typography>
-                </Grid>
-                <Grid style={styles.dataBack} item lg={4}>
-                  <Typography style={styles.paddingData}>Data</Typography>
-                </Grid>
-                <Grid style={styles.priceBack} item lg={4}>
-                  <Typography style={styles.paddingPrice}>Preço</Typography>
-                </Grid>
+                <Lista/>
               </Grid>
             </Grid>
 
