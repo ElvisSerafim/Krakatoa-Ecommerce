@@ -26,13 +26,10 @@ import { sendAllProducts } from './reducers/allProducts';
 import api from './Services/ApiService';
 
 
-const getProducts = async () => {
-  const request = await api.ListaProdutos();
-  return request;
-};
 
-const request = getProducts();
-console.log(request);
+
+
+
 
 
 ReactDOM.render(
@@ -71,19 +68,19 @@ ReactDOM.render(
           />
           <Route
             path="/kangas/:id"
-            render={(props) => <Produto {...props} produtos={request} />}
+            render={(props) => <Produto {...props}  />}
           />
           <Route
             path="/batas/:id"
-            render={(props) => <Produto {...props} produtos={request} />}
+            render={(props) => <Produto {...props} />}
           />
           <Route
             path="/shorts/:id"
-            render={(props) => <Produto {...props} produtos={request} />}
+            render={(props) => <Produto {...props} />}
           />
           <Route
             path="/vestidos/:id"
-            render={(props) => <Produto {...props} produtos={request} />}
+            render={(props) => <Produto {...props} />}
           />
           <Route path="/carrinho" component={Carrinho} />
           <Route path="/conta" component={MinhaConta} />

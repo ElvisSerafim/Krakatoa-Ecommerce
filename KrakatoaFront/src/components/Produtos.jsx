@@ -26,7 +26,7 @@ const Produtos = ({ title }) => {
       <Grid container justify="flex-start" spacing={2}>
         {item.map((value) => (
           <Grid key={value.id} item lg={3}>
-            <Produto produto={value} title={lower} addItem={addItemCart} />
+            <Produto produto={value} update={()=>{}} title={lower} addItem={addItemCart} />
           </Grid>
         ))}
       </Grid>
