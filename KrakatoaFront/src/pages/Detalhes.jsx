@@ -7,7 +7,6 @@ import {
 } from '@material-ui/core/';
 import MaskedInput from 'react-text-mask';
 import './Contato.css';
-import PropTypes from 'prop-types';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';

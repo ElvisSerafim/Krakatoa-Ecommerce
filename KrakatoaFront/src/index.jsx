@@ -25,15 +25,7 @@ import MyAddress from './pages/MyAddress';
 import { sendAllProducts } from './reducers/allProducts';
 import api from './Services/ApiService';
 import PrivateRoute from './Services/auth';
-
-const getProducts = async () => {
-  const request = await api.ListaProdutos();
-  return request;
-};
-
-const request = getProducts();
-console.log(request);
-
+import Pedidos from './pages/Pedidos';
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
@@ -71,29 +63,32 @@ ReactDOM.render(
           />
           <Route
             path="/kangas/:id"
-            render={(props) => <Produto {...props} produtos={request} />}
+            render={(props) => <Produto {...props}  />}
           />
           <Route
             path="/batas/:id"
-            render={(props) => <Produto {...props} produtos={request} />}
+            render={(props) => <Produto {...props} />}
           />
           <Route
             path="/shorts/:id"
-            render={(props) => <Produto {...props} produtos={request} />}
+            render={(props) => <Produto {...props} />}
           />
           <Route
             path="/vestidos/:id"
-            render={(props) => <Produto {...props} produtos={request} />}
+            render={(props) => <Produto {...props} />}
           />
           <Route path="/carrinho" component={Carrinho} />
           <Route path="/testeGabriel" component={TesteGabriel} />
           <Route path="/login" component={Login} />
+          
           <PrivateRoute path="/conta" exact component={MinhaConta} />
           <PrivateRoute path="/endereco" component={Endereco} />
           <PrivateRoute path="/sumario" component={Sumario} />
           <PrivateRoute path="/checkout" component={Checkout} />
           <PrivateRoute path="/conta/meuendereco" exact component={MyAddress} />
           <PrivateRoute path="/conta/detalhes" exact component={Detalhes} />
+          <PrivateRoute path="/conta/pedidos" exact component={Pedidos} />
+
           {/* <Route component={NotFound} /> */}
         </Switch>
       </BrowserRouter>
