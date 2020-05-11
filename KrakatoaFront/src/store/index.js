@@ -3,6 +3,7 @@ import productsReducers from '../reducers/products';
 import productsCartsReducers from '../reducers/productsCart';
 import allProductsReducers from '../reducers/allProducts';
 import SearchReducer from '../reducers/search';
+import userReducer from '../reducers/user';
 
 const saveState = (state) => {
   try {
@@ -40,6 +41,7 @@ const rootReducer = combineReducers({
   productsCart: productsCartsReducers,
   allProducts: allProductsReducers,
   pesquisaBarra: SearchReducer,
+  user: userReducer
 });
 const oldState = loadState();
 

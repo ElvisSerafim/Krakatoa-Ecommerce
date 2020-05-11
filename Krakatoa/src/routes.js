@@ -3,6 +3,7 @@ const UserController = require('./controllers/UserController');
 const ProdutoController = require('./controllers/ProdutoController');
 const ContatoController = require('./controllers/ContatoController');
 const CorreioController = require('./controllers/CorreiosController');
+const PedidoController = require('./controllers/PedidoController');
 const auth = require('./middleware/auth');
 
 const routes = Router();
@@ -30,5 +31,7 @@ routes.post('/api/contato', ContatoController.Store);
 
 routes.post('/api/calcPrazo', CorreioController.calculaPrazo);
 routes.post('/api/calcPrazoPreco', CorreioController.calcularPrazoPreco);
+
+routes.post('/api/enviarPedido', PedidoController.Store);
 
 module.exports = routes;
