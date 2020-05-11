@@ -150,6 +150,7 @@ export default class ProdutoEmSi extends PureComponent {
                   variant="contained"
                   color="primary"
                   style={{ marginLeft: 70, width: '100%', maxHeight: '100%' }}
+                  onClick={() => {this.props.addItem()}}
                 >
                   ADICIONAR AO CARRINHO
                 </Button>
