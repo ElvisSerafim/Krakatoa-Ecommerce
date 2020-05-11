@@ -4,9 +4,8 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 const isAuth = () => {
-  if (sessionStorage.getItem('token') !== null) {
-    return true;
-  }
+  if (sessionStorage.getItem('token') !== null) return true;
+  if (localStorage.getItem('token') !== null) return true;
   return false;
 };
 

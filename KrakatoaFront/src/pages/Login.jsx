@@ -11,7 +11,7 @@ import Footer from '../components/Footer';
 
 const styles = {
   fundo: {
-    backgroundColor: '#C3C3C3',
+    backgroundColor: 'black',
     AlignItems: 'center',
   },
   topico: {
@@ -25,7 +25,7 @@ const styles = {
   },
 };
 
-export default class Conta extends PureComponent {
+export default class LoginPage extends PureComponent {
   render() {
     return (
       <>

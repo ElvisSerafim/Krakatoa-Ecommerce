@@ -41,7 +41,7 @@ class Topo extends PureComponent {
             <SearchBar/>
           </div>
           {/* <BodyData/> */}
-          <a href="/minhaconta">
+          <a href="/conta">
             <Conta color="primary" fontSize="large" />
           </a>
           <a href="/carrinho">

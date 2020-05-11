@@ -83,7 +83,7 @@ const ApiService = {
         const { token } = response;
         const { sessao } = data;
         if (sessao) localStorage.setItem('token', token);
-        sessionStorage.setItem('token', token);
+        await sessionStorage.setItem('token', token);
       }
       throw new Error('Login Invalido');
     } catch (error) {
