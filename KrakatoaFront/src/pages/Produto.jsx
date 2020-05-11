@@ -6,7 +6,11 @@ import { Container, Grid, Typography } from '@material-ui/core/';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import ProdutoEmSi from '../components/ProdutoEmSi';
+import Produto from '../components/Produto';
 import Footer from '../components/Footer';
+import { useSelector, useDispatch } from 'react-redux';
+import { addCart, endAllProducts } from '../reducers/productsCart';
+import api from '../Services/ApiService';
 
 const styles = {
   foto: {
@@ -61,22 +65,90 @@ const styles = {
   },
 };
 
-const ProdutoPage = ({ match, produtos }) => {
-  const [product, setProduct] = useState([]);
+const ProdutoPage = ({ match }) => {
+  const [product, setProduct] = useState('');
+  const [type, setType] = useState('');
+  const [posicao, setPosicao] = useState();
+  const [allProducts, setAllProducts] = useState([]);
+  const [atualizar, setAtualizar] = useState(false);
   const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
 
-  /* useEffect(() => {
-    const getProduto = () => {
-      setProducts(produtos);
-      products.map((item) => {
-        if (item.id === match.params.id) {
-          setProduct(item);
-        }
-        return [];
-      });
+
+  useEffect(() => {
+    var request = [];
+    const getProducts = async () => {
+      request = await api.ListaProdutos();
+      setProducts(request);
+      getProduto(request);
     };
-    getProduto();
-  }, [produtos, products, match]); */
+    getProducts();
+  }, [atualizar]);
+
+  const getProduto = (produtos) => {
+    var produtosType = [];
+    var tipo;
+    produtos.map((item, i) => {
+      if (item.id === match.params.id) {
+        tipo = item.tipo;
+        setPosicao(i);
+        item['Imageurl']  = `http://localhost:4000/static/imgs/${item.id}.jpeg`;
+        setProduct(item);
+        setType(item.tipo);
+      }
+    });
+
+    
+    produtos.map((item, i) => {
+      if (item.tipo == tipo && item.id !== match.params.id) {
+        produtosType.push(item);
+      }
+    });
+    
+    relacionados(produtosType);
+  };
+
+  
+  const addItemCart = (productCart) => {
+    productCart.quantidade = 1;
+    console.log(productCart);
+    dispatch(addCart(productCart));
+  };
+
+  const relacionados =(produtins)=>{
+
+    const newProdutosRelacionados = [];
+    var count = 0;
+    const aux = [];
+    let last;
+    while( count !=4){
+      var index = Math.floor(Math.random()*produtins.length);
+      if(index != posicao){
+        var randomItem = produtins[index];
+        var teste = aux.includes(randomItem);
+        if(randomItem != last && teste == false ){
+           last = randomItem;
+           newProdutosRelacionados.push(randomItem);
+           aux.push(randomItem);
+           count++;
+        }
+      }
+    }
+    setAllProducts(newProdutosRelacionados);
+
+  }
+
+  const atualiza = () => {
+    
+   
+
+    if(atualizar == true){
+      setAtualizar(false);
+    }else {
+      setAtualizar(true);
+
+    }
+  }
 
   return (
     <>
@@ -175,12 +247,26 @@ const ProdutoPage = ({ match, produtos }) => {
                 >
                   {product.preco}
                 </Typography>
-                <ProdutoEmSi />
-
+                <ProdutoEmSi addItem={()=>{addItemCart(product)}}/>
               </div>
             </div>
           </Grid>
         </Grid>
+        <div style={{ display: 'flex', flex: '1', flexDirection: 'row', justifyContent: 'flex-start', paddingTop: '40px' }}>
+          <Typography variant="h4" color="primary">
+            Produtos Relacionados
+        </Typography>
+        </div>
+
+        <div style ={{paddingTop: '40px'}}>
+        <Grid container justify="flex-start" spacing={2}>
+        {allProducts.map((value) => (
+          <Grid key={value.id} item lg={3}>
+            <Produto produto={value} title={type} update={ () => {atualiza()}} addItem={addItemCart} />
+          </Grid>
+        ))}
+      </Grid>
+        </div>
       </Container>
       <Footer />
     </>

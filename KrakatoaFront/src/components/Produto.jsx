@@ -35,7 +35,7 @@ _id: "5eb0eb84027f1c2ae9efd09e"
 export default class Produto extends Component {
   constructor(props) {
     super(props);
-    const { produto, title } = this.props;
+    const { produto, title,  } = this.props;
 
     const {
       id, nome, preco, colecao,
@@ -94,9 +94,9 @@ export default class Produto extends Component {
           bgcolor="#9e9e9e"
         >
           <div style={styles.media}>
-            <Link to={`${type}/${id}`} style={{ textDecoration: 'none' }}>
+            <Link to={`/${type}/${id}`} style={{ textDecoration: 'none' }} >
               <div className="container">
-                <img src={Imageurl} className="image" alt="Imagem produto" />
+                <img src={Imageurl} onClick={() => {this.props.update()}} className="image" alt="Imagem produto" />
               </div>
             </Link>
           </div>

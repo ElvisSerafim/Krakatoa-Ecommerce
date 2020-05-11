@@ -8,7 +8,6 @@ import Topo from '../components/Topo';
 import MaskedInput from 'react-text-mask';
 import FooterComp from '../components/Footer';
 import './Contato.css';
-import PropTypes from 'prop-types';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
