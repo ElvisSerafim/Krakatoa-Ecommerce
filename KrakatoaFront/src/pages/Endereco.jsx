@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core/';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
-
+import {Link} from 'react-router-dom';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import Footer from '../components/Footer';
@@ -68,7 +68,6 @@ export default class Endereco extends PureComponent {
       complemento: ' ',
     };
   }
-
   enviar = async () => {
     try {
       const token = localStorage.getItem('token') !== null
@@ -108,11 +107,51 @@ export default class Endereco extends PureComponent {
     }
   }
 
+  componentDidMount() {
+    this.getInformaçõesCep();
+  }
+
+
+  getInformaçõesCep = async () => {
+    const cep = this.props.location.state.cepEndereco;
+    const data = {
+      cepOrigem: '41610200',
+      cepDestino: cep,
+      valorDeclarado: 500,
+      codigoServico: 41106
+    };
+    const data2 = {
+      cepOrigem: '41610200',
+      cepDestino: cep,
+      valorDeclarado: 500,
+      codigoServico: 40010
+    };
+    const request = await api.CalcPrazoPreco(data);
+    console.log(request);
+    this.setState({ pricePac: request[0].valor });
+
+    const request2 = await api.CalcPrazoPreco(data2);
+    console.log(request2);
+    this.setState({ priceSedex: request2[0].valor });
+
+    const data3 = {
+      cepOrigem: '41610200',
+      cepDestino: cep,
+    }
+
+    const request3 = await api.CalcPrazo(data3);
+    this.setState({ diasUteisSedex: request3[0].prazoEntrega });
+    this.setState({ diasUteisPac: request3[1].prazoEntrega });
+    console.log(request3);
+  }
+
+
+
   render() {
     const {
-      children, style, classes, onClick,
-    } = this.props;
-
+      children, style, classes, onClick, location } = this.props;
+    console.log('endereco');
+    console.log(location.state.cepEndereco);
     return (
       <>
         <Container maxWidth="lg">
@@ -144,7 +183,7 @@ export default class Endereco extends PureComponent {
                 <img src={delivery} alt="Endereço" />
               </a>
               <hr style={styles.hrstyle} />
-                <img src={payment} alt="React Logo" />
+              <img src={payment} alt="React Logo" />
             </div>
           </div>
           <div
@@ -374,25 +413,46 @@ export default class Endereco extends PureComponent {
                     fontFamily: 'Poppins',
                   }}
                 >
+                  <Link
+                    to={{
+                      pathname: '/sumario',
+                      state: {
+                        totalPedido: location.state.totalPedido,
+                        cepEndereco: location.state.cepEndereco,
+                        entregaSelecionada: this.state.deliverySelected,
+                        endereco: {
+                          telefone: this.state.telefone,
+                          bairro: this.state.bairro,
+                          rua: this.state.rua,
+                          cpf: this.state.cpf,
+                          cidade: this.state.cidade,
+                          numero: this.state.numero,
+                          complemento: this.state.complemento,
+                          nome: this.state.nome,
+                        }
+                      }
+                    }}
+                  >
                   <Button
                     variant="contained"
                     color="primary"
                     style={{
-                      width: '30%',
-                      height: '50%',
-                      textDecoration: 'none',
-                    }}
+                    width: '30%',
+                    height: '50%',
+                    textDecoration: 'none',
+                  }}
                     onClick={this.enviar}
                     href="/checkout"
                   >
                     Continuar
                   </Button>
+                </Link>
                 </div>
               </MuiThemeProvider>
-            </div>
           </div>
-        </Container>
-        <Footer />
+          </div>
+      </Container>
+      <Footer />
       </>
     );
   }

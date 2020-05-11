@@ -62,6 +62,13 @@ ReactDOM.render(
             )}
           />
           <Route
+            path="/pesquisa"
+            exact
+            render={(props) => (
+              <Produtos {...props} name="pesquisa" title="Pesquisa" />
+            )}
+          />
+          <Route
             path="/kangas/:id"
             render={(props) => <Produto {...props} />}
           />
@@ -75,6 +82,10 @@ ReactDOM.render(
           />
           <Route
             path="/vestidos/:id"
+            render={(props) => <Produto {...props} />}
+          />
+           <Route
+            path="/pesquisa/:id"
             render={(props) => <Produto {...props} />}
           />
           <Route path="/carrinho" component={Carrinho} />

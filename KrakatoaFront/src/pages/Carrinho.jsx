@@ -5,6 +5,7 @@ import {
 } from '@material-ui/core/';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import TextField from '../components/TextField';
+import {Link} from 'react-router-dom';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import Footer from '../components/Footer';
@@ -12,7 +13,7 @@ import delivery from '../img/noDelivery.svg';
 import payment from '../img/payment.svg';
 import circle from '../img/circle.svg';
 import Table from '../components/Table';
-import { removerCart, removeProducts} from '../reducers/productsCart';
+import { removerCart, removeProducts } from '../reducers/productsCart';
 import api from '../Services/ApiService';
 
 
@@ -56,7 +57,7 @@ const Carrinho = ({ children, style, onClick }) => {
   const [totalFrete, setTotalFrete] = useState(0);
   const [total, setTotal] = useState(0);
   const [cep, setCep] = useState('');
-  
+
   const products = useSelector((state) => state.productsCart);
   console.log(products);
   const dispatch = useDispatch();
@@ -75,9 +76,9 @@ const Carrinho = ({ children, style, onClick }) => {
   };
 
   useEffect(() => {
-      var totally = 0;
-      totally = totalFinal + totalFrete;
-      setTotal(totally.toFixed(2));
+    var totally = 0;
+    totally = totalFinal + totalFrete;
+    setTotal(totally.toFixed(2));
   }, [totalFinal, totalFrete]);
 
 
@@ -94,7 +95,7 @@ const Carrinho = ({ children, style, onClick }) => {
     setTotalFrete(val);
   }
 
-  const removeAllProducts = () =>{
+  const removeAllProducts = () => {
     dispatch(removeProducts());
 
   }
@@ -175,9 +176,9 @@ const Carrinho = ({ children, style, onClick }) => {
           <div />
         </div>
 
-         <div style={{ display: 'flex', flex: '1', flexDirection: 'row', paddingTop: '40px', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', flex: '1', flexDirection: 'row', paddingTop: '40px', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', flexDirection: 'column', width: '35%', color: 'white', backgroundColor: 'black', borderRadius: 10, height: 120, fontFamily: 'Poppins', fontSize: 20, padding: '20px' }}>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
               <Typography style={{ margin: 0, fontWeight: '600' }}>Frete: </Typography>
               <Typography style={{ margin: 0, fontWeight: '600' }}>R$ {totalFrete}</Typography>
             </div>
@@ -213,13 +214,13 @@ const Carrinho = ({ children, style, onClick }) => {
               <p>R$ {totalFinal}</p>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Typography style={{ margin: 0}}>Entrega: </Typography>
-              <Typography style={{ margin: 0}}>R$ {totalFrete}</Typography>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Typography style={{ margin: 0 }}>Entrega: </Typography>
+              <Typography style={{ margin: 0 }}>R$ {totalFrete}</Typography>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingTop: '30px'}}>
-              <Typography style={{ margin: 0}}>Total: </Typography>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingTop: '30px' }}>
+              <Typography style={{ margin: 0 }}>Total: </Typography>
               <Typography style={{ margin: 0, fontWeight: '600' }}>R$ {total}</Typography>
             </div>
           </div>
@@ -229,9 +230,26 @@ const Carrinho = ({ children, style, onClick }) => {
           display: 'flex', flex: '1', justifyContent: 'flex-end', alignItems: 'flex-end', paddingTop: 50,
         }}
         >
-          <Button variant="contained" color="primary" style={{ borderRadius: 7, height: 50 }} href="/endereco">
+
+        <Link 
+        to={{
+          pathname: '/endereco',
+          state: {
+            totalPedido: total, 
+            cepEndereco: cep,
+          }
+        }} 
+        
+        style={{ textDecoration: 'none' }}>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ borderRadius: 7, height: 50 }}
+            href="/endereco">
             Checkout
           </Button>
+        </Link>
+
         </div>
       </Container>
       <Footer />
