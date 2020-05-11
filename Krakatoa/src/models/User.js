@@ -40,6 +40,9 @@ const userSchema = new mongoose.Schema({
     rua: String,
     numero: Number,
   },
+  pedidos: [
+      { type: mongoose.Schema.Types.ObjectId, ref: 'Pedido' }
+  ],
   tokens: [
     {
       token: {
