@@ -11,7 +11,7 @@ import Contato from './pages/Contato';
 import Produto from './pages/Produto';
 import Carrinho from './pages/Carrinho';
 /* import NotFound from './pages/NotFound'; */
-import Conta from './pages/Conta';
+import Login from './pages/Login';
 import MinhaConta from './pages/MinhaConta';
 import Produtos from './pages/Produtos';
 import Endereco from './pages/Endereco';
@@ -24,7 +24,7 @@ import Detalhes from './pages/Detalhes';
 import MyAddress from './pages/MyAddress';
 import { sendAllProducts } from './reducers/allProducts';
 import api from './Services/ApiService';
-
+import PrivateRoute from './Services/auth';
 
 const getProducts = async () => {
   const request = await api.ListaProdutos();
@@ -86,14 +86,14 @@ ReactDOM.render(
             render={(props) => <Produto {...props} produtos={request} />}
           />
           <Route path="/carrinho" component={Carrinho} />
-          <Route path="/conta" component={MinhaConta} />
-          <Route path="/minhaconta" component={Conta} />
-          <Route path="/endereco" component={Endereco} />
-          <Route path="/sumario" component={Sumario} />
-          <Route path="/checkout" component={Checkout} />
           <Route path="/testeGabriel" component={TesteGabriel} />
-          <Route path="/myaddress" component={MyAddress} />
-          <Route path="/detalhes" component={Detalhes} />
+          <Route path="/login" component={Login} />
+          <PrivateRoute path="/conta" exact component={MinhaConta} />
+          <PrivateRoute path="/endereco" component={Endereco} />
+          <PrivateRoute path="/sumario" component={Sumario} />
+          <PrivateRoute path="/checkout" component={Checkout} />
+          <PrivateRoute path="/conta/meuendereco" exact component={MyAddress} />
+          <PrivateRoute path="/conta/detalhes" exact component={Detalhes} />
           {/* <Route component={NotFound} /> */}
         </Switch>
       </BrowserRouter>

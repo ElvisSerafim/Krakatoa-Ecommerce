@@ -82,15 +82,15 @@ export default class Login extends Component {
           </Grid>
           <Grid item lg={6} md={6} flexDirection="row">
             <div style={styles.row}>
-              <div style={styles.botaoEntrar} onClick={this.login}>
-                <Button variant="contained" color="primary" fullWidth>
+              <div style={styles.botaoEntrar} >
+                <Button variant="contained" color="primary" fullWidth onClick={this.login}>
                   Entrar
                 </Button>
               </div>
               <div style={styles.row}>
                 <Checkbox
                   checked={this.state.sessao}
-                  onChange={this.handleChange}
+                  onChange={(event) => {this.setState({ sessao: event.target.checked })}}
                   inputProps={{ 'aria-label': 'primary checkbox' }}
                 />
                 <Typography

@@ -77,14 +77,14 @@ module.exports = {
       const { email, password } = req.body;
 
       if (!(typeof (email) === 'string' && email.length > 0)) return new Error('Email Invalido');
-      if (!(typeof (password) === 'string' && password.length > 0)) return new Error('Email Invalido');
+      if (!(typeof (password) === 'string' && password.length > 0)) return new Error('Password Invalido');
 
       const user = await User.findByCredentials(email, password);
 
       if (user) {
         const token = await user.generateAuthToken();
         const obj = { user, token };
-        res.send(obj);
+        return res.send(obj);
       }
 
       throw new Error('Login Falhou! Checar Email e Senha');

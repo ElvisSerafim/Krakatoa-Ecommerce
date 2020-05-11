@@ -2,18 +2,21 @@
  */
 import React, { PureComponent } from 'react';
 import TextField from '@material-ui/core/TextField';
-import { Container, Grid, Typography, Button } from '@material-ui/core/';
-import Navbar from '../components/Nav';
-import Topo from '../components/Topo';
+import {
+  Container, Grid, Typography, Button,
+} from '@material-ui/core/';
 import MaskedInput from 'react-text-mask';
-import FooterComp from '../components/Footer';
 import './Contato.css';
 import PropTypes from 'prop-types';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
-import ContaComp from '../components/MinhaConta';
 import InputLabel from '@material-ui/core/InputLabel';
+import ContaComp from '../components/MinhaConta';
+import FooterComp from '../components/Footer';
+import Topo from '../components/Topo';
+import Navbar from '../components/Nav';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
@@ -87,7 +90,7 @@ function TextMaskCustom(props) {
 export default function Datalhes() {
   const classes = useStyles();
   const [values, setValues] = React.useState({
-    default:'7199936221',
+    default: '7199936221',
     numberformat: '1320',
   });
   const handleChange = (event) => {
@@ -101,7 +104,7 @@ export default function Datalhes() {
       <Container maxWidth="lg">
         <Topo />
         <Navbar />
-        <Typography variant="h2" color="primary"></Typography>
+        <Typography variant="h2" color="primary" />
         <Grid container spacing={2} diretion="row" justify="flex-start">
           <Grid item lg={4} md={4}>
             <Typography variant="h4" color="primary">
@@ -137,7 +140,7 @@ export default function Datalhes() {
                   Telefone
                 </InputLabel>
                 <Input
-                 
+
                   defaultValue={values.default}
                   onChange={handleChange}
                   name="textmask"

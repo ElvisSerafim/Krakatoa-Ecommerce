@@ -1,14 +1,13 @@
 import React, { PureComponent } from 'react';
-import { Container, Grid, Typography } from '@material-ui/core/';
-import Navbar from '../components/Nav';
-import Topo from '../components/Topo';
-import FooterComp from '../components/Footer';
+import { Typography } from '@material-ui/core/';
 import './Contato.css';
 import SettingsIcon from '@material-ui/icons/Settings';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import RoomIcon from '@material-ui/icons/Room';
 import PermIdentityTwoToneIcon from '@material-ui/icons/PermIdentityTwoTone';
 import ExitToAppTwoToneIcon from '@material-ui/icons/ExitToAppTwoTone';
+import api from '../Services/ApiService';
+
 const styles = {
   background: {
     backgroundColor: '#D0D0D0',
@@ -55,13 +54,16 @@ const styles = {
 };
 
 export default class MultilineTextFields extends PureComponent {
+  logout = async () => {
+    api.Logout();
+  }
   render() {
     return (
       <>
         <div style={styles.quadrado1}>
           <div fullwidth style={styles.flexRow}>
             <SettingsIcon style={styles.txt3} color="secondary" />
-            <a style={{ textDecoration: 'none' }} href="#">
+            <a style={{ textDecoration: 'none' }} href="/conta">
               <Typography style={styles.txt4} color="secondary">
                 Painel
               </Typography>
@@ -70,7 +72,7 @@ export default class MultilineTextFields extends PureComponent {
 
           <div style={styles.flexRow}>
             <EventAvailableIcon style={styles.txt1} color="secondary" />
-            <a style={{ textDecoration: 'none' }} href="#">
+            <a style={{ textDecoration: 'none' }} href="pedidos">
               <Typography style={styles.txt2} color="secondary">
                 Pedidos
               </Typography>
@@ -78,7 +80,7 @@ export default class MultilineTextFields extends PureComponent {
           </div>
           <div style={styles.flexRow}>
             <RoomIcon style={styles.txt1} color="secondary" />
-            <a style={{ textDecoration: 'none' }} href="#">
+            <a style={{ textDecoration: 'none' }} href="meuendereco">
               <Typography style={styles.txt2} color="secondary">
                 Endereços
               </Typography>
@@ -86,7 +88,7 @@ export default class MultilineTextFields extends PureComponent {
           </div>
           <div style={styles.flexRow}>
             <PermIdentityTwoToneIcon style={styles.txt1} color="secondary" />
-            <a style={{ textDecoration: 'none' }} href="#">
+            <a style={{ textDecoration: 'none' }} href="detalhes">
               <Typography style={styles.txt2} color="secondary">
                 Detalhes da conta
               </Typography>
@@ -95,7 +97,7 @@ export default class MultilineTextFields extends PureComponent {
           <div style={styles.flexRow}>
             <ExitToAppTwoToneIcon style={styles.txt1} color="secondary" />
             <a style={{ textDecoration: 'none' }} href="#">
-              <Typography style={styles.txt2} color="secondary">
+              <Typography style={styles.txt2} color="secondary" onClick={this.logout}>
                 Sair
               </Typography>
             </a>

@@ -22,7 +22,7 @@ const styles = {
   },
 };
 
-export default class Login extends Component {
+export default class Cadastro extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -82,6 +82,7 @@ export default class Login extends Component {
                 color="primary"
                 fullWidth
                 onClick={this.Cadastro}
+                href="/conta"
               >
                 Continuar
               </Button>
