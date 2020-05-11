@@ -9,23 +9,23 @@ module.exports = {
         precoTotal,
         frete,
         user,
-        produtos
+        produtos,
       } = req.body;
 
-      const id = user.id;
+      const { id } = user;
 
       const pedido = await Pedido.create({
         precoTotal,
-        frete
+        frete,
       });
 
-      while(produtos.length != 0){
-            let produtoArray = produtos.pop();
-            console.log(produtoArray);
-            let produto = await Produto.findById(produtoArray.id);
-            pedido.produtos.push(produto);
+      while (produtos.length != 0) {
+        const produtoArray = produtos.pop();
+        console.log(produtoArray);
+        const produto = await Produto.findById(produtoArray.id);
+        pedido.produtos.push(produto);
       }
-      
+
       const usuario = await User.findById(id);
       usuario.pedidos.push(pedido);
       pedido.user = usuario;

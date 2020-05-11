@@ -70,7 +70,7 @@ ReactDOM.render(
           />
           <Route
             path="/kangas/:id"
-            render={(props) => <Produto {...props}  />}
+            render={(props) => <Produto {...props} />}
           />
           <Route
             path="/batas/:id"
@@ -91,7 +91,7 @@ ReactDOM.render(
           <Route path="/carrinho" component={Carrinho} />
           <Route path="/testeGabriel" component={TesteGabriel} />
           <Route path="/login" component={Login} />
-          
+
           <PrivateRoute path="/conta" exact component={MinhaConta} />
           <PrivateRoute path="/endereco" component={Endereco} />
           <PrivateRoute path="/sumario" component={Sumario} />

@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema({
     numero: Number,
   },
   pedidos: [
-      { type: mongoose.Schema.Types.ObjectId, ref: 'Pedido' }
+    { type: mongoose.Schema.Types.ObjectId, ref: 'Pedido' },
   ],
   tokens: [
     {

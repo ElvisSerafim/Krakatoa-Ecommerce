@@ -3,12 +3,12 @@
 
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography } from '@material-ui/core/';
+import { useSelector, useDispatch } from 'react-redux';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import ProdutoEmSi from '../components/ProdutoEmSi';
 import Produto from '../components/Produto';
 import Footer from '../components/Footer';
-import { useSelector, useDispatch } from 'react-redux';
 import { addCart, endAllProducts } from '../reducers/productsCart';
 import api from '../Services/ApiService';
 
@@ -76,7 +76,7 @@ const ProdutoPage = ({ match }) => {
 
 
   useEffect(() => {
-    var request = [];
+    let request = [];
     const getProducts = async () => {
       request = await api.ListaProdutos();
       setProducts(request);
@@ -86,69 +86,62 @@ const ProdutoPage = ({ match }) => {
   }, [atualizar]);
 
   const getProduto = (produtos) => {
-    var produtosType = [];
-    var tipo;
+    const produtosType = [];
+    let tipo;
     produtos.map((item, i) => {
       if (item.id === match.params.id) {
         tipo = item.tipo;
         setPosicao(i);
-        item['Imageurl']  = `http://localhost:4000/static/imgs/${item.id}.jpeg`;
+        item.Imageurl = `http://localhost:4000/static/imgs/${item.id}.jpeg`;
         setProduct(item);
         setType(item.tipo);
       }
     });
 
-    
+
     produtos.map((item, i) => {
-      if (item.tipo == tipo && item.id !== match.params.id) {
+      if (item.tipo === tipo && item.id !== match.params.id) {
         produtosType.push(item);
       }
     });
-    
+
     relacionados(produtosType);
   };
 
-  
   const addItemCart = (productCart, quantity) => {
     productCart.quantidade = quantity;
     console.log(productCart);
     dispatch(addCart(productCart));
   };
 
-  const relacionados =(produtins)=>{
-
+  const relacionados = (produtins) => {
     const newProdutosRelacionados = [];
-    var count = 0;
+    let count = 0;
     const aux = [];
     let last;
-    while( count !=4){
-      var index = Math.floor(Math.random()*produtins.length);
-      if(index != posicao){
-        var randomItem = produtins[index];
-        var teste = aux.includes(randomItem);
-        if(randomItem != last && teste == false ){
-           last = randomItem;
-           newProdutosRelacionados.push(randomItem);
-           aux.push(randomItem);
-           count++;
+    while (count !== 4) {
+      const index = Math.floor(Math.random() * produtins.length);
+      if (index !== posicao) {
+        const randomItem = produtins[index];
+        const teste = aux.includes(randomItem);
+        if (randomItem !== last && teste === false) {
+          last = randomItem;
+          newProdutosRelacionados.push(randomItem);
+          aux.push(randomItem);
+          count++;
         }
       }
     }
     setAllProducts(newProdutosRelacionados);
-
-  }
+  };
 
   const atualiza = () => {
-    
-   
-
-    if(atualizar == true){
+    if (atualizar === true) {
       setAtualizar(false);
-    }else {
+    } else {
       setAtualizar(true);
-
     }
-  }
+  };
 
   return (
     <>
@@ -195,20 +188,7 @@ const ProdutoPage = ({ match }) => {
                       width: '100%',
                     }}
                   >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore
-                    magna aliqua. Mauris augue neque gravida in fermentum et
-                    sollicitudin ac orci. Consectetur lorem donec massa
-                    sapien faucibus et molestie ac feugiat. Aenean sed
-                    adipiscing diam donec adipiscing tristique risus nec
-                    feugiat. Nulla pellentesque dignissim enim sit amet
-                    venenatis urna. Ac tincidunt vitae semper quis lectus
-                    nulla at volutpat diam. Nec nam aliquam sem et tortor
-                    consequat. Quis commodo odio aenean sed. Nunc mi ipsum
-                    faucibus vitae aliquet. Vitae tortor condimentum lacinia
-                    quis vel eros donec ac odio. Sit amet mattis vulputate
-                    enim nulla aliquet. In dictum non consectetur a erat
-                    nam.
+                    {product.descricao}
                   </Typography>
                 </div>
               </div>
@@ -245,27 +225,33 @@ const ProdutoPage = ({ match }) => {
                   color="primary"
                   id="price"
                 >
+                  R$
+                  {' '}
                   {product.preco}
                 </Typography>
+
                 <ProdutoEmSi addItem={(quantity)=>{addItemCart(product, quantity)}}/>
               </div>
             </div>
           </Grid>
         </Grid>
-        <div style={{ display: 'flex', flex: '1', flexDirection: 'row', justifyContent: 'flex-start', paddingTop: '40px' }}>
+        <div style={{
+          display: 'flex', flex: '1', flexDirection: 'row', justifyContent: 'flex-start', paddingTop: '40px',
+        }}
+        >
           <Typography variant="h4" color="primary">
             Produtos Relacionados
-        </Typography>
+          </Typography>
         </div>
 
-        <div style ={{paddingTop: '40px'}}>
-        <Grid container justify="flex-start" spacing={2}>
-        {allProducts.map((value) => (
-          <Grid key={value.id} item lg={3}>
-            <Produto produto={value} title={type} update={ () => {atualiza()}} addItem={addItemCart} />
+        <div style={{ paddingTop: '40px' }}>
+          <Grid container justify="flex-start" spacing={2}>
+            {allProducts.map((value) => (
+              <Grid key={value.id} item lg={3}>
+                <Produto produto={value} title={type} update={() => { atualiza(); }} addItem={addItemCart} />
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
         </div>
       </Container>
       <Footer />
