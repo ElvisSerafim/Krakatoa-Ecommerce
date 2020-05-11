@@ -1,4 +1,7 @@
-const INITIAL_STATE = [];
+const INITIAL_STATE = [
+
+  
+];
 
 export default function reducer(state = INITIAL_STATE, action) {
   if (action.type === 'ADD_CART') {
@@ -29,6 +32,7 @@ export const productsUpdate = (products) => {
   return {
     type: 'UPDATE_PRODUCTS',
     products,
+
   };
 };
 

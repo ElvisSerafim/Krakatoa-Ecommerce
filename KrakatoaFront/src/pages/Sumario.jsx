@@ -128,6 +128,8 @@ const styles = {
 
 export default class Sumario extends PureComponent {
   render() {
+
+    console.log(this.props.location.state);
     const value = {
       tam: ['Grande'],
       price: [7.25],

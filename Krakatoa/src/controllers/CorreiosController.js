@@ -8,7 +8,7 @@ module.exports = {
       .servico([Correios.codigos.sedex, Correios.codigos.pac])
       .prazo(cepDestino, (err, results) => {
         if (!err) {
-          res.send(results);
+          return res.send(results);
         }
         return res.status(400).send(err);
       });

@@ -109,8 +109,8 @@ const ProdutoPage = ({ match }) => {
   };
 
   
-  const addItemCart = (productCart) => {
-    productCart.quantidade = 1;
+  const addItemCart = (productCart, quantity) => {
+    productCart.quantidade = quantity;
     console.log(productCart);
     dispatch(addCart(productCart));
   };
@@ -247,7 +247,7 @@ const ProdutoPage = ({ match }) => {
                 >
                   {product.preco}
                 </Typography>
-                <ProdutoEmSi addItem={()=>{addItemCart(product)}}/>
+                <ProdutoEmSi addItem={(quantity)=>{addItemCart(product, quantity)}}/>
               </div>
             </div>
           </Grid>
