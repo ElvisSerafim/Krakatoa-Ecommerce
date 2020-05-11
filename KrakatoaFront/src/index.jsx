@@ -22,7 +22,6 @@ import './index.css';
 import TesteGabriel from './pages/testeGabriel';
 import Detalhes from './pages/Detalhes';
 import MyAddress from './pages/MyAddress';
-import Pedidos from './pages/Pedidos';
 import { sendAllProducts } from './reducers/allProducts';
 import api from './Services/ApiService';
 import Pedidos from './pages/Pedidos';
