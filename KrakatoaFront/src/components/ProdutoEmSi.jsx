@@ -60,7 +60,7 @@ const styles = {
 };
 
 
-const ProdutoEmSi = () => {
+const ProdutoEmSi = ({addItem}) => {
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState('');
 
@@ -164,7 +164,7 @@ const ProdutoEmSi = () => {
                 variant="contained"
                 color="primary"
                 style={{ marginLeft: 70, width: '100%', maxHeight: '100%' }}
-                onClick={() => { this.props.addItem() }}
+                onClick={() => {addItem(quantity) }}
               >
                 ADICIONAR AO CARRINHO
               </Button>
