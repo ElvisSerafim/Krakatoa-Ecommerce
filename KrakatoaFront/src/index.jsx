@@ -23,7 +23,6 @@ import TesteGabriel from './pages/testeGabriel';
 import Detalhes from './pages/Detalhes';
 import MyAddress from './pages/MyAddress';
 import { sendAllProducts } from './reducers/allProducts';
-import api from './Services/ApiService';
 import PrivateRoute from './Services/auth';
 import Pedidos from './pages/Pedidos';
 
@@ -36,10 +35,10 @@ ReactDOM.render(
           <Route path="/sobre" component={Sobre} />
           <Route path="/contato" component={Contato} />
           <Route
-            path="/kangas"
+            path="/cangas"
             exact
             render={(props) => (
-              <Produtos {...props} name="kangas" title="Kangas" />
+              <Produtos {...props} name="cangas" title="Cangas" />
             )}
           />
           <Route
@@ -69,7 +68,7 @@ ReactDOM.render(
             )}
           />
           <Route
-            path="/kangas/:id"
+            path="/cangas/:id"
             render={(props) => <Produto {...props} />}
           />
           <Route
@@ -90,7 +89,7 @@ ReactDOM.render(
           />
           <Route path="/carrinho" component={Carrinho} />
           <Route path="/testeGabriel" component={TesteGabriel} />
-          <Route path="/login" component={Login} />
+          <Route path="/login" component={Login} render={(props) => <Login {...props} />} />
 
           <PrivateRoute path="/conta" exact component={MinhaConta} />
           <PrivateRoute path="/endereco" component={Endereco} />

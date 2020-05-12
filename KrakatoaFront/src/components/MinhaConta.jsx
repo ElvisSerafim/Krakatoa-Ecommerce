@@ -55,13 +55,15 @@ const styles = {
 
 export default class MultilineTextFields extends PureComponent {
   logout = async () => {
-    api.Logout();
+    const token = sessionStorage.getItem('token');
+    api.Logout(token);
+    sessionStorage.removeItem('token');
   }
   render() {
     return (
       <>
         <div style={styles.quadrado1}>
-          <div fullwidth style={styles.flexRow}>
+          <div style={styles.flexRow}>
             <SettingsIcon style={styles.txt3} color="secondary" />
             <a style={{ textDecoration: 'none' }} href="/conta">
               <Typography style={styles.txt4} color="secondary">
@@ -96,7 +98,7 @@ export default class MultilineTextFields extends PureComponent {
           </div>
           <div style={styles.flexRow}>
             <ExitToAppTwoToneIcon style={styles.txt1} color="secondary" />
-            <a style={{ textDecoration: 'none' }} href="#">
+            <a style={{ textDecoration: 'none' }} onClick={ this.logout } href="/">
               <Typography style={styles.txt2} color="secondary" onClick={this.logout}>
                 Sair
               </Typography>

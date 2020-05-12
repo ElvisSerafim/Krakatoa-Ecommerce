@@ -106,8 +106,11 @@ module.exports = {
   async LogoutAll(req, res) {
     try {
       req.user.tokens.splice(0, req.user.tokens.length);
-      await req.user.save();
-      res.send();
+      const response = await req.user.save();
+      if (response) {
+        return res.status(200).send('Você Saiu');
+      }
+      throw new Error('Não pode desconectar');
     } catch (error) {
       res.status(500).send(error);
     }

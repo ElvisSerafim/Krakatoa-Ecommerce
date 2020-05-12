@@ -55,11 +55,13 @@ const ApiService = {
       };
 
       const request = await fetch(url, requestInfo);
+
       if (request.ok) {
         const response = await request.json();
         const { accessToken } = await response;
         sessionStorage.setItem('token', accessToken);
-        return response;
+        const ok = 'ok';
+        return ok;
       }
       return Error('Erro Na hora de Cadastrar');
     } catch (error) {
@@ -84,7 +86,8 @@ const ApiService = {
         const { sessao } = data;
         if (sessao) localStorage.setItem('token', token);
         await sessionStorage.setItem('token', token);
-        return response;
+        const ok = 'ok';
+        return ok;
       }
       throw new Error('Login Invalido');
     } catch (error) {

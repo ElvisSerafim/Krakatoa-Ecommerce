@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core/';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import TextField from '../components/TextField';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import Footer from '../components/Footer';
@@ -50,6 +50,17 @@ const styles = {
     color: 'white',
   },
 };
+
+const tentativa = {
+  table: {
+    minWidth: 700,
+    borderRadius: 10,
+    fontFamily: 'Poppins'
+  },
+  tableHead: {
+    height: 100
+  }
+}
 
 
 const Carrinho = ({ children, style, onClick }) => {
@@ -139,31 +150,10 @@ const Carrinho = ({ children, style, onClick }) => {
           </div>
         </div>
         <div style={{ marginTop: '30px' }}>
-          <Table produtos={products} actualTotal={atualizarTotal} removerItem={removerProduct} />
+          <Table estilo={tentativa} actualTotal={atualizarTotal} removerItem={removerProduct} />
         </div>
         <div style={{ display: 'flex', flex: '1', flexDirection: 'row' }}>
-          <div style={{
-            display: 'flex', flexDirection: 'row', width: '50%', justifyContent: 'flex-start',
-          }}
-          >
-            <div>
-              <TextField
-                placeholder="Código do Cupom"
-                style={{
-                  color: 'white', backgroundColor: 'black', borderRadius: 7, height: 50,
-                }}
-                numberOnly
-              />
-            </div>
-            <div style={{
-              marginLeft: 20, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', width: 120,
-            }}
-            >
-              <Button variant="contained" color="primary" fullWidth style={{ borderRadius: 7, height: 50 }}>
-                Aplicar
-              </Button>
-            </div>
-          </div>
+         
 
           <div style={{ display: 'flex', flexDirection: 'row', width: '50%', justifyContent: 'space-between', alignItems: 'flex-end' }}>
             <Button variant="contained" color="primary" style={{ borderRadius: 7, height: 50 }} href="/" >
@@ -177,7 +167,7 @@ const Carrinho = ({ children, style, onClick }) => {
         </div>
 
         <div style={{ display: 'flex', flex: '1', flexDirection: 'row', paddingTop: '40px', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', width: '35%', color: 'white', backgroundColor: 'black', borderRadius: 10, height: 120, fontFamily: 'Poppins', fontSize: 20, padding: '20px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', width: '35%', color: 'white', backgroundColor: '#FF6961', borderRadius: 10, height: 120, fontFamily: 'Poppins', fontSize: 20, padding: '20px' }}>
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
               <Typography style={{ margin: 0, fontWeight: '600' }}>Frete: </Typography>
               <Typography style={{ margin: 0, fontWeight: '600' }}>R$ {totalFrete}</Typography>
@@ -198,7 +188,7 @@ const Carrinho = ({ children, style, onClick }) => {
           </div>
 
           <div style={{
-            display: 'flex', flexDirection: 'column', width: '30%', color: 'white', backgroundColor: 'black', borderRadius: 10, fontFamily: 'Poppins', fontSize: 20, padding: '20px',
+            display: 'flex', flexDirection: 'column', width: '30%', color: 'white', backgroundColor: '#FF6961', borderRadius: 10, fontFamily: 'Poppins', fontSize: 20, padding: '20px',
           }}
           >
             <p style={{ margin: 0, fontWeight: '600' }}>Total no Carrinho: </p>
@@ -231,24 +221,24 @@ const Carrinho = ({ children, style, onClick }) => {
         }}
         >
 
-        <Link 
-        to={{
-          pathname: '/endereco',
-          state: {
-            totalPedido: total, 
-            cepEndereco: cep,
-          }
-        }} 
-        
-        style={{ textDecoration: 'none' }}>
-          <Button
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: 7, height: 50 }}
-            href="/endereco">
-            Checkout
+          <Link
+            to={{
+              pathname: '/endereco',
+              state: {
+                totalPedido: total,
+                cepEndereco: cep,
+              }
+            }}
+
+            style={{ textDecoration: 'none' }}>
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: 7, height: 50 }}
+              href="/endereco">
+              Checkout
           </Button>
-        </Link>
+          </Link>
 
         </div>
       </Container>

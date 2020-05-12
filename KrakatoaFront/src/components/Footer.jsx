@@ -190,7 +190,7 @@ class Topo extends PureComponent {
         <Container>
           <hr style={styles.hrstyle} />
         </Container>
-        <div style={{ backgroundColor: 'black', color: 'black' }}>a</div>
+        <div style={{ backgroundColor: '#FF6961', color: '#FF6961' }}>a</div>
       </div>
     );
   }

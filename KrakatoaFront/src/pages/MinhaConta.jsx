@@ -6,11 +6,6 @@ import { Container, Grid, Typography } from '@material-ui/core/';
 import Topo from '../components/Topo';
 import FooterComp from '../components/Footer';
 import './Contato.css';
-import SettingsIcon from '@material-ui/icons/Settings';
-import EventAvailableIcon from '@material-ui/icons/EventAvailable';
-import RoomIcon from '@material-ui/icons/Room';
-import PermIdentityTwoToneIcon from '@material-ui/icons/PermIdentityTwoTone';
-import ExitToAppTwoToneIcon from '@material-ui/icons/ExitToAppTwoTone';
 import Navbar from '../components/Nav';
 import ApiService from '../Services/ApiService.js'
 import ContaComp from '../components/MinhaConta';

@@ -26,7 +26,7 @@ export default class NavBar extends PureComponent {
           <a href="/" style={styles.a}>
             <Typography variant="h5" color="primary">Inicio</Typography>
           </a>
-          <a href="/kangas" style={styles.a}>
+          <a href="/cangas" style={styles.a}>
             <Typography variant="h5" color="primary">Cangas</Typography>
           </a>
           <a href="/vestidos" style={styles.a}>

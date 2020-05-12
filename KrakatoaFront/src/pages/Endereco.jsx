@@ -54,6 +54,7 @@ export default class Endereco extends PureComponent {
       diasUteisPac: '0',
       diasUteisSedex: '0',
       deliverySelected: '',
+      priceFrete: '',
       borderColorPac: 'black',
       borderColorSedex: 'black',
       cep: ' ',
@@ -180,10 +181,10 @@ export default class Endereco extends PureComponent {
   };
 
   render() {
-    const { children, style, classes, onClick, location } = this.props;
-    console.log('endereco');
-    console.log(location.state.cepEndereco);
-    return (
+
+    const {
+      children, style, classes, onClick, location } = this.props;
+        return (
       <>
         <Container maxWidth="lg">
           <Topo />
@@ -383,6 +384,8 @@ export default class Endereco extends PureComponent {
                     this.setState({ deliverySelected: 'Pac' });
                     this.setState({ borderColorPac: 'red' });
                     this.setState({ borderColorSedex: 'black' });
+                    this.setState({ priceFrete: this.state.pricePac });
+                    
                   }}
                   display="flex"
                   style={{ cursor: 'pointer' }}
@@ -409,6 +412,7 @@ export default class Endereco extends PureComponent {
                     this.setState({ deliverySelected: 'Sedex' });
                     this.setState({ borderColorSedex: 'red' });
                     this.setState({ borderColorPac: 'black' });
+                    this.setState({ priceFrete: this.state.priceSedex });
                   }}
                   style={{ cursor: 'pointer' }}
                   display="flex"
@@ -448,6 +452,7 @@ export default class Endereco extends PureComponent {
                         totalPedido: location.state.totalPedido,
                         cepEndereco: location.state.cepEndereco,
                         entregaSelecionada: this.state.deliverySelected,
+                        totalFrete: this.state.priceFrete,
                         endereco: {
                           telefone: this.state.telefone,
                           bairro: this.state.bairro,
@@ -456,9 +461,9 @@ export default class Endereco extends PureComponent {
                           cidade: this.state.cidade,
                           numero: this.state.numero,
                           complemento: this.state.complemento,
-                          nome: this.state.nome,
-                        },
-                      },
+                          nome: this.state.nome + ''+ this.state.sobrenome,
+                        }
+                      }
                     }}
                   >
                     <Button
