@@ -35,10 +35,10 @@ ReactDOM.render(
           <Route path="/sobre" component={Sobre} />
           <Route path="/contato" component={Contato} />
           <Route
-            path="/kangas"
+            path="/cangas"
             exact
             render={(props) => (
-              <Produtos {...props} name="kangas" title="Kangas" />
+              <Produtos {...props} name="cangas" title="Cangas" />
             )}
           />
           <Route
@@ -68,7 +68,7 @@ ReactDOM.render(
             )}
           />
           <Route
-            path="/kangas/:id"
+            path="/cangas/:id"
             render={(props) => <Produto {...props} />}
           />
           <Route
