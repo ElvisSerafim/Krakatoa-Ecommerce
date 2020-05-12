@@ -16,9 +16,7 @@ module.exports = {
   async calcularPrazoPreco(req, res) {
     //    sedex: 40010, pac: 41106
 
-    const {
-      cepOrigem, cepDestino, valorDeclarado, codigoServico,
-    } = req.body;
+    const { cepOrigem, cepDestino, valorDeclarado, codigoServico } = req.body;
     Correios.cepOrigem(cepOrigem).servico(codigoServico);
     Correios({
       cepDestino,
