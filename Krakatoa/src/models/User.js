@@ -4,51 +4,52 @@ const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-const userSchema = new mongoose.Schema({
-  nome: {
-    type: String,
-    trim: true,
-  },
-  email: {
-    type: String,
-    unique: true,
-    require: true,
-    validate: (value) => {
-      if (!validator.isEmail(value)) {
-        throw new Error({ error: 'Email Invalido' });
-      }
+const userSchema = new mongoose.Schema(
+  {
+    nome: {
+      type: String,
+      trim: true,
     },
-  },
-  cpf: {
-    type: String,
-  },
-  telefone: {
-    type: String,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  endereco: {
-    cep: Number,
-    estado: String,
-    cidade: String,
-    bairro: String,
-    rua: String,
-    numero: Number,
-  },
-  pedidos: [
-    { type: mongoose.Schema.Types.ObjectId, ref: 'Pedido' },
-  ],
-  tokens: [
-    {
-      token: {
-        type: String,
-        required: true,
+    email: {
+      type: String,
+      unique: true,
+      require: true,
+      validate: (value) => {
+        if (!validator.isEmail(value)) {
+          throw new Error({ error: 'Email Invalido' });
+        }
       },
     },
-  ],
-}, { timestamps: true });
+    cpf: {
+      type: String,
+    },
+    telefone: {
+      type: String,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    endereco: {
+      cep: Number,
+      estado: String,
+      cidade: String,
+      bairro: String,
+      rua: String,
+      numero: Number,
+    },
+    pedidos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Pedido' }],
+    tokens: [
+      {
+        token: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
+  },
+  { timestamps: true },
+);
 
 userSchema.pre('save', async function hashPassword(next) {
   try {
