@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import {
@@ -41,7 +42,8 @@ const Login = () => {
         sessao,
       };
       const request = await api.Login(data);
-      if (request) history.push('/conta');
+      if (request === 'ok') return history.push('/conta');
+      throw new Error('Checar Email e Senha');
     } catch (error) {
       alert(error);
     }

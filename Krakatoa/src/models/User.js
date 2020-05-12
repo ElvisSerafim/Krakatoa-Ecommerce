@@ -7,7 +7,6 @@ const bcrypt = require('bcrypt');
 const userSchema = new mongoose.Schema({
   nome: {
     type: String,
-    unique: true,
     trim: true,
   },
   email: {
@@ -22,11 +21,9 @@ const userSchema = new mongoose.Schema({
   },
   cpf: {
     type: String,
-    unique: true,
   },
   telefone: {
     type: String,
-    unique: true,
   },
   password: {
     type: String,
