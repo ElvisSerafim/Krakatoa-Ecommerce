@@ -1,8 +1,9 @@
 /* Pagina de Contato
  */
 
-import React, { useEffect,useState,PureComponent } from 'react';
+import React, { useEffect, useState, PureComponent } from 'react';
 import { Container, Grid, Typography } from '@material-ui/core/';
+import { useSelector, useDispatch } from 'react-redux';
 import Topo from '../components/Topo';
 import FooterComp from '../components/Footer';
 import './Contato.css';
@@ -55,48 +56,47 @@ const styles = {
 };
 
 export default function MinhaConta() {
+  const [user, setUser] = useState('');
+  const usuario = useSelector((state)=> state.user);
+
   useEffect(()=>{
-      const getUser = async ()=>{
-      const data = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWI2MTE1ZjE4YWQyZTBlNDAwZjhjZGUiLCJpYXQiOjE1ODkyNTQ1NDl9.l6Mamy3_zN_6MhaKfDmqAW02xrYc-QMXAqpvOg2rdWI";
-      const request =  await ApiService.getUsuario(data);
-      console.log(data);
-    }
-    getUser();
+    setUser(usuario);
   })
+  
   return (
-      <>
-        <Container maxWidth="lg">
-          <Topo />
-          <Navbar />
-          <Typography variant="h2" color="primary" />
-          <Grid container spacing={2} diretion="row" justify="flex-start">
-            <Grid item lg={4} md={4}>
-              <Typography variant="h4" color="primary">
-                Minha Conta
+    <>
+      <Container maxWidth="lg">
+        <Topo />
+        <Navbar />
+        <Typography variant="h2" color="primary" />
+        <Grid container spacing={2} diretion="row" justify="flex-start">
+          <Grid item lg={4} md={4}>
+            <Typography variant="h4" color="primary">
+              Minha Conta
               </Typography>
-              <ContaComp />
-            </Grid>
-            <div
-              style={styles.quadrado2}
-            >
-              <div style={styles.flexRow}>
-                <Typography style={styles.txt2} color="secondary">Olá,</Typography>
-                <Typography color="primary" style={styles.txt1}>Usuário </Typography>
-              </div>
-              <div style={styles.flexRow}>
-                <Typography style={styles.txt3} color="secondary">   A partir do painel de controle da sua conta, você pode ver suas</Typography>
-                <Typography style={styles.txt4}>compras recentes</Typography>
-                <Typography style={styles.txt5} color="secondary">gerenciar seus</Typography>
-              </div>
-              <div style={styles.flexRow}>
-                <Typography style={styles.txt6}>endereços de entrega e cobrança</Typography>
-                <Typography style={styles.txt5} color="secondary">e editar suas</Typography>
-                <Typography style={styles.txt4}>senhas e detalhes da conta</Typography>
-              </div>
-            </div>
+            <ContaComp />
           </Grid>
-        </Container>
-        <FooterComp />
-      </>
-    );
+          <div
+            style={styles.quadrado2}
+          >
+            <div style={styles.flexRow}>
+              <Typography style={styles.txt2} color="secondary">Olá,</Typography>
+              <Typography color="primary" style={styles.txt1}>{user.nome}</Typography>
+            </div>
+            <div style={styles.flexRow}>
+              <Typography style={styles.txt3} color="secondary">   A partir do painel de controle da sua conta, você pode ver suas</Typography>
+              <Typography style={styles.txt4}>compras recentes</Typography>
+              <Typography style={styles.txt5} color="secondary">gerenciar seus</Typography>
+            </div>
+            <div style={styles.flexRow}>
+              <Typography style={styles.txt6}>endereços de entrega e cobrança</Typography>
+              <Typography style={styles.txt5} color="secondary">e editar suas</Typography>
+              <Typography style={styles.txt4}>senhas e detalhes da conta</Typography>
+            </div>
+          </div>
+        </Grid>
+      </Container>
+      <FooterComp />
+    </>
+  );
 }

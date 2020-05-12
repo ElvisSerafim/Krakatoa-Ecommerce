@@ -4,10 +4,11 @@ import React, { useState } from 'react';
 import {
   Checkbox, Typography, Button, Grid,
 } from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import TextFielde from './TextField';
 import api from '../Services/ApiService';
-
+import {setUser} from '../reducers/user';
 const styles = {
   row: {
     display: 'flex',
@@ -31,6 +32,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [sessao, setSessao] = useState(false);
+  const dispatch = useDispatch();
   const history = useHistory();
   const login = async () => {
     try {
@@ -42,7 +44,24 @@ const Login = () => {
         sessao,
       };
       const request = await api.Login(data);
-      if (request === 'ok') return history.push('/conta');
+      if (request === 'ok') {
+        
+        let dataToken;
+        if(sessao){
+          dataToken = {
+            token: localStorage.getItem('token')
+          }
+        } else {
+          dataToken = {
+            token: sessionStorage.getItem('token')
+          }
+        }
+        
+        const user = await api.getUsuario(dataToken);
+        dispatch(setUser(user));
+
+        return history.push('/conta');
+      }
       throw new Error('Checar Email e Senha');
     } catch (error) {
       alert(error);
