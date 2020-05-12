@@ -23,7 +23,6 @@ import TesteGabriel from './pages/testeGabriel';
 import Detalhes from './pages/Detalhes';
 import MyAddress from './pages/MyAddress';
 import { sendAllProducts } from './reducers/allProducts';
-import api from './Services/ApiService';
 import PrivateRoute from './Services/auth';
 import Pedidos from './pages/Pedidos';
 
@@ -90,7 +89,7 @@ ReactDOM.render(
           />
           <Route path="/carrinho" component={Carrinho} />
           <Route path="/testeGabriel" component={TesteGabriel} />
-          <Route path="/login" component={Login} />
+          <Route path="/login" component={Login} render={(props) => <Login {...props} />} />
 
           <PrivateRoute path="/conta" exact component={MinhaConta} />
           <PrivateRoute path="/endereco" component={Endereco} />
