@@ -240,6 +240,27 @@ const ApiService = {
       return 'Não foi possivel acessar o servidor';
     }
   },
+  getUsuario: async (data) => {
+    try {
+      const url = 'http://localhost:4000/api/user/me/';
+      const  token  = data;
+      console.log(token);
+      const requestInfo = {
+        method: 'GET',
+        headers: new Headers({
+          Authorization: `'Bearer ' ${token}`,
+          'Content-Type': 'application/json',
+        }),
+      };
+      const request = await fetch(url, requestInfo);
+      if (request.ok) {
+        return request.json();
+      }
+      throw new Error('Não foi possivel accessar seus dados');
+    } catch (error) {
+      return error;
+    }
+  }
 };
 
 export default ApiService;

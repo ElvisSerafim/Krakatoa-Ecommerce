@@ -73,7 +73,7 @@ export default function MyAddress() {
             placeholder="Digite Seu CEP"
             label="CEP"
             onChange={(e) => {
-              setCep(parseInt(e.target.value, 10));
+              setCep(e.target.value.replace(/[^0-9]/g, ''));
             }}
           />
         </Grid>
@@ -82,7 +82,7 @@ export default function MyAddress() {
             placeholder="Digite Seu CPF"
             label="CPF"
             onChange={(e) => {
-              setCpf(parseInt(e.target.value, 10));
+              setCpf(e.target.value.replace(/[^0-9]/g, ''));
             }}
           />
         </Grid>
@@ -118,7 +118,7 @@ export default function MyAddress() {
             placeholder="Digite seu Numero"
             label="Número"
             onChange={(e) => {
-              setNumero(parseInt(e.target.value, 10));
+              setNumero(e.target.value.replace(/[^0-9]/g, ''));
             }}
           />
         </Grid>
@@ -141,6 +141,35 @@ export default function MyAddress() {
                 setNomeCompleto(`${nome} ${sobrenome}`);
                 setToken(sessionStorage.getItem('item'));
                 enviar();
+                switch (true) {
+                  case nome.length == 0:
+                    alert('Insira seu nome!');
+                    break;
+                  case sobrenome.length == 0:
+                    alert('Insira seu sobrenome!');
+                    break;
+                  case cep.length != 8:
+                    alert('Cep inválido!');
+                    break;
+                  case cpf.length != 11:
+                    alert('Cpf inválido!');
+                    break;
+                  case bairro.length == 0:
+                    alert('Insira seu bairro!');
+                    break;
+                  case cidade.length == 0:
+                    alert('Insira sua cidade!');
+                    break;
+                  case rua.length == 0:
+                    alert('Insira sua rua!');
+                    break;
+                  case numero.length == 0:
+                    alert('Insira o numero da sua casa!');
+                    break;
+                  default:
+                    alert('Alterações salvas!')
+                    break;
+                }
               }}
             >
               Salvar

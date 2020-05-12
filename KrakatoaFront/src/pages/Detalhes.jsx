@@ -1,11 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* Pagina de Contato
  */
-import React from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-import {
-  Container, Grid, Typography, Button,
-} from '@material-ui/core/';
+import { Container, Grid, Typography, Button } from '@material-ui/core/';
 import MaskedInput from 'react-text-mask';
 import './Contato.css';
 import Input from '@material-ui/core/Input';
@@ -86,11 +84,15 @@ function TextMaskCustom(props) {
     />
   );
 }
-
 export default function Datalhes() {
+  const [pass, setPass] = useState('');
+  const [newPass, setNewPass] = useState('');
+  const [nome, setNome] = useState('-1');
+  const [tel, setTel] = useState('XXXXXXXXXXXXXXX');
+
   const classes = useStyles();
   const [values, setValues] = React.useState({
-    default: '7199936221',
+    default: '71999362212',
     numberformat: '1320',
   });
   const handleChange = (event) => {
@@ -118,12 +120,18 @@ export default function Datalhes() {
                 type="password"
                 label="Senha Atual"
                 style={styles.pass}
+                onChange={(event) => {
+                  setPass(event.target.value);
+                }}
               />
               <TextField
                 color="primary"
                 label="Nome"
                 defaultValue="Gustavo Santos"
                 style={styles.nome}
+                onChange={(event) => {
+                  setNome(event.target.value);
+                }}
               />
             </div>
             <div style={styles.flexRow}>
@@ -131,6 +139,9 @@ export default function Datalhes() {
                 style={styles.newpass}
                 type="password"
                 label="Nova Senha"
+                onChange={(event) => {
+                  setNewPass(event.target.value);
+                }}
               />
               <FormControl style={styles.tel}>
                 <InputLabel
@@ -140,19 +151,39 @@ export default function Datalhes() {
                   Telefone
                 </InputLabel>
                 <Input
-
                   defaultValue={values.default}
                   onChange={handleChange}
                   name="textmask"
                   id="formatted-text-mask-input"
+                  onChange={(event) => {
+                    setTel(event.target.value);
+                  }}
                   inputComponent={TextMaskCustom}
+                  
                 />
               </FormControl>
             </div>
             <div>
-            <Button style={styles.botao} variant="contained" color="primary">
-              SALVAR
-            </Button>
+              <Button
+                style={styles.botao}
+                onClick={() => {
+                  switch (true) {
+                    case nome.length==0:
+                        alert('Você deve botar seu nome!');
+                      break;
+                    case tel.length!=15:
+                        alert('Você deve inserir um número de telefone válido com DDD')
+                    break;
+                    default:
+                      alert('Alterações foram salvas');
+                      break;
+                  }
+                }}
+                variant="contained"
+                color="primary"
+              >
+                SALVAR
+              </Button>
             </div>
           </div>
         </Grid>
