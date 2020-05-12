@@ -5,6 +5,13 @@ const INITIAL_STATE = [
 
 export default function reducer(state = INITIAL_STATE, action) {
   if (action.type === 'ADD_CART') {
+      if(state.includes(action.product)){
+        console.log('Iguais');
+         var i = state.indexOf(action.product);
+         console.log(i);
+         state[i].quantidade = state[i].quantidade + 1;
+         return [...state];
+      }
     console.log([...state, action.product]);
     return [...state, action.product];
   } if (action.type === 'REMOVE_CART') {

@@ -1,16 +1,24 @@
 /* Pagina de Sobre
  */
 
-import React, { PureComponent } from 'react';
-import { Container, Typography, Box, Button } from '@material-ui/core/';
-import {Link} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import Grid from '@material-ui/core/Grid';
+
+import { Container, Typography, Box, Button, } from '@material-ui/core/';
+import { removerCart, removeProducts } from '../reducers/productsCart';
+import { useSelector, useDispatch } from 'react-redux';
+
+import api from '../Services/ApiService';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import Footer from '../components/Footer';
 import Pac from '../img/Pac.svg';
+import Sedex from '../img/Sedex.svg';
 import cartBlank from '../img/cartBlank.svg';
 import nodeli from '../img/noDelivery.svg';
 import payment from '../img/payment.svg';
+import TableSumario from '../components/TableSumario';
 const styles = {
   title: {
     padding: '64px 0px 40px 0px',
@@ -21,25 +29,21 @@ const styles = {
   boxStyle: {
     border: 2,
     height: 230,
-    width: 180,
+    width: 200,
   },
   btn: {
     border: 2,
-    marginLeft: 75,
     marginTop: 5,
     width: 200,
     padding: 1,
   },
   flexColumn: {
     display: 'flex',
-    flex: 1,
     flexDirection: 'column',
   },
   flexRow: {
     display: 'flex',
-    flex: 1,
     flexDirection: 'row',
-    width: '100%',
   },
   img: {
     paddingTop: '40px',
@@ -108,7 +112,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingLeft: 580,
     marginTop: 100,
   },
   deliveryAdress: {
@@ -126,84 +129,96 @@ const styles = {
   },
 };
 
-export default class Sumario extends PureComponent {
-  render() {
 
-    console.log(this.props.location.state);
-    const value = {
-      tam: ['Grande'],
-      price: [7.25],
-      amount: [1],
-      total: [],
-    };
-    return (
-      <>
-        <Container maxWidth="lg">
-          <Topo />
-          <Navbar />
-          <div style={styles.flexRow}>
-            <Typography style={styles.title}>Sumário</Typography>
+const Sumario = ({location}) => {
+  const [totalFinal, setFinalTotal] = useState(0);
+  const [totalFrete, setTotalFrete] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [cep, setCep] = useState('');
+  const [urlDelivery, setUrl] = useState('');
 
-            <div style={styles.process}>
+  const products = useSelector((state) => state.productsCart);
+  console.log(products);
+  console.log(location.state);
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+      if(location.state.entregaSelecionada === 'Pac'){
+          setUrl(Pac);
+      }else {
+        setUrl(Sedex);
+      }
+  })
+
+
+  const atualizarTotal = (total) => {
+    var auxTotal = 0;
+    total.map((item) => {
+      auxTotal = auxTotal + item;
+    });
+    setFinalTotal(auxTotal);
+  }
+
+  const removerProduct = (produto) => {
+    console.log(`Item: ${produto}`);
+    dispatch(removerCart(produto));
+  };
+
+  const value = {
+    tam: ['Grande'],
+    price: [7.25],
+    amount: [1],
+    total: [],
+  };
+
+
+  return (
+    <>
+      <Container maxWidth="lg">
+        <Topo />
+        <Navbar />
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Typography style={styles.title}>Sumário</Typography>
+
+          <div style={styles.process}>
+            <a href="/">
+              <img src={cartBlank} alt="React Logo" />
+            </a>
+
+            <hr style={styles.hrstyle} />
+            <a href="/">
+              <img src={nodeli} alt="React Logo" />
+            </a>
+            <hr style={styles.hrstyle} />
+            <div style={styles.payment}>
               <a href="/">
-                <img src={cartBlank} alt="React Logo" />
+                <img src={payment} alt="React Logo" />
               </a>
-
-              <hr style={styles.hrstyle} />
-              <a href="/">
-                <img src={nodeli} alt="React Logo" />
-              </a>
-              <hr style={styles.hrstyle} />
-              <div style={styles.payment}>
-                <a href="/">
-                  <img src={payment} alt="React Logo" />
-                </a>
-              </div>
             </div>
           </div>
-          <div style={styles.flexColumn}>
-            <Typography style={styles.deliType}>Tipo de entrega</Typography>
-            <div style={styles.flexRow}>
-              <Box
-                style={{ cursor: 'pointer' }}
-                display="flex"
-                borderColor="red"
-                borderRadius={16}
-                flexDirection="column"
-                alignItems="center"
-                {...styles.boxStyle}
-              >
-                <img
-                  src={Pac}
-                  id="entregaImg"
-                  alt="React Logo"
-                  style={styles.img}
-                />
-                <Typography style={styles.price} id="price">
-                  R$12,00
-                </Typography>
-                <Typography style={styles.entrega} id="entregaTipo">
-                  PAC
-                </Typography>
-                <div style={styles.escolhido}>
-                  <Typography style={styles.escolhidoTypo}>
-                    ESCOLHIDO
-                  </Typography>
-                </div>
-              </Box>
-              <div style={styles.flexColumn2}>
-                <Typography style={styles.deliveryAdress}>
-                  Endereço de entrega
-                </Typography>
-                <Typography style={styles.adress}>Beatrice Waddle</Typography>
-                <Typography style={styles.adress}>
-                  1391 Single Street. Chicago, MA 02129
-                </Typography>
-                <Typography style={styles.adress}>USA</Typography>
-                <Typography style={styles.adress}>+5 781-644-3627</Typography>
-                <Typography style={styles.adress}>
-                  BeatriceLWaddle@rhyta.com
-                </Typography>
+        </div>
+        <div style={styles.flexColumn}>
+          <div style={styles.flexRow}>
+
+
+            <TableSumario actualTotal={atualizarTotal} totalSumario={totalFinal} removerItem={removerProduct} />
+
+
+
+
+            <div style={{ fontWeight: 'bold', fontFamily: 'Poppins', paddingLeft: 60 }}>
+              <Typography style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}>
+                Endereço de entrega:
+            </Typography>
+
+              <div style={{marginTop: 10}}>
+                <Typography style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}>{location.state.endereco.nome}</Typography>
+                <Typography style={{ fontWeight: 'bold', fontFamily: 'Poppins' }} >{location.state.endereco.rua}, {location.state.endereco.bairro}, Numero° {location.state.endereco.numero}</Typography>
+                <Typography style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}>{location.state.endereco.cidade}</Typography>
+                <Typography style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}>{location.state.endereco.complemento}</Typography>
+                <Typography style={{ fontWeight: 'bold', fontFamily: 'Poppins' }} >
+                {location.state.endereco.telefone}
+            </Typography>
                 <Box
                   style={{ cursor: 'pointer' }}
                   display="flex"
@@ -213,86 +228,63 @@ export default class Sumario extends PureComponent {
                   alignItems="center"
                   {...styles.btn}
                 >
-                <Link to="/endereco" style={{ textDecoration: 'none' }}>
-                  <Typography>MUDAR ENDEREÇO</Typography>
-                </Link>
+                  <Link to="/endereco" style={{ textDecoration: 'none' }}>
+                    <Typography>MUDAR ENDEREÇO</Typography>
+                  </Link>
                 </Box>
               </div>
-            </div>
 
-            <div style={styles.flexRow}>
-              <div style={styles.circulo}></div>
-              <Typography variant="body2" color="primary" style={styles.infos}>
-                Lorem Ipsum - {value.tam[0]}
-              </Typography>
-              <Typography
-                variant="h6"
-                color="primary"
-                style={styles.priceLabel}
+
+              <Box
+                style={{ cursor: 'pointer', marginTop: 15 }}
+                display="flex"
+                borderColor="red"
+                borderRadius={16}
+                flexDirection="column"
+                alignItems="center"
+                {...styles.boxStyle}
               >
-                R${value.price[0]}
+                <img
+                  src={urlDelivery}
+                  id="entregaImg"
+                  style={styles.img}
+                />
+                <Typography style={styles.price} id="price">
+                  {location.state.totalFrete}
+            </Typography>
+                <Typography style={styles.entrega} id="entregaTipo">
+                  {location.state.entregaSelecionada}
+            </Typography>
+                <div style={styles.escolhido}>
+                  <Typography style={styles.escolhidoTypo}>
+                    ESCOLHIDO
               </Typography>
-              <Typography style={styles.quantia}>{value.amount[0]}</Typography>
-              <Typography
-                variant="body2"
-                color="primary"
-                style={{ padding: '90px 0px 0px 50px' }}
-              >
-                R$ {value.amount[0] * value.price[0]}
-              </Typography>
-              <div
-                style={{
-                  marginTop: 80,
-                  borderRadius: 10,
-                  width: 300,
-                  marginLeft: 120,
-                  backgroundColor: '#C8C8C8',
-                  height: 50,
-                }}
-              >
-                <div style={styles.flexRow}>
-                  <Typography
-                    style={{
-                      paddingTop: 13,
-                      paddingLeft: 20,
-                      color: 'white',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    {' '}
-                    Total:
-                  </Typography>
-                  <Typography
-                    style={{
-                      paddingTop: 13,
-                      paddingLeft: 170,
-                      color: 'white',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    R$ {value.amount[0] * value.price[0]}
-                  </Typography>
                 </div>
+              </Box>
+
+
+              <div style={{ width: 200, marginTop: 30 }}>
+
+                <Link to="/" style={{ textDecoration: 'none' }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                  >
+                    Concluir
+                 </Button>
+                </Link>
               </div>
+
             </div>
           </div>
-        </Container>
-        <div style={{width:200}}>
 
-        <Link to="/" style={{ textDecoration: 'none' }}>
-        <Button
-                style={{marginLeft:1175,marginTop:50}}
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                 
-                >
-               Concluir
-                </Button>
-        </Link>
         </div>
-        <Footer />
-      </>
-    );
-  }
-}
+      </Container>
+      <Footer />
+    </>
+  );
+};
+
+export default Sumario;
+

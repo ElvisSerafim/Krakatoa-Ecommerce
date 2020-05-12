@@ -44,19 +44,19 @@ const useStyles = makeStyles({
         fontFamily: 'Poppins'
     },
     tableHead: {
-        height: 100
+        height: 70
     }
 });
 
 
-export default function CustomizedTables({ estilo, actualTotal, removerItem }) {
+export default function CustomizedTables({ totalSumario, actualTotal, removerItem }) {
     const classes = useStyles();
     const [quantity, setQuantity] = useState([]);
     const [total, setTotal] = useState([]);
     const [products, setProducts] = useState([]);
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.productsCart)
- 
+
     useEffect(() => {
         setProducts(allProducts);
         const quantidades = [];
@@ -69,7 +69,7 @@ export default function CustomizedTables({ estilo, actualTotal, removerItem }) {
         });
         actualTotal(totais);
     }, [allProducts]);
-    
+
 
     const updateTotal = (index) => {
 
@@ -82,6 +82,8 @@ export default function CustomizedTables({ estilo, actualTotal, removerItem }) {
         allProducts[index].quantidade--;
         dispatch(productsUpdate(allProducts));
     }
+
+
     const updateRemoveTotal = (i) => {
         const auxiliar = [...total];
         auxiliar.splice(i, 1);
@@ -108,9 +110,7 @@ export default function CustomizedTables({ estilo, actualTotal, removerItem }) {
                         <StyledTableRow key={row.id}>
                             <StyledTableCell component="th" scope="row">
                                 <div style={{ display: 'flex', flexDirection: 'row', }}>
-                                    <div style={{ width: '100px', height: '150px' }}>
-                                        <img src={row.Imageurl} style={{ width: '100%', height: '100%', borderRadius: 5 }} alt="Imagem produto" />
-                                    </div>
+
                                     <div style={{ paddingLeft: '40px', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                                         {row.nome}
                                     </div>
@@ -167,12 +167,31 @@ export default function CustomizedTables({ estilo, actualTotal, removerItem }) {
                                 <Box style={{ cursor: 'pointer', padding: 20 }} >
                                     <HighlightOffIcon style={{ height: 30, width: 30 }} onClick={() => {
                                         removerItem(allProducts[i]);
-                                        updateRemoveTotal(i);                                        
+                                        updateRemoveTotal(i);
                                     }} />
                                 </Box>
                             </StyledTableCell>
                         </StyledTableRow>
                     ))}
+                    <StyledTableRow>
+
+                    <StyledTableCell component="th" scope="row"> <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                    <p>Total</p>
+                                    
+                                </div> </StyledTableCell>
+                            <StyledTableCell align="right"> </StyledTableCell>
+                            <StyledTableCell align="center"></StyledTableCell>
+                            <StyledTableCell align="center"> <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                    <p>R$</p>
+                                    <div style={{ width: 20 }}>
+                                <p>{totalSumario}</p>
+                                    </div>
+                                </div></StyledTableCell>
+                               
+                            <StyledTableCell align="right">
+                            </StyledTableCell>
+                        
+                    </StyledTableRow>
                 </TableBody>
             </Table>
         </TableContainer>
