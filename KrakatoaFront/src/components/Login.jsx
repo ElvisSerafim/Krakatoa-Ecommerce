@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react';
 import {
   Checkbox, Typography, Button, Grid,
 } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 import TextFielde from './TextField';
 import api from '../Services/ApiService';
 
@@ -24,96 +26,89 @@ const styles = {
   },
 };
 
-export default class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-      sessao: false,
-    };
-  }
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [sessao, setSessao] = useState(false);
+  const history = useHistory();
+  const login = async () => {
+    try {
+      if (email === '') throw new Error('Email Vazio');
+      if (password === '') throw new Error('Senha Vazia');
+      const data = {
+        email,
+        password,
+        sessao,
+      };
+      const request = await api.Login(data);
+      if (request) history.push('/conta');
+    } catch (error) {
+      alert(error);
+    }
+  };
 
-  handleChange(event) {
-    this.setState({ sessao: event.target.checked });
-  }
-
-  login = async () => {
-    const { email, password, sessao } = this.state;
-    if (email === '') throw new Error('Email Vazio');
-    if (password === '') throw new Error('Senha Vazia');
-    const data = {
-      email,
-      password,
-      sessao,
-    };
-    const request = api.Login(data);
-    /* Redirect Pagina do Usuario */
-  }
-
-  render() {
-    return (
-      <>
-        <Grid container spacing={2} diretion="row" justify="flex-start">
-          <Grid item lg={12} md={12}>
-            <div style={styles.senha}>
-              <TextFielde
-                login
-                id="email-login"
-                label="Email"
-                fullWidth
-                onChange={(e) => {
-                  this.setState({ email: e.target.value });
-                }}
-              />
-            </div>
-          </Grid>
-          <Grid item lg={12} md={12}>
-            <div style={styles.senha}>
-              <TextFielde
-                label="Senha"
-                id="password"
-                password
-                onChange={(e) => {
-                  this.setState({ password: e.target.value });
-                }}
-              />
-            </div>
-          </Grid>
-          <Grid item lg={6} md={6} flexDirection="row">
-            <div style={styles.row}>
-              <div style={styles.botaoEntrar} >
-                <Button variant="contained" color="primary" fullWidth onClick={this.login}>
-                  Entrar
-                </Button>
-              </div>
-              <div style={styles.row}>
-                <Checkbox
-                  checked={this.state.sessao}
-                  onChange={(event) => {this.setState({ sessao: event.target.checked })}}
-                  inputProps={{ 'aria-label': 'primary checkbox' }}
-                />
-                <Typography
-                  variant="body2"
-                  color="secondary"
-                  style={{ marginBottom: 0 }}
-                >
-                  Lembre-me
-                </Typography>
-              </div>
-            </div>
-          </Grid>
-          <Grid item lg={12} md={12}>
-            <Typography
-              variant="body2"
-              color="primary"
-              style={{ marginBottom: 40 }}
-            >
-              Perdeu a senha?
-            </Typography>
-          </Grid>
+  return (
+    <>
+      <Grid container spacing={2} diretion="row" justify="flex-start">
+        <Grid item lg={12} md={12}>
+          <div style={styles.senha}>
+            <TextFielde
+              login
+              id="email-login"
+              label="Email"
+              fullWidth
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+          </div>
         </Grid>
-      </>
-    );
-  }
-}
+        <Grid item lg={12} md={12}>
+          <div style={styles.senha}>
+            <TextFielde
+              label="Senha"
+              id="password"
+              password
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+          </div>
+        </Grid>
+        <Grid item lg={6} md={6} flexDirection="row">
+          <div style={styles.row}>
+            <div style={styles.botaoEntrar}>
+              <Button variant="contained" color="primary" fullWidth onClick={login}>
+                Entrar
+              </Button>
+            </div>
+            <div style={styles.row}>
+              <Checkbox
+                onChange={(event) => { setSessao(event.target.checked); }}
+                inputProps={{ 'aria-label': 'primary checkbox' }}
+              />
+              <Typography
+                variant="body2"
+                color="secondary"
+                style={{ marginBottom: 0 }}
+              >
+                Lembre-me
+              </Typography>
+            </div>
+          </div>
+        </Grid>
+        <Grid item lg={12} md={12}>
+          <Typography
+            variant="body2"
+            color="primary"
+            style={{ marginBottom: 40 }}
+          >
+            Perdeu a senha?
+          </Typography>
+        </Grid>
+      </Grid>
+    </>
+  );
+};
+
+export default Login;
