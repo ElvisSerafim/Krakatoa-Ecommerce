@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && rsync build ../Prod/ -a && rm build -r",
+    "build": "react-scripts build && scp -r ./build/* gustavo@http://64.227.58.78/:/var/www/example.com/html",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
