@@ -1,7 +1,7 @@
 /* Pagina de Contato
  */
 
-import React, { PureComponent } from 'react';
+import React, { useEffect,useState,PureComponent } from 'react';
 import { Container, Grid, Typography } from '@material-ui/core/';
 import Topo from '../components/Topo';
 import FooterComp from '../components/Footer';
@@ -12,6 +12,7 @@ import RoomIcon from '@material-ui/icons/Room';
 import PermIdentityTwoToneIcon from '@material-ui/icons/PermIdentityTwoTone';
 import ExitToAppTwoToneIcon from '@material-ui/icons/ExitToAppTwoTone';
 import Navbar from '../components/Nav';
+import ApiService from '../Services/ApiService.js'
 import ContaComp from '../components/MinhaConta';
 
 const styles = {
@@ -58,9 +59,16 @@ const styles = {
   },
 };
 
-export default class MinhaConta extends PureComponent {
-  render() {
-    return (
+export default function MinhaConta() {
+  useEffect(()=>{
+      const getUser = async ()=>{
+      const data = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWI2MTE1ZjE4YWQyZTBlNDAwZjhjZGUiLCJpYXQiOjE1ODkyNTQ1NDl9.l6Mamy3_zN_6MhaKfDmqAW02xrYc-QMXAqpvOg2rdWI";
+      const request =  await ApiService.getUsuario(data);
+      console.log(data);
+    }
+    getUser();
+  })
+  return (
       <>
         <Container maxWidth="lg">
           <Topo />
@@ -96,5 +104,4 @@ export default class MinhaConta extends PureComponent {
         <FooterComp />
       </>
     );
-  }
 }

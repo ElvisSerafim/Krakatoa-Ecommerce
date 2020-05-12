@@ -1,10 +1,8 @@
 import React, { PureComponent } from 'react';
-import {
-  Container, Typography, Box, Button,
-} from '@material-ui/core/';
+import { Container, Typography, Box, Button } from '@material-ui/core/';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import Footer from '../components/Footer';
@@ -15,6 +13,8 @@ import payment from '../img/payment.svg';
 import Sedex from '../img/Sedex.svg';
 import Pac from '../img/Pac.svg';
 import api from '../Services/ApiService';
+import Alerta from '../components/Alerta'
+
 
 const styles = {
   title: {
@@ -44,7 +44,7 @@ const theme = createMuiTheme({
     },
   },
 });
-
+let path = '';
 export default class Endereco extends PureComponent {
   constructor(props) {
     super(props);
@@ -69,10 +69,12 @@ export default class Endereco extends PureComponent {
     };
   }
   enviar = async () => {
+
     try {
-      const token = localStorage.getItem('token') !== null
-        ? localStorage.getItem('token')
-        : sessionStorage.getItem('token');
+      const token =
+        localStorage.getItem('token') !== null
+          ? localStorage.getItem('token')
+          : sessionStorage.getItem('token');
       if (!token) throw new Error('Acesso não autorizado');
       const {
         cep,
@@ -99,18 +101,50 @@ export default class Endereco extends PureComponent {
         nome: nomeCompleto,
         token,
       };
+      
+      switch (true) {
+        case nome.length == 0 || nome == ' ':
+          alert('Insira seu nome!');
+        break;
+        case sobrenome.length == 0 || sobrenome == ' ':
+          alert('Insira seu sobrenome!');
+          break;
+        case telefone.length != 11 :
+          alert('Insira um número de telefone válido com DDD');
+          break;
+        case cpf.length != 11:
+          alert('Cpf inválido!');
+          break;
+        case cep.length != 8:
+          alert('Cep inválido!');
+          break;
+        case bairro.length == 0 || bairro == ' ':
+          alert('Insira seu bairro!');
+          break;
+        case cidade.length == 0 || cidade == ' ':
+          alert('Insira sua cidade!');
+          break;
+        case numero.length == 0 || numero == ' ':
+          alert('Insira o numero da sua casa!');
+          break;
+        case rua.length == 0 || rua == ' ':
+          alert('Insira sua rua!');
+          break;
+        default:
+          path = '/sumario';
+          break;
+      }
       console.log(data);
       const request = await api.UsuarioEndereco(data);
       console.log(request);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   componentDidMount() {
     this.getInformaçõesCep();
   }
-
 
   getInformaçõesCep = async () => {
     const cep = this.props.location.state.cepEndereco;
@@ -118,13 +152,13 @@ export default class Endereco extends PureComponent {
       cepOrigem: '41610200',
       cepDestino: cep,
       valorDeclarado: 500,
-      codigoServico: 41106
+      codigoServico: 41106,
     };
     const data2 = {
       cepOrigem: '41610200',
       cepDestino: cep,
       valorDeclarado: 500,
-      codigoServico: 40010
+      codigoServico: 40010,
     };
     const request = await api.CalcPrazoPreco(data);
     console.log(request);
@@ -137,19 +171,16 @@ export default class Endereco extends PureComponent {
     const data3 = {
       cepOrigem: '41610200',
       cepDestino: cep,
-    }
+    };
 
     const request3 = await api.CalcPrazo(data3);
     this.setState({ diasUteisSedex: request3[0].prazoEntrega });
     this.setState({ diasUteisPac: request3[1].prazoEntrega });
     console.log(request3);
-  }
-
-
+  };
 
   render() {
-    const {
-      children, style, classes, onClick, location } = this.props;
+    const { children, style, classes, onClick, location } = this.props;
     console.log('endereco');
     console.log(location.state.cepEndereco);
     return (
@@ -157,6 +188,7 @@ export default class Endereco extends PureComponent {
         <Container maxWidth="lg">
           <Topo />
           <Navbar />
+
           <div
             style={{
               display: 'flex',
@@ -368,9 +400,7 @@ export default class Endereco extends PureComponent {
                     {this.state.pricePac}
                   </p>
                   <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
-                    {this.state.diasUteisPac}
-                    {' '}
-                    dias úteis
+                    {this.state.diasUteisPac} dias úteis
                   </p>
                 </Box>
 
@@ -396,9 +426,7 @@ export default class Endereco extends PureComponent {
                     {this.state.priceSedex}
                   </p>
                   <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
-                    {this.state.diasUteisSedex}
-                    {' '}
-                    dias úteis
+                    {this.state.diasUteisSedex} dias úteis
                   </p>
                 </Box>
               </div>
@@ -415,7 +443,7 @@ export default class Endereco extends PureComponent {
                 >
                   <Link
                     to={{
-                      pathname: '/sumario',
+                      pathname: path,
                       state: {
                         totalPedido: location.state.totalPedido,
                         cepEndereco: location.state.cepEndereco,
@@ -429,30 +457,30 @@ export default class Endereco extends PureComponent {
                           numero: this.state.numero,
                           complemento: this.state.complemento,
                           nome: this.state.nome,
-                        }
-                      }
+                        },
+                      },
                     }}
                   >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    style={{
-                    width: '30%',
-                    height: '50%',
-                    textDecoration: 'none',
-                  }}
-                    onClick={this.enviar}
-                    href="/checkout"
-                  >
-                    Continuar
-                  </Button>
-                </Link>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      style={{
+                        width: '30%',
+                        height: '50%',
+                        textDecoration: 'none',
+                      }}
+                      onClick={this.enviar}
+                      href="/checkout"
+                    >
+                      Continuar
+                    </Button>
+                  </Link>
                 </div>
               </MuiThemeProvider>
+            </div>
           </div>
-          </div>
-      </Container>
-      <Footer />
+        </Container>
+        <Footer />
       </>
     );
   }
