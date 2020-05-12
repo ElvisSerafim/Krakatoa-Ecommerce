@@ -5,12 +5,17 @@ const INITIAL_STATE = [
 
 export default function reducer(state = INITIAL_STATE, action) {
   if (action.type === 'ADD_CART') {
-      if(state.includes(action.product)){
-        console.log('Iguais');
-         var i = state.indexOf(action.product);
-         console.log(i);
-         state[i].quantidade = state[i].quantidade + 1;
-         return [...state];
+      var flag = false;
+      state.map((item, i) => {
+          if(item.nome === action.product.nome){
+              console.log('Encontrado');
+              item.quantidade = item.quantidade + 1;
+              flag = true;
+          }        
+      })
+      if(flag == true){
+        console.log([...state]);
+        return [...state];
       }
     console.log([...state, action.product]);
     return [...state, action.product];
