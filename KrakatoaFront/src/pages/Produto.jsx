@@ -32,9 +32,6 @@ const styles = {
     borderRadius: 10,
     height: 700,
     marginTop: 40,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
   },
   quad2inside: {
     display: 'flex',
@@ -58,6 +55,7 @@ const styles = {
   },
   flexRow: {
     display: 'flex',
+    flex: 1,
     flexDirection: 'row',
     paddingBottom: '50',
     justifyContent: 'space-between',
@@ -166,22 +164,6 @@ const ProdutoPage = ({ match }) => {
               <div style={styles.foto} />
               <div style={styles.foto} />
               <div style={styles.foto} />
-              <div
-                style={{
-                  backgroundColor: 'black',
-                  width: 200,
-                  height: 35,
-                  marginTop: 400,
-                }}
-              >
-                <Typography
-                  variant="body2"
-                  color="secondary"
-                  style={{ marginLeft: '50px', paddingTop: '10px' }}
-                >
-                  Descrição
-                </Typography>
-              </div>
             </div>
           </Grid>
           <Grid item lg={4} md={4}>
@@ -206,79 +188,99 @@ const ProdutoPage = ({ match }) => {
                   </Typography>
                 </div>
               </div>
-              <Typography style={{ color: 'white', fontStyle: 'normal', margin: 0 }} variant="h3">
-                {product.nome}
-              </Typography>
-              <Typography
-                style={{ paddingTop: 30 }}
-                variant="h4"
-                color="primary"
-                id="price"
-              >
-                R$
-                {' '}
-                {product.preco}
-              </Typography>
-              <div style={{ marginTop: 50 }}>
-                <ComboBox
-                  onChange={(event) => {
-                    setSize(event.target.value);
+              <div style={styles.quad2inside}>
+                <Typography style={{ color: 'white', fontStyle: 'normal', margin: 0 }} variant="h3">
+                  {product.nome}
+                </Typography>
+                <Typography
+                  style={{ paddingTop: 30 }}
+                  variant="h4"
+                  color="primary"
+                  id="price"
+                >
+                  R$
+                  {' '}
+                  {product.preco}
+                </Typography>
+                <div style={{ marginTop: 50 }}>
+                  <ComboBox
+                    onChange={(event) => {
+                      setSize(event.target.value);
+                    }}
+                    style={{
+                      backgroundColor: 'white',
+                      width: '150px',
+                      borderRadius: 7,
+                    }}
+                    value={size}
+                    items={['Grande', 'Médio', 'Pequeno']}
+                    label="Tamanhos"
+                  />
+                </div>
+                <div style={{ marginTop: 50 }}>
+                  <ComboBox
+                    onChange={(event) => {
+                      setSize(event.target.value);
+                    }}
+                    style={{
+                      backgroundColor: 'white',
+                      width: '150px',
+                      borderRadius: 7,
+                      marginTop: 20,
+                    }}
+                    value={size}
+                    items={['Branco', 'Azul']}
+                    label="Cores"
+                  />
+                </div>
+                <ProdutoEmSi
+                  addItem={(quantity) => {
+                    addItemCart(product, quantity);
                   }}
-                  style={{
-                    backgroundColor: 'white',
-                    width: '150px',
-                    borderRadius: 7,
-                  }}
-                  value={size}
-                  items={['Grande', 'Médio', 'Pequeno']}
-                  label="Tamanhos"
                 />
               </div>
-              <div style={{ marginTop: 50 }}>
-                <ComboBox
-                  onChange={(event) => {
-                    setSize(event.target.value);
-                  }}
-                  style={{
-                    backgroundColor: 'white',
-                    width: '150px',
-                    borderRadius: 7,
-                    marginTop: 20,
-                  }}
-                  value={size}
-                  items={['Branco', 'Azul']}
-                  label="Cores"
-                />
-              </div>
-              <ProdutoEmSi
-                addItem={(quantity) => {
-                  addItemCart(product, quantity);
-                }}
-              />
             </div>
           </Grid>
-          <div
-            style={{
-              backgroundColor: 'black',
-              width: '80%',
-              maxWidth: 1240,
-              height: 350,
-            }}
-          >
-            <div style={{ maxWidth: 1100 }}>
+          <Grid item lg={12} md={12}>
+            <div
+              style={{
+                backgroundColor: 'black',
+                width: 200,
+                height: 35,
+                marginTop: 100,
+              }}
+            >
               <Typography
-                variant="h6"
+                variant="body2"
                 color="secondary"
-                style={{
-                  paddingLeft: '50px',
-                  paddingTop: '64px',
-                  width: '100%',
-                }}
+                style={{ marginLeft: '50px', paddingTop: '10px' }}
               >
-                {product.descricao}
+                Descrição
               </Typography>
             </div>
-          </div>
+            <div
+              style={{
+                backgroundColor: 'black',
+                width: '100%',
+                maxWidth: 1240,
+                height: 350,
+              }}
+            >
+              <div style={{ maxWidth: 1100 }}>
+                <Typography
+                  variant="h6"
+                  color="secondary"
+                  style={{
+                    paddingLeft: '50px',
+                    paddingTop: '64px',
+                    width: '100%',
+                  }}
+                >
+                  {product.descricao}
+                </Typography>
+              </div>
+            </div>
+          </Grid>
         </Grid>
         <div
           style={{

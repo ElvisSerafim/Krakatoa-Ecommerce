@@ -25,7 +25,7 @@ const ProdutoEmSi = ({ addItem }) => {
   return (
     <>
       <div style={styles.flexColumn}>
-        <div style={{ paddingTop: 50 }}>
+        <div style={{ paddingTop: 150 }}>
           <div style={styles.flexRow}>
             <Quantity
               onClickPlus={() => {
