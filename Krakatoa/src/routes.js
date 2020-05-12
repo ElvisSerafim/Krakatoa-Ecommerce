@@ -35,4 +35,3 @@ routes.post('/api/calcPrazoPreco', CorreioController.calcularPrazoPreco);
 routes.post('/api/enviarPedido', PedidoController.Store);
 
 module.exports = routes;
-

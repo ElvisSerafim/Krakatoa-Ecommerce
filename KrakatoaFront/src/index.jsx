@@ -84,7 +84,7 @@ ReactDOM.render(
             path="/vestidos/:id"
             render={(props) => <Produto {...props} />}
           />
-           <Route
+          <Route
             path="/pesquisa/:id"
             render={(props) => <Produto {...props} />}
           />
