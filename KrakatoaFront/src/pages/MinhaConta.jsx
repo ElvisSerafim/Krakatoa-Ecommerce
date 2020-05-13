@@ -58,9 +58,9 @@ const styles = {
 export default function MinhaConta() {
   const [user, setUser] = useState('');
   const usuario = useSelector((state)=> state.user);
-
+  console.log(usuario);
   useEffect(()=>{
-    setUser(usuario);
+    setUser(usuario.user);
   })
   
   return (
