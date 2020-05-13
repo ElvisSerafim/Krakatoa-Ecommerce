@@ -3,7 +3,7 @@ import { Grid, Button } from '@material-ui/core/';
 import TextField from '@material-ui/core/TextField';
 import api from '../Services/ApiService';
 import './Contato.css';
-
+import Alerta from '../components/Alerta'
 export default function MyAddress() {
   const [nome, setNome] = useState('');
   const [sobrenome, setSobrenome] = useState('');
@@ -16,6 +16,9 @@ export default function MyAddress() {
   const [complemento, setComplemento] = useState('');
   const [nomeCompleto, setNomeCompleto] = useState('');
   const [token, setToken] = useState(sessionStorage.getItem('item'));
+  const [message, setMessage] = useState('');
+  const [status, setStatus] = useState('error');
+  const [open, setOpen] = useState(false);
 
   const enviar = async () => {
     try {
@@ -47,8 +50,15 @@ export default function MyAddress() {
       console.log(error);
     }
   };
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false); 
+  };
   return (
     <div style={{ padding: '20px 0px 0px 20px' }}>
+      <Alerta openAlert={open} message={message} handleClose={handleClose} status={status} vertical='top' horizontal='right' />
       <Grid container spacing={2} diretion="row" justify="space-between">
         <Grid item lg={6}>
           <TextField
@@ -141,33 +151,37 @@ export default function MyAddress() {
                 setNomeCompleto(`${nome} ${sobrenome}`);
                 setToken(sessionStorage.getItem('item'));
                 enviar();
+                setOpen(true);
+                setStatus('error');
                 switch (true) {
-                  case nome.length === 0:
-                    alert('Insira seu nome!');
+                  case nome.length == 0:
+                  setMessage('Insira seu nome!')
+                  break;
+                  case sobrenome.length == 0:
+                    setMessage('Insira seu sobrenome!');
                     break;
-                  case sobrenome.length === 0:
-                    alert('Insira seu sobrenome!');
-                    break;
-                  case cep.length !== 8:
-                    alert('Cep inválido!');
+                  case cep.length != 8:
+                    setMessage('Cep inválido!');
                     break;
                   case cpf.length != 11:
-                    alert('Cpf inválido!');
+                    setMessage('Cpf inválido!');
                     break;
                   case bairro.length == 0:
-                    alert('Insira seu bairro!');
+                    setMessage('Insira seu bairro!');
                     break;
                   case cidade.length == 0:
-                    alert('Insira sua cidade!');
+                    setMessage('Insira sua cidade!');
                     break;
                   case rua.length == 0:
-                    alert('Insira sua rua!');
+                    setMessage('Insira sua rua!');
                     break;
                   case numero.length == 0:
-                    alert('Insira o numero da sua casa!');
+                    setMessage('Insira o numero da sua casa!');
                     break;
-                  default:
-                    alert('Alterações salvas!');
+                    setOpen(true);
+                    default:
+                    setMessage('Alterações salvas!');
+                    setStatus('success');
                     break;
                 }
               }}

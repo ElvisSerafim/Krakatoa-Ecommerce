@@ -62,7 +62,7 @@ const Login = () => {
         const user = await api.getUsuario(dataToken);
         dispatch(setUser(user));
 
-        return history.push('/conta');
+        return history.push('/conta/');
       }
       throw new Error('Checar Email e Senha');
     } catch (error) {
