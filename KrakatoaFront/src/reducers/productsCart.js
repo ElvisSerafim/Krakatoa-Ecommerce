@@ -9,7 +9,7 @@ export default function reducer(state = INITIAL_STATE, action) {
       state.map((item, i) => {
           if(item.nome === action.product.nome){
               console.log('Encontrado');
-              item.quantidade = item.quantidade + 1;
+              item.quantidade = item.quantidade + action.product.quantidade;
               flag = true;
           }        
       })

@@ -57,8 +57,8 @@ const Login = () => {
           }
         }
         
-        const user = await api.getUsuario(dataToken);
-        dispatch(setUser(user));
+        const usuario = await api.getUsuario(dataToken);
+        dispatch(setUser(usuario));
 
         return history.push('/conta');
       }
