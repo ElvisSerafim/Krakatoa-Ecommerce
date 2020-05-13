@@ -4,8 +4,8 @@ const a = localStorage.getItem('token');
 const b = sessionStorage.getItem('token');
 
 const initialState = {
-  token: getToken(),
-  user: tentativa(),
+  token: 2,
+  user: 2,
 };
 
 function getToken() {
