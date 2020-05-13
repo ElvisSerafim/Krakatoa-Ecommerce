@@ -111,60 +111,41 @@ export default class Endereco extends PureComponent {
         status,
         open,
       };
-
+      this.setState({open:true});
+      this.setState({status:'error'});
       switch (true) {
         case nome.length === 0 || nome === ' ':
-          this.setState({ open: true });
-          this.setState({ status: 'error' });
           this.setState({ message: 'Insira seu nome!' });
           break;
         case sobrenome.length === 0 || sobrenome === ' ':
-          this.setState({ open: true });
-          this.setState({ status: 'error' });
           this.setState({ message: 'Insira seu sobrenome!' });
           break;
         case telefone.length !== 11:
-          this.setState({ open: true });
-          this.setState({ status: 'error' });
           this.setState({
             message: 'Você deve inserir um número de telefone válido com DDD',
           });
           break;
         case cpf.length !== 11:
-          this.setState({ open: true });
-          this.setState({ status: 'error' });
           this.setState({ message: 'CPF inválido!' });
           break;
         case cep.length !== 8:
-          this.setState({ open: true });
-          this.setState({ status: 'error' });
           this.setState({ message: 'CEP inválido!' });
           break;
         case bairro.length === 0 || bairro === ' ':
-          this.setState({ open: true });
-          this.setState({ status: 'error' });
           this.setState({ message: 'Insira seu bairro!' });
           break;
         case cidade.length === 0 || cidade === ' ':
-          this.setState({ open: true });
-          this.setState({ status: 'error' });
           this.setState({ message: 'Insira sua cidade!' });
           break;
         case numero.length === 0 || numero === ' ':
-          this.setState({ open: true });
-          this.setState({ status: 'error' });
           this.setState({ message: 'Insira o número da sua casa!' });
           break;
         case rua.length === 0 || rua === ' ':
-          this.setState({ open: true });
-          this.setState({ status: 'error' });
           this.setState({ message: 'Insira sua rua!' });
           break;
         default:
-          this.setState({ open: true });
           this.setState({ status: 'success' });
           this.setState({ message: 'Boas compras!' });
-          console.log('FOI');
           path = '/sumario';
           break;
       }

@@ -68,7 +68,7 @@ const Produtos = ({ title, name }) => {
         <Alerta
           message="Produto adicionado"
           vertical="top"
-          horizontal="center"
+          horizontal="right"
           status="success"
           handleClose={fechar}
           openAlert={open}

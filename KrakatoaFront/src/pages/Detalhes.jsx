@@ -115,7 +115,7 @@ export default function Datalhes() {
           status={status}
           handleClose={handleClose}
           vertical="top"
-          horizontal="center"
+          horizontal="right"
         />
         <Typography variant="h2" color="primary" />
         <Grid container spacing={2} diretion="row" justify="flex-start">
@@ -177,6 +177,8 @@ export default function Datalhes() {
               <Button
                 style={styles.botao}
                 onClick={() => {
+                  setOpen(true);
+                  setStatus('error');
                   switch (true) {
                     case newPass.length > 0:
                       /*
@@ -187,26 +189,19 @@ export default function Datalhes() {
                       SE ESTIVER CERTA, RODAR O CÓDIGO ABAIXO:
                     */
 
-                      setOpen(true);
                       setMessage('Alterações salvas!');
-                      setStatus('success');
                       // ATUALIZAR A SENHA PARA NEWPASS
                       break;
                     case nome.length === 0:
-                      setOpen(true);
                       setMessage('Você deve botar seu nome!');
-                      setStatus('error');
                       break;
                     case tel.replace(/[^0-9]/g, '').length !== 11 &&
                       tel !== '&366&':
-                      setOpen(true);
                       setMessage(
                         'Você deve inserir um número de telefone válido com DDD',
                       );
-                      setStatus('error');
                       break;
                     default:
-                      setOpen(true);
                       setMessage('Alterações salvas!');
                       setStatus('success');
                       // ATUALIZAR O NOME DO USARIO
