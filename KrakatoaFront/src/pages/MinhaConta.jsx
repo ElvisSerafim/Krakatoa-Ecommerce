@@ -55,12 +55,22 @@ const styles = {
   },
 };
 
-export default function MinhaConta() {
+ function MinhaConta() {
   const [user, setUser] = useState('');
-  const usuario = useSelector((state) => state.user);
-  useEffect(() => {
-    setUser(usuario.user);
-  });
+  const usuario = useSelector((state)=> state.user);
+
+
+  useEffect(()=>{
+  
+    const Get = async () => {
+      const tentativa = await usuario;
+      setUser(tentativa.user);
+      
+    };
+
+    Get();
+    
+  },);
 
   return (
     <>
@@ -112,3 +122,5 @@ export default function MinhaConta() {
     </>
   );
 }
+
+export default MinhaConta;
