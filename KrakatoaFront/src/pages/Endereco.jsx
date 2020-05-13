@@ -45,7 +45,9 @@ const theme = createMuiTheme({
   },
 });
 let path = '';
+
 export default class Endereco extends PureComponent {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -67,10 +69,13 @@ export default class Endereco extends PureComponent {
       cidade: ' ',
       numero: ' ',
       complemento: ' ',
+      status: 'error',
+      message: '',
+      open: false
     };
   }
+  
   enviar = async () => {
-
     try {
       const token =
         localStorage.getItem('token') !== null
@@ -88,6 +93,9 @@ export default class Endereco extends PureComponent {
         cidade,
         numero,
         complemento,
+        status,
+        message,
+        open
       } = this.state;
       const nomeCompleto = [nome, sobrenome].join(' ');
       const data = {
@@ -101,37 +109,62 @@ export default class Endereco extends PureComponent {
         complemento,
         nome: nomeCompleto,
         token,
+        message,
+        status,
+        open
       };
       
       switch (true) {
         case nome.length == 0 || nome == ' ':
-          alert('Insira seu nome!');
+          this.setState({open:true});
+          this.setState({status:'error'});
+          this.setState({message:'Insira seu nome!'});
         break;
         case sobrenome.length == 0 || sobrenome == ' ':
-          alert('Insira seu sobrenome!');
+          this.setState({open : true});
+          this.setState({status:'error'});
+          this.setState({message:'Insira seu sobrenome!'});
           break;
         case telefone.length != 11 :
-          alert('Insira um número de telefone válido com DDD');
+          this.setState({open : true});
+          this.setState({status:'error'});
+          this.setState({message:'Você deve inserir um número de telefone válido com DDD'});
           break;
         case cpf.length != 11:
-          alert('Cpf inválido!');
+          this.setState({open : true});
+          this.setState({status:'error'});
+          this.setState({message : 'CPF inválido!'});
           break;
         case cep.length != 8:
-          alert('Cep inválido!');
+          this.setState({open : true});
+          this.setState({status:'error'});
+          this.setState({message:'CEP inválido!'});
           break;
         case bairro.length == 0 || bairro == ' ':
-          alert('Insira seu bairro!');
+          this.setState({open : true});
+          this.setState({status:'error'});
+          this.setState({message:'Insira seu bairro!'});
           break;
         case cidade.length == 0 || cidade == ' ':
-          alert('Insira sua cidade!');
+          this.setState({open : true});
+          this.setState({status:'error'});
+          this.setState({message:'Insira sua cidade!'});
           break;
         case numero.length == 0 || numero == ' ':
-          alert('Insira o numero da sua casa!');
+          this.setState({open : true});
+          this.setState({status:'error'});
+          this.setState({ message:'Insira o número da sua casa!'});
           break;
         case rua.length == 0 || rua == ' ':
-          alert('Insira sua rua!');
+          this.setState({open : true});
+          this.setState({status:'error'});
+          this.setState({message:'Insira sua rua!'});
           break;
         default:
+          this.setState({open : true});
+          this.setState({status:'success'});
+          this.setState({message:'Boas compras!'});
+          console.log('FOI')
           path = '/sumario';
           break;
       }
@@ -173,7 +206,6 @@ export default class Endereco extends PureComponent {
       cepOrigem: '41610200',
       cepDestino: cep,
     };
-
     const request3 = await api.CalcPrazo(data3);
     this.setState({ diasUteisSedex: request3[0].prazoEntrega });
     this.setState({ diasUteisPac: request3[1].prazoEntrega });
@@ -181,7 +213,12 @@ export default class Endereco extends PureComponent {
   };
 
   render() {
-
+    const handleClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+      this.setState({open:false}); 
+    };
     const {
       children, style, classes, onClick, location } = this.props;
         return (
@@ -189,7 +226,7 @@ export default class Endereco extends PureComponent {
         <Container maxWidth="lg">
           <Topo />
           <Navbar />
-
+          <Alerta openAlert={this.state.open} message={this.state.message} status={this.state.status} handleClose={handleClose} vertical='top' horizontal='right'/>
           <div
             style={{
               display: 'flex',
@@ -290,6 +327,7 @@ export default class Endereco extends PureComponent {
                     onChange={(e) => {
                       this.setState({ cep: e.target.value });
                     }}
+                    numberOnly
                   />
                 </div>
                 <div style={{ width: '40%' }}>
@@ -470,14 +508,14 @@ export default class Endereco extends PureComponent {
                       variant="contained"
                       color="primary"
                       style={{
-                        width: '30%',
-                        height: '50%',
+                        width: 100,
+                        height: 70,
                         textDecoration: 'none',
                       }}
                       onClick={this.enviar}
                       href="/checkout"
                     >
-                      Continuar
+                    Continuar   
                     </Button>
                   </Link>
                 </div>

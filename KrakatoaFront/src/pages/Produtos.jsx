@@ -12,12 +12,13 @@ import ComboBox from '../components/ComboBox';
 import Paginator from '../components/Paginator';
 import Footer from '../components/Footer';
 import api from '../Services/ApiService';
+import Alerta from '../components/Alerta';
 
 
 const Produtos = ({ title, name }) => {
   const [product, setProduct] = useState([]);
   const [orderBy, setOrderBy] = useState('');
-
+  const [open,setOpen] = useState(false)
   useEffect(() => {
     const getProducts = async () => {
       const data = {
@@ -54,13 +55,22 @@ const Produtos = ({ title, name }) => {
     dispatch(updateProducts(b));
   };
 
+  const abrir = ()=>{
 
+  }
+  const fechar = (event, reason)=>{
+      if (reason === 'clickaway') {
+        return;
+      }
+      setOpen(false); 
+    };
   return (
 
     <>
       <Container maxWidth="lg">
         <Topo />
         <Navbar />
+        <Alerta message="Produto adicionado" vertical='top' horizontal='center' status="success" handleClose={fechar} openAlert={open}/>
         <Typography variant="h2" color="primary">
           {title}
         </Typography>
@@ -86,7 +96,7 @@ const Produtos = ({ title, name }) => {
             label="Ordenar por: "
           />
         </div>
-        <ProductList products={product} title={title} />
+        <ProductList alert={()=>{setOpen(true)}} products={product} title={title} />
         <div style={{ marginTop: '50px' }}>
           <Paginator />
         </div>

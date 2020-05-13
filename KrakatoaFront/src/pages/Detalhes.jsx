@@ -3,7 +3,7 @@
  */
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-import { Container, Grid, Typography, Button } from '@material-ui/core/';
+import { Container, Grid, Typography, Button, TableCell } from '@material-ui/core/';
 import MaskedInput from 'react-text-mask';
 import './Contato.css';
 import Input from '@material-ui/core/Input';
@@ -14,6 +14,7 @@ import ContaComp from '../components/MinhaConta';
 import FooterComp from '../components/Footer';
 import Topo from '../components/Topo';
 import Navbar from '../components/Nav';
+import Alerta from '../components/Alerta';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,13 +89,28 @@ export default function Datalhes() {
   const [pass, setPass] = useState('');
   const [newPass, setNewPass] = useState('');
   const [nome, setNome] = useState('-1');
-  const [tel, setTel] = useState('XXXXXXXXXXXXXXX');
+  const [tel, setTel] = useState('&366&');
+  const [open,setOpen] = useState(false);
+  const [message,setMessage] = useState('');
+  const [status,setStatus] = useState('error');
+  const [state, setState] = React.useState({
+    vertical: 'top',
+    horizontal: 'center',
+  });
+  const { vertical, horizontal} = state;
 
-  const classes = useStyles();
   const [values, setValues] = React.useState({
     default: '71999362212',
     numberformat: '1320',
   });
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false); 
+  };
+
   const handleChange = (event) => {
     setValues({
       ...values,
@@ -106,6 +122,7 @@ export default function Datalhes() {
       <Container maxWidth="lg">
         <Topo />
         <Navbar />
+        <Alerta openAlert={open} message={message} status={status} handleClose={handleClose} vertical='top' horizontal='center'/>
         <Typography variant="h2" color="primary" />
         <Grid container spacing={2} diretion="row" justify="flex-start">
           <Grid item lg={4} md={4}>
@@ -168,14 +185,36 @@ export default function Datalhes() {
                 style={styles.botao}
                 onClick={() => {
                   switch (true) {
+                    case newPass.length>0:
+                    /*
+                      VERIFICAR SE A SENHA ATUAL ESTÁ CERTA
+                    */
+                    
+                    /*
+                      SE ESTIVER CERTA, RODAR O CÓDIGO ABAIXO:
+                    */
+                    
+                      setOpen(true);
+                      setMessage('Alterações salvas!')
+                      setStatus('success');
+                      //ATUALIZAR A SENHA PARA NEWPASS
+                    break;
                     case nome.length==0:
-                        alert('Você deve botar seu nome!');
+                        setOpen(true);
+                        setMessage('Você deve botar seu nome!');
+                        setStatus('error');
                       break;
-                    case tel.length!=15:
-                        alert('Você deve inserir um número de telefone válido com DDD')
+                    case tel.replace(/[^0-9]/g,'').length!=11 && tel!='&366&':
+                        setOpen(true);
+                        setMessage('Você deve inserir um número de telefone válido com DDD');
+                        setStatus('error');
                     break;
                     default:
-                      alert('Alterações foram salvas');
+                      setOpen(true);
+                      setMessage('Alterações salvas!')
+                      setStatus('success');
+                    //ATUALIZAR O NOME DO USARIO
+                    //ATUALIZAR O TELEFONE DO USARIO
                       break;
                   }
                 }}
