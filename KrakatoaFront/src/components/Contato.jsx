@@ -4,7 +4,7 @@ import { Button, TextField } from '@material-ui/core';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import api from '../Services/ApiService';
 import Alerta from './Alerta';
-
+import Themes from '../themes';
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -131,6 +131,7 @@ export default class Contato extends Component {
                   color="primary"
                   fullWidth
                   onClick={this.enviar}
+                  style={Themes.palette.accent}
                 >
                   Enviar Mensagem
                 </Button>

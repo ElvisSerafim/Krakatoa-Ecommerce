@@ -57,7 +57,8 @@ const Home = () => (
       </Grid>
     </Container>
     <Footer />
-  </>
+    </>
+  
 );
 
 export default Home;
