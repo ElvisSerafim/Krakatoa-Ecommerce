@@ -2,16 +2,29 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
 import Produto from './Produto';
 import { addCart } from '../reducers/productsCart';
+import ComboBox from './ComboBox';
+import api from '../Services/ApiService';
+import { updateProducts } from '../reducers/products';
 
-const Produtos = ({ title, alert }) => {
+const useStyles = makeStyles({
+  GridContainer: {
+    '@media (min-width: 1024px)': {
+      justifyContent: 'flex-start',
+    },
+  },
+});
+
+const Produtos = ({ title, alert, name }) => {
   const [produtos, setProdutos] = useState([]);
+  const [product, setProduct] = useState([]);
+  const [orderBy, setOrderBy] = useState('');
   const dispatch = useDispatch();
-
+  const classes = useStyles();
   const addItemCart = (productCart) => {
     productCart.quantidade = 1;
-    console.log(productCart);
     dispatch(addCart(productCart));
     alert();
   };
@@ -21,10 +34,45 @@ const Produtos = ({ title, alert }) => {
     setProdutos(products);
   }, [products]);
 
+  const ordenar = async (value) => {
+    let chave = '';
+    if (value === '') return;
+    if (value === 'Mais vendidos') chave = 'maiorV';
+    if (value === 'Menor Preço') chave = 'menorP';
+    if (value === 'Maior Preço') chave = 'maiorP';
+
+    const data = {
+      tipo: name,
+      chave,
+    };
+    const request = await api.GetProdutos(data);
+    const b = [request];
+    setProduct(b);
+    dispatch(updateProducts(b));
+  };
+
   return products.map((item) => (
-    <Grid container justify="flex-start" spacing={2}>
+    <Grid
+      container
+      justify="space-evenly"
+      spacing={2}
+      className={classes.GridContainer}
+    >
+      <Grid container xs={12} style={{ flexDirection: 'row-reverse' }}>
+        <ComboBox
+          onChange={(event) => {
+            setOrderBy(event.target.value);
+            console.log(event.target.value);
+            ordenar(event.target.value);
+          }}
+          style={{ maxWidth: 300 }}
+          value={orderBy}
+          items={['Mais vendidos', 'Menor Preço', 'Maior Preço']}
+          label="Ordenar por: "
+        />
+      </Grid>
       {item.map((value) => (
-        <Grid key={value.id} item lg={3}>
+        <Grid key={value.id} item lg={3} md={4} sm={6}>
           <Produto
             produto={value}
             update={() => {}}

@@ -70,8 +70,8 @@ export default class Produto extends Component {
     return (
       <div
         style={{
-          height: 454,
-          width: 270,
+          maxHeight: 454,
+          maxWidth: 270,
         }}
       >
         <Box
