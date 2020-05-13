@@ -12,6 +12,7 @@ import payment from '../img/payment.svg';
 import Table from '../components/Table';
 import { removerCart, removeProducts } from '../reducers/productsCart';
 import api from '../Services/ApiService';
+import Estilos from '../Estilos';
 
 const styles = {
   title: {
@@ -44,7 +45,7 @@ const styles = {
     borderRadius: 200,
     backgroundColor: 'red',
     color: 'white',
-  },
+  }, 
 };
 
 const tentativa = {
@@ -107,13 +108,7 @@ const Carrinho = () => {
         <Topo />
         <Navbar />
         <div
-          style={{
-            display: 'flex',
-            flex: '1',
-            flexDirection: 'row',
-            marginTop: '64px',
-            justifyContent: 'space-between',
-          }}
+          style={Estilos.estilos().flex.flexRowSPACEBTW}
         >
           <Typography style={styles.title}>Carrinho</Typography>
           <div
