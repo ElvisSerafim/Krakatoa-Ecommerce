@@ -6,7 +6,6 @@ import { Typography, Box } from '@material-ui/core/';
 import { Link } from 'react-router-dom';
 import './Produto.css';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-
 const styles = {
   media: {
     display: 'flex',
@@ -78,6 +77,7 @@ export default class Produto extends Component {
       Imageurl,
     };
     return (
+      
       <div
         style={{
           height: 454,
@@ -144,6 +144,7 @@ export default class Produto extends Component {
           </Box>
         </Box>
       </div>
+      
     );
   }
 }

@@ -65,7 +65,7 @@ export default class MultilineTextFields extends PureComponent {
         <div style={styles.quadrado1}>
           <div style={styles.flexRow}>
             <SettingsIcon style={styles.txt3} color="secondary" />
-            <a style={{ textDecoration: 'none' }} href="/conta">
+            <a style={{ textDecoration: 'none' }} href="/conta/">
               <Typography style={styles.txt4} color="secondary">
                 Painel
               </Typography>

@@ -57,9 +57,9 @@ const styles = {
 export default function MinhaConta() {
   useEffect(()=>{
       const getUser = async ()=>{
-      const data = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWI2MTE1ZjE4YWQyZTBlNDAwZjhjZGUiLCJpYXQiOjE1ODkyNTQ1NDl9.l6Mamy3_zN_6MhaKfDmqAW02xrYc-QMXAqpvOg2rdWI";
+      const data = localStorage.getItem('token')
       const request =  await ApiService.getUsuario(data);
-      console.log(data);
+      console.log(request);
     }
     getUser();
   })

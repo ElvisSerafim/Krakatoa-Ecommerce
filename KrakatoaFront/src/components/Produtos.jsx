@@ -5,8 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Produto from './Produto';
 import { addCart } from '../reducers/productsCart';
 
-
-const Produtos = ({ title }) => {
+const Produtos = ({ title, alert }) => {
   const [produtos, setProdutos] = useState([]);
   const dispatch = useDispatch();
 
@@ -14,6 +13,7 @@ const Produtos = ({ title }) => {
     productCart.quantidade = 1;
     console.log(productCart);
     dispatch(addCart(productCart));
+    alert();
   };
   const lower = title.toLowerCase();
   const products = useSelector((state) => state.products);
