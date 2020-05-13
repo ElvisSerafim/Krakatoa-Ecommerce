@@ -9,6 +9,7 @@ import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import Footer from '../components/Footer';
 import useScript from '../components/useScript';
+import Drawer from '../components/Drawer';
 
 const styles = {
   story: {
@@ -36,19 +37,7 @@ const TesteGabriel = () => {
       <Container maxWidth="lg">
         <Topo />
         <Navbar />
-        <body onLoad="loadIFrame('prd', '<JWT>')">
-          <iframe
-            id="pago_iframe"
-            src="https://ecommerce.granito.com.vc/Checkouts/Simple/<JWT>"
-            style={{ border: 'none', minheight: 400, minWidth: 260 }}
-          />
-          <script>
-            configurePaymentMethod(backToServer); function backToServer(nonce){' '}
-            {}
-          </script>
-
-          <button onClick="sendPaymentMethodNonce()">enviar</button>
-        </body>
+        <Drawer />
       </Container>
       <Footer />
     </>

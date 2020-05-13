@@ -20,13 +20,16 @@
     "react-text-mask": "^5.4.3",
     "react-window": "^1.8.5",
     "redux": "^4.0.5",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "snyk": "^1.320.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && scp -r ./build/* gustavo@http://64.227.58.78/:/var/www/example.com/html",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "snyk-protect": "snyk protect",
+    "prepare": "yarn run snyk-protect"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -50,5 +53,6 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.1"
-  }
+  },
+  "snyk": true
 }
