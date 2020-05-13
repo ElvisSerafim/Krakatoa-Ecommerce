@@ -243,12 +243,12 @@ const ApiService = {
   getUsuario: async (data) => {
     try {
       const url = 'http://localhost:4000/api/user/me/';
-      const  token  = data;
+      const  {token} = data;
       console.log(token);
       const requestInfo = {
         method: 'GET',
         headers: new Headers({
-          Authorization: `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         }),
       };

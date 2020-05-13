@@ -8,7 +8,9 @@ const auth = require('./middleware/auth');
 
 const routes = Router();
 
-routes.get('/api/user/me', auth, async (req, res) => res.status(200).send(req.user));
+routes.get('/api/user/me', auth, async (req, res) =>
+  res.status(200).send(req.user),
+);
 
 routes.post('/api/user/login', UserController.Login);
 routes.post('/api/user/', UserController.Store);
