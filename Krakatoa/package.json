@@ -7,7 +7,9 @@
   "license": "MIT",
   "scripts": {
     "start": "env-cmd -f ./.env nodemon server.js",
-    "test": "env-cmd -f ./.env node ./src/server.js --trace-warnings"
+    "test": "env-cmd -f ./.env node ./src/server.js --trace-warnings",
+    "snyk-protect": "snyk protect",
+    "prepare": "yarn run snyk-protect"
   },
   "dependencies": {
     "bcrypt": "^4.0.1",
@@ -20,7 +22,8 @@
     "path": "^0.12.7",
     "secure-env": "^1.2.0",
     "soap": "^0.31.0",
-    "validator": "^13.0.0"
+    "validator": "^13.0.0",
+    "snyk": "^1.320.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
@@ -36,5 +39,6 @@
     "eslint-plugin-security": "^1.4.0",
     "nodemon": "^2.0.3",
     "prettier": "^2.0.5"
-  }
+  },
+  "snyk": true
 }
