@@ -8,7 +8,6 @@ export default function reducer(state = INITIAL_STATE, action) {
   return state;
 }
 
-
 export const sendSearch = (payload) => ({
   type: 'SEARCH',
   payload,

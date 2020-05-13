@@ -14,11 +14,10 @@ import Footer from '../components/Footer';
 import api from '../Services/ApiService';
 import Alerta from '../components/Alerta';
 
-
 const Produtos = ({ title, name }) => {
   const [product, setProduct] = useState([]);
   const [orderBy, setOrderBy] = useState('');
-  const [open,setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     const getProducts = async () => {
       const data = {
@@ -37,7 +36,6 @@ const Produtos = ({ title, name }) => {
   const dispatch = useDispatch();
   dispatch(updateProducts(product));
 
-
   const ordenar = async (value) => {
     let chave = '';
     if (value === '') return;
@@ -55,22 +53,26 @@ const Produtos = ({ title, name }) => {
     dispatch(updateProducts(b));
   };
 
-  const abrir = ()=>{
-
-  }
-  const fechar = (event, reason)=>{
-      if (reason === 'clickaway') {
-        return;
-      }
-      setOpen(false); 
-    };
+  const abrir = () => {};
+  const fechar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
   return (
-
     <>
       <Container maxWidth="lg">
         <Topo />
         <Navbar />
-        <Alerta message="Produto adicionado" vertical='top' horizontal='center' status="success" handleClose={fechar} openAlert={open}/>
+        <Alerta
+          message="Produto adicionado"
+          vertical="top"
+          horizontal="center"
+          status="success"
+          handleClose={fechar}
+          openAlert={open}
+        />
         <Typography variant="h2" color="primary">
           {title}
         </Typography>
@@ -96,7 +98,13 @@ const Produtos = ({ title, name }) => {
             label="Ordenar por: "
           />
         </div>
-        <ProductList alert={()=>{setOpen(true)}} products={product} title={title} />
+        <ProductList
+          alert={() => {
+            setOpen(true);
+          }}
+          products={product}
+          title={title}
+        />
         <div style={{ marginTop: '50px' }}>
           <Paginator />
         </div>

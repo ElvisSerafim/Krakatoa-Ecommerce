@@ -1,9 +1,9 @@
-import React, { useState, Component } from 'react';
-import { fade, makeStyles } from '@material-ui/core/';
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { useDispatch } from 'react-redux';
-import { sendSearch } from '../reducers/search.js';
+import { sendSearch } from '../reducers/search';
 
 const useStyles = makeStyles((theme) => ({
   search: {

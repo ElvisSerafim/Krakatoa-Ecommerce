@@ -1,28 +1,20 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable react/jsx-props-no-spreading */
 /* Pagina de Contato
  */
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-import { Container, Grid, Typography, Button, TableCell } from '@material-ui/core/';
+import { Container, Grid, Typography, Button } from '@material-ui/core/';
 import MaskedInput from 'react-text-mask';
 import './Contato.css';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
-import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
-import ContaComp from '../components/MinhaConta';
+import ContaComp from '../components/ContaComp';
 import FooterComp from '../components/Footer';
 import Topo from '../components/Topo';
 import Navbar from '../components/Nav';
 import Alerta from '../components/Alerta';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
-}));
 
 const styles = {
   background: {
@@ -90,14 +82,9 @@ export default function Datalhes() {
   const [newPass, setNewPass] = useState('');
   const [nome, setNome] = useState('-1');
   const [tel, setTel] = useState('&366&');
-  const [open,setOpen] = useState(false);
-  const [message,setMessage] = useState('');
-  const [status,setStatus] = useState('error');
-  const [state, setState] = React.useState({
-    vertical: 'top',
-    horizontal: 'center',
-  });
-  const { vertical, horizontal} = state;
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const [status, setStatus] = useState('error');
 
   const [values, setValues] = React.useState({
     default: '71999362212',
@@ -108,7 +95,7 @@ export default function Datalhes() {
     if (reason === 'clickaway') {
       return;
     }
-    setOpen(false); 
+    setOpen(false);
   };
 
   const handleChange = (event) => {
@@ -122,7 +109,14 @@ export default function Datalhes() {
       <Container maxWidth="lg">
         <Topo />
         <Navbar />
-        <Alerta openAlert={open} message={message} status={status} handleClose={handleClose} vertical='top' horizontal='center'/>
+        <Alerta
+          openAlert={open}
+          message={message}
+          status={status}
+          handleClose={handleClose}
+          vertical="top"
+          horizontal="center"
+        />
         <Typography variant="h2" color="primary" />
         <Grid container spacing={2} diretion="row" justify="flex-start">
           <Grid item lg={4} md={4}>
@@ -176,7 +170,6 @@ export default function Datalhes() {
                     setTel(event.target.value);
                   }}
                   inputComponent={TextMaskCustom}
-                  
                 />
               </FormControl>
             </div>
@@ -185,36 +178,39 @@ export default function Datalhes() {
                 style={styles.botao}
                 onClick={() => {
                   switch (true) {
-                    case newPass.length>0:
-                    /*
+                    case newPass.length > 0:
+                      /*
                       VERIFICAR SE A SENHA ATUAL ESTÁ CERTA
                     */
-                    
-                    /*
+
+                      /*
                       SE ESTIVER CERTA, RODAR O CÓDIGO ABAIXO:
                     */
-                    
+
                       setOpen(true);
-                      setMessage('Alterações salvas!')
+                      setMessage('Alterações salvas!');
                       setStatus('success');
-                      //ATUALIZAR A SENHA PARA NEWPASS
-                    break;
-                    case nome.length==0:
-                        setOpen(true);
-                        setMessage('Você deve botar seu nome!');
-                        setStatus('error');
+                      // ATUALIZAR A SENHA PARA NEWPASS
                       break;
-                    case tel.replace(/[^0-9]/g,'').length!=11 && tel!='&366&':
-                        setOpen(true);
-                        setMessage('Você deve inserir um número de telefone válido com DDD');
-                        setStatus('error');
-                    break;
+                    case nome.length === 0:
+                      setOpen(true);
+                      setMessage('Você deve botar seu nome!');
+                      setStatus('error');
+                      break;
+                    case tel.replace(/[^0-9]/g, '').length !== 11 &&
+                      tel !== '&366&':
+                      setOpen(true);
+                      setMessage(
+                        'Você deve inserir um número de telefone válido com DDD',
+                      );
+                      setStatus('error');
+                      break;
                     default:
                       setOpen(true);
-                      setMessage('Alterações salvas!')
+                      setMessage('Alterações salvas!');
                       setStatus('success');
-                    //ATUALIZAR O NOME DO USARIO
-                    //ATUALIZAR O TELEFONE DO USARIO
+                      // ATUALIZAR O NOME DO USARIO
+                      // ATUALIZAR O TELEFONE DO USARIO
                       break;
                   }
                 }}

@@ -8,8 +8,8 @@ import Topo from '../components/Topo';
 import FooterComp from '../components/Footer';
 import './Contato.css';
 import Navbar from '../components/Nav';
-import ApiService from '../Services/ApiService.js'
-import ContaComp from '../components/MinhaConta';
+import ApiService from '../Services/ApiService';
+import ContaComp from '../components/ContaComp';
 
 const styles = {
   background: {
@@ -57,12 +57,11 @@ const styles = {
 
 export default function MinhaConta() {
   const [user, setUser] = useState('');
-  const usuario = useSelector((state)=> state.user);
-  console.log(usuario);
-  useEffect(()=>{
+  const usuario = useSelector((state) => state.user);
+  useEffect(() => {
     setUser(usuario.user);
-  })
-  
+  });
+
   return (
     <>
       <Container maxWidth="lg">
@@ -73,25 +72,38 @@ export default function MinhaConta() {
           <Grid item lg={4} md={4}>
             <Typography variant="h4" color="primary">
               Minha Conta
-              </Typography>
+            </Typography>
             <ContaComp />
           </Grid>
-          <div
-            style={styles.quadrado2}
-          >
+          <div style={styles.quadrado2}>
             <div style={styles.flexRow}>
-              <Typography style={styles.txt2} color="secondary">Olá,</Typography>
-              <Typography color="primary" style={styles.txt1}>{user.nome}</Typography>
+              <Typography style={styles.txt2} color="secondary">
+                Olá,
+              </Typography>
+              <Typography color="primary" style={styles.txt1}>
+                {user.nome}
+              </Typography>
             </div>
             <div style={styles.flexRow}>
-              <Typography style={styles.txt3} color="secondary">   A partir do painel de controle da sua conta, você pode ver suas</Typography>
+              <Typography style={styles.txt3} color="secondary">
+                {' '}
+                A partir do painel de controle da sua conta, você pode ver suas
+              </Typography>
               <Typography style={styles.txt4}>compras recentes</Typography>
-              <Typography style={styles.txt5} color="secondary">gerenciar seus</Typography>
+              <Typography style={styles.txt5} color="secondary">
+                gerenciar seus
+              </Typography>
             </div>
             <div style={styles.flexRow}>
-              <Typography style={styles.txt6}>endereços de entrega e cobrança</Typography>
-              <Typography style={styles.txt5} color="secondary">e editar suas</Typography>
-              <Typography style={styles.txt4}>senhas e detalhes da conta</Typography>
+              <Typography style={styles.txt6}>
+                endereços de entrega e cobrança
+              </Typography>
+              <Typography style={styles.txt5} color="secondary">
+                e editar suas
+              </Typography>
+              <Typography style={styles.txt4}>
+                senhas e detalhes da conta
+              </Typography>
             </div>
           </div>
         </Grid>

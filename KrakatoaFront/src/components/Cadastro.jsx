@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { Button, Grid } from '@material-ui/core';
 import TextFielde from './TextField';
 import api from '../Services/ApiService';
+import Alerta from './Alerta';
 
 const styles = {
   row: {
@@ -28,6 +29,16 @@ const Cadastro = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
+  const [openAlert, setOpenAlert] = useState(false);
+  const [status, setStatus] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenAlert(false);
+  };
 
   const Cadastrar = async () => {
     try {
@@ -43,11 +54,21 @@ const Cadastro = () => {
       if (request === 'ok') return history.push('/conta');
       throw new Error('Email já cadastrado');
     } catch (error) {
-      alert(error);
+      setOpenAlert(true);
+      setMessage('Email já Cadastrado');
+      setStatus('error');
     }
   };
   return (
     <>
+      <Alerta
+        message={message}
+        openAlert={openAlert}
+        status={status}
+        handleClose={handleClose}
+        vertical="top"
+        horizontal="right"
+      />
       <Grid container spacing={2} diretion="row" justify="flex-start">
         <Grid item lg={12} md={12}>
           <div style={styles.senha}>
@@ -90,5 +111,4 @@ const Cadastro = () => {
     </>
   );
 };
-
 export default Cadastro;

@@ -24,25 +24,39 @@ export default class NavBar extends PureComponent {
           marginTop="2%"
         >
           <a href="/" style={styles.a}>
-            <Typography variant="h5" color="primary">Inicio</Typography>
+            <Typography variant="h5" color="primary">
+              Inicio
+            </Typography>
           </a>
           <a href="/cangas" style={styles.a}>
-            <Typography variant="h5" color="primary">Cangas</Typography>
+            <Typography variant="h5" color="primary">
+              Cangas
+            </Typography>
           </a>
           <a href="/vestidos" style={styles.a}>
-            <Typography variant="h5" color="primary">Vestidos</Typography>
+            <Typography variant="h5" color="primary">
+              Vestidos
+            </Typography>
           </a>
           <a href="/batas" style={styles.a}>
-            <Typography variant="h5" color="primary">Batas</Typography>
+            <Typography variant="h5" color="primary">
+              Batas
+            </Typography>
           </a>
           <a href="/shorts" style={styles.a}>
-            <Typography variant="h5" color="primary">Shorts</Typography>
+            <Typography variant="h5" color="primary">
+              Shorts
+            </Typography>
           </a>
           <a href="/sobre" style={styles.a}>
-            <Typography variant="h5" color="primary">Sobre</Typography>
+            <Typography variant="h5" color="primary">
+              Sobre
+            </Typography>
           </a>
           <a href="/contato" style={styles.a}>
-            <Typography variant="h5" color="primary">Contato</Typography>
+            <Typography variant="h5" color="primary">
+              Contato
+            </Typography>
           </a>
         </Box>
       </div>

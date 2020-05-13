@@ -142,13 +142,13 @@ export default function MyAddress() {
                 setToken(sessionStorage.getItem('item'));
                 enviar();
                 switch (true) {
-                  case nome.length == 0:
+                  case nome.length === 0:
                     alert('Insira seu nome!');
                     break;
-                  case sobrenome.length == 0:
+                  case sobrenome.length === 0:
                     alert('Insira seu sobrenome!');
                     break;
-                  case cep.length != 8:
+                  case cep.length !== 8:
                     alert('Cep inválido!');
                     break;
                   case cpf.length != 11:
@@ -167,7 +167,7 @@ export default function MyAddress() {
                     alert('Insira o numero da sua casa!');
                     break;
                   default:
-                    alert('Alterações salvas!')
+                    alert('Alterações salvas!');
                     break;
                 }
               }}
