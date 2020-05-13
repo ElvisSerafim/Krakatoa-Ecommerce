@@ -21,17 +21,20 @@ const Produtos = ({ title, alert }) => {
     setProdutos(products);
   }, [products]);
 
-  return (
-    products.map((item) => (
-      <Grid container justify="flex-start" spacing={2}>
-        {item.map((value) => (
-          <Grid key={value.id} item lg={3}>
-            <Produto produto={value} update={()=>{}} title={lower} addItem={addItemCart} />
-          </Grid>
-        ))}
-      </Grid>
-    ))
-  );
+  return products.map((item) => (
+    <Grid container justify="flex-start" spacing={2}>
+      {item.map((value) => (
+        <Grid key={value.id} item lg={3}>
+          <Produto
+            produto={value}
+            update={() => {}}
+            title={lower}
+            addItem={addItemCart}
+          />
+        </Grid>
+      ))}
+    </Grid>
+  ));
 };
 
 export default Produtos;

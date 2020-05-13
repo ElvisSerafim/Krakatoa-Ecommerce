@@ -1,10 +1,7 @@
-const INITIAL_STATE = [
-
-];
+const INITIAL_STATE = [];
 
 export default function reducer(state = INITIAL_STATE, action) {
   if (action.type === 'ALL_PRODUCTS') {
-    console.log(action.allProducts);
     return action.allProducts;
   }
   return state;

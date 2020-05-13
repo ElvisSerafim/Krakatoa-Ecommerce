@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { Button } from '@material-ui/core/';
 import fav from '../img/favorite.svg';
 import Quantity from './Quantity';
-import Alerta from '../components/Alerta'
+import Alerta from './Alerta';
+
 const styles = {
   flexRow: {
     display: 'flex',
@@ -18,9 +19,6 @@ const styles = {
   },
 };
 
-
-
-
 const ProdutoEmSi = ({ addItem }) => {
   const [quantity, setQuantity] = useState(1);
   const [open, setOpen] = useState(false);
@@ -28,11 +26,18 @@ const ProdutoEmSi = ({ addItem }) => {
     if (reason === 'clickaway') {
       return;
     }
-    setOpen(false); 
+    setOpen(false);
   };
   return (
     <>
-    <Alerta  message='Produto adicionado!' vertical='top' horizontal='right' handleClose={handleClose} status="success" openAlert={open} />
+      <Alerta
+        message="Produto adicionado!"
+        vertical="top"
+        horizontal="right"
+        handleClose={handleClose}
+        status="success"
+        openAlert={open}
+      />
       <div style={styles.flexColumn}>
         <div style={{ paddingTop: 150 }}>
           <div style={styles.flexRow}>
@@ -57,7 +62,10 @@ const ProdutoEmSi = ({ addItem }) => {
                 variant="contained"
                 color="primary"
                 style={{ marginLeft: 70, width: '100%', maxHeight: '100%' }}
-                onClick={() => { setOpen(true); addItem(quantity); }}
+                onClick={() => {
+                  setOpen(true);
+                  addItem(quantity);
+                }}
               >
                 ADICIONAR AO CARRINHO
               </Button>

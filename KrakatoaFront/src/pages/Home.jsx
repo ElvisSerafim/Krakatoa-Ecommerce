@@ -10,7 +10,6 @@ import HomeComp from '../components/Home';
 import Footer from '../components/Footer';
 import { sendAllProducts } from '../reducers/allProducts';
 
-
 const styles = {
   Promos: { width: 'auto', height: '373px', backgroundColor: '#B1B1B1' },
   container: {
@@ -26,7 +25,6 @@ const styles = {
   },
   Titulo: { fontSize: '3em', fontWeight: '300' },
 };
-
 
 const Home = () => (
   <>

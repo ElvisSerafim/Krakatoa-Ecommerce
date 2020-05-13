@@ -109,7 +109,7 @@ const ProdutoPage = ({ match }) => {
       }
     });
 
-    produtos.map((item, i) => {
+    produtos.map((item) => {
       if (item.tipo === tipo && item.id !== match.params.id) {
         produtosType.push(item);
       }
@@ -182,14 +182,15 @@ const ProdutoPage = ({ match }) => {
                 </div>
                 <div>
                   <Typography style={styles.product} variant="body1">
-                    ID do Produto:
-                    {' '}
-                    {match.params.id}
+                    ID do Produto: {match.params.id}
                   </Typography>
                 </div>
               </div>
               <div style={styles.quad2inside}>
-                <Typography style={{ color: 'white', fontStyle: 'normal', margin: 0 }} variant="h3">
+                <Typography
+                  style={{ color: 'white', fontStyle: 'normal', margin: 0 }}
+                  variant="h3"
+                >
                   {product.nome}
                 </Typography>
                 <Typography
@@ -198,9 +199,7 @@ const ProdutoPage = ({ match }) => {
                   color="primary"
                   id="price"
                 >
-                  R$
-                  {' '}
-                  {product.preco}
+                  R$ {product.preco}
                 </Typography>
                 <div style={{ marginTop: 50 }}>
                   <ComboBox

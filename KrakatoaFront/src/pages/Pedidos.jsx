@@ -6,37 +6,8 @@ import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import FooterComp from '../components/Footer';
 import './Contato.css';
-import Lista from '../components/ListaPedidos'
-import ContaComp from '../components/MinhaConta';
-const styles = {
-  background: {
-    backgroundColor: '#D0D0D0',
-  },
-  flexRow: {
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'row',
-    paddingBottom: '50',
-  },
-  boxStyle: {
-    border: 2,
-    width: 500,
-  },
-  produtoBack: {
-    borderRadius: '10px 0px 0px 10px',
-    backgroundColor: 'red',
-    color: 'white',
-  },
-  padding: { paddingLeft: 50 },
-  paddingData: { paddingLeft: 90 },
-  paddingPrice: { paddingLeft: 150 },
-  dataBack: { backgroundColor: 'red', color: 'white' },
-  priceBack: {
-    borderRadius: '0px 10px 10px 0px',
-    backgroundColor: 'red',
-    color: 'white',
-  },
-};
+import Lista from '../components/ListaPedidos';
+import ContaComp from '../components/ContaComp';
 
 export default class Pedidos extends PureComponent {
   render() {
@@ -64,10 +35,9 @@ export default class Pedidos extends PureComponent {
             </Grid>
             <Grid item lg={8}>
               <Grid container spacing={2} diretion="row" justify="flex-start">
-                <Lista/>
+                <Lista />
               </Grid>
             </Grid>
-
           </Grid>
         </Container>
         <FooterComp />

@@ -1,14 +1,14 @@
 /* eslint-disable consistent-return */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import {
-  Checkbox, Typography, Button, Grid,
-} from '@material-ui/core';
-import { useSelector, useDispatch } from 'react-redux';
+import { Checkbox, Typography, Button, Grid } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import TextFielde from './TextField';
 import api from '../Services/ApiService';
-import {setUser} from '../reducers/user';
+import { setUser } from '../reducers/user';
+import Alerta from './Alerta';
+
 const styles = {
   row: {
     display: 'flex',
@@ -31,6 +31,9 @@ const styles = {
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const [openAlert, setOpenAlert] = useState(false);
+  const [status, setStatus] = useState('');
   const [sessao, setSessao] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -45,18 +48,17 @@ const Login = () => {
       };
       const request = await api.Login(data);
       if (request === 'ok') {
-        
         let dataToken;
-        if(sessao){
+        if (sessao) {
           dataToken = {
-            token: localStorage.getItem('token')
-          }
+            token: localStorage.getItem('token'),
+          };
         } else {
           dataToken = {
-            token: sessionStorage.getItem('token')
-          }
+            token: sessionStorage.getItem('token'),
+          };
         }
-        
+
         const user = await api.getUsuario(dataToken);
         dispatch(setUser(user));
 
@@ -64,12 +66,29 @@ const Login = () => {
       }
       throw new Error('Checar Email e Senha');
     } catch (error) {
-      alert(error);
+      setOpenAlert(true);
+      setMessage('Checar Email e Senha');
+      setStatus('error');
     }
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenAlert(false);
   };
 
   return (
     <>
+      <Alerta
+        message={message}
+        openAlert={openAlert}
+        status={status}
+        handleClose={handleClose}
+        vertical="top"
+        horizontal="right"
+      />
       <Grid container spacing={2} diretion="row" justify="flex-start">
         <Grid item lg={12} md={12}>
           <div style={styles.senha}>
@@ -99,13 +118,20 @@ const Login = () => {
         <Grid item lg={6} md={6} flexDirection="row">
           <div style={styles.row}>
             <div style={styles.botaoEntrar}>
-              <Button variant="contained" color="primary" fullWidth onClick={login}>
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={login}
+              >
                 Entrar
               </Button>
             </div>
             <div style={styles.row}>
               <Checkbox
-                onChange={(event) => { setSessao(event.target.checked); }}
+                onChange={(event) => {
+                  setSessao(event.target.checked);
+                }}
                 inputProps={{ 'aria-label': 'primary checkbox' }}
               />
               <Typography

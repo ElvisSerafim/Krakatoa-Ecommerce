@@ -53,12 +53,12 @@ const styles = {
   },
 };
 
-export default class MultilineTextFields extends PureComponent {
+export default class ContaComp extends PureComponent {
   logout = async () => {
     const token = sessionStorage.getItem('token');
     api.Logout(token);
     sessionStorage.removeItem('token');
-  }
+  };
   render() {
     return (
       <>
@@ -98,8 +98,16 @@ export default class MultilineTextFields extends PureComponent {
           </div>
           <div style={styles.flexRow}>
             <ExitToAppTwoToneIcon style={styles.txt1} color="secondary" />
-            <a style={{ textDecoration: 'none' }} onClick={ this.logout } href="/">
-              <Typography style={styles.txt2} color="secondary" onClick={this.logout}>
+            <a
+              style={{ textDecoration: 'none' }}
+              onClick={this.logout}
+              href="/"
+            >
+              <Typography
+                style={styles.txt2}
+                color="secondary"
+                onClick={this.logout}
+              >
                 Sair
               </Typography>
             </a>
