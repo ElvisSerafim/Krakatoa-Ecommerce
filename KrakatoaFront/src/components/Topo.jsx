@@ -58,6 +58,11 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
+  Top: {
+    '@media (min-width: 1024px)': {
+      position: 'fixed',
+    },
+  },
 }));
 
 const Topo = () => {
@@ -73,7 +78,7 @@ const Topo = () => {
     setOpen(false);
   };
   return (
-    <div style={{ width: '100%' }}>
+    <div className={classes.Top}>
       <Box
         display="flex"
         flexDirection="row"
