@@ -1,65 +1,53 @@
 import api from '../Services/ApiService';
 
-let a, b = '';
+let a = '';
+let b = '';
 a = localStorage.getItem('token');
 b = sessionStorage.getItem('token');
 
-const initialState = {
-
-    token: getToken(),
-    user: ''
-};
-
 function getToken() {
-  if (a.length != 0) {
+  if (a !== null && a.length !== 0) {
     return a;
   }
-  if (b.length != 0) {
+  if (a !== null && b.length !== 0) {
     return b;
   }
-
   return '';
 }
 
-    if (a != null) {
-        return a;
-    } else if (b !=  null) {
-        return b;
-    }
+const initialState = {
+  token: getToken(),
+  user: '',
+};
 
+async function tentativa() {
+  function getUser() {
+    if (a != null) {
+      const data = {
+        token: a,
+      };
+      const agora = api.getUsuario(data).then((result) => result);
+      return agora;
+    }
+    if (b != null) {
+      const usuario = api.getUsuario(b);
+      return usuario;
+    }
     return '';
   }
-  
-async function tentativa() {
-     function getUser() {
-        if (a != null) {
-            const data = {
-                token: a
-            }
-            const agora =  api.getUsuario(data).then((data) => {return data});
-            return agora;
-        }
-       else if (b != null) {
-            const usuario = api.getUsuario(b);
-            return usuario;
-        }
 
-        return '';
-    }
-
-    const retorno = await getUser();
-    return retorno;
+  const retorno = await getUser();
+  return retorno;
 }
 
-
 export default async function user(state = initialState, action) {
-    switch (action.type) {
-        case 'SET_USER':
-            return { ...state, user: action.payload };
-        default:
-            var usuario = await tentativa();
-            return {...state, user: usuario};
-    }
+  switch (action.type) {
+    case 'SET_USER':
+      return { ...state, user: action.payload };
+    default:
+      var usuario = await tentativa();
+      return { ...state, user: usuario };
+  }
 }
 
 export const setUser = (payload) => ({

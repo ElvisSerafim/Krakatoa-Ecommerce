@@ -1,15 +1,12 @@
-import React, { PureComponent } from 'react';
-import { Typography, Container, Box, Grid } from '@material-ui/core/';
+import React from 'react';
+import { Typography, Container, Grid } from '@material-ui/core/';
+import { makeStyles } from '@material-ui/core/styles';
+import Hidden from '@material-ui/core/Hidden';
 import logo from '../img/logoVermelha.jpg';
 import fbBranco from '../img/fbBranco.png';
 import instaBranco from '../img/instaBranco.png';
 
 const styles = {
-  fundo: {
-    backgroundColor: 'black',
-    width: '100%',
-    marginTop: '64px',
-  },
   shoppingEcontato: {
     color: 'white',
     fontSize: '1.625em',
@@ -72,128 +69,136 @@ const styles = {
   },
 };
 
-class Topo extends PureComponent {
-  render() {
-    return (
-      <div style={styles.fundo}>
-        <Container maxWidth="lg">
-          <Box>
-            <Grid container spacing={2} direction="row" justify="flex-start">
-              <Grid item lg={4} md={4}>
-                <div style={styles.nomeElogo}>
-                  <img
-                    src={logo}
-                    style={styles.logostyle}
-                    alt="Logo Krakatoa"
-                  />
-                  <Typography variant="h4" color="secondary">
-                    KRAKATOA
-                  </Typography>
-                </div>
-                <div style={styles.loreKrak}>
-                  <Typography variant="body1" color="secondary">
-                    Krakatoa, sua marca feita pra aquele dia de praia
-                  </Typography>
-                  <Typography variant="body1" color="secondary">
-                    no sol forte de Salvador! Seja com nossas Kangas
-                  </Typography>
-                  <Typography variant="body1" color="secondary">
-                    ou com nossa linha de roupa de Praia
-                  </Typography>
-                  <a href="https://www.facebook.com/profile.php?id=100013226432242">
-                    <img
-                      src={fbBranco}
-                      style={styles.social}
-                      alt="Logo facebook"
-                    />
-                  </a>
-                  <a href="https://www.instagram.com/krakatoacangas/?hl=pt-br">
-                    <img
-                      src={instaBranco}
-                      style={styles.social}
-                      alt="Logo Instagram"
-                    />
-                  </a>
-                </div>
-              </Grid>
-              <Grid item lg={4} md={4}>
-                <div style={{ marginTop: 40, marginLeft: 20 }}>
-                  <Typography variant="h4" color="secondary">
-                    Shopping Online
-                  </Typography>
-                  <div style={styles.marginPar}>
-                    <a
-                      href="/minhaconta/pedidos"
-                      style={{ textDecoration: 'none' }}
-                    >
-                      <Typography style={styles.lore} variant="body1">
-                        Pedidos
-                      </Typography>
-                    </a>
-                    <a
-                      href="/tipo/entrega"
-                      style={{ textDecoration: 'none' }}
-                      variant="body1"
-                    >
-                      <Typography style={styles.lore}>Entregas</Typography>
-                    </a>
-                    <a
-                      href="/politicas"
-                      style={{ textDecoration: 'none' }}
-                      variant="body1"
-                    >
-                      <Typography style={styles.lore}>
-                        Políticas da Loja
-                      </Typography>
-                    </a>
-                    <a
-                      href="/tipo/pagamento"
-                      style={{ textDecoration: 'none' }}
-                    >
-                      <Typography style={styles.lore} variant="body1">
-                        Opções de pagamento
-                      </Typography>
-                    </a>
-                    <a href="/contato" style={{ textDecoration: 'none' }}>
-                      <Typography style={styles.lore} variant="body1">
-                        Contatos
-                      </Typography>
-                    </a>
-                  </div>
-                </div>
-              </Grid>
-              <Grid item lg={4} md={4}>
-                <div style={{ marginTop: 40 }}>
-                  <Typography variant="h4" color="secondary">
-                    Contato
-                  </Typography>
-                  <div>
+const useStyles = makeStyles((theme) => ({
+  GridContainer: {
+    '@media (min-width: 960px)': {
+      justifyContent: 'flex-start',
+      padding: theme.spacing(2),
+      alignItems: 'center',
+    },
+  },
+  Fundo: {
+    backgroundColor: theme.palette.background.color,
+  },
+}));
+
+const Topo = (theme) => {
+  const classes = useStyles(theme);
+  return (
+    <div className={classes.Fundo}>
+      <Container maxWidth="lg">
+        <Grid
+          container
+          spacing={2}
+          direction="row"
+          justify="space-around"
+          className={classes.GridContainer}
+          width="100%"
+        >
+          <Grid item lg={4} md={4} sm={6} xs={12}>
+            <div style={styles.nomeElogo}>
+              <img src={logo} style={styles.logostyle} alt="Logo Krakatoa" />
+              <Typography variant="h4" color="secondary">
+                KRAKATOA
+              </Typography>
+            </div>
+            <div style={styles.loreKrak}>
+              <Typography variant="body1" color="secondary">
+                Krakatoa, sua marca feita pra aquele dia de praia
+              </Typography>
+              <Typography variant="body1" color="secondary">
+                no sol forte de Salvador! Seja com nossas Kangas
+              </Typography>
+              <Typography variant="body1" color="secondary">
+                ou com nossa linha de roupa de Praia
+              </Typography>
+              <a href="https://www.facebook.com/profile.php?id=100013226432242">
+                <img src={fbBranco} style={styles.social} alt="Logo facebook" />
+              </a>
+              <a href="https://www.instagram.com/krakatoacangas/?hl=pt-br">
+                <img
+                  src={instaBranco}
+                  style={styles.social}
+                  alt="Logo Instagram"
+                />
+              </a>
+            </div>
+          </Grid>
+          <Hidden smDown="true">
+            <Grid item lg={4} md={4} sm={12}>
+              <div>
+                <Typography variant="h4" color="secondary">
+                  Shopping Online
+                </Typography>
+                <div style={styles.marginPar}>
+                  <a
+                    href="/minhaconta/pedidos"
+                    style={{ textDecoration: 'none' }}
+                  >
                     <Typography style={styles.lore} variant="body1">
-                      Email: contato@krakotoacangas.com.br
+                      Pedidos
                     </Typography>
-                    <Typography style={styles.lore} variant="body1">
-                      Telefone: (71) 3375-3856
-                    </Typography>
-                  </div>
-                  <div style={styles.marginDiv}>
-                    <Typography variant="h4" color="secondary">
-                      Designer
-                    </Typography>
+                  </a>
+                  <a
+                    href="/tipo/entrega"
+                    style={{ textDecoration: 'none' }}
+                    variant="body1"
+                  >
+                    <Typography style={styles.lore}>Entregas</Typography>
+                  </a>
+                  <a
+                    href="/politicas"
+                    style={{ textDecoration: 'none' }}
+                    variant="body1"
+                  >
                     <Typography style={styles.lore}>
-                      Gustavo, Gabriel e Elvis
+                      Políticas da Loja
                     </Typography>
-                  </div>
+                  </a>
+                  <a href="/tipo/pagamento" style={{ textDecoration: 'none' }}>
+                    <Typography style={styles.lore} variant="body1">
+                      Opções de pagamento
+                    </Typography>
+                  </a>
+                  <a href="/contato" style={{ textDecoration: 'none' }}>
+                    <Typography style={styles.lore} variant="body1">
+                      Contatos
+                    </Typography>
+                  </a>
                 </div>
-              </Grid>
+              </div>
             </Grid>
-          </Box>
-        </Container>
-        <Container>
-          <hr style={styles.hrstyle} />
-        </Container>
-        <div style={{ backgroundColor: '#FF6961', color: '#FF6961' }}>a</div>
-      </div>
-    );
-  }
-}
+          </Hidden>
+          <Grid item lg={4} md={4} sm={6} xs={12} style={{ width: '100%' }}>
+            <div>
+              <Typography variant="h4" color="secondary">
+                Contato
+              </Typography>
+              <div>
+                <Typography style={styles.lore} variant="body1">
+                  Email: contato@krakotoacangas.com.br
+                </Typography>
+                <Typography style={styles.lore} variant="body1">
+                  Telefone: (71) 3375-3856
+                </Typography>
+              </div>
+              <div style={styles.marginDiv}>
+                <Typography variant="h4" color="secondary">
+                  Designer
+                </Typography>
+                <Typography style={styles.lore}>
+                  Gustavo, Gabriel e Elvis
+                </Typography>
+              </div>
+            </div>
+          </Grid>
+        </Grid>
+      </Container>
+      <Container>
+        <hr style={styles.hrstyle} />
+      </Container>
+      <div style={{ backgroundColor: '#FF6961', color: '#FF6961' }}>a</div>
+    </div>
+  );
+};
 export default Topo;

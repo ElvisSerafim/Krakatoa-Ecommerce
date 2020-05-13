@@ -34,7 +34,7 @@ const Home = () => (
         <Navbar />
       </div>
     </Container>
-    <Grid item lg={12} md={2}>
+    <Grid item lg={12} md={12}>
       <HomeComp />
     </Grid>
     <Container maxWidth="lg">
