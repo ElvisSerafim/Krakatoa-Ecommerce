@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Container, Grid, Typography, Box } from '@material-ui/core/';
-
+import { makeStyles } from '@material-ui/core/styles';
+import Hidden from '@material-ui/core/Hidden';
 import Cadastro from '../components/Cadastro';
 import Login from '../components/Login';
 import Navbar from '../components/Nav';
@@ -9,7 +10,6 @@ import Footer from '../components/Footer';
 
 const styles = {
   fundo: {
-    backgroundColor: 'black',
     AlignItems: 'center',
   },
   topico: {
@@ -23,48 +23,57 @@ const styles = {
   },
 };
 
-export default class LoginPage extends PureComponent {
-  render() {
-    return (
-      <>
-        <Container maxWidth="lg">
-          <Topo />
-          <Navbar />
-          <Typography
-            variant="h3"
-            color="primary"
-            style={{ fontStyle: 'normal' }}
-            gutterBottom
-          >
-            MINHA CONTA
-          </Typography>
-          <Box style={styles.fundo}>
-            <Grid container spacing={2} diretion="row" justify="flex-start">
-              <Grid item lg={6} md={6}>
-                <Typography style={styles.topico} variant="h5" color="primary">
-                  Entrar
-                </Typography>
-              </Grid>
-              <Grid item lg={6} md={6}>
-                <Typography style={styles.topico} variant="h5" color="primary">
-                  Registrar
-                </Typography>
-              </Grid>
-              <Grid item lg={6} md={6}>
-                <div style={styles.input}>
-                  <Login />
-                </div>
-              </Grid>
-              <Grid item lg={6} md={6}>
-                <div style={styles.input}>
-                  <Cadastro />
-                </div>
-              </Grid>
+const useStyles = makeStyles((theme) => ({
+  Fundo: {
+    backgroundColor: theme.palette.background.color,
+  },
+}));
+
+const LoginPage = () => {
+  const classes = useStyles();
+  return (
+    <>
+      <Container maxWidth="lg">
+        <Topo />
+        <Navbar />
+        <Typography
+          variant="h3"
+          color="primary"
+          style={{ fontStyle: 'normal' }}
+          gutterBottom
+        >
+          MINHA CONTA
+        </Typography>
+        <Box className={classes.Fundo}>
+          <Grid container spacing={2} diretion="row" justify="flex-start">
+            <Grid item lg={6} md={6}>
+              <Typography style={styles.topico} variant="h5" color="primary">
+                Entrar
+              </Typography>
             </Grid>
-          </Box>
-        </Container>
+            <Grid item lg={6} md={6}>
+              <Typography style={styles.topico} variant="h5" color="primary">
+                Registrar
+              </Typography>
+            </Grid>
+            <Grid item lg={6} md={6}>
+              <div style={styles.input}>
+                <Login />
+              </div>
+            </Grid>
+            <Grid item lg={6} md={6}>
+              <div style={styles.input}>
+                <Cadastro />
+              </div>
+            </Grid>
+          </Grid>
+        </Box>
+      </Container>
+      <div styles={{ marginTop: 36 }}>
         <Footer />
-      </>
-    );
-  }
-}
+      </div>
+    </>
+  );
+};
+
+export default LoginPage;
