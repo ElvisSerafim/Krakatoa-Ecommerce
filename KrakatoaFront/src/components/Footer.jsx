@@ -71,6 +71,7 @@ const styles = {
     borderColor: '#E8E8E8',
   },
 };
+
 class Topo extends PureComponent {
   render() {
     return (
@@ -176,7 +177,7 @@ class Topo extends PureComponent {
                   </div>
                   <div style={styles.marginDiv}>
                     <Typography variant="h4" color="secondary">
-                      Designer{' '}
+                      Designer
                     </Typography>
                     <Typography style={styles.lore}>
                       Gustavo, Gabriel e Elvis

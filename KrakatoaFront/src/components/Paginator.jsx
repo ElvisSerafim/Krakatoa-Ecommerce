@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Pagination from '@material-ui/lab/Pagination';
 import { Typography } from '@material-ui/core/';
 
-
 const styles = {
   pagination: {
     fontSize: 12,

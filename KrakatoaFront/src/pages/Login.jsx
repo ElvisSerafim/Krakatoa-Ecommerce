@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react';
-import {
-  Container, Grid, Typography, Box,
-} from '@material-ui/core/';
+import { Container, Grid, Typography, Box } from '@material-ui/core/';
 
 import Cadastro from '../components/Cadastro';
 import Login from '../components/Login';
@@ -43,10 +41,14 @@ export default class LoginPage extends PureComponent {
           <Box style={styles.fundo}>
             <Grid container spacing={2} diretion="row" justify="flex-start">
               <Grid item lg={6} md={6}>
-                <Typography style={styles.topico} variant="h5" color="primary">Entrar</Typography>
+                <Typography style={styles.topico} variant="h5" color="primary">
+                  Entrar
+                </Typography>
               </Grid>
               <Grid item lg={6} md={6}>
-                <Typography style={styles.topico} variant="h5" color="primary">Registrar</Typography>
+                <Typography style={styles.topico} variant="h5" color="primary">
+                  Registrar
+                </Typography>
               </Grid>
               <Grid item lg={6} md={6}>
                 <div style={styles.input}>

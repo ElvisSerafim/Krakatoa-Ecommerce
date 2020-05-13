@@ -1,4 +1,7 @@
-import React from 'react';
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
+
+import React, { useEffect } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
@@ -16,26 +19,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CustomizedSnackbars({openAlert,message,status}) {
+export default function CustomizedSnackbars({
+  openAlert,
+  message,
+  status,
+  handleClose,
+  vertical,
+  horizontal,
+}) {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  useEffect(() => {
+    setOpen(openAlert);
+  });
 
-
-  /*const handleClick = () => {
-    setOpen(true);
-  };*/
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    openAlert = false; 
-  };
   return (
     <div className={classes.root}>
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical, horizontal }}
+      >
         <Alert onClose={handleClose} severity={status}>
           {message}
         </Alert>
+      </Snackbar>
     </div>
   );
 }

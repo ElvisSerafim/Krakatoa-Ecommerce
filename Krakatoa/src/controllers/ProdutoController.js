@@ -53,53 +53,57 @@ module.exports = {
     try {
       const produto = await Produto.findById(id);
       if (!produto) throw new Error('Produto não encontrado');
-      produto.nome = typeof nome === 'string'
-          && nome.trim().length > 0
-          && nome !== produto.nome
-        ? nome
-        : produto.nome;
-      produto.preco = typeof preco === 'number'
-          && preco > 0
-          && preco !== produto.preco
-        ? preco
-        : produto.preco;
-      produto.colecao = typeof colecao === 'string'
-          && colecao.trim().length > 0
-          && colecao !== produto.colecao
-        ? colecao
-        : produto.colecao;
-      produto.tamanho = typeof tamanho === 'string'
-          && tamanho.trim().length > 0
-          && tamanho !== produto.tamanho
-        ? tamanho
-        : produto.tamanho;
-      produto.tipo = typeof tipo === 'string'
-          && tipo.trim().length > 0
-          && tipo !== produto.tipo
-        ? tipo.toLowerCase()
-        : produto.tipo;
-      produto.promocao = !!(typeof promocao === 'boolean'
-          && promocao === true);
-      produto.promopreco = typeof promopreco === 'number'
-          && promopreco > 0
-          && promopreco !== produto.promopreco
-        ? promopreco
-        : produto.promopreco;
-      produto.quantidade = typeof quantidade === 'number'
-          && quantidade > 0
-          && quantidade !== produto.quantidade
-        ? quantidade
-        : produto.quantidade;
-      produto.vendas = typeof vendas === 'number'
-          && vendas >= 0
-          && vendas !== produto.vendas
-        ? vendas
-        : produto.vendas;
-      produto.descricao = typeof descricao === 'string'
-          && descricao.trim().length > 0
-          && descricao !== produto.descricao
-        ? descricao
-        : produto.descricao;
+      produto.nome =
+        typeof nome === 'string' &&
+        nome.trim().length > 0 &&
+        nome !== produto.nome
+          ? nome
+          : produto.nome;
+      produto.preco =
+        typeof preco === 'number' && preco > 0 && preco !== produto.preco
+          ? preco
+          : produto.preco;
+      produto.colecao =
+        typeof colecao === 'string' &&
+        colecao.trim().length > 0 &&
+        colecao !== produto.colecao
+          ? colecao
+          : produto.colecao;
+      produto.tamanho =
+        typeof tamanho === 'string' &&
+        tamanho.trim().length > 0 &&
+        tamanho !== produto.tamanho
+          ? tamanho
+          : produto.tamanho;
+      produto.tipo =
+        typeof tipo === 'string' &&
+        tipo.trim().length > 0 &&
+        tipo !== produto.tipo
+          ? tipo.toLowerCase()
+          : produto.tipo;
+      produto.promocao = !!(typeof promocao === 'boolean' && promocao === true);
+      produto.promopreco =
+        typeof promopreco === 'number' &&
+        promopreco > 0 &&
+        promopreco !== produto.promopreco
+          ? promopreco
+          : produto.promopreco;
+      produto.quantidade =
+        typeof quantidade === 'number' &&
+        quantidade > 0 &&
+        quantidade !== produto.quantidade
+          ? quantidade
+          : produto.quantidade;
+      produto.vendas =
+        typeof vendas === 'number' && vendas >= 0 && vendas !== produto.vendas
+          ? vendas
+          : produto.vendas;
+      produto.descricao =
+        typeof descricao === 'string' &&
+        descricao.trim().length > 0 &&
+        descricao !== produto.descricao
+          ? descricao
+          : produto.descricao;
       const result = await produto.save();
       if (result) {
         return res.json(result).sendStatus(200);

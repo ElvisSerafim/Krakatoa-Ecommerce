@@ -43,11 +43,16 @@ class ComboBox extends Component {
 
   render() {
     const {
-      children, classes, items, value, onChange, label, style,
+      children,
+      classes,
+      items,
+      value,
+      onChange,
+      label,
+      style,
     } = this.props;
     const { orderBy } = this.state;
     return (
-
       <div>
         <MuiThemeProvider theme={theme}>
           <FormControl
@@ -63,7 +68,6 @@ class ComboBox extends Component {
               htmlFor="outlined-age-native-simple"
             >
               {label}
-              {' '}
             </InputLabel>
             <Select
               style={styles.selectInput}
@@ -78,7 +82,9 @@ class ComboBox extends Component {
             >
               <option style={styles.selectInput} value="" />
               {items.map((item) => (
-                <option style={styles.selectInput} value={item}>{item}</option>
+                <option style={styles.selectInput} value={item}>
+                  {item}
+                </option>
               ))}
               {children}
             </Select>

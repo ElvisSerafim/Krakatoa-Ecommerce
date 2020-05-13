@@ -1,10 +1,8 @@
 import React, { PureComponent } from 'react';
-import {
-  Container, Grid, Typography, Box, Button,
-} from '@material-ui/core/';
+import { Container, Grid, Typography, Button } from '@material-ui/core/';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import Footer from '../components/Footer';
@@ -50,8 +48,7 @@ const theme = createMuiTheme({
 export default class Checkout extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
 
   render() {
@@ -128,14 +125,11 @@ export default class Checkout extends PureComponent {
                   <TextField label="Data de validade" date />
                 </div>
               </div>
-
-
             </div>
 
             <div
               style={{ display: 'flex', flex: '1', flexDirection: 'column' }}
             >
-
               <div
                 style={{
                   display: 'flex',
@@ -157,16 +151,15 @@ export default class Checkout extends PureComponent {
                     fontFamily: 'Poppins',
                   }}
                 >
-                <Link to="/sumario" style={{ textDecoration: 'none' }}>
-                  <Button
-                    style={{ height: 50, width: '100%' }}
-                    variant="contained"
-                    color="primary"
-                    
-                  >
-                    Continuar
-                  </Button>
-                </Link>
+                  <Link to="/sumario" style={{ textDecoration: 'none' }}>
+                    <Button
+                      style={{ height: 50, width: '100%' }}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Continuar
+                    </Button>
+                  </Link>
                 </div>
               </MuiThemeProvider>
             </div>

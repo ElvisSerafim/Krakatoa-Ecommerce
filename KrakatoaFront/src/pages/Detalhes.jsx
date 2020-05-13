@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable react/jsx-props-no-spreading */
 /* Pagina de Contato
  */
@@ -8,20 +9,12 @@ import MaskedInput from 'react-text-mask';
 import './Contato.css';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
-import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
-import ContaComp from '../components/MinhaConta';
+import ContaComp from '../components/ContaComp';
 import FooterComp from '../components/Footer';
 import Topo from '../components/Topo';
 import Navbar from '../components/Nav';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
-}));
+import Alerta from '../components/Alerta';
 
 const styles = {
   background: {
@@ -88,13 +81,23 @@ export default function Datalhes() {
   const [pass, setPass] = useState('');
   const [newPass, setNewPass] = useState('');
   const [nome, setNome] = useState('-1');
-  const [tel, setTel] = useState('XXXXXXXXXXXXXXX');
+  const [tel, setTel] = useState('&366&');
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const [status, setStatus] = useState('error');
 
-  const classes = useStyles();
   const [values, setValues] = React.useState({
     default: '71999362212',
     numberformat: '1320',
   });
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
   const handleChange = (event) => {
     setValues({
       ...values,
@@ -106,6 +109,14 @@ export default function Datalhes() {
       <Container maxWidth="lg">
         <Topo />
         <Navbar />
+        <Alerta
+          openAlert={open}
+          message={message}
+          status={status}
+          handleClose={handleClose}
+          vertical="top"
+          horizontal="right"
+        />
         <Typography variant="h2" color="primary" />
         <Grid container spacing={2} diretion="row" justify="flex-start">
           <Grid item lg={4} md={4}>
@@ -159,7 +170,6 @@ export default function Datalhes() {
                     setTel(event.target.value);
                   }}
                   inputComponent={TextMaskCustom}
-                  
                 />
               </FormControl>
             </div>
@@ -167,15 +177,35 @@ export default function Datalhes() {
               <Button
                 style={styles.botao}
                 onClick={() => {
+                  setOpen(true);
+                  setStatus('error');
                   switch (true) {
-                    case nome.length==0:
-                        alert('Você deve botar seu nome!');
+                    case newPass.length > 0:
+                      /*
+                      VERIFICAR SE A SENHA ATUAL ESTÁ CERTA
+                    */
+
+                      /*
+                      SE ESTIVER CERTA, RODAR O CÓDIGO ABAIXO:
+                    */
+
+                      setMessage('Alterações salvas!');
+                      // ATUALIZAR A SENHA PARA NEWPASS
                       break;
-                    case tel.length!=15:
-                        alert('Você deve inserir um número de telefone válido com DDD')
-                    break;
+                    case nome.length === 0:
+                      setMessage('Você deve botar seu nome!');
+                      break;
+                    case tel.replace(/[^0-9]/g, '').length !== 11 &&
+                      tel !== '&366&':
+                      setMessage(
+                        'Você deve inserir um número de telefone válido com DDD',
+                      );
+                      break;
                     default:
-                      alert('Alterações foram salvas');
+                      setMessage('Alterações salvas!');
+                      setStatus('success');
+                      // ATUALIZAR O NOME DO USARIO
+                      // ATUALIZAR O TELEFONE DO USARIO
                       break;
                   }
                 }}

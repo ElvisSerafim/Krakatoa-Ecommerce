@@ -13,8 +13,7 @@ import payment from '../img/payment.svg';
 import Sedex from '../img/Sedex.svg';
 import Pac from '../img/Pac.svg';
 import api from '../Services/ApiService';
-import Alerta from '../components/Alerta'
-
+import Alerta from '../components/Alerta';
 
 const styles = {
   title: {
@@ -45,6 +44,7 @@ const theme = createMuiTheme({
   },
 });
 let path = '';
+
 export default class Endereco extends PureComponent {
   constructor(props) {
     super(props);
@@ -67,10 +67,13 @@ export default class Endereco extends PureComponent {
       cidade: ' ',
       numero: ' ',
       complemento: ' ',
+      status: 'error',
+      message: '',
+      open: false,
     };
   }
-  enviar = async () => {
 
+  enviar = async () => {
     try {
       const token =
         localStorage.getItem('token') !== null
@@ -88,6 +91,9 @@ export default class Endereco extends PureComponent {
         cidade,
         numero,
         complemento,
+        status,
+        message,
+        open,
       } = this.state;
       const nomeCompleto = [nome, sobrenome].join(' ');
       const data = {
@@ -101,37 +107,45 @@ export default class Endereco extends PureComponent {
         complemento,
         nome: nomeCompleto,
         token,
+        message,
+        status,
+        open,
       };
-      
+      this.setState({open:true});
+      this.setState({status:'error'});
       switch (true) {
-        case nome.length == 0 || nome == ' ':
-          alert('Insira seu nome!');
-        break;
-        case sobrenome.length == 0 || sobrenome == ' ':
-          alert('Insira seu sobrenome!');
+        case nome.length === 0 || nome === ' ':
+          this.setState({ message: 'Insira seu nome!' });
           break;
-        case telefone.length != 11 :
-          alert('Insira um número de telefone válido com DDD');
+        case sobrenome.length === 0 || sobrenome === ' ':
+          this.setState({ message: 'Insira seu sobrenome!' });
           break;
-        case cpf.length != 11:
-          alert('Cpf inválido!');
+        case telefone.length !== 11:
+          this.setState({
+            message: 'Você deve inserir um número de telefone válido com DDD',
+          });
           break;
-        case cep.length != 8:
-          alert('Cep inválido!');
+        case cpf.length !== 11:
+          this.setState({ message: 'CPF inválido!' });
           break;
-        case bairro.length == 0 || bairro == ' ':
-          alert('Insira seu bairro!');
+        case cep.length !== 8:
+          this.setState({ message: 'CEP inválido!' });
           break;
-        case cidade.length == 0 || cidade == ' ':
-          alert('Insira sua cidade!');
+        case bairro.length === 0 || bairro === ' ':
+          this.setState({ message: 'Insira seu bairro!' });
           break;
-        case numero.length == 0 || numero == ' ':
-          alert('Insira o numero da sua casa!');
+        case cidade.length === 0 || cidade === ' ':
+          this.setState({ message: 'Insira sua cidade!' });
           break;
-        case rua.length == 0 || rua == ' ':
-          alert('Insira sua rua!');
+        case numero.length === 0 || numero === ' ':
+          this.setState({ message: 'Insira o número da sua casa!' });
+          break;
+        case rua.length === 0 || rua === ' ':
+          this.setState({ message: 'Insira sua rua!' });
           break;
         default:
+          this.setState({ status: 'success' });
+          this.setState({ message: 'Boas compras!' });
           path = '/sumario';
           break;
       }
@@ -173,7 +187,6 @@ export default class Endereco extends PureComponent {
       cepOrigem: '41610200',
       cepDestino: cep,
     };
-
     const request3 = await api.CalcPrazo(data3);
     this.setState({ diasUteisSedex: request3[0].prazoEntrega });
     this.setState({ diasUteisPac: request3[1].prazoEntrega });
@@ -181,15 +194,26 @@ export default class Endereco extends PureComponent {
   };
 
   render() {
-
-    const {
-      children, style, classes, onClick, location } = this.props;
-        return (
+    const handleClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+      this.setState({ open: false });
+    };
+    const { location } = this.props;
+    return (
       <>
         <Container maxWidth="lg">
           <Topo />
           <Navbar />
-
+          <Alerta
+            openAlert={this.state.open}
+            message={this.state.message}
+            status={this.state.status}
+            handleClose={handleClose}
+            vertical="top"
+            horizontal="right"
+          />
           <div
             style={{
               display: 'flex',
@@ -290,6 +314,7 @@ export default class Endereco extends PureComponent {
                     onChange={(e) => {
                       this.setState({ cep: e.target.value });
                     }}
+                    numberOnly
                   />
                 </div>
                 <div style={{ width: '40%' }}>
@@ -385,7 +410,6 @@ export default class Endereco extends PureComponent {
                     this.setState({ borderColorPac: 'red' });
                     this.setState({ borderColorSedex: 'black' });
                     this.setState({ priceFrete: this.state.pricePac });
-                    
                   }}
                   display="flex"
                   style={{ cursor: 'pointer' }}
@@ -461,17 +485,17 @@ export default class Endereco extends PureComponent {
                           cidade: this.state.cidade,
                           numero: this.state.numero,
                           complemento: this.state.complemento,
-                          nome: this.state.nome + ''+ this.state.sobrenome,
-                        }
-                      }
+                          nome: this.state.nome + '' + this.state.sobrenome,
+                        },
+                      },
                     }}
                   >
                     <Button
                       variant="contained"
                       color="primary"
                       style={{
-                        width: '30%',
-                        height: '50%',
+                        width: 100,
+                        height: 70,
                         textDecoration: 'none',
                       }}
                       onClick={this.enviar}

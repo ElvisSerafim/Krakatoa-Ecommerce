@@ -2,7 +2,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
-import { Typography, Box } from '@material-ui/core/';
+import { Box } from '@material-ui/core/';
 import { Link } from 'react-router-dom';
 import './Produto.css';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
@@ -35,11 +35,9 @@ _id: "5eb0eb84027f1c2ae9efd09e"
 export default class Produto extends Component {
   constructor(props) {
     super(props);
-    const { produto, title,  } = this.props;
+    const { produto, title } = this.props;
 
-    const {
-      id, nome, preco, colecao,
-    } = produto;
+    const { id, nome, preco, colecao } = produto;
     const Imageurl = `http://localhost:4000/static/imgs/${id}.jpeg`;
     this.state = {
       preco,
@@ -61,15 +59,7 @@ export default class Produto extends Component {
   }
 
   render() {
-    const {
-      nome,
-      colecao,
-      preco,
-      promoPrice,
-      Imageurl,
-      id,
-      type,
-    } = this.state;
+    const { nome, colecao, preco, promoPrice, Imageurl, id, type } = this.state;
     const product = {
       nome,
       colecao,
@@ -80,8 +70,8 @@ export default class Produto extends Component {
     return (
       <div
         style={{
-          height: 454,
-          width: 270,
+          maxHeight: 454,
+          maxWidth: 270,
         }}
       >
         <Box
@@ -94,9 +84,16 @@ export default class Produto extends Component {
           bgcolor="#9e9e9e"
         >
           <div style={styles.media}>
-            <Link to={`/${type}/${id}`} style={{ textDecoration: 'none' }} >
+            <Link to={`/${type}/${id}`} style={{ textDecoration: 'none' }}>
               <div className="container">
-                <img src={Imageurl} onClick={() => {this.props.update()}} className="image" alt="Imagem produto" />
+                <img
+                  src={Imageurl}
+                  onClick={() => {
+                    this.props.update();
+                  }}
+                  className="image"
+                  alt="Imagem produto"
+                />
               </div>
             </Link>
           </div>
@@ -115,7 +112,12 @@ export default class Produto extends Component {
             {this.FuncCapitalize(nome)}
           </p>
 
-          <Box display="flex" flex="1" flexDirection="row" justifyContent="space-between">
+          <Box
+            display="flex"
+            flex="1"
+            flexDirection="row"
+            justifyContent="space-between"
+          >
             <p
               style={{
                 margin: 0,

@@ -11,6 +11,15 @@ const initialState = {
 };
 
 function getToken() {
+  if (a.length != 0) {
+    return a;
+  }
+  if (b.length != 0) {
+    return b;
+  }
+
+  return '';
+}
 
     if (a != null) {
         return a;
@@ -19,8 +28,8 @@ function getToken() {
     }
 
     return '';
-}
-
+  }
+  
 async function tentativa() {
      function getUser() {
         if (a != null) {
@@ -54,6 +63,6 @@ export default async function user(state = initialState, action) {
 }
 
 export const setUser = (payload) => ({
-    type: 'SET_USER',
-    payload
+  type: 'SET_USER',
+  payload,
 });

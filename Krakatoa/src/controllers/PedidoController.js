@@ -5,12 +5,7 @@ const User = require('../models/User');
 module.exports = {
   async Store(req, res) {
     try {
-      const {
-        precoTotal,
-        frete,
-        user,
-        produtos,
-      } = req.body;
+      const { precoTotal, frete, user, produtos } = req.body;
 
       const { id } = user;
 
@@ -19,7 +14,7 @@ module.exports = {
         frete,
       });
 
-      while (produtos.length != 0) {
+      while (produtos.length !== 0) {
         const produtoArray = produtos.pop();
         console.log(produtoArray);
         const produto = await Produto.findById(produtoArray.id);
