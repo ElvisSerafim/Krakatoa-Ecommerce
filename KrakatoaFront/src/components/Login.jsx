@@ -90,6 +90,11 @@ const Login = () => {
       />
       <Grid container spacing={2} diretion="row" justify="flex-start">
         <Grid item lg={12} md={12}>
+          <Typography style={styles.topico} variant="h5" color="secondary">
+            Entrar
+          </Typography>
+        </Grid>
+        <Grid item lg={12} md={12}>
           <div style={styles.senha}>
             <TextFielde
               login

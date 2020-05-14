@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { Container, Grid, Typography, Box } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
@@ -9,9 +9,6 @@ import Topo from '../components/Topo';
 import Footer from '../components/Footer';
 
 const styles = {
-  fundo: {
-    AlignItems: 'center',
-  },
   topico: {
     fontWeight: 'bold',
     marginTop: '64px',
@@ -26,6 +23,7 @@ const styles = {
 const useStyles = makeStyles((theme) => ({
   Fundo: {
     backgroundColor: theme.palette.background.color,
+    AlignItems: 'center',
   },
 }));
 
@@ -33,7 +31,7 @@ const LoginPage = () => {
   const classes = useStyles();
   return (
     <>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" style={{ marginBottom: '64px' }}>
         <Topo />
         <Navbar />
         <Typography
@@ -47,16 +45,6 @@ const LoginPage = () => {
         <Box className={classes.Fundo}>
           <Grid container spacing={2} diretion="row" justify="flex-start">
             <Grid item lg={6} md={6}>
-              <Typography style={styles.topico} variant="h5" color="primary">
-                Entrar
-              </Typography>
-            </Grid>
-            <Grid item lg={6} md={6}>
-              <Typography style={styles.topico} variant="h5" color="primary">
-                Registrar
-              </Typography>
-            </Grid>
-            <Grid item lg={6} md={6}>
               <div style={styles.input}>
                 <Login />
               </div>
@@ -69,9 +57,7 @@ const LoginPage = () => {
           </Grid>
         </Box>
       </Container>
-      <div styles={{ marginTop: 36 }}>
-        <Footer />
-      </div>
+      <Footer />
     </>
   );
 };

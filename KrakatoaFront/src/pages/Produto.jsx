@@ -4,6 +4,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography } from '@material-ui/core/';
 import { useSelector, useDispatch } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
 import Navbar from '../components/Nav';
 import ComboBox from '../components/ComboBox';
 import Topo from '../components/Topo';
@@ -77,6 +78,14 @@ const styles = {
   },
 };
 
+const useStyles = makeStyles({
+  GridContainer: {
+    '@media (min-width: 954px)': {
+      justifyContent: 'flex-start',
+    },
+  },
+});
+
 const ProdutoPage = ({ match }) => {
   const [product, setProduct] = useState('');
   const [type, setType] = useState('');
@@ -124,6 +133,8 @@ const ProdutoPage = ({ match }) => {
     dispatch(addCart(productCart));
   };
 
+  const classes = useStyles();
+
   const relacionados = (produtins) => {
     const newProdutosRelacionados = [];
     let count = 0;
@@ -152,7 +163,9 @@ const ProdutoPage = ({ match }) => {
       setAtualizar(true);
     }
   };
+
   const [size, setSize] = useState('');
+
   return (
     <>
       <Container maxWidth="lg">
@@ -188,7 +201,8 @@ const ProdutoPage = ({ match }) => {
               </div>
               <div style={styles.quad2inside}>
                 <Typography
-                  style={{ color: 'white', fontStyle: 'normal', margin: 0 }}
+                  style={{ fontStyle: 'normal', margin: 0 }}
+                  color="secondary"
                   variant="h3"
                 >
                   {product.nome}
@@ -296,9 +310,14 @@ const ProdutoPage = ({ match }) => {
         </div>
 
         <div style={{ paddingTop: '40px' }}>
-          <Grid container justify="flex-start" spacing={2}>
+          <Grid
+            container
+            justify="space-around"
+            spacing={2}
+            className={classes.GridContainer}
+          >
             {allProducts.map((value) => (
-              <Grid key={value.id} item lg={3}>
+              <Grid key={value.id} item lg={3} md={4} sm={6}>
                 <Produto
                   produto={value}
                   title={type}

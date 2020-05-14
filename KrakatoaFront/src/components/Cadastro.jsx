@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, Grid } from '@material-ui/core';
+import { Button, Grid, Typography } from '@material-ui/core';
 import TextFielde from './TextField';
 import api from '../Services/ApiService';
 import Alerta from './Alerta';
@@ -70,6 +70,11 @@ const Cadastro = () => {
         horizontal="right"
       />
       <Grid container spacing={2} diretion="row" justify="flex-start">
+        <Grid item lg={12} md={12}>
+          <Typography style={styles.topico} variant="h5" color="secondary">
+            Registrar
+          </Typography>
+        </Grid>
         <Grid item lg={12} md={12}>
           <div style={styles.senha}>
             <TextFielde
