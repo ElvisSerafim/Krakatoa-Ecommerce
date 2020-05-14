@@ -10,16 +10,10 @@ import './Contato.css';
 import Navbar from '../components/Nav';
 import ApiService from '../Services/ApiService';
 import ContaComp from '../components/ContaComp';
-
+import Estilos from '../Estilos'
 const styles = {
   background: {
     backgroundColor: '#D0D0D0',
-  },
-  flexRow: {
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'row',
-    paddingBottom: '50',
   },
   txt1: {
     paddingLeft: 5,
@@ -86,7 +80,7 @@ const styles = {
             <ContaComp />
           </Grid>
           <div style={styles.quadrado2}>
-            <div style={styles.flexRow}>
+            <div style={{...Estilos.flexRowStandard, paddingBottom: '50'}}>
               <Typography style={styles.txt2} color="secondary">
                 Olá,
               </Typography>
@@ -94,7 +88,7 @@ const styles = {
                 {user.nome}
               </Typography>
             </div>
-            <div style={styles.flexRow}>
+            <div style={Estilos.flexRowStandard}>
               <Typography style={styles.txt3} color="secondary">
                 {' '}
                 A partir do painel de controle da sua conta, você pode ver suas
@@ -104,7 +98,7 @@ const styles = {
                 gerenciar seus
               </Typography>
             </div>
-            <div style={styles.flexRow}>
+            <div style={Estilos.flexRowStandard}>
               <Typography style={styles.txt6}>
                 endereços de entrega e cobrança
               </Typography>

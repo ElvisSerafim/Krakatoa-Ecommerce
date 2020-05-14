@@ -57,7 +57,6 @@ export default function PersistentDrawerLeft() {
     setOpen(true);
   };
   return (
-    <CssBaseline>
       <div className={classes.root}>
         <IconButton
           color="inherit"
@@ -109,6 +108,5 @@ export default function PersistentDrawerLeft() {
           </List>
         </Drawer>
       </div>
-    </CssBaseline>
   );
 }
