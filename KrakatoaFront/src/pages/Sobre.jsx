@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Typography } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
-import Hidden from '@material-ui/core/Hidden';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import SobreCompomente from '../components/Sobre';
@@ -53,9 +52,11 @@ const Sobre = () => {
           </Typography>
         </section>
         <Typography variant="h3" color="primary">
-          LOJAS FÍSICAS
+          LOJA FÍSICA
         </Typography>
-        <SobreCompomente />
+        <div style={{ marginTop: 64 }}>
+          <SobreCompomente />
+        </div>
         <section>
           <Typography variant="h3" color="primary">
             Mapa

@@ -9,12 +9,8 @@ import Topo from '../components/Topo';
 import Footer from '../components/Footer';
 
 const styles = {
-  topico: {
-    fontWeight: 'bold',
-    marginTop: '64px',
-    marginLeft: '64px',
-  },
   input: {
+    width: '100%',
     marginLeft: '64px',
     marginTop: '32px',
   },

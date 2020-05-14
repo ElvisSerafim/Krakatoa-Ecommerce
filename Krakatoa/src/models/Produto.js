@@ -30,14 +30,14 @@ const produtoSchema = new mongoose.Schema(
       {
         type: String,
         require: true,
-      }
+      },
     ],
 
     color: [
       {
-        type: String, 
-        require: true
-      }
+        type: String,
+        require: true,
+      },
     ],
     descricao: {
       type: String,

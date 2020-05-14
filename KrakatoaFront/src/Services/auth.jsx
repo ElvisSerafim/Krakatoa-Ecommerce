@@ -12,16 +12,18 @@ const isAuth = () => {
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
-    render={(props) => (isAuth() ? (
-      <Component {...props} />
-    ) : (
-      <Redirect
-        to={{
-          pathname: '/login',
-          state: { mensage: 'Checar Email e Senha' },
-        }}
-      />
-    ))}
+    render={(props) =>
+      isAuth() ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: '/login',
+            state: { mensage: 'Checar Email e Senha' },
+          }}
+        />
+      )
+    }
   />
 );
 

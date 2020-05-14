@@ -16,7 +16,6 @@ module.exports = {
 
       while (produtos.length !== 0) {
         const produtoArray = produtos.pop();
-        console.log(produtoArray);
         const produto = await Produto.findById(produtoArray.id);
         pedido.produtos.push(produto);
       }
