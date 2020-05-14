@@ -10,7 +10,7 @@ import Topo from '../components/Topo';
 import ProdutoEmSi from '../components/ProdutoEmSi';
 import Produto from '../components/Produto';
 import Footer from '../components/Footer';
-import { addCart, endAllProducts } from '../reducers/productsCart';
+import { addCart, sendAllProducts } from '../reducers/productsCart';
 import api from '../Services/ApiService';
 
 const styles = {
@@ -83,6 +83,9 @@ const ProdutoPage = ({ match }) => {
   const [posicao, setPosicao] = useState();
   const [allProducts, setAllProducts] = useState([]);
   const [atualizar, setAtualizar] = useState(false);
+  const [sizes, setSizes] = useState([]);
+  const [color, setColor] = useState([]);
+  const [colors, setColors] = useState([]);
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
 
@@ -212,14 +215,14 @@ const ProdutoPage = ({ match }) => {
                       borderRadius: 7,
                     }}
                     value={size}
-                    items={['Grande', 'Médio', 'Pequeno']}
+                    items={sizes}
                     label="Tamanhos"
                   />
                 </div>
                 <div style={{ marginTop: 50 }}>
                   <ComboBox
                     onChange={(event) => {
-                      setSize(event.target.value);
+                      setColor(event.target.value);
                     }}
                     style={{
                       backgroundColor: 'white',
@@ -227,8 +230,8 @@ const ProdutoPage = ({ match }) => {
                       borderRadius: 7,
                       marginTop: 20,
                     }}
-                    value={size}
-                    items={['Branco', 'Azul']}
+                    value={color}
+                    items={colors}
                     label="Cores"
                   />
                 </div>
@@ -305,7 +308,9 @@ const ProdutoPage = ({ match }) => {
                   update={() => {
                     atualiza();
                   }}
-                  addItem={addItemCart}
+                  addItem={(product) => {
+                    addItemCart(product, 1);
+                  }}
                 />
               </Grid>
             ))}

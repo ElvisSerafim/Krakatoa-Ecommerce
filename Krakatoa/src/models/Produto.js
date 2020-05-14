@@ -26,10 +26,19 @@ const produtoSchema = new mongoose.Schema(
         }
       },
     },
-    tamanho: {
-      type: String,
-      require: true,
-    },
+    tamanho: [
+      {
+        type: String,
+        require: true,
+      }
+    ],
+
+    color: [
+      {
+        type: String, 
+        require: true
+      }
+    ],
     descricao: {
       type: String,
       require: true,
@@ -40,7 +49,7 @@ const produtoSchema = new mongoose.Schema(
     promopreco: {
       type: Number,
     },
-    quantidade: {
+    quantidadeTotal: {
       type: Number,
       required: true,
     },
