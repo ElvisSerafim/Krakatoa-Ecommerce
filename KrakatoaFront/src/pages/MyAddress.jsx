@@ -8,18 +8,11 @@ import FooterComp from '../components/Footer';
 import './Contato.css';
 import ContaComp from '../components/ContaComp';
 import MyAddressComp from '../components/MyAddress';
-
+import Estilos from '../Estilos'
 const styles = {
   background: {
     backgroundColor: '#D0D0D0',
   },
-  flexRow: {
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'row',
-    paddingBottom: '50',
-  },
-
   quadrado2: {
     backgroundColor: 'white',
     width: 600,
@@ -45,7 +38,7 @@ export default class MinhaConta extends PureComponent {
               <ContaComp />
             </Grid>
             <div style={styles.quadrado2}>
-              <div style={styles.flexRow}>
+              <div style={{...Estilos.flexRowStandard,paddingBottom: '50'}}>
                 <Grid container spacing={2} diretion="row" justify="flex-start">
                   <Grid item lg={6}>
                     <Typography
