@@ -14,7 +14,7 @@ import Sedex from '../img/Sedex.svg';
 import Pac from '../img/Pac.svg';
 import api from '../Services/ApiService';
 import Alerta from '../components/Alerta';
-
+import Estilos from '../Estilos'
 const styles = {
   title: {
     fontSize: '2.5em',
@@ -214,23 +214,9 @@ export default class Endereco extends PureComponent {
             vertical="top"
             horizontal="right"
           />
-          <div
-            style={{
-              display: 'flex',
-              flex: '1',
-              flexDirection: 'row',
-              marginTop: '64px',
-              justifyContent: 'space-between',
-            }}
-          >
+          <div style={{...Estilos.flexRowSPACEBTW,marginTop: '64px'}}>
             <Typography style={styles.title}>Endereço</Typography>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
+            <div style={Estilos.flexRowCENTER2}>
               <a href="/carrinho">
                 <img src={cartBlank} alt="Carinho" />
               </a>
@@ -243,20 +229,10 @@ export default class Endereco extends PureComponent {
               <img src={payment} alt="React Logo" />
             </div>
           </div>
-          <div
-            style={{ display: 'flex', flexDirection: 'row', marginTop: '50px' }}
-          >
-            <div
-              style={{ display: 'flex', flexDirection: 'column', width: '60%' }}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <div style={{ width: '40%' }}>
+          <div style={{...Estilos.flexRowStandard2, marginTop: '50px' }}>
+            <div style={{...Estilos.flexColumnStandard2, width: '60%' }}>
+              <div  style={{...Estilos.flexRowStandard2,justifyContent: 'space-between'}}>
+                <div style={Estilos.width40}>
                   <TextField
                     label="Nome"
                     onChange={(e) => {
@@ -264,7 +240,7 @@ export default class Endereco extends PureComponent {
                     }}
                   />
                 </div>
-                <div style={{ width: '40%' }}>
+                <div style={Estilos.width40}>
                   <TextField
                     label="Sobrenome"
                     onChange={(e) => {
@@ -274,14 +250,8 @@ export default class Endereco extends PureComponent {
                 </div>
               </div>
               <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingTop: '20px',
-                }}
-              >
-                <div style={{ width: '40%' }}>
+                style={{...Estilos.flexRowStandard2,justifyContent: 'space-between',paddingTop: '20px'}}>
+                <div style={Estilos.width40}>
                   <TextField
                     label="Celular"
                     onChange={(e) => {
@@ -290,7 +260,7 @@ export default class Endereco extends PureComponent {
                     numberOnly
                   />
                 </div>
-                <div style={{ width: '40%' }}>
+                <div style={Estilos.width40}>
                   <TextField
                     label="CPF"
                     onChange={(e) => {
@@ -301,14 +271,8 @@ export default class Endereco extends PureComponent {
                 </div>
               </div>
               <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingTop: '20px',
-                }}
-              >
-                <div style={{ width: '40%' }}>
+                style={{...Estilos.flexRowStandard2,justifyContent: 'space-between',paddingTop: '20px'}}>
+                <div style={Estilos.width40}>
                   <TextField
                     label="CEP"
                     onChange={(e) => {
@@ -317,7 +281,7 @@ export default class Endereco extends PureComponent {
                     numberOnly
                   />
                 </div>
-                <div style={{ width: '40%' }}>
+                <div style={Estilos.width40}>
                   <TextField
                     label="Bairro"
                     onChange={(e) => {
@@ -327,14 +291,8 @@ export default class Endereco extends PureComponent {
                 </div>
               </div>
               <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingTop: '20px',
-                }}
-              >
-                <div style={{ width: '40%' }}>
+                style={{...Estilos.flexRowStandard2,justifyContent: 'space-between',paddingTop: '20px'}}>
+                <div style={Estilos.width40}>
                   <TextField
                     label="Cidade"
                     onChange={(e) => {
@@ -342,7 +300,7 @@ export default class Endereco extends PureComponent {
                     }}
                   />
                 </div>
-                <div style={{ width: '40%' }}>
+                <div style={Estilos.width40}>
                   <TextField
                     label="Rua"
                     onChange={(e) => {
@@ -352,14 +310,8 @@ export default class Endereco extends PureComponent {
                 </div>
               </div>
               <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingTop: '20px',
-                }}
-              >
-                <div style={{ width: '40%' }}>
+                style={{...Estilos.flexRowStandard2,justifyContent: 'space-between',paddingTop: '20px'}}>
+                <div style={Estilos.width40}>
                   <TextField
                     label="Numero"
                     onChange={(e) => {
@@ -368,7 +320,7 @@ export default class Endereco extends PureComponent {
                     numberOnly
                   />
                 </div>
-                <div style={{ width: '40%' }}>
+                <div style={Estilos.width40}>
                   <TextField
                     label="Complemento"
                     onChange={(e) => {
@@ -380,30 +332,16 @@ export default class Endereco extends PureComponent {
               </div>
             </div>
 
-            <div
-              style={{ display: 'flex', flex: '1', flexDirection: 'column' }}
-            >
+            <div style={Estilos.flexColumnStandard}>
               <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                }}
+                style={{...Estilos.flexRowStandard2, justifyContent: 'center'}}
               >
                 <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
                   Tipo de entrega
                 </p>
               </div>
 
-              <div
-                style={{
-                  display: 'flex',
-                  flex: '1',
-                  flexDirection: 'row',
-                  justifyContent: 'space-around',
-                  marginLeft: '20px',
-                }}
-              >
+              <div style={{...Estilos.flexRowStandard,justifyContent: 'space-around',marginLeft: '20px'}}>
                 <Box
                   onClick={() => {
                     this.setState({ deliverySelected: 'Pac' });
@@ -460,15 +398,7 @@ export default class Endereco extends PureComponent {
               </div>
               <MuiThemeProvider theme={theme}>
                 <div
-                  style={{
-                    marginTop: '20px',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    flex: '1',
-                    justifyContent: 'flex-end',
-                    fontFamily: 'Poppins',
-                  }}
-                >
+                  style={{...Estilos.flexRowStandard,marginTop: '20px',justifyContent: 'flex-end',fontFamily: 'Poppins'}}>
                   <Link
                     to={{
                       pathname: path,

@@ -20,7 +20,8 @@
     flexColumnCENTER2 :{display: 'flex',flexDirection: 'column',justifyContent: 'center',alignItems: 'center'},
     //=======================================CARRINHO============================================
     marginFont:{margin: 0, fontWeight: '600' },
-    noMargin: { margin: 0 }
+    noMargin: { margin: 0 },
+    width40:{ width: '40%' }
 }
 
 export default estilos;
