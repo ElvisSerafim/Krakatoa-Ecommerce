@@ -1,18 +1,14 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import {
   Grid,
   Card,
-  CardContent,
+  CardMedia,
   Typography,
+  CardContent,
   CardActionArea,
-  CardActions,
-  Button,
 } from '@material-ui/core/';
 import '../pages/Sobre.css';
-import card1 from '../img/card1.jpg';
-import card2 from '../img/card2.jpg';
-import card3 from '../img/card3.jpg';
-import card4 from '../img/card4.jpg';
+import { makeStyles } from '@material-ui/core/styles';
 
 const styles = {
   root: {
@@ -31,63 +27,91 @@ const styles = {
 
 const data = [
   {
-    quarter: 'card1',
-    title: 'Visite-nos',
+    quarter: 'card',
+    title: 'Frente da Loja',
     size: 3,
-    img: card1,
   },
   {
     quarter: 'card2',
-    title: 'Kangas \n a Partir de \n R$29,99',
+    title: 'Parte interna',
     size: 3,
-    img: card2,
   },
   {
     quarter: 'card3',
-    title: 'Descontos da \n Semana!',
+    title: 'Display de Produtos',
     size: 3,
-    img: card3,
   },
   {
     quarter: 'card4',
-    title: 'Nosso Local',
+    title: 'Venha conhecer!',
     size: 3,
-    img: card4,
   },
 ];
-export default class Sobre extends PureComponent {
-  render() {
-    return (
-      <div style={styles.sobre}>
-        <Grid container spacing={2} direction="row" justify="flex-start">
-          {data.map((elem) => (
-            <Grid item lg={elem.size} key={data.indexOf(elem)}>
-              <Card
-                style={styles.root}
-                className={elem.quarter}
-                backgroundColor={elem.img}
-              >
-                <CardActionArea>
-                  <CardContent style={styles.container}>
-                    <Typography gutterBottom variant="h5" component="h2">
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 345,
+  },
+  media: {
+    height: '50%',
+    objectFit: 'cover',
+    maxHeight: 345,
+  },
+  img: {
+    width: '100%',
+    maxHeight: 222,
+  },
+  txt: {
+    padding: 5,
+    color: theme.palette.background.color,
+  },
+}));
+
+const url = 'http://localhost:4000/static/imgs/sobre';
+
+const Sobre = () => {
+  const classes = useStyles();
+  return (
+    <div style={styles.sobre}>
+      <Grid container spacing={2} direction="row" justify="flex-start">
+        {data.map((elem) => (
+          <Grid
+            item
+            lg={3}
+            md={6}
+            sm={6}
+            xm={12}
+            key={data.indexOf(elem)}
+            style={{ width: '100%' }}
+          >
+            <Card
+              className={classes.root}
+              backgroundColor={`url(${url}/${elem.quarter})`}
+            >
+              <CardActionArea>
+                <CardMedia className={classes.media}>
+                  <img
+                    src={`${url}/${elem.quarter}.jpg`}
+                    alt="Fotos da loja"
+                    className={classes.img}
+                  />
+                </CardMedia>
+                <CardContent>
+                  <div>
+                    <Typography
+                      variant="h5"
+                      component="h2"
+                      className={classes.txt}
+                    >
                       {elem.title}
                     </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions>
-                  <Button
-                    size="medium"
-                    variant="contained"
-                    className="saibaMais"
-                  >
-                    Saiba Mais
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </div>
-    );
-  }
-}
+                  </div>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </div>
+  );
+};
+export default Sobre;

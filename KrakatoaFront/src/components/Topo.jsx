@@ -29,7 +29,7 @@ const Topo = () => {
     <Container maxWidth="lg">
       <div className={classes.Top}>
         <Box className={classes.box}>
-          <Hidden>
+          <Hidden mdUp="true">
             <Drawer />
           </Hidden>
           <Link to="/" style={{ textDecoration: 'none' }}>

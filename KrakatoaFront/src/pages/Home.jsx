@@ -42,7 +42,7 @@ const Home = () => (
         <Grid item lg={12} md={2}>
           <Promos />
         </Grid>
-        <Grid item lg={12} md={2}>
+        <Grid item lg={12}>
           <Typography style={styles.Titulo}>Mais Procurados</Typography>
         </Grid>
         <Grid item lg={3} md={2}>
@@ -57,8 +57,7 @@ const Home = () => (
       </Grid>
     </Container>
     <Footer />
-    </>
-  
+  </>
 );
 
 export default Home;
