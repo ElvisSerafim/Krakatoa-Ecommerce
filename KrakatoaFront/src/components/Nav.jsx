@@ -1,7 +1,6 @@
 import React from 'react';
 import { Typography, Box } from '@material-ui/core/';
 import Hidden from '@material-ui/core/Hidden';
-import Drawer from '../components/Drawer';
 
 const styles = {
   typography: {
@@ -15,7 +14,6 @@ const styles = {
 
 const NavBar = () => (
   <Hidden smDown="true">
-    <Drawer/>
     <div style={{ width: '100%' }}>
       <Box
         display="flex"

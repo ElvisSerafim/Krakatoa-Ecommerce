@@ -9,8 +9,8 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import clsx from 'clsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Link from 'react-router-dom/Link';
 
 const drawerWidth = 240;
 
@@ -25,9 +25,9 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     flexShrink: 0,
   },
-  /* drawerPaper: {
+  drawerPaper: {
     width: drawerWidth,
-  }, */
+  },
   drawerHeader: {
     display: 'flex',
     alignItems: 'center',
@@ -51,10 +51,7 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   };
   const toggleDrawer = (event) => {
-    if (
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
-    ) {
+    if (event.type === 'keydown') {
       return;
     }
     setOpen(true);
@@ -68,7 +65,7 @@ export default function PersistentDrawerLeft() {
           onClick={toggleDrawer}
           onKeyDown={(e) => toggleDrawer(e)}
           edge="start"
-          className={clsx(classes.menuButton, open && classes.hide)}
+          className={classes.menuButton}
         >
           <MenuIcon />
         </IconButton>
@@ -103,9 +100,11 @@ export default function PersistentDrawerLeft() {
               'Sobre',
               'Contato',
             ].map((text) => (
-              <ListItem button key={text}>
-                <ListItemText primary={text} />
-              </ListItem>
+              <a href={`/${text}`}>
+                <ListItem button key={text}>
+                  <ListItemText primary={text} />
+                </ListItem>
+              </a>
             ))}
           </List>
         </Drawer>
