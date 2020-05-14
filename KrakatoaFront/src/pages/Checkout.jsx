@@ -10,6 +10,7 @@ import TextField from '../components/TextField';
 import cartBlank from '../img/cartBlank.svg';
 import nodeli from '../img/noDelivery.svg';
 import payment from '../img/payment.svg';
+import Estilos from '../Estilos'
 
 const styles = {
   title: {
@@ -35,6 +36,7 @@ const styles = {
     backgroundColor: 'red',
     color: 'white',
   },
+  width40:{ width: '40%' }
 };
 
 const theme = createMuiTheme({
@@ -58,21 +60,11 @@ export default class Checkout extends PureComponent {
           <Topo />
           <Navbar />
           <div
-            style={{
-              display: 'flex',
-              flex: '1',
-              flexDirection: 'row',
-              marginTop: '64px',
-              justifyContent: 'space-between',
-            }}
+            style={{...Estilos.flexRowSPACEBTW2,paddingTop: '64px'}}
           >
             <Typography style={styles.title}>Pagamento</Typography>
             <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
+              style={Estilos.flexRowCENTER2}
             >
               <a href="/carinho">
                 <img src={cartBlank} alt="Carinho" />
@@ -91,65 +83,38 @@ export default class Checkout extends PureComponent {
             </div>
           </div>
           <div
-            style={{ display: 'flex', flexDirection: 'row', marginTop: '50px' }}
-          >
-            <div
-              style={{ display: 'flex', flexDirection: 'column', width: '60%' }}
-            >
+            style={{ ...Estilos.flexRowStandard2, paddingTop: '50px' }}>
+            <div style={{...Estilos.flexColumnStandard2, width: '60%' }}>
               <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                }}
+                style={Estilos.flexRowSPACEBTW2}
               >
-                <div style={{ width: '40%' }}>
+                <div style={styles.width40}>
                   <TextField label="Nome do Titular do cartão" />
                 </div>
-                <div style={{ width: '40%' }}>
+                <div style={styles.width40}>
                   <TextField label="Número do cartão" numberOnly />
                 </div>
               </div>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingTop: '20px',
-                }}
-              >
-                <div style={{ width: '40%' }}>
+              <div style={{...Estilos.flexRowSPACEBTW2,paddingTop: '20px'}}>
+                <div style={styles.width40}>
                   <TextField label="Código de segurança" numberOnly />
                 </div>
-                <div style={{ width: '40%' }}>
+                <div style={styles.width40}>
                   <TextField label="Data de validade" date />
                 </div>
               </div>
             </div>
 
             <div
-              style={{ display: 'flex', flex: '1', flexDirection: 'column' }}
+              style={Estilos.flexColumnStandard}
             >
               <div
                 style={{
-                  display: 'flex',
-                  flex: '1',
-                  flexDirection: 'row',
-                  justifyContent: 'space-around',
-                  marginLeft: '20px',
-                }}
+                  ...Estilos.flexRowStandard, justifyContent: 'space-around', paddingLeft: '20px'}}
               />
               <MuiThemeProvider theme={theme}>
                 <div
-                  style={{
-                    marginTop: '20px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    flex: '1',
-                    alignItems: 'flex-end',
-                    justifyContent: 'flex-end',
-                    fontFamily: 'Poppins',
-                  }}
+                  style={{...Estilos.flexColumnEND, paddingTop: '20px' }}
                 >
                   <Link to="/sumario" style={{ textDecoration: 'none' }}>
                     <Button

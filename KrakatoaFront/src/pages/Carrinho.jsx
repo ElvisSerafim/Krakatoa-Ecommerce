@@ -46,6 +46,21 @@ const styles = {
     backgroundColor: 'red',
     color: 'white',
   }, 
+  priceText : {color: 'white',
+              backgroundColor: '#FF6961',
+              borderRadius: 10,
+              fontFamily: 'Poppins',
+              fontSize: 20,
+              padding: '20px'
+},
+  borderHeight : { borderRadius: 7, height: 50 },
+  linha:{
+    color: 'red',
+    backgroundColor: 'red',
+    height: 1,
+    borderColor: 'red',
+    width: '100%',
+  }
 };
 
 const tentativa = {
@@ -108,7 +123,7 @@ const Carrinho = () => {
         <Topo />
         <Navbar />
         <div
-          style={Estilos.estilos().flex.flexRowSPACEBTW}
+          style={Estilos.flexRowSPACEBTW}
         >
           <Typography style={styles.title}>Carrinho</Typography>
           <div
@@ -141,20 +156,12 @@ const Carrinho = () => {
             removerItem={removerProduct}
           />
         </div>
-        <div style={{ display: 'flex', flex: '1', flexDirection: 'row' }}>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              width: '50%',
-              justifyContent: 'space-between',
-              alignItems: 'flex-end',
-            }}
-          >
+        <div style={Estilos.flexRowStandard}>
+          <div style={{...Estilos.flexRowSPACEBTW, width: '50%', alignItems: 'flex-end'}}>
             <Button
               variant="contained"
               color="primary"
-              style={{ borderRadius: 7, height: 50 }}
+              style={styles.borderHeight}
               href="/"
             >
               Continuar Comprando
@@ -163,7 +170,7 @@ const Carrinho = () => {
               variant="contained"
               color="primary"
               onClick={removeAllProducts}
-              style={{ borderRadius: 7, height: 50, width: 120 }}
+              style={{...styles.borderHeight, width: 120 }}
             >
               Limpar
             </Button>
@@ -171,76 +178,37 @@ const Carrinho = () => {
           <div />
         </div>
 
-        <div
-          style={{
-            display: 'flex',
-            flex: '1',
-            flexDirection: 'row',
-            paddingTop: '40px',
-            justifyContent: 'space-between',
-          }}
-        >
+        <div style={{...Estilos.flexRowSPACEBTW, paddingTop: '40px'}}>
           <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              width: '35%',
-              color: 'white',
-              backgroundColor: '#FF6961',
-              borderRadius: 10,
-              height: 120,
-              fontFamily: 'Poppins',
-              fontSize: 20,
-              padding: '20px',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}
-            >
-              <Typography style={{ margin: 0, fontWeight: '600' }}>
+            style={{...Estilos.flexColumnStandard2,width: '35%',height: 120,...styles.priceText}}>
+            <div style={{...Estilos.flexRowSPACEBTW}} >
+              <Typography style={Estilos.marginFont}>
                 Frete:
               </Typography>
-              <Typography style={{ margin: 0, fontWeight: '600' }}>
+              <Typography style={Estilos.marginFont}>
                 R$
                 {totalFrete}
               </Typography>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div style={Estilos.flexRowStandard2}>
               <div>
                 <TextField
                   placeholder="Insira seu CEP"
                   onChange={(event) => {
                     setCep(event.target.value);
                   }}
-                  style={{
-                    color: 'red',
-                    backgroundColor: 'white',
-                    borderRadius: 7,
-                    height: 50,
-                  }}
-                  numberOnly
-                />
+                  style={{color: 'red',backgroundColor: 'white',...styles.borderHeight}} numberOnly/>
               </div>
               <div
-                style={{
-                  marginLeft: 20,
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                  alignItems: 'flex-end',
-                  width: 120,
-                }}
+                style={{marginLeft: 20,width: 120,...Estilos.flexRowEND2}}
               >
                 <Button
                   variant="contained"
                   color="primary"
                   onClick={calcularPrazo}
                   fullWidth
-                  style={{ borderRadius: 7, height: 50 }}
+                  style={styles.borderHeight}
                 >
                   Calcular
                 </Button>
@@ -248,39 +216,14 @@ const Carrinho = () => {
             </div>
           </div>
 
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              width: '30%',
-              color: 'white',
-              backgroundColor: '#FF6961',
-              borderRadius: 10,
-              fontFamily: 'Poppins',
-              fontSize: 20,
-              padding: '20px',
-            }}
-          >
-            <p style={{ margin: 0, fontWeight: '600' }}>Total no Carrinho: </p>
+          <div style={{...Estilos.flexColumnStandard2,width: '30%',...styles.priceText}}>
+            <p style={Estilos.marginFont}>Total no Carrinho: </p>
             <div>
-              <hr
-                style={{
-                  color: 'red',
-                  backgroundColor: 'red',
-                  height: 1,
-                  borderColor: 'red',
-                  width: '100%',
-                }}
+              <hr style={styles.linha}
               />
             </div>
 
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}
-            >
+            <div style={Estilos.flexRowSPACEBTW}>
               <p>SubTotal:</p>
               <p>
                 R$
@@ -289,29 +232,18 @@ const Carrinho = () => {
             </div>
 
             <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}
-            >
-              <Typography style={{ margin: 0 }}>Entrega: </Typography>
-              <Typography style={{ margin: 0 }}>
+              style={Estilos.flexRowSPACEBTW} >
+
+              <Typography style={Estilos.noMargin}>Entrega: </Typography>
+              <Typography style={Estilos.noMargin}>
                 R$
                 {totalFrete}
               </Typography>
             </div>
 
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                paddingTop: '30px',
-              }}
-            >
-              <Typography style={{ margin: 0 }}>Total: </Typography>
-              <Typography style={{ margin: 0, fontWeight: '600' }}>
+            <div style={{...Estilos.flexRowSPACEBTW,paddingTop: '30px'}} >
+              <Typography style={Estilos.noMargin}>Total: </Typography>
+              <Typography style={Estilos.marginFont}>
                 R$
                 {total}
               </Typography>
@@ -320,13 +252,7 @@ const Carrinho = () => {
         </div>
 
         <div
-          style={{
-            display: 'flex',
-            flex: '1',
-            justifyContent: 'flex-end',
-            alignItems: 'flex-end',
-            paddingTop: 50,
-          }}
+          style={{...Estilos.flexRowEND,paddingTop: 50}}
         >
           <Link
             to={{
@@ -341,7 +267,7 @@ const Carrinho = () => {
             <Button
               variant="contained"
               color="primary"
-              style={{ borderRadius: 7, height: 50 }}
+              style={styles.borderHeight}
               href="/endereco"
             >
               Checkout
