@@ -137,7 +137,12 @@ module.exports = {
   async IndexQuery(req, res) {
     try {
       const { tipo, chave } = req.body;
-      const produtos = await Produto.find({ tipo });
+      let produtos;
+      if (tipo === 'pesquisa'){
+        produtos = await Produto.find();
+      }else{
+        produtos = await Produto.find({ tipo });
+      }
       if (chave === 'menorP') {
         produtos.sort((a, b) => {
           if (a.preco > b.preco) return 1;

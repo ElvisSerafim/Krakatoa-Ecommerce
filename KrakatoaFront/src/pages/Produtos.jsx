@@ -2,7 +2,7 @@
 /* Vestidos,Batas,Shorts,Kangas */
 
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Container, Typography } from '@material-ui/core/';
 import { updateProducts } from '../reducers/products';
 import Navbar from '../components/Nav';
@@ -17,7 +17,12 @@ const Produtos = ({ title, name }) => {
   const [product, setProduct] = useState([]);
   const [orderBy, setOrderBy] = useState('');
   const [open, setOpen] = useState(false);
+  const [nome, setNome] = useState('');
+  const search = useSelector((state) => state.pesquisaBarra);
+  console.log(search);
   useEffect(() => {
+
+    setNome(name);
     const getProducts = async () => {
       const data = {
         tipo: name,
@@ -27,15 +32,63 @@ const Produtos = ({ title, name }) => {
       const request = await api.GetProdutos(data);
 
       const a = [request];
-      setProduct(a);
+      if (name === 'pesquisa') {
+        setProduct([[]]);
+        let arrayPesquisa = search.split(' ');
+        let arrayAux = [];
+
+        if (arrayPesquisa.length === 1) {
+
+          request.forEach((itemI, i) => {
+
+            if (itemI.nome.toUpperCase().includes(arrayPesquisa[0].toUpperCase())) {
+              console.log(itemI);
+              arrayAux.push(itemI);
+            }
+
+          })
+          setProduct([arrayAux]);
+
+        } else {
+
+          request.forEach((itemI, i) => {
+            var verifica = true;
+            arrayPesquisa.forEach((item, index) => {
+
+              if (itemI.nome.toUpperCase().includes(item.toUpperCase())) {
+                  
+              }else {
+                verifica = false;
+              }
+
+            })
+
+            if(verifica === true){
+               arrayAux.push(itemI);
+            }
+
+          })
+
+          setProduct([arrayAux]);
+
+        }
+
+      }
+
+      else {
+
+        setProduct(a);
+      }
+
     };
 
+
     getProducts();
-  }, []);
+  }, [name, title, search]);
   const dispatch = useDispatch();
   dispatch(updateProducts(product));
 
-  const abrir = () => {};
+  const abrir = () => { };
   const fechar = (event, reason) => {
     if (reason === 'clickaway') {
       return;

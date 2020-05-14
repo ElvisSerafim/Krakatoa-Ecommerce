@@ -4,6 +4,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { useDispatch } from 'react-redux';
 import { sendSearch } from '../reducers/search';
+import { withRouter, useHistory } from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -55,6 +57,8 @@ const SearchBar = ({ redrec }) => {
   const classes = useStyles();
   const [search, setSearch] = useState('');
   const dispatch = useDispatch();
+  const history = useHistory();
+
   return (
     <div className={classes.search}>
       <div className={classes.searchIcon}>
@@ -65,6 +69,7 @@ const SearchBar = ({ redrec }) => {
           if (event.key === 'Enter') {
             if (search.length === 0) return 0;
 
+            history.push('/pesquisa');
             dispatch(sendSearch(search));
 
             setSearch('');
