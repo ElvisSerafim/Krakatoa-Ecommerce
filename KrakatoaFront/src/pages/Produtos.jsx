@@ -51,17 +51,21 @@ const Produtos = ({ title, name }) => {
 
         } else {
 
-          arrayPesquisa.forEach((item, index) => {
-       
-            request.forEach((itemI, i) => {
+          request.forEach((itemI, i) => {
+            var verifica = true;
+            arrayPesquisa.forEach((item, index) => {
 
               if (itemI.nome.toUpperCase().includes(item.toUpperCase())) {
-                console.log('Encontrei');
-                console.log(itemI);
-                arrayAux.push(itemI);
+                  
+              }else {
+                verifica = false;
               }
 
             })
+
+            if(verifica === true){
+               arrayAux.push(itemI);
+            }
 
           })
 
