@@ -62,7 +62,6 @@ const Produtos = ({ title, alert, name }) => {
         <ComboBox
           onChange={(event) => {
             setOrderBy(event.target.value);
-            console.log(event.target.value);
             ordenar(event.target.value);
           }}
           style={{ maxWidth: 300 }}
@@ -72,7 +71,15 @@ const Produtos = ({ title, alert, name }) => {
         />
       </Grid>
       {item.map((value) => (
-        <Grid key={value.id} item lg={3} md={4} sm={6}>
+        <Grid
+          key={value.id}
+          item
+          lg={3}
+          md={4}
+          sm={6}
+          xm={6}
+          className={classes.product}
+        >
           <Produto
             produto={value}
             update={() => {}}

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import { Button } from '@material-ui/core/';
