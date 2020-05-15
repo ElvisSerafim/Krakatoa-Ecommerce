@@ -13,14 +13,6 @@ const styles = {
     fontWeight: 'bold',
     marginBottom: '27px',
   },
-  nomeElogo: {
-    display: 'flex',
-    flex: 1,
-    flexWrap: 'nowrap',
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 40,
-  },
   lore: {
     color: '#E8E8E8',
     fontSize: '1.0em',
@@ -187,7 +179,7 @@ const Topo = (theme) => {
                   Designer
                 </Typography>
                 <Typography style={styles.lore}>
-                  Gustavo, Gabriel e Elvis
+                  E-PUSH
                 </Typography>
               </div>
             </div>

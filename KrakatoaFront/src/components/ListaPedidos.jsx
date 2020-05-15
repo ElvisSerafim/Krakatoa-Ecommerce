@@ -6,6 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Estilos from '../Estilos';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -56,44 +57,25 @@ export default function CustomizedTables() {
           {pedidos.map((row) => (
             <StyledTableRow key={row}>
               <StyledTableCell component="th" scope="row">
-                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <div style={Estilos.flexRowStandard2}>
                   <p>Bata</p>
                 </div>
               </StyledTableCell>
               <StyledTableCell align="right">
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
+                <div style={Estilos.flexRowCENTER2}>
                   <p>R$</p>
                   <p>64,00</p>
                 </div>
               </StyledTableCell>
               <StyledTableCell align="center">
                 <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
+                  style={Estilos.flexRowCENTER2}
                 >
                   <p>2</p>
                 </div>
               </StyledTableCell>
               <StyledTableCell align="center">
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
+                <div style={Estilos.flexRowCENTER2}>
                   <p>12/04/2020</p>
                 </div>
               </StyledTableCell>

@@ -11,7 +11,7 @@ import { Box } from '@material-ui/core/';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Quantity from './Quantity';
 import { productsUpdate } from '../reducers/productsCart';
-
+import Estilos from '../Estilos'
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: 'red',
@@ -96,7 +96,7 @@ export default function CustomizedTables({ estilo, actualTotal, removerItem }) {
           {allProducts.map((row, i) => (
             <StyledTableRow key={row.id}>
               <StyledTableCell component="th" scope="row">
-                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <div style={Estilos.flexRowStandard2}>
                   <div style={{ width: '100px', height: '150px' }}>
                     <img
                       src={row.Imageurl}
@@ -105,13 +105,7 @@ export default function CustomizedTables({ estilo, actualTotal, removerItem }) {
                     />
                   </div>
                   <div
-                    style={{
-                      paddingLeft: '40px',
-                      display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}
+                    style={{...Estilos.flexRowCENTER2, paddingLeft: '40px' }}
                   >
                     {row.nome}
                   </div>
@@ -119,26 +113,13 @@ export default function CustomizedTables({ estilo, actualTotal, removerItem }) {
               </StyledTableCell>
               <StyledTableCell align="right">
                 <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
+                  style={Estilos.flexRowCENTER2}>
                   <p>R$</p>
                   <p>{row.preco}</p>
                 </div>
               </StyledTableCell>
               <StyledTableCell align="center">
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
+                <div style={Estilos.flexRowCENTER2}>
                   <Quantity
                     onClickPlus={() => {
                       const aux = [...quantity];
@@ -169,14 +150,7 @@ export default function CustomizedTables({ estilo, actualTotal, removerItem }) {
                 </div>
               </StyledTableCell>
               <StyledTableCell align="center">
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
+                <div style={Estilos.flexRowCENTER2}>
                   <p>R$</p>
                   <div style={{ width: 20 }}>
                     <p>{total[i]}</p>

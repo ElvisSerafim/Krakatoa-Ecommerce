@@ -6,14 +6,8 @@ import { Box } from '@material-ui/core/';
 import { Link } from 'react-router-dom';
 import './Produto.css';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-
+import Estilos from '../Estilos'
 const styles = {
-  media: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   imagemContainer: {
     height: '200px',
     width: '150px',
@@ -60,7 +54,7 @@ const Produto = ({ produto, title, addItem, update }) => {
         padding="20px"
         bgcolor="#9e9e9e"
       >
-        <div style={styles.media}>
+        <div style={Estilos.flexRowCENTER2}>
           <Link to={`/${type}/${id}`} style={{ textDecoration: 'none' }}>
             <div className="container">
               <img

@@ -2,13 +2,12 @@ import React from 'react';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
 import { Typography } from '@material-ui/core/';
-
+import Estilos from '../Estilos';
 const styles = {
   quantity: {
-    display: 'flex',
-    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    ...Estilos.flexRowStandard2,
     height: 50,
     width: 130,
     backgroundColor: 'white',
@@ -19,14 +18,7 @@ const styles = {
 
 const Quantity = ({ onClickPlus, onClickMinus, quantidade = 0 }) => (
   <div style={styles.quantity}>
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingLeft: 10,
-      }}
-    >
+    <div style={{...Estilos.flexRowCenter2, paddingLeft: 10}}>
       <RemoveOutlinedIcon
         style={{ cursor: 'pointer' }}
         onClick={onClickMinus}
@@ -37,14 +29,7 @@ const Quantity = ({ onClickPlus, onClickMinus, quantidade = 0 }) => (
       <Typography style={{ color: 'black' }}>{quantidade}</Typography>
     </div>
 
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingRight: 10,
-      }}
-    >
+    <div style={{...Estilos.flexRowCenter2, paddingRight: 10}}>
       <AddOutlinedIcon style={{ cursor: 'pointer' }} onClick={onClickPlus} />
     </div>
   </div>
