@@ -45,22 +45,23 @@ const styles = {
     borderRadius: 200,
     backgroundColor: 'red',
     color: 'white',
-  }, 
-  priceText : {color: 'white',
-              backgroundColor: '#FF6961',
-              borderRadius: 10,
-              fontFamily: 'Poppins',
-              fontSize: 20,
-              padding: '20px'
-},
-  borderHeight : { borderRadius: 7, height: 50 },
-  linha:{
+  },
+  priceText: {
+    color: 'white',
+    backgroundColor: '#FF6961',
+    borderRadius: 10,
+    fontFamily: 'Poppins',
+    fontSize: 20,
+    padding: '20px',
+  },
+  borderHeight: { borderRadius: 7, height: 50 },
+  linha: {
     color: 'red',
     backgroundColor: 'red',
     height: 1,
     borderColor: 'red',
     width: '100%',
-  }
+  },
 };
 
 const tentativa = {
@@ -82,6 +83,7 @@ const Carrinho = () => {
 
   const products = useSelector((state) => state.productsCart);
   const dispatch = useDispatch();
+  const length = useSelector((state) => state.productsCart.length);
 
   const atualizarTotal = (totalMap) => {
     let auxTotal = 0;
@@ -122,158 +124,185 @@ const Carrinho = () => {
       <Container maxWidth="lg">
         <Topo />
         <Navbar />
-        <div
-          style={Estilos.flexRowSPACEBTW}
-        >
-          <Typography style={styles.title}>Carrinho</Typography>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <a href="/carrinho">
-              <div style={styles.searchIcon}>
-                <ShoppingCartIcon />
+        {length === 0 ? (
+          <div style={{...Estilos.flexRowCENTER2,padding:64}}>
+            <Typography
+              color="primary"
+              variant="h5"
+              style={{fontSize:'3.0em',fontWeight:'Bold'}}
+            >
+              Sem produtos no carrinho
+            </Typography>
+          </div>
+        ) : (
+          <>
+            <div style={Estilos.flexRowSPACEBTW}>
+              <Typography style={styles.title}>Carrinho</Typography>
+              <div style={Estilos.flexRowCENTER2}>
+                <a href="/carrinho">
+                  <div style={styles.searchIcon}>
+                    <ShoppingCartIcon />
+                  </div>
+                </a>
+
+                <hr style={styles.hrstyle} />
+                <a href="/endereco">
+                  <img src={delivery} alt="React Logo" />
+                </a>
+                <hr style={styles.hrstyle} />
+                <a href="/">
+                  <img src={payment} alt="React Logo" />
+                </a>
               </div>
-            </a>
-
-            <hr style={styles.hrstyle} />
-            <a href="/endereco">
-              <img src={delivery} alt="React Logo" />
-            </a>
-            <hr style={styles.hrstyle} />
-            <a href="/">
-              <img src={payment} alt="React Logo" />
-            </a>
-          </div>
-        </div>
-        <div style={{ marginTop: '30px' }}>
-          <Table
-            estilo={tentativa}
-            actualTotal={atualizarTotal}
-            removerItem={removerProduct}
-          />
-        </div>
-        <div style={Estilos.flexRowStandard}>
-          <div style={{...Estilos.flexRowSPACEBTW, width: '50%', alignItems: 'flex-end'}}>
-            <Button
-              variant="contained"
-              color="primary"
-              style={styles.borderHeight}
-              href="/"
-            >
-              Continuar Comprando
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={removeAllProducts}
-              style={{...styles.borderHeight, width: 120 }}
-            >
-              Limpar
-            </Button>
-          </div>
-          <div />
-        </div>
-
-        <div style={{...Estilos.flexRowSPACEBTW, paddingTop: '40px'}}>
-          <div
-            style={{...Estilos.flexColumnStandard2,width: '35%',height: 120,...styles.priceText}}>
-            <div style={{...Estilos.flexRowSPACEBTW}} >
-              <Typography style={Estilos.marginFont}>
-                Frete:
-              </Typography>
-              <Typography style={Estilos.marginFont}>
-                R$
-                {totalFrete}
-              </Typography>
             </div>
-
-            <div style={Estilos.flexRowStandard2}>
-              <div>
-                <TextField
-                  placeholder="Insira seu CEP"
-                  onChange={(event) => {
-                    setCep(event.target.value);
-                  }}
-                  style={{color: 'red',backgroundColor: 'white',...styles.borderHeight}} numberOnly/>
-              </div>
+            <div style={{ marginTop: '30px' }}>
+              <Table
+                estilo={tentativa}
+                actualTotal={atualizarTotal}
+                removerItem={removerProduct}
+              />
+            </div>
+            <div style={Estilos.flexRowStandard}>
               <div
-                style={{marginLeft: 20,width: 120,...Estilos.flexRowEND2}}
+                style={{
+                  ...Estilos.flexRowSPACEBTW,
+                  width: '50%',
+                  alignItems: 'flex-end',
+                }}
               >
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={calcularPrazo}
-                  fullWidth
                   style={styles.borderHeight}
+                  href="/"
                 >
-                  Calcular
+                  Continuar Comprando
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={removeAllProducts}
+                  style={{ ...styles.borderHeight, width: 120 }}
+                >
+                  Limpar
                 </Button>
               </div>
-            </div>
-          </div>
-
-          <div style={{...Estilos.flexColumnStandard2,width: '30%',...styles.priceText}}>
-            <p style={Estilos.marginFont}>Total no Carrinho: </p>
-            <div>
-              <hr style={styles.linha}
-              />
+              <div />
             </div>
 
-            <div style={Estilos.flexRowSPACEBTW}>
-              <p>SubTotal:</p>
-              <p>
-                R$
-                {totalFinal}
-              </p>
+            <div style={{ ...Estilos.flexRowSPACEBTW, paddingTop: '40px' }}>
+              <div
+                style={{
+                  ...Estilos.flexColumnStandard2,
+                  width: '35%',
+                  height: 120,
+                  ...styles.priceText,
+                }}
+              >
+                <div style={{ ...Estilos.flexRowSPACEBTW }}>
+                  <Typography style={Estilos.marginFont}>Frete:</Typography>
+                  <Typography style={Estilos.marginFont}>
+                    R$
+                    {totalFrete}
+                  </Typography>
+                </div>
+
+                <div style={Estilos.flexRowStandard2}>
+                  <div>
+                    <TextField
+                      placeholder="Insira seu CEP"
+                      onChange={(event) => {
+                        setCep(event.target.value);
+                      }}
+                      style={{
+                        color: 'red',
+                        backgroundColor: 'white',
+                        ...styles.borderHeight,
+                      }}
+                      numberOnly
+                    />
+                  </div>
+                  <div
+                    style={{
+                      marginLeft: 20,
+                      width: 120,
+                      ...Estilos.flexRowEND2,
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={calcularPrazo}
+                      fullWidth
+                      style={styles.borderHeight}
+                    >
+                      Calcular
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  ...Estilos.flexColumnStandard2,
+                  width: '30%',
+                  ...styles.priceText,
+                }}
+              >
+                <p style={Estilos.marginFont}>Total no Carrinho: </p>
+                <div>
+                  <hr style={styles.linha} />
+                </div>
+
+                <div style={Estilos.flexRowSPACEBTW}>
+                  <p>SubTotal:</p>
+                  <p>
+                    R$
+                    {totalFinal}
+                  </p>
+                </div>
+
+                <div style={Estilos.flexRowSPACEBTW}>
+                  <Typography style={Estilos.noMargin}>Entrega: </Typography>
+                  <Typography style={Estilos.noMargin}>
+                    R$
+                    {totalFrete}
+                  </Typography>
+                </div>
+
+                <div style={{ ...Estilos.flexRowSPACEBTW, paddingTop: '30px' }}>
+                  <Typography style={Estilos.noMargin}>Total: </Typography>
+                  <Typography style={Estilos.marginFont}>
+                    R$
+                    {total}
+                  </Typography>
+                </div>
+              </div>
             </div>
 
-            <div
-              style={Estilos.flexRowSPACEBTW} >
-
-              <Typography style={Estilos.noMargin}>Entrega: </Typography>
-              <Typography style={Estilos.noMargin}>
-                R$
-                {totalFrete}
-              </Typography>
+            <div style={{ ...Estilos.flexRowEND, paddingTop: 50 }}>
+              <Link
+                to={{
+                  pathname: '/endereco',
+                  state: {
+                    totalPedido: total,
+                    cepEndereco: cep,
+                  },
+                }}
+                style={{ textDecoration: 'none' }}
+              >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={styles.borderHeight}
+                  href="/endereco"
+                >
+                  Checkout
+                </Button>
+              </Link>
             </div>
-
-            <div style={{...Estilos.flexRowSPACEBTW,paddingTop: '30px'}} >
-              <Typography style={Estilos.noMargin}>Total: </Typography>
-              <Typography style={Estilos.marginFont}>
-                R$
-                {total}
-              </Typography>
-            </div>
-          </div>
-        </div>
-
-        <div
-          style={{...Estilos.flexRowEND,paddingTop: 50}}
-        >
-          <Link
-            to={{
-              pathname: '/endereco',
-              state: {
-                totalPedido: total,
-                cepEndereco: cep,
-              },
-            }}
-            style={{ textDecoration: 'none' }}
-          >
-            <Button
-              variant="contained"
-              color="primary"
-              style={styles.borderHeight}
-              href="/endereco"
-            >
-              Checkout
-            </Button>
-          </Link>
-        </div>
+          </>
+        )}
       </Container>
       <Footer />
     </>
