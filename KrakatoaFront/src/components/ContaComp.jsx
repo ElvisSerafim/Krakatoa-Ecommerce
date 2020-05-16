@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Typography } from '@material-ui/core/';
-import './Contato.css';
+import { makeStyles } from '@material-ui/core/styles';
 import SettingsIcon from '@material-ui/icons/Settings';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import RoomIcon from '@material-ui/icons/Room';
@@ -9,17 +9,21 @@ import ExitToAppTwoToneIcon from '@material-ui/icons/ExitToAppTwoTone';
 import api from '../Services/ApiService';
 import Estilos from '../Estilos';
 
-const styles = {
-  background: {
-    backgroundColor: '#D0D0D0',
-  },
-  quadrado1: {
-    backgroundColor: 'black',
+
+const useStyles = makeStyles((theme) => ({
+  Quadrado: {
+    backgroundColor: theme.palette.background.color,
     width: 300,
     height: 230,
     marginTop: 20,
     marginLeft: 20,
     borderRadius: 10,
+  }
+}));
+
+const styles = {
+  background: {
+    backgroundColor: '#D0D0D0',
   },
   quadrado2: {
     backgroundColor: 'black',
@@ -29,6 +33,14 @@ const styles = {
     marginLeft: 20,
     borderRadius: 10,
   },
+    quadrado1: {
+      backgroundColor:'black',
+      width: 300,
+      height: 230,
+      marginTop: 20,
+      marginLeft: 20,
+      borderRadius: 10,
+    },
   txt1: {
     paddingLeft: 20,
     paddingTop: 10,
@@ -48,16 +60,17 @@ const styles = {
   },
 };
 
-export default class ContaComp extends PureComponent {
-  logout = async () => {
+ const ContaComp = (theme) => {
+  const classes = useStyles(theme);
+  const logout = async () => {
     const token = sessionStorage.getItem('token');
     api.Logout(token);
     sessionStorage.removeItem('token');
   };
-  render() {
-    return (
+
+  return (
       <>
-        <div style={styles.quadrado1}>
+        <div className={classes.Quadrado}>
           <div style={{...Estilos.flexRowStandard, paddingBottom: '50'}}>
             <SettingsIcon style={styles.txt3} color="secondary" />
             <a style={{ textDecoration: 'none' }} href="/conta/">
@@ -95,13 +108,13 @@ export default class ContaComp extends PureComponent {
             <ExitToAppTwoToneIcon style={styles.txt1} color="secondary" />
             <a
               style={{ textDecoration: 'none' }}
-              onClick={this.logout}
+              onClick={logout}
               href="/"
             >
               <Typography
                 style={styles.txt2}
                 color="secondary"
-                onClick={this.logout}
+                onClick={logout}
               >
                 Sair
               </Typography>
@@ -110,5 +123,6 @@ export default class ContaComp extends PureComponent {
         </div>
       </>
     );
-  }
 }
+
+export default ContaComp;

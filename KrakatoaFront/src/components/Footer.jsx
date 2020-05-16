@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Topo = (theme) => {
-  const classes = useStyles(theme);
+  const classes = useStyles();
   return (
     <div className={classes.Fundo}>
       <Container maxWidth="lg">
