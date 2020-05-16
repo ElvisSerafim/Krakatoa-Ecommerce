@@ -7,6 +7,7 @@ import RoomIcon from '@material-ui/icons/Room';
 import PermIdentityTwoToneIcon from '@material-ui/icons/PermIdentityTwoTone';
 import ExitToAppTwoToneIcon from '@material-ui/icons/ExitToAppTwoTone';
 import api from '../Services/ApiService';
+import Estilos from '../Estilos';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,12 +24,6 @@ const useStyles = makeStyles((theme) => ({
 const styles = {
   background: {
     backgroundColor: '#D0D0D0',
-  },
-  flexRow: {
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'row',
-    paddingBottom: '50',
   },
   quadrado2: {
     backgroundColor: 'black',
@@ -76,7 +71,7 @@ const styles = {
   return (
       <>
         <div className={classes.Quadrado}>
-          <div style={styles.flexRow}>
+          <div style={{...Estilos.flexRowStandard, paddingBottom: '50'}}>
             <SettingsIcon style={styles.txt3} color="secondary" />
             <a style={{ textDecoration: 'none' }} href="/conta/">
               <Typography style={styles.txt4} color="secondary">
@@ -85,7 +80,7 @@ const styles = {
             </a>
           </div>
 
-          <div style={styles.flexRow}>
+          <div style={{...Estilos.flexRowStandard, paddingBottom: '50'}}>
             <EventAvailableIcon style={styles.txt1} color="secondary" />
             <a style={{ textDecoration: 'none' }} href="pedidos">
               <Typography style={styles.txt2} color="secondary">
@@ -93,7 +88,7 @@ const styles = {
               </Typography>
             </a>
           </div>
-          <div style={styles.flexRow}>
+          <div style={{...Estilos.flexRowStandard, paddingBottom: '50'}}>
             <RoomIcon style={styles.txt1} color="secondary" />
             <a style={{ textDecoration: 'none' }} href="meuendereco">
               <Typography style={styles.txt2} color="secondary">
@@ -101,7 +96,7 @@ const styles = {
               </Typography>
             </a>
           </div>
-          <div style={styles.flexRow}>
+          <div style={{...Estilos.flexRowStandard, paddingBottom: '50'}}>
             <PermIdentityTwoToneIcon style={styles.txt1} color="secondary" />
             <a style={{ textDecoration: 'none' }} href="detalhes">
               <Typography style={styles.txt2} color="secondary">
@@ -109,7 +104,7 @@ const styles = {
               </Typography>
             </a>
           </div>
-          <div style={styles.flexRow}>
+          <div style={{...Estilos.flexRowStandard, paddingBottom: '50'}}>
             <ExitToAppTwoToneIcon style={styles.txt1} color="secondary" />
             <a
               style={{ textDecoration: 'none' }}

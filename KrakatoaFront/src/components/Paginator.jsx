@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Pagination from '@material-ui/lab/Pagination';
 import { Typography } from '@material-ui/core/';
-
+import Estilos from '../Estilos';
 const styles = {
   pagination: {
     fontSize: 12,
@@ -19,14 +19,7 @@ export default class Paginator extends Component {
     const { actualPage } = this.state;
     return (
       <div
-        style={{
-          display: 'flex',
-          flex: '1',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontFamily: 'Poppins',
-        }}
+        style={{...Estilos.flexColumnCENTER, fontFamily: 'Poppins'}}
       >
         <Typography>Página</Typography>
         <Pagination

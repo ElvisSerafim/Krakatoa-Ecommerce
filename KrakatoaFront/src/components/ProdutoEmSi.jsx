@@ -5,20 +5,7 @@ import { Button } from '@material-ui/core/';
 import fav from '../img/favorite.svg';
 import Quantity from './Quantity';
 import Alerta from './Alerta';
-
-const styles = {
-  flexRow: {
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'row',
-  },
-  flexColumn: {
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'column',
-    marginTop: 40,
-  },
-};
+import Estilos from '../Estilos'
 
 const ProdutoEmSi = ({ addItem }) => {
   const [quantity, setQuantity] = useState(1);
@@ -39,9 +26,9 @@ const ProdutoEmSi = ({ addItem }) => {
         status="success"
         openAlert={open}
       />
-      <div style={styles.flexColumn}>
+      <div style={{...Estilos.flexColumnStandard, marginTop:40}}>
         <div style={{ paddingTop: 150 }}>
-          <div style={styles.flexRow}>
+          <div style={Estilos.flexRowStandard}>
             <Quantity
               onClickPlus={() => {
                 let aux = quantity;
@@ -72,7 +59,7 @@ const ProdutoEmSi = ({ addItem }) => {
               </Button>
             </div>
             <a style={{ marginLeft: 120, height: 10 }} href="##">
-              <img src={fav} style={styles.img} alt="Favorite" />
+              <img src={fav} alt="Favorite" />
             </a>
           </div>
         </div>

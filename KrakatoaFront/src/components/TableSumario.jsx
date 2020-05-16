@@ -12,6 +12,7 @@ import { Box } from '@material-ui/core/';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Quantity from './Quantity';
 import { productsUpdate } from '../reducers/productsCart';
+import Estilos from '../Estilos';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -102,15 +103,9 @@ export default function CustomizedTables({
           {allProducts.map((row, i) => (
             <StyledTableRow key={row.id}>
               <StyledTableCell component="th" scope="row">
-                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <div style={Estilos.flexRowStandard2}>
                   <div
-                    style={{
-                      paddingLeft: '40px',
-                      display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}
+                    style={{paddingLeft: '40px',...Estilos.flexRowCENTER2}}
                   >
                     {row.nome}
                   </div>
@@ -118,12 +113,7 @@ export default function CustomizedTables({
               </StyledTableCell>
               <StyledTableCell align="right">
                 <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
+                  style={Estilos.flexRowCENTER2}
                 >
                   <p>R$</p>
                   <p>{row.preco}</p>
@@ -131,12 +121,7 @@ export default function CustomizedTables({
               </StyledTableCell>
               <StyledTableCell align="center">
                 <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
+                  style={Estilos.flexRowCENTER2}
                 >
                   <Quantity
                     onClickPlus={() => {
@@ -169,13 +154,7 @@ export default function CustomizedTables({
               </StyledTableCell>
               <StyledTableCell align="center">
                 <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
+                  style={Estilos.flexRowCENTER2}>
                   <p>R$</p>
                   <div style={{ width: 20 }}>
                     <p>{total[i]}</p>
@@ -199,12 +178,7 @@ export default function CustomizedTables({
             <StyledTableCell component="th" scope="row">
               {' '}
               <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
+                style={Estilos.flexRowCENTER2}
               >
                 <p>Total</p>
               </div>
@@ -214,12 +188,7 @@ export default function CustomizedTables({
             <StyledTableCell align="center">
               {' '}
               <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
+                style={Estilos.flexRowCENTER2}
               >
                 <p>R$</p>
                 <div style={{ width: 20 }}>

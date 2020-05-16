@@ -8,20 +8,20 @@ import TextFielde from './TextField';
 import api from '../Services/ApiService';
 import { setUser } from '../reducers/user';
 import Alerta from './Alerta';
-
+import Estilos from '../Estilos'
 const styles = {
   row: {
     display: 'flex',
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'nowrap',
-    justifyContent: 'space-between',
     alignSelf: 'center',
   },
   senha: {
-    width: 350,
+    maxWidth: 350,
     paddingTop: 10,
     paddingBottom: 30,
+    marginTop: 50,
   },
   botaoEntrar: {
     width: 100,
@@ -89,12 +89,12 @@ const Login = () => {
         horizontal="right"
       />
       <Grid container spacing={2} diretion="row" justify="flex-start">
-        <Grid item lg={12} md={12}>
-          <Typography style={styles.topico} variant="h5" color="secondary">
+        <Grid item lg={12} md={12} sm={12}>
+          <Typography variant="h5" color="secondary">
             Entrar
           </Typography>
         </Grid>
-        <Grid item lg={12} md={12}>
+        <Grid item lg={12} md={12} sm={12} xs={12}>
           <div style={styles.senha}>
             <TextFielde
               login
@@ -107,7 +107,7 @@ const Login = () => {
             />
           </div>
         </Grid>
-        <Grid item lg={12} md={12}>
+        <Grid item lg={12} md={12} sm={12} xs={12}>
           <div style={styles.senha}>
             <TextFielde
               label="Senha"
@@ -119,8 +119,8 @@ const Login = () => {
             />
           </div>
         </Grid>
-        <Grid item lg={6} md={6} flexDirection="row">
-          <div style={styles.row}>
+        <Grid item lg={12} md={12} sm={12} xs={12} flexDirection="row">
+          <div style={{...Estilos.flexRowStandard, flexWrap: 'nowrap', alignSelf: 'center'}}>
             <div style={styles.botaoEntrar}>
               <Button
                 variant="contained"
@@ -131,7 +131,7 @@ const Login = () => {
                 Entrar
               </Button>
             </div>
-            <div style={styles.row}>
+            <div style={{...Estilos.flexRowStandard, flexWrap: 'nowrap', alignSelf: 'center'}}>
               <Checkbox
                 onChange={(event) => {
                   setSessao(event.target.checked);
@@ -148,7 +148,7 @@ const Login = () => {
             </div>
           </div>
         </Grid>
-        <Grid item lg={12} md={12}>
+        <Grid item lg={12} md={12} sm={12} xs={12}>
           <Typography
             variant="body2"
             color="primary"
