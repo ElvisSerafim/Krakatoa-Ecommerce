@@ -49,7 +49,7 @@ const produtoSchema = new mongoose.Schema(
     promopreco: {
       type: Number,
     },
-    quantidadeTotal: {
+    quantidade: {
       type: Number,
       required: true,
     },

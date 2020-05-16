@@ -108,6 +108,9 @@ const ProdutoPage = ({ match }) => {
     produtos.map((item, i) => {
       if (item.id === match.params.id) {
         tipo = item.tipo;
+        console.log(item);
+        setSizes(item.tamanho);
+        setColors(item.color);
         setPosicao(i);
         item.Imageurl = `http://localhost:4000/static/imgs/${item.id}.jpeg`;
         setProduct(item);

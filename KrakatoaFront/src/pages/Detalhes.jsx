@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* Pagina de Contato
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { Container, Grid, Typography, Button } from '@material-ui/core/';
 import MaskedInput from 'react-text-mask';
@@ -15,6 +15,8 @@ import FooterComp from '../components/Footer';
 import Topo from '../components/Topo';
 import Navbar from '../components/Nav';
 import Alerta from '../components/Alerta';
+import { useSelector, useDispatch } from 'react-redux';
+
 
 const styles = {
   background: {
@@ -80,7 +82,7 @@ function TextMaskCustom(props) {
 export default function Datalhes() {
   const [pass, setPass] = useState('');
   const [newPass, setNewPass] = useState('');
-  const [nome, setNome] = useState('-1');
+  const [nome, setNome] = useState('');
   const [tel, setTel] = useState('&366&');
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
@@ -90,6 +92,30 @@ export default function Datalhes() {
     default: '71999362212',
     numberformat: '1320',
   });
+
+
+  const usuario = useSelector((state) => state.user);
+
+
+  useEffect(() => {
+
+    const getUser = async () => {
+
+      const tentativa = await usuario;
+      const user = tentativa.user;
+      const tokenUsuario = localStorage.getItem('token');
+      console.log(user);
+      console.log(user.password);
+      setPass(user.password);
+      setNome(user.nome);
+      setTel(user.telefone);
+    };
+
+    getUser();
+  }, []);
+
+
+
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -131,6 +157,7 @@ export default function Datalhes() {
                 type="password"
                 label="Senha Atual"
                 style={styles.pass}
+                value={pass}
                 onChange={(event) => {
                   setPass(event.target.value);
                 }}
@@ -140,6 +167,7 @@ export default function Datalhes() {
                 label="Nome"
                 defaultValue="Gustavo Santos"
                 style={styles.nome}
+                value={nome}
                 onChange={(event) => {
                   setNome(event.target.value);
                 }}
@@ -150,6 +178,7 @@ export default function Datalhes() {
                 style={styles.newpass}
                 type="password"
                 label="Nova Senha"
+                value={newPass}
                 onChange={(event) => {
                   setNewPass(event.target.value);
                 }}
@@ -166,6 +195,7 @@ export default function Datalhes() {
                   onChange={handleChange}
                   name="textmask"
                   id="formatted-text-mask-input"
+                  value={tel}
                   onChange={(event) => {
                     setTel(event.target.value);
                   }}

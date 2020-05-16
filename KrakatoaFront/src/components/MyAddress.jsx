@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Button } from '@material-ui/core/';
 import TextField from '@material-ui/core/TextField';
 import api from '../Services/ApiService';
 import './Contato.css';
-import Alerta from '../components/Alerta'
+import Alerta from '../components/Alerta';
+import { useSelector, useDispatch } from 'react-redux';
+
 export default function MyAddress() {
   const [nome, setNome] = useState('');
   const [sobrenome, setSobrenome] = useState('');
@@ -19,6 +21,32 @@ export default function MyAddress() {
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('error');
   const [open, setOpen] = useState(false);
+
+  const usuario = useSelector((state) => state.user);
+
+
+  useEffect(() => {
+
+    const getUser = async () => {
+
+      const tentativa = await usuario;
+      const user = tentativa.user;
+      const tokenUsuario = localStorage.getItem('token');
+      console.log(user);
+      setNome(user.nome);
+      setNumero(user.endereco.user);
+      setCpf(user.cpf);
+      setCep(user.endereco.cep);
+      setBairro(user.endereco.bairro);
+      setCidade(user.endereco.cidade);
+      setRua(user.endereco.rua);
+    };
+
+    getUser();
+  }, []);
+
+
+
 
   const enviar = async () => {
     try {
@@ -64,6 +92,7 @@ export default function MyAddress() {
           <TextField
             placeholder="Digite Seu Nome"
             label="Nome"
+            value={nome}
             onChange={(e) => {
               setNome(e.target.value);
             }}
@@ -82,6 +111,7 @@ export default function MyAddress() {
           <TextField
             placeholder="Digite Seu CEP"
             label="CEP"
+            value={cep}
             onChange={(e) => {
               setCep(e.target.value.replace(/[^0-9]/g, ''));
             }}
@@ -91,6 +121,7 @@ export default function MyAddress() {
           <TextField
             placeholder="Digite Seu CPF"
             label="CPF"
+            value={cpf}
             onChange={(e) => {
               setCpf(e.target.value.replace(/[^0-9]/g, ''));
             }}
@@ -100,6 +131,7 @@ export default function MyAddress() {
           <TextField
             placeholder="Digite Seu Bairro"
             label="Bairro"
+            value={bairro}
             onChange={(e) => {
               setBairro(e.target.value);
             }}
@@ -109,6 +141,7 @@ export default function MyAddress() {
           <TextField
             placeholder="Digite Sua Cidade"
             label="Cidade"
+            value={cidade}
             onChange={(e) => {
               setCidade(e.target.value);
             }}
@@ -118,6 +151,7 @@ export default function MyAddress() {
           <TextField
             placeholder="Digite Sua Rua"
             label="Rua"
+            value={rua}
             onChange={(e) => {
               setRua(e.target.value);
             }}
@@ -127,6 +161,7 @@ export default function MyAddress() {
           <TextField
             placeholder="Digite seu Numero"
             label="Número"
+            value={numero}
             onChange={(e) => {
               setNumero(e.target.value.replace(/[^0-9]/g, ''));
             }}

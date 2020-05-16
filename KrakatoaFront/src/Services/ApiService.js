@@ -243,7 +243,7 @@ const ApiService = {
   getUsuario: async (data) => {
     try {
       const url = 'http://localhost:4000/api/user/me/';
-      const  {token} = data;
+      const { token } = data;
       const requestInfo = {
         method: 'GET',
         headers: new Headers({
@@ -253,13 +253,40 @@ const ApiService = {
       };
       const request = await fetch(url, requestInfo);
       if (request.ok) {
-        const response = await request.json();        
+        const response = await request.json();
         return response;
       }
       throw new Error('Não foi possivel accessar seus dados');
     } catch (error) {
       return error;
     }
+  },
+
+  getPedidos: async (data) => {
+    try {
+      const { token } = data;
+      const Authorization = `Bearer ${token}`;
+      const requestInfo = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Authorization': Authorization,
+          'Content-Type': 'application/json',
+        }),
+      };
+      const url = 'http://localhost:4000/api/pedidos';
+      const request = await fetch(
+        url,
+        requestInfo,
+      );
+      if (request.ok) {
+        return request.json();
+      }
+      throw new Error('Não foi possivel acessar o servidor');
+    } catch (error) {
+      return 'Não foi possivel acessar o servidor';
+    }
+
   }
 };
 

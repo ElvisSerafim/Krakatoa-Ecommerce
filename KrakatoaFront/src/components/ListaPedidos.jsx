@@ -6,15 +6,23 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Estilo from '../Estilos';
+
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: 'red',
-    color: theme.palette.common.white,
+    backgroundColor: theme.palette.background.color,
+    color: 'white',
   },
   body: {
     backgroundColor: 'black',
-    color: theme.palette.common.white,
+    color: 'white',
     fontSize: 20,
   },
 }))(TableCell);
@@ -38,65 +46,40 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CustomizedTables() {
+export default function CustomizedTables({ pedidos }) {
   const classes = useStyles();
-  const [pedidos, setPedidos] = useState([1, 2, 3, 4]);
+  const [pedidosUsuario, setPedidos] = useState([1, 1, 1, 1]);
+  console.log(pedidos);
   return (
     <TableContainer className={classes.table}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow className={classes.tableHead}>
-            <StyledTableCell align="center">Produtos</StyledTableCell>
-            <StyledTableCell align="center">Preço</StyledTableCell>
-            <StyledTableCell align="center">Quantidade</StyledTableCell>
-            <StyledTableCell align="center">Data</StyledTableCell>
+            <StyledTableCell align="center">Pedidos</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {pedidos.map((row) => (
-            <StyledTableRow key={row}>
-              <StyledTableCell component="th" scope="row">
-                <div style={{ display: 'flex', flexDirection: 'row' }}>
-                  <p>Bata</p>
-                </div>
-              </StyledTableCell>
-              <StyledTableCell align="right">
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
+          {pedidos.map((row, i) => (
+            <StyledTableRow>
+              <ExpansionPanel>
+                <ExpansionPanelSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
                 >
-                  <p>R$</p>
-                  <p>64,00</p>
-                </div>
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <p>2</p>
-                </div>
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <p>12/04/2020</p>
-                </div>
-              </StyledTableCell>
+
+                  <div style={Estilo.flexRowSPACEBTW}>
+                    <Typography className={classes.heading}>Pedido {i + 1}</Typography>
+                    <Typography className={classes.heading}>Frete: R$ {row.pedido.frete}</Typography>
+                    <Typography className={classes.heading}>Preço Total: R$ {row.pedido.precoTotal}</Typography>
+                    <Typography className={classes.heading}>Data: 12/12/2000</Typography>
+                  </div>
+
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                  <p>jhdkfjsfjhsb</p>
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
             </StyledTableRow>
           ))}
         </TableBody>

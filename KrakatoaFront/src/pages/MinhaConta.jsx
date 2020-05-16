@@ -57,9 +57,11 @@ const styles = {
   useEffect(()=>{
   
     const Get = async () => {
-      const tentativa = await usuario;
-      setUser(tentativa.user);
       
+      const tentativa = await usuario;
+
+      setUser(tentativa.user);     
+    
     };
 
     Get();
