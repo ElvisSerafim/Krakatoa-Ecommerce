@@ -180,7 +180,7 @@ const Sumario = ({ location }) => {
       <Container maxWidth="lg">
         <Topo />
         <Navbar />
-        {location.state == undefined  ? (
+        {location.state == undefined ? (
           <Redirect
             to={{
               pathname: '/carrinho',
@@ -271,7 +271,15 @@ const Sumario = ({ location }) => {
                         alignItems="center"
                         {...styles.btn}
                       >
-                        <Link to="/endereco" style={{ textDecoration: 'none' }}>
+                        <Link
+                          to={{
+                            pathname: "/endereco",
+                            state: {
+                              totalPedido: location.state.totalPedido,
+                              cepEndereco: location.state.cepEndereco
+                            }
+                          }}
+                        >
                           <Typography>MUDAR ENDEREÇO</Typography>
                         </Link>
                       </Box>
