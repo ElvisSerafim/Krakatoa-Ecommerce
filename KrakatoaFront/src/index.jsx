@@ -23,7 +23,7 @@ import TesteGabriel from './pages/testeGabriel';
 import Detalhes from './pages/Detalhes';
 import MyAddress from './pages/MyAddress';
 import { sendAllProducts } from './reducers/allProducts';
-import PrivateRoute from './Services/auth';
+import {PrivateRoute} from './Services/auth';
 import Pedidos from './pages/Pedidos';
 
 ReactDOM.render(

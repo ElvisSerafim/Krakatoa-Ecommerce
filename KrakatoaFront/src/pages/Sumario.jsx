@@ -8,6 +8,7 @@ import { Container, Typography, Box, Button } from '@material-ui/core/';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { removerCart, removeProducts } from '../reducers/productsCart';
+import { Route, Redirect } from 'react-router-dom';
 
 import api from '../Services/ApiService';
 import Navbar from '../components/Nav';
@@ -143,11 +144,15 @@ const Sumario = ({ location }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (location.state.entregaSelecionada === 'Pac') {
-      setUrl(Pac);
-    } else {
-      setUrl(Sedex);
+
+    if (location.state != undefined) {
+      if (location.state.entregaSelecionada === 'Pac') {
+        setUrl(Pac);
+      } else {
+        setUrl(Sedex);
+      }
     }
+
   });
 
   const atualizarTotal = (total) => {
@@ -175,127 +180,139 @@ const Sumario = ({ location }) => {
       <Container maxWidth="lg">
         <Topo />
         <Navbar />
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Typography style={styles.title}>Sumário</Typography>
+        {location.state == undefined  ? (
+          <Redirect
+            to={{
+              pathname: '/carrinho',
+            }}
+          />
 
-          <div style={styles.process}>
-            <a href="/">
-              <img src={cartBlank} alt="React Logo" />
-            </a>
+        ) : (
+            <>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Typography style={styles.title}>Sumário</Typography>
 
-            <hr style={styles.hrstyle} />
-            <a href="/">
-              <img src={nodeli} alt="React Logo" />
-            </a>
-            <hr style={styles.hrstyle} />
-            <div style={styles.payment}>
-              <a href="/">
-                <img src={payment} alt="React Logo" />
-              </a>
-            </div>
-          </div>
-        </div>
-        <div style={styles.flexColumn}>
-          <div style={styles.flexRow}>
-            <TableSumario
-              actualTotal={atualizarTotal}
-              totalSumario={totalFinal}
-              removerItem={removerProduct}
-            />
+                <div style={styles.process}>
+                  <a href="/">
+                    <img src={cartBlank} alt="React Logo" />
+                  </a>
 
-            <div
-              style={{
-                fontWeight: 'bold',
-                fontFamily: 'Poppins',
-                paddingLeft: 60,
-              }}
-            >
-              <Typography style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}>
-                Endereço de entrega:
+                  <hr style={styles.hrstyle} />
+                  <a href="/">
+                    <img src={nodeli} alt="React Logo" />
+                  </a>
+                  <hr style={styles.hrstyle} />
+                  <div style={styles.payment}>
+                    <a href="/">
+                      <img src={payment} alt="React Logo" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div style={styles.flexColumn}>
+                <div style={styles.flexRow}>
+                  <TableSumario
+                    actualTotal={atualizarTotal}
+                    totalSumario={totalFinal}
+                    removerItem={removerProduct}
+                  />
+
+                  <div
+                    style={{
+                      fontWeight: 'bold',
+                      fontFamily: 'Poppins',
+                      paddingLeft: 60,
+                    }}
+                  >
+                    <Typography style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}>
+                      Endereço de entrega:
               </Typography>
 
-              <div style={{ marginTop: 10 }}>
-                <Typography
-                  style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
-                >
-                  {location.state.endereco.nome}
-                </Typography>
-                <Typography
-                  style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
-                >
-                  {location.state.endereco.rua},{' '}
-                  {location.state.endereco.bairro}, Numero°{' '}
-                  {location.state.endereco.numero}
-                </Typography>
-                <Typography
-                  style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
-                >
-                  {location.state.endereco.cidade}
-                </Typography>
-                <Typography
-                  style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
-                >
-                  {location.state.endereco.complemento}
-                </Typography>
-                <Typography
-                  style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
-                >
-                  {location.state.endereco.telefone}
-                </Typography>
-                <Box
-                  style={{ cursor: 'pointer' }}
-                  display="flex"
-                  borderColor="gray"
-                  borderRadius={16}
-                  flexDirection="column"
-                  alignItems="center"
-                  {...styles.btn}
-                >
-                  <Link to="/endereco" style={{ textDecoration: 'none' }}>
-                    <Typography>MUDAR ENDEREÇO</Typography>
-                  </Link>
-                </Box>
-              </div>
+                    <div style={{ marginTop: 10 }}>
+                      <Typography
+                        style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
+                      >
+                        {location.state.endereco.nome}
+                      </Typography>
+                      <Typography
+                        style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
+                      >
+                        {location.state.endereco.rua},{' '}
+                        {location.state.endereco.bairro}, Numero°{' '}
+                        {location.state.endereco.numero}
+                      </Typography>
+                      <Typography
+                        style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
+                      >
+                        {location.state.endereco.cidade}
+                      </Typography>
+                      <Typography
+                        style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
+                      >
+                        {location.state.endereco.complemento}
+                      </Typography>
+                      <Typography
+                        style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
+                      >
+                        {location.state.endereco.telefone}
+                      </Typography>
+                      <Box
+                        style={{ cursor: 'pointer' }}
+                        display="flex"
+                        borderColor="gray"
+                        borderRadius={16}
+                        flexDirection="column"
+                        alignItems="center"
+                        {...styles.btn}
+                      >
+                        <Link to="/endereco" style={{ textDecoration: 'none' }}>
+                          <Typography>MUDAR ENDEREÇO</Typography>
+                        </Link>
+                      </Box>
+                    </div>
 
-              <Box
-                style={{ cursor: 'pointer', marginTop: 15 }}
-                display="flex"
-                borderColor="red"
-                borderRadius={16}
-                flexDirection="column"
-                alignItems="center"
-                {...styles.boxStyle}
-              >
-                <img src={urlDelivery} id="entregaImg" style={styles.img} />
-                <Typography style={styles.price} id="price">
-                  {location.state.totalFrete}
-                </Typography>
-                <Typography style={styles.entrega} id="entregaTipo">
-                  {location.state.entregaSelecionada}
-                </Typography>
-                <div style={styles.escolhido}>
-                  <Typography style={styles.escolhidoTypo}>
-                    ESCOLHIDO
+                    <Box
+                      style={{ cursor: 'pointer', marginTop: 15 }}
+                      display="flex"
+                      borderColor="red"
+                      borderRadius={16}
+                      flexDirection="column"
+                      alignItems="center"
+                      {...styles.boxStyle}
+                    >
+                      <img src={urlDelivery} id="entregaImg" style={styles.img} />
+                      <Typography style={styles.price} id="price">
+                        {location.state.totalFrete}
+                      </Typography>
+                      <Typography style={styles.entrega} id="entregaTipo">
+                        {location.state.entregaSelecionada}
+                      </Typography>
+                      <div style={styles.escolhido}>
+                        <Typography style={styles.escolhidoTypo}>
+                          ESCOLHIDO
                   </Typography>
-                </div>
-              </Box>
+                      </div>
+                    </Box>
 
-              <div style={{ width: 200, marginTop: 30 }}>
-                <Link to="/" style={{ textDecoration: 'none' }}>
-                  <Button variant="contained" color="primary" fullWidth>
-                    Concluir
+                    <div style={{ width: 200, marginTop: 30 }}>
+                      <Link to="/" style={{ textDecoration: 'none' }}>
+                        <Button variant="contained" color="primary" fullWidth>
+                          Concluir
                   </Button>
-                </Link>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
+            </>
+          )}
+
       </Container>
       <Footer />
     </>

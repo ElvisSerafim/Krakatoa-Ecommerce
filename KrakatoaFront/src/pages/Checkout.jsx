@@ -59,6 +59,7 @@ export default class Checkout extends PureComponent {
         <Container maxWidth="lg">
           <Topo />
           <Navbar />
+
           <div
             style={{...Estilos.flexRowSPACEBTW2,paddingTop: '64px'}}
           >

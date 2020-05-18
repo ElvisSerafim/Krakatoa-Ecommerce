@@ -9,7 +9,11 @@ const isAuth = () => {
   return false;
 };
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const isProduct = () => {
+  
+}
+
+export const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={(props) =>
@@ -27,4 +31,22 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   />
 );
 
-export default PrivateRoute;
+export const PrivateRouteBuy = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) =>
+      isAuth() ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: '/login',
+            state: { mensage: 'Checar Email e Senha' },
+          }}
+        />
+      )
+    }
+  />
+);
+
+

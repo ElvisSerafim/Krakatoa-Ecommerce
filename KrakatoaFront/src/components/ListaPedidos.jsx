@@ -20,9 +20,9 @@ const StyledTableCell = withStyles((theme) => ({
     color: 'white',
   },
   body: {
-    backgroundColor: 'black',
-    color: 'white',
-    fontSize: 20,
+    backgroundColor: 'white',
+    color: 'black',
+    fontSize: 14,
   },
 }))(TableCell);
 
@@ -47,7 +47,7 @@ const useStyles = makeStyles({
 
 export default function CustomizedTables({ pedidos }) {
   const classes = useStyles();
-  const [pedidosUsuario, setPedidos] = useState([1, 1, 1, 1]);
+  const [pedidosUsuario, setPedidos] = useState(pedidos.produtosPedido);
   console.log(pedidos);
   return (
     <TableContainer className={classes.table}>
@@ -76,7 +76,29 @@ export default function CustomizedTables({ pedidos }) {
 
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
-                  <p>jhdkfjsfjhsb</p>
+                  <Table className={classes.table} aria-label="customized table">
+                    <TableBody >
+                      {row.produtosPedido.map((item, i) => (
+                        <StyledTableRow key={i}>
+                          <StyledTableCell component="th" scope="row">
+                            <p>{item.produto.nome}</p>
+                          </StyledTableCell>
+                          <StyledTableCell component="th" scope="row">
+                            <p>Tamanho: GG</p>
+                          </StyledTableCell>
+                          <StyledTableCell component="th" scope="row">
+                            <p>Color: Azul</p>
+                          </StyledTableCell>
+                          <StyledTableCell component="th" scope="row">
+                            <p>Quantidade: {item.quantidade}</p>
+                          </StyledTableCell>
+                          <StyledTableCell component="th" scope="row">
+                            <p>Preço: R$ {item.produto.preco}</p>
+                          </StyledTableCell>
+                        </StyledTableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
                 </ExpansionPanelDetails>
               </ExpansionPanel>
             </StyledTableRow>

@@ -146,11 +146,11 @@ const Carrinho = () => {
                 </a>
 
                 <hr style={styles.hrstyle} />
-                <a href="/endereco">
+                <a >
                   <img src={delivery} alt="React Logo" />
                 </a>
                 <hr style={styles.hrstyle} />
-                <a href="/">
+                <a>
                   <img src={payment} alt="React Logo" />
                 </a>
               </div>

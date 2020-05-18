@@ -87,6 +87,7 @@ export default function Datalhes() {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('error');
+  const [passCurrent, setPassCurrent] = useState('');
 
   const [values, setValues] = React.useState({
     default: '71999362212',
@@ -104,9 +105,7 @@ export default function Datalhes() {
       const tentativa = await usuario;
       const user = tentativa.user;
       const tokenUsuario = localStorage.getItem('token');
-      console.log(user);
-      console.log(user.password);
-      setPass(user.password);
+      setPassCurrent(user.password);
       setNome(user.nome);
       setTel(user.telefone);
     };
@@ -211,22 +210,29 @@ export default function Datalhes() {
                   setStatus('error');
                   switch (true) {
                     case newPass.length > 0:
-                      /*
-                      VERIFICAR SE A SENHA ATUAL ESTÁ CERTA
-                    */
+                        /*
+                        VERIFICAR SE A SENHA ATUAL ESTÁ CERTA
+                      */
 
-                      /*
-                      SE ESTIVER CERTA, RODAR O CÓDIGO ABAIXO:
-                    */
-
-                      setMessage('Alterações salvas!');
+                        /*
+                        SE ESTIVER CERTA, RODAR O CÓDIGO ABAIXO:
+                      */
+                        if (pass === passCurrent) {
+                          setStatus('success');
+                          setMessage('Alterações salvas!');
+                        }else {
+                          setStatus('error');
+                          setMessage('Senha atual está errada !');
+                        }
                       // ATUALIZAR A SENHA PARA NEWPASS
                       break;
                     case nome.length === 0:
+                      setStatus('error');
                       setMessage('Você deve botar seu nome!');
                       break;
                     case tel.replace(/[^0-9]/g, '').length !== 11 &&
                       tel !== '&366&':
+                      setStatus('error');
                       setMessage(
                         'Você deve inserir um número de telefone válido com DDD',
                       );

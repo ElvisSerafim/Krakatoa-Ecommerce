@@ -44,14 +44,13 @@ const Topo = () => {
                 <img
                   src={logo}
                   alt="Logo Krakatoa"
-                  Height="60"
                   margintop="50px"
-                  style={{ borderRadius: 5 }}
+                  style={{ borderRadius: 5, height: '8vw', maxHeight: '60px', width: 'auto'}}
                 />
               </div>
               <Typography
                 variant="h3"
-                style={{ fontStyle: 'normal', marginTop: 0, marginLeft: 10 }}
+                style={{ fontStyle: 'normal', fontSize: '5vmax',maxHeight: '5vmax', marginTop: 0, marginLeft: 10 }}
                 color="primary"
               >
                 KRAKATOA
