@@ -64,6 +64,11 @@ const useStyles = makeStyles((theme) => ({
     padding: 5,
     color: theme.palette.background.color,
   },
+  GridContainer: {
+    '@media (min-width: 1024px)': {
+      justifyContent: 'flex-start',
+    },
+  },
 }));
 
 const url = 'http://localhost:4000/static/imgs/sobre';
@@ -72,17 +77,15 @@ const Sobre = () => {
   const classes = useStyles();
   return (
     <div style={styles.sobre}>
-      <Grid container spacing={2} direction="row" justify="flex-start">
+      <Grid
+        container
+        spacing={2}
+        direction="row"
+        justify="space-around"
+        className={classes.GridContainer}
+      >
         {data.map((elem) => (
-          <Grid
-            item
-            lg={3}
-            md={6}
-            sm={6}
-            xm={12}
-            key={data.indexOf(elem)}
-            style={{ width: '100%' }}
-          >
+          <Grid item lg={3} md={6} sm={6} xm={12} key={data.indexOf(elem)}>
             <Card
               className={classes.root}
               backgroundColor={`url(${url}/${elem.quarter})`}

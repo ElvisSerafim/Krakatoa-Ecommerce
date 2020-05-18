@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import red from '@material-ui/core/colors/red';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, Grid } from '@material-ui/core';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import api from '../Services/ApiService';
 import Alerta from './Alerta';
 import Themes from '../themes';
-import Estilos from '../Estilos'
+import Estilos from '../Estilos';
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -14,7 +14,7 @@ const theme = createMuiTheme({
   },
 });
 
-export default class Contato extends Component {
+class ContatoComp extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -78,30 +78,29 @@ export default class Contato extends Component {
           vertical="top"
           horizontal="right"
         />
-        <div style={Estilos.flexRowStandard}>
-          <MuiThemeProvider theme={theme}>
+        <Grid container spacing={1} direction="row" justify="flex-start">
+          <Grid item lg={4} md={4} sm={12} xs={12}>
             <TextField
               id="filled-secondary"
               label="Nome"
               variant="filled"
+              style={{ width: '100%' }}
               onChange={(e) => {
                 this.setState({ nome: e.target.value });
               }}
             />
-            <div style={{ marginLeft: 20, width: 500 }}>
-              <TextField
-                label="Assunto"
-                variant="filled"
-                fullWidth
-                onChange={(e) => {
-                  this.setState({ assunto: e.target.value });
-                }}
-              />
-            </div>
-          </MuiThemeProvider>
-        </div>
-        <MuiThemeProvider theme={theme}>
-          <div style={{ marginTop: 10, width: 741 }}>
+          </Grid>
+          <Grid item lg={8} md={8} sm={12} xs={12}>
+            <TextField
+              label="Assunto"
+              variant="filled"
+              fullWidth
+              onChange={(e) => {
+                this.setState({ assunto: e.target.value });
+              }}
+            />
+          </Grid>
+          <Grid item lg={12} md={12} sm={12} xs={12}>
             <TextField
               id="filled-secondary"
               label="Email"
@@ -111,36 +110,35 @@ export default class Contato extends Component {
                 this.setState({ email: e.target.value });
               }}
             />
-          </div>
-          <div>
-            <div style={{ marginTop: 10, width: 741, paddingBottom: 10 }}>
-              <form noValidade autoComplete="off">
-                <TextField
-                  multiline
-                  rows={6}
-                  label="Mensagem"
-                  variant="filled"
-                  fullWidth
-                  onChange={(e) => {
-                    this.setState({ mensagem: e.target.value });
-                  }}
-                />
-              </form>
-              <div style={{ marginTop: 10, marginLeft: 567, width: 176 }}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  onClick={this.enviar}
-                  style={Themes.palette.accent}
-                >
-                  Enviar Mensagem
-                </Button>
-              </div>
-            </div>
-          </div>
-        </MuiThemeProvider>
+          </Grid>
+          <Grid item lg={12} md={12} sm={12} xs={12}>
+            <form noValidade autoComplete="off">
+              <TextField
+                multiline
+                rows={6}
+                label="Mensagem"
+                variant="filled"
+                fullWidth
+                onChange={(e) => {
+                  this.setState({ mensagem: e.target.value });
+                }}
+              />
+            </form>
+          </Grid>
+          <Grid item lg={9} md={9} sm={8} xs={7} />
+          <Grid item lg={3} md={3} sm={4} xs={5}>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={this.enviar}
+            >
+              Enviar Mensagem
+            </Button>
+          </Grid>
+        </Grid>
       </>
     );
   }
 }
+export default ContatoComp;

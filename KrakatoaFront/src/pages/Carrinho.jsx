@@ -1,8 +1,10 @@
+/* eslint-disable react/jsx-no-comment-textnodes */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Grid, Typography, Button } from '@material-ui/core/';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Link } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 import TextField from '../components/TextField';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
@@ -13,6 +15,14 @@ import Table from '../components/Table';
 import { removerCart, removeProducts } from '../reducers/productsCart';
 import api from '../Services/ApiService';
 import Estilos from '../Estilos';
+
+const useStyles = makeStyles((theme) => ({
+  Cor: {
+    backgroundColor: theme.palette.background.color,
+    padding: 16,
+    borderRadius: 10,
+  },
+}));
 
 const styles = {
   title: {
@@ -118,97 +128,104 @@ const Carrinho = () => {
   const removeAllProducts = () => {
     dispatch(removeProducts());
   };
-
+  const classes = useStyles();
   return (
     <>
       <Container maxWidth="lg">
         <Topo />
         <Navbar />
         {length === 0 ? (
-          <div style={{...Estilos.flexRowCENTER2,padding:64}}>
+          <div style={{ ...Estilos.flexRowCENTER2, padding: 64 }}>
             <Typography
               color="primary"
               variant="h5"
-              style={{fontSize:'3.0em',fontWeight:'Bold'}}
+              style={{ fontSize: '3.0em', fontWeight: 'Bold' }}
             >
               Sem produtos no carrinho
             </Typography>
           </div>
         ) : (
           <>
-            <div style={Estilos.flexRowSPACEBTW}>
-              <Typography style={styles.title}>Carrinho</Typography>
-              <div style={Estilos.flexRowCENTER2}>
-                <a href="/carrinho">
-                  <div style={styles.searchIcon}>
-                    <ShoppingCartIcon />
-                  </div>
-                </a>
-
-                <hr style={styles.hrstyle} />
-                <a >
-                  <img src={delivery} alt="React Logo" />
-                </a>
-                <hr style={styles.hrstyle} />
-                <a>
-                  <img src={payment} alt="React Logo" />
-                </a>
-              </div>
-            </div>
-            <div style={{ marginTop: '30px' }}>
-              <Table
-                estilo={tentativa}
-                actualTotal={atualizarTotal}
-                removerItem={removerProduct}
-              />
-            </div>
-            <div style={Estilos.flexRowStandard}>
-              <div
-                style={{
-                  ...Estilos.flexRowSPACEBTW,
-                  width: '50%',
-                  alignItems: 'flex-end',
-                }}
-              >
-                <Button
-                  variant="contained"
-                  color="primary"
-                  style={styles.borderHeight}
-                  href="/"
-                >
-                  Continuar Comprando
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={removeAllProducts}
-                  style={{ ...styles.borderHeight, width: 120 }}
-                >
-                  Limpar
-                </Button>
-              </div>
-              <div />
-            </div>
-
-            <div style={{ ...Estilos.flexRowSPACEBTW, paddingTop: '40px' }}>
-              <div
-                style={{
-                  ...Estilos.flexColumnStandard2,
-                  width: '35%',
-                  height: 120,
-                  ...styles.priceText,
-                }}
-              >
-                <div style={{ ...Estilos.flexRowSPACEBTW }}>
-                  <Typography style={Estilos.marginFont}>Frete:</Typography>
-                  <Typography style={Estilos.marginFont}>
-                    R$
-                    {totalFrete}
-                  </Typography>
+            <Grid spacing={2} style={{ marginTop: 64, marginBottom: 64 }}>
+              <Grid item lg={12}>
+                <Typography variant="h2" color="primary">
+                  Carrinho
+                </Typography>
+              </Grid>
+              <Grid item lg={12}>
+                <div style={Estilos.flexRowCENTER2}>
+                  <a href="/carrinho">
+                    <div style={styles.searchIcon}>
+                      <ShoppingCartIcon />
+                    </div>
+                  </a>
+                  <hr style={styles.hrstyle} />
+                  <a href="/endereco">
+                    <img src={delivery} alt="Endereço" />
+                  </a>
+                  <hr style={styles.hrstyle} />
+                  <a href="/">
+                    <img src={payment} alt="Pagamento" />
+                  </a>
                 </div>
-
-                <div style={Estilos.flexRowStandard2}>
-                  <div>
+              </Grid>
+              <div style={{ marginTop: 64 }}>
+                <Table
+                  estilo={tentativa}
+                  actualTotal={atualizarTotal}
+                  removerItem={removerProduct}
+                />
+              </div>
+              {/* Continuar comprando e Limpar */}
+              <Grid
+                item
+                lg={12}
+                container
+                justify="space-between"
+                style={{ marginTop: 32, marginBottom: 32 }}
+              >
+                <Grid item lg={6}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    style={styles.borderHeight}
+                    href="/"
+                  >
+                    Continuar Comprando
+                  </Button>
+                </Grid>
+                <Grid item lg={6}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={removeAllProducts}
+                    style={{ ...styles.borderHeight, width: 120 }}
+                  >
+                    Limpar
+                  </Button>
+                </Grid>
+              </Grid>
+              {/* Frete */}
+              <Grid item lg={12} container>
+                <Grid
+                  item
+                  lg={4}
+                  container
+                  justify="space-between"
+                  className={classes.Cor}
+                  spacing={2}
+                >
+                  <Grid item lg={6} md={6} sm={6} xs={6}>
+                    <Typography variant="h5" color="secondary">
+                      Frete:
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={6} md={6} sm={6} xs={6}>
+                    <Typography variant="h5" color="secondary">
+                      R$ {totalFrete}
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={12} md={12} sm={12} xs={12}>
                     <TextField
                       placeholder="Insira seu CEP"
                       onChange={(event) => {
@@ -218,16 +235,20 @@ const Carrinho = () => {
                         color: 'red',
                         backgroundColor: 'white',
                         ...styles.borderHeight,
+                        width: '100%',
+                        marginBottom: 16,
                       }}
                       numberOnly
                     />
-                  </div>
-                  <div
-                    style={{
-                      marginLeft: 20,
-                      width: 120,
-                      ...Estilos.flexRowEND2,
-                    }}
+                  </Grid>
+                  <Grid
+                    item
+                    lg={4}
+                    md={4}
+                    sm={4}
+                    xs={4}
+                    container
+                    justify="flex-end"
                   >
                     <Button
                       variant="contained"
@@ -238,69 +259,75 @@ const Carrinho = () => {
                     >
                       Calcular
                     </Button>
-                  </div>
-                </div>
-              </div>
+                  </Grid>
+                </Grid>
 
-              <div
-                style={{
-                  ...Estilos.flexColumnStandard2,
-                  width: '30%',
-                  ...styles.priceText,
-                }}
-              >
-                <p style={Estilos.marginFont}>Total no Carrinho: </p>
-                <div>
-                  <hr style={styles.linha} />
-                </div>
-
-                <div style={Estilos.flexRowSPACEBTW}>
-                  <p>SubTotal:</p>
-                  <p>
-                    R$
-                    {totalFinal}
-                  </p>
-                </div>
-
-                <div style={Estilos.flexRowSPACEBTW}>
-                  <Typography style={Estilos.noMargin}>Entrega: </Typography>
-                  <Typography style={Estilos.noMargin}>
-                    R$
-                    {totalFrete}
-                  </Typography>
-                </div>
-
-                <div style={{ ...Estilos.flexRowSPACEBTW, paddingTop: '30px' }}>
-                  <Typography style={Estilos.noMargin}>Total: </Typography>
-                  <Typography style={Estilos.marginFont}>
-                    R$
-                    {total}
-                  </Typography>
-                </div>
-              </div>
-            </div>
-
-            <div style={{ ...Estilos.flexRowEND, paddingTop: 50 }}>
-              <Link
-                to={{
-                  pathname: '/endereco',
-                  state: {
-                    totalPedido: total,
-                    cepEndereco: cep,
-                  },
-                }}
-                style={{ textDecoration: 'none' }}
-              >
-                <Button
-                  variant="contained"
-                  color="primary"
-                  style={styles.borderHeight}
-                  href="/endereco"
+                <Grid
+                  item
+                  lg={8}
+                  container
+                  justify="space-around"
+                  className={classes.Cor}
                 >
-                  Checkout
-                </Button>
-              </Link>
-            </div>
+                  <Grid item lg={12}>
+                    <Typography>Total no Carrinho: </Typography>
+                  </Grid>
+                  <Grid item lg={12} />
+
+                  <Grid item lg={12} container justify="space-between">
+                    <Grid item lg={6}>
+                      <Typography>SubTotal: </Typography>
+                    </Grid>
+                    <Grid item lg={6}>
+                      <Typography>R$ {totalFinal}</Typography>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item lg={12} container justify="space-between">
+                    <Grid item lg={6}>
+                      <Typography>Entrega: </Typography>
+                    </Grid>
+                    <Grid item lg={6}>
+                      <Typography style={Estilos.noMargin}>
+                        R$
+                        {totalFrete}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+
+                  <div
+                    style={{ ...Estilos.flexRowSPACEBTW, paddingTop: '30px' }}
+                  >
+                    <Typography style={Estilos.noMargin}>Total: </Typography>
+                    <Typography style={Estilos.marginFont}>
+                      R$
+                      {total}
+                    </Typography>
+                  </div>
+                </Grid>
+              </Grid>
+              <Grid item lg={12} container justify="flex-end">
+                <Link
+                  to={{
+                    pathname: '/endereco',
+                    state: {
+                      totalPedido: total,
+                      cepEndereco: cep,
+                    },
+                  }}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    style={styles.borderHeight}
+                    href="/endereco"
+                  >
+                    Checkout
+                  </Button>
+                </Link>
+              </Grid>
+            </Grid>
           </>
         )}
       </Container>
