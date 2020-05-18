@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { Route, Redirect } from 'react-router-dom';
 import { Container, Typography, Box, Button } from '@material-ui/core/';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
@@ -158,7 +159,9 @@ export default class Endereco extends PureComponent {
   };
 
   componentDidMount() {
-    this.getInformaçõesCep();
+    if(this.props.location.state != undefined){
+      this.getInformaçõesCep();
+    }
   }
 
   getInformaçõesCep = async () => {
@@ -206,6 +209,15 @@ export default class Endereco extends PureComponent {
         <Container maxWidth="lg">
           <Topo />
           <Navbar />
+          {location.state == undefined  ? (
+          <Redirect
+            to={{
+              pathname: '/carrinho',
+            }}
+          />
+
+        ) : (
+            <>
           <Alerta
             openAlert={this.state.open}
             message={this.state.message}
@@ -222,7 +234,7 @@ export default class Endereco extends PureComponent {
               </a>
 
               <hr style={styles.hrstyle} />
-              <a href="/">
+              <a href="/endereco">
                 <img src={delivery} alt="Endereço" />
               </a>
               <hr style={styles.hrstyle} />
@@ -438,6 +450,8 @@ export default class Endereco extends PureComponent {
               </MuiThemeProvider>
             </div>
           </div>
+          </>
+        )}
         </Container>
         <Footer />
       </>

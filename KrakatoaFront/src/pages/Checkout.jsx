@@ -49,7 +49,6 @@ const Checkout = () => {
             <a href="/carinho">
               <img src={cartBlank} alt="Carinho" />
             </a>
-
             <hr style={styles.hrstyle} />
             <a href="/entrega">
               <img src={nodeli} alt="Entrega" />

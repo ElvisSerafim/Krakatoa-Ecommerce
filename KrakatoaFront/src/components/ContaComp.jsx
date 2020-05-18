@@ -66,6 +66,7 @@ const styles = {
     const token = sessionStorage.getItem('token');
     api.Logout(token);
     sessionStorage.removeItem('token');
+    localStorage.removeItem('token');
   };
 
   return (

@@ -59,7 +59,7 @@ const styles = {
     const Get = async () => {
       
       const tentativa = await usuario;
-
+      console.log(tentativa);
       setUser(tentativa.user);     
     
     };
