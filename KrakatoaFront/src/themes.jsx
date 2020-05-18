@@ -20,7 +20,8 @@ const theme = createMuiTheme({
     },
     h2: {
       fontWeight: 400,
-      margin: '64px',
+      marginTop: 64,
+      marginBottom: 64,
       textAlign: 'center',
     },
     h3: {

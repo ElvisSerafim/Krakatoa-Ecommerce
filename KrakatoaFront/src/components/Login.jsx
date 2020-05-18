@@ -8,7 +8,8 @@ import TextFielde from './TextField';
 import api from '../Services/ApiService';
 import { setUser } from '../reducers/user';
 import Alerta from './Alerta';
-import Estilos from '../Estilos'
+import Estilos from '../Estilos';
+
 const styles = {
   row: {
     display: 'flex',
@@ -120,7 +121,13 @@ const Login = () => {
           </div>
         </Grid>
         <Grid item lg={12} md={12} sm={12} xs={12} flexDirection="row">
-          <div style={{...Estilos.flexRowStandard, flexWrap: 'nowrap', alignSelf: 'center'}}>
+          <div
+            style={{
+              ...Estilos.flexRowStandard,
+              flexWrap: 'nowrap',
+              alignSelf: 'center',
+            }}
+          >
             <div style={styles.botaoEntrar}>
               <Button
                 variant="contained"
@@ -131,7 +138,13 @@ const Login = () => {
                 Entrar
               </Button>
             </div>
-            <div style={{...Estilos.flexRowStandard, flexWrap: 'nowrap', alignSelf: 'center'}}>
+            <div
+              style={{
+                ...Estilos.flexRowStandard,
+                flexWrap: 'nowrap',
+                alignSelf: 'center',
+              }}
+            >
               <Checkbox
                 onChange={(event) => {
                   setSessao(event.target.checked);

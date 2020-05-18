@@ -58,7 +58,7 @@ const Produtos = ({ title, alert, name }) => {
       spacing={2}
       className={classes.GridContainer}
     >
-      <Grid container xs={12} style={{ flexDirection: 'row-reverse' }}>
+      <Grid container lg={12} style={{ flexDirection: 'row-reverse' }}>
         <ComboBox
           onChange={(event) => {
             setOrderBy(event.target.value);

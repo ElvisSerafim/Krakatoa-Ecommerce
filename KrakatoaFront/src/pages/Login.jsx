@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Grid, Typography, Box } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
-import Hidden from '@material-ui/core/Hidden';
 import Cadastro from '../components/Cadastro';
 import Login from '../components/Login';
 import Navbar from '../components/Nav';
@@ -27,7 +26,7 @@ const LoginPage = () => {
   const classes = useStyles();
   return (
     <>
-      <Container maxWidth="lg" style={{ marginBottom: '64px' }}>
+      <Container maxWidth="lg" style={{ marginBottom: 64 }}>
         <Topo />
         <Navbar />
         <Typography

@@ -2,25 +2,38 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { Box } from '@material-ui/core/';
-import { Link } from 'react-router-dom';
-import './Produto.css';
+import {
+  Typography,
+  Card,
+  CardActionArea,
+  CardMedia,
+  CardContent,
+} from '@material-ui/core/';
+import { makeStyles } from '@material-ui/core/styles';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import Estilos from '../Estilos'
-const styles = {
-  imagemContainer: {
-    height: '200px',
-    width: '150px',
-    margin: 0,
+
+const useStyles = makeStyles({
+  root: {
+    maxWidth: 250,
   },
-};
+  media: {
+    maxHeight: 290,
+    objectFit: 'cover',
+    objectPosition: 'center top',
+    transition: '.2s ease-out',
+    '&:hover': {
+      transform: 'scale(1.1)',
+      transition: '.2s ease-out',
+    },
+  },
+});
 
 const Produto = ({ produto, title, addItem, update }) => {
   const { id, nome, preco, colecao } = produto;
   const [promoPrice, setpromoPrice] = useState('');
   const [Imageurl, setImageurl] = useState('');
   const [type, setType] = useState(title);
-
+  const classes = useStyles();
   useEffect(() => {
     setImageurl(`http://localhost:4000/static/imgs/${id}.jpeg`);
   }, []);
@@ -39,84 +52,42 @@ const Produto = ({ produto, title, addItem, update }) => {
     Imageurl,
   };
   return (
-    <div
-      style={{
-        maxHeight: 454,
-        maxWidth: 270,
-      }}
-    >
-      <Box
-        fontFamily="Poppins"
-        style={{ cursor: 'pointer' }}
-        display="flex"
-        flex="1"
-        flexDirection="column"
-        padding="20px"
-        bgcolor="#9e9e9e"
-      >
-        <div style={Estilos.flexRowCENTER2}>
-          <Link to={`/${type}/${id}`} style={{ textDecoration: 'none' }}>
-            <div className="container">
-              <img
-                src={Imageurl}
-                onClick={() => {
-                  update();
-                }}
-                className="image"
-                alt="Imagem produto"
-              />
+    <Card className={classes.root}>
+      <CardActionArea>
+        <CardMedia
+          className={classes.media}
+          image={Imageurl}
+          title={nome}
+          component="img"
+        />
+        <div>
+          <CardContent
+            style={{ display: 'flex', justifyContent: 'space-between' }}
+          >
+            <div>
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="h2"
+                color="primary"
+              >
+                {FuncCapitalize(nome)}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                R$ {preco}
+                {colecao}
+              </Typography>
             </div>
-          </Link>
+            <AddShoppingCartIcon
+              color="primary"
+              onClick={() => {
+                addItem(product);
+              }}
+            />
+          </CardContent>
         </div>
-        <p
-          style={{
-            paddingTop: 10,
-            margin: 0,
-            color: 'white',
-            fontSize: '0.9em',
-          }}
-        >
-          {colecao}
-        </p>
-
-        <p style={{ marginTop: 2, color: 'white', fontSize: '1.1em' }}>
-          {FuncCapitalize(nome)}
-        </p>
-
-        <Box
-          display="flex"
-          flex="1"
-          flexDirection="row"
-          justifyContent="space-between"
-        >
-          <p
-            style={{
-              margin: 0,
-              color: 'white',
-            }}
-          >
-            {preco}
-          </p>
-
-          <p
-            style={{
-              marginTop: 0,
-              marginBottom: 0,
-              marginLeft: 15,
-              color: 'red',
-            }}
-          >
-            {promoPrice}
-          </p>
-          <AddShoppingCartIcon
-            style={{ color: 'white' }}
-            onClick={() => {
-              addItem(product);
-            }}
-          />
-        </Box>
-      </Box>
-    </div>
+      </CardActionArea>
+    </Card>
   );
 };
 
