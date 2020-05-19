@@ -16,7 +16,6 @@ import FooterComp from '../components/Footer';
 import Topo from '../components/Topo';
 import Navbar from '../components/Nav';
 import Alerta from '../components/Alerta';
-import { useSelector, useDispatch } from 'react-redux';
 import api from '../Services/ApiService';
 
 const styles = {
