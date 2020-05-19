@@ -295,7 +295,7 @@ class TextField extends Component {
     } else {
       return (
         <div style={styles.container}>
-          {label && <p style={styles.inputs}>&nbsp;{label}</p>}
+          {label && <p style={{...styles.inputs,...this.props.styleslabel}}>&nbsp;{label}</p>}
           <input
             value={this.props.value}
             onChange={this.props.onChange}
