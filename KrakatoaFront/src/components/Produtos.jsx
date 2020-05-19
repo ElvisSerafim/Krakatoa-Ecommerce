@@ -8,7 +8,7 @@ import { addCart } from '../reducers/productsCart';
 import ComboBox from './ComboBox';
 import api from '../Services/ApiService';
 import { updateProducts } from '../reducers/products';
-
+import NoSsr from '@material-ui/core/NoSsr';
 const useStyles = makeStyles({
   GridContainer: {
     '@media (min-width: 1024px)': {
@@ -50,7 +50,7 @@ const Produtos = ({ title, alert, name }) => {
     setProduct(b);
     dispatch(updateProducts(b));
   };
-
+  const [state, setState] = React.useState({ open: false, defer: false });
   return products.map((item) => (
     <Grid
       container
@@ -70,24 +70,29 @@ const Produtos = ({ title, alert, name }) => {
           label="Ordenar por: "
         />
       </Grid>
-      {item.map((value) => (
-        <Grid
-          key={value.id}
-          item
-          lg={3}
-          md={4}
-          sm={6}
-          xm={6}
-          className={classes.product}
-        >
-          <Produto
-            produto={value}
-            update={() => {}}
-            title={lower}
-            addItem={addItemCart}
-          />
-        </Grid>
-      ))}
+      <NoSsr defer={true}>
+        {item.map((value) => (
+          <Grid
+            key={value.id}
+            item
+            lg={3}
+            md={4}
+            sm={6}
+            xm={6}
+            className={classes.product}
+          >
+            <NoSsr defer={true}>
+            <Produto
+              produto={value}
+              update={() => {}}
+              title={lower}
+              addItem={addItemCart}
+            />
+            </NoSsr>
+          </Grid>
+          
+        ))}
+        </NoSsr>
     </Grid>
   ));
 };

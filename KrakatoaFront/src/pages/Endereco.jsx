@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { Container, Typography, Box, Button } from '@material-ui/core/';
+import { Container, Typography, Box, Button, Grid } from '@material-ui/core/';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
 import { Link } from 'react-router-dom';
@@ -15,13 +15,13 @@ import Sedex from '../img/Sedex.svg';
 import Pac from '../img/Pac.svg';
 import api from '../Services/ApiService';
 import Alerta from '../components/Alerta';
-import Estilos from '../Estilos'
+import Estilos from '../Estilos';
 const styles = {
   title: {
     fontSize: '2.5em',
-    textAlign: 'center',
     color: '#FF5757',
     fontWeight: '700',
+    paddingTop:20
   },
   hrstyle: {
     color: 'red',
@@ -112,8 +112,8 @@ export default class Endereco extends PureComponent {
         status,
         open,
       };
-      this.setState({open:true});
-      this.setState({status:'error'});
+      this.setState({ open: true });
+      this.setState({ status: 'error' });
       switch (true) {
         case nome.length === 0 || nome === ' ':
           this.setState({ message: 'Insira seu nome!' });
@@ -159,7 +159,7 @@ export default class Endereco extends PureComponent {
   };
 
   componentDidMount() {
-    if(this.props.location.state != undefined){
+    if (this.props.location.state != undefined) {
       this.getInformaçõesCep();
     }
   }
@@ -209,61 +209,61 @@ export default class Endereco extends PureComponent {
         <Container maxWidth="lg">
           <Topo />
           <Navbar />
-          {location.state == undefined  ? (
-          <Redirect
-            to={{
-              pathname: '/carrinho',
-            }}
-          />
-
-        ) : (
+          {location.state == undefined ? (
+            <Redirect
+              to={{
+                pathname: '/carrinho',
+              }}
+            />
+          ) : (
             <>
-          <Alerta
-            openAlert={this.state.open}
-            message={this.state.message}
-            status={this.state.status}
-            handleClose={handleClose}
-            vertical="top"
-            horizontal="right"
-          />
-          <div style={{...Estilos.flexRowSPACEBTW,marginTop: '64px'}}>
-            <Typography style={styles.title}>Endereço</Typography>
-            <div style={Estilos.flexRowCENTER2}>
-              <a href="/carrinho">
-                <img src={cartBlank} alt="Carinho" />
-              </a>
+              <Alerta
+                openAlert={this.state.open}
+                message={this.state.message}
+                status={this.state.status}
+                handleClose={handleClose}
+                vertical="top"
+                horizontal="right"
+              />
+              <Grid item lg={12} md={12} sm={12}>
+                <Typography style={styles.title}>Endereço</Typography>
+              </Grid>
 
-              <hr style={styles.hrstyle} />
-              <a href="/endereco">
-                <img src={delivery} alt="Endereço" />
-              </a>
-              <hr style={styles.hrstyle} />
-              <img src={payment} alt="React Logo" />
-            </div>
-          </div>
-          <div style={{...Estilos.flexRowStandard2, marginTop: '50px' }}>
-            <div style={{...Estilos.flexColumnStandard2, width: '60%' }}>
-              <div  style={{...Estilos.flexRowStandard2,justifyContent: 'space-between'}}>
-                <div style={Estilos.width40}>
+              <Grid item lg={12} md={12} sm={12} justify="flex-end" container>
+                <div style={Estilos.flexRowCENTER2}>
+                  <a href="/carrinho">
+                    <img src={cartBlank} alt="Carinho" />
+                  </a>
+                  <hr style={styles.hrstyle} />
+                  <a href="/endereco">
+                    <img src={delivery} alt="Endereço" />
+                  </a>
+                  <hr style={styles.hrstyle} />
+                  <img src={payment} alt="React Logo" />
+                </div>
+              </Grid>
+              <Grid item lg={12} container direction="row" justify="center">
+                <Grid item lg={3} md={12}>
                   <TextField
                     label="Nome"
+                    style={{ width: '100%' }}
                     onChange={(e) => {
                       this.setState({ nome: e.target.value });
                     }}
                   />
-                </div>
-                <div style={Estilos.width40}>
+                </Grid>
+                <Grid item lg={1}></Grid>
+                <Grid item lg={3} md={12}>
                   <TextField
                     label="Sobrenome"
                     onChange={(e) => {
                       this.setState({ sobrenome: e.target.value });
                     }}
                   />
-                </div>
-              </div>
-              <div
-                style={{...Estilos.flexRowStandard2,justifyContent: 'space-between',paddingTop: '20px'}}>
-                <div style={Estilos.width40}>
+                </Grid>
+                <Grid item lg={1}></Grid>
+
+                <Grid item lg={3} md={12}>
                   <TextField
                     label="Celular"
                     onChange={(e) => {
@@ -271,8 +271,10 @@ export default class Endereco extends PureComponent {
                     }}
                     numberOnly
                   />
-                </div>
-                <div style={Estilos.width40}>
+                </Grid>
+              </Grid>
+              <Grid item lg={12} container direction="row" justify="center">
+                <Grid item lg={3} md={12}>
                   <TextField
                     label="CPF"
                     onChange={(e) => {
@@ -280,11 +282,9 @@ export default class Endereco extends PureComponent {
                     }}
                     numberOnly
                   />
-                </div>
-              </div>
-              <div
-                style={{...Estilos.flexRowStandard2,justifyContent: 'space-between',paddingTop: '20px'}}>
-                <div style={Estilos.width40}>
+                </Grid>
+                <Grid item lg={1}></Grid>
+                <Grid item lg={3} md={12}>
                   <TextField
                     label="CEP"
                     onChange={(e) => {
@@ -292,38 +292,37 @@ export default class Endereco extends PureComponent {
                     }}
                     numberOnly
                   />
-                </div>
-                <div style={Estilos.width40}>
+                </Grid>
+                <Grid item lg={1}></Grid>
+                <Grid item lg={3} md={12}>
                   <TextField
                     label="Bairro"
                     onChange={(e) => {
                       this.setState({ bairro: e.target.value });
                     }}
                   />
-                </div>
-              </div>
-              <div
-                style={{...Estilos.flexRowStandard2,justifyContent: 'space-between',paddingTop: '20px'}}>
-                <div style={Estilos.width40}>
+                </Grid>
+              </Grid>
+              <Grid item lg={12} container direction="row" justify="center">
+                <Grid item lg={3} md={12}>
                   <TextField
                     label="Cidade"
                     onChange={(e) => {
                       this.setState({ cidade: e.target.value });
                     }}
                   />
-                </div>
-                <div style={Estilos.width40}>
+                </Grid>
+                <Grid item lg={1}></Grid>
+                <Grid item lg={3} md={12}>
                   <TextField
                     label="Rua"
                     onChange={(e) => {
                       this.setState({ rua: e.target.value });
                     }}
                   />
-                </div>
-              </div>
-              <div
-                style={{...Estilos.flexRowStandard2,justifyContent: 'space-between',paddingTop: '20px'}}>
-                <div style={Estilos.width40}>
+                </Grid>
+                <Grid item lg={1}></Grid>
+                <Grid item lg={3} md={12}>
                   <TextField
                     label="Numero"
                     onChange={(e) => {
@@ -331,127 +330,146 @@ export default class Endereco extends PureComponent {
                     }}
                     numberOnly
                   />
-                </div>
-                <div style={Estilos.width40}>
+                </Grid>
+              </Grid>
+              <Grid item lg={12} container style={{ paddingLeft: 50 }}>
+                <Grid item lg={3}>
                   <TextField
+                    style={{width:'104%'}}
                     label="Complemento"
                     onChange={(e) => {
                       this.setState({ complemento: e.target.value });
                     }}
                     email
                   />
-                </div>
-              </div>
-            </div>
-
-            <div style={Estilos.flexColumnStandard}>
-              <div
-                style={{...Estilos.flexRowStandard2, justifyContent: 'center'}}
-              >
-                <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
+                </Grid>
+                
+              </Grid>
+              <Grid item container lg={12} md={12} justify="center">
+                <p
+                  style={{
+                    fontFamily: 'Poppins',
+                    fontWeight: 'bold',
+                  }}
+                >
                   Tipo de entrega
                 </p>
-              </div>
-
-              <div style={{...Estilos.flexRowStandard,justifyContent: 'space-around',marginLeft: '20px'}}>
-                <Box
-                  onClick={() => {
-                    this.setState({ deliverySelected: 'Pac' });
-                    this.setState({ borderColorPac: 'red' });
-                    this.setState({ borderColorSedex: 'black' });
-                    this.setState({ priceFrete: this.state.pricePac });
-                  }}
-                  display="flex"
-                  style={{ cursor: 'pointer' }}
-                  flexDirection="column"
-                  height="55%"
-                  alignItems="center"
-                  borderColor={this.state.borderColorPac}
-                  borderRadius={16}
-                  {...styles.boxStyle}
-                >
-                  <div style={{ paddingBottom: '15px' }}>
-                    <img src={Pac} alt="React Logo" />
-                  </div>
-                  <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
-                    {this.state.pricePac}
-                  </p>
-                  <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
-                    {this.state.diasUteisPac} dias úteis
-                  </p>
-                </Box>
-
-                <Box
-                  onClick={() => {
-                    this.setState({ deliverySelected: 'Sedex' });
-                    this.setState({ borderColorSedex: 'red' });
-                    this.setState({ borderColorPac: 'black' });
-                    this.setState({ priceFrete: this.state.priceSedex });
-                  }}
-                  style={{ cursor: 'pointer' }}
-                  display="flex"
-                  borderColor={this.state.borderColorSedex}
-                  height="55%"
-                  borderRadius={16}
-                  flexDirection="column"
-                  alignItems="center"
-                  {...styles.boxStyle}
-                >
-                  <div style={{ paddingBottom: '15px' }}>
-                    <img src={Sedex} alt="React Logo" />
-                  </div>
-                  <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
-                    {this.state.priceSedex}
-                  </p>
-                  <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
-                    {this.state.diasUteisSedex} dias úteis
-                  </p>
-                </Box>
-              </div>
-              <MuiThemeProvider theme={theme}>
-                <div
-                  style={{...Estilos.flexRowStandard,marginTop: '20px',justifyContent: 'flex-end',fontFamily: 'Poppins'}}>
-                  <Link
-                    to={{
-                      pathname: path,
-                      state: {
-                        totalPedido: location.state.totalPedido,
-                        cepEndereco: location.state.cepEndereco,
-                        entregaSelecionada: this.state.deliverySelected,
-                        totalFrete: this.state.priceFrete,
-                        endereco: {
-                          telefone: this.state.telefone,
-                          bairro: this.state.bairro,
-                          rua: this.state.rua,
-                          cpf: this.state.cpf,
-                          cidade: this.state.cidade,
-                          numero: this.state.numero,
-                          complemento: this.state.complemento,
-                          nome: this.state.nome + '' + this.state.sobrenome,
-                        },
-                      },
+              </Grid>
+              <Grid item lg={12} container md={12}  justify='center' alignItems="center">
+                <Grid item lg={2} md={2} >
+                  <Box
+                    onClick={() => {
+                      this.setState({ deliverySelected: 'Pac' });
+                      this.setState({ borderColorPac: 'red' });
+                      this.setState({ borderColorSedex: 'black' });
+                      this.setState({ priceFrete: this.state.pricePac });
                     }}
+                    display="flex"
+                    style={{ cursor: 'pointer' }}
+                    flexDirection="column"
+                    height="55%"
+                    alignItems="center"
+                    borderColor={this.state.borderColorPac}
+                    borderRadius={16}
+                    {...styles.boxStyle}
                   >
-                    <Button
-                      variant="contained"
-                      color="primary"
+                    <div style={{ paddingBottom: '15px' }}>
+                      <img src={Pac} alt="React Logo" />
+                    </div>
+                    <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
+                      {this.state.pricePac}
+                    </p>
+                    <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
+                      {this.state.diasUteisPac} dias úteis
+                    </p>
+                  </Box>
+                </Grid>
+
+                <Grid item lg={2} md={2}>
+                  <Box
+                    onClick={() => {
+                      this.setState({ deliverySelected: 'Sedex' });
+                      this.setState({ borderColorSedex: 'red' });
+                      this.setState({ borderColorPac: 'black' });
+                      this.setState({ priceFrete: this.state.priceSedex });
+                    }}
+                    style={{ cursor: 'pointer' }}
+                    display="flex"
+                    borderColor={this.state.borderColorSedex}
+                    height="55%"
+                    borderRadius={16}
+                    flexDirection="column"
+                    alignItems="center"
+                    {...styles.boxStyle}
+                  >
+                    <div style={{ paddingBottom: '15px' }}>
+                      <img src={Sedex} alt="React Logo" />
+                    </div>
+                    <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
+                      {this.state.priceSedex}
+                    </p>
+                    <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
+                      {this.state.diasUteisSedex} dias úteis
+                    </p>
+                  </Box>
+                </Grid>
+              </Grid>
+                  <Grid item justify='center' alignItems="center" container lg={12} md={12}>
+                    <Grid item lg={1} md={12}>
+                  <MuiThemeProvider theme={theme}>
+                    <div
                       style={{
-                        width: 100,
-                        height: 70,
-                        textDecoration: 'none',
+                        ...Estilos.flexRowStandard,
+                        marginTop: '20px',
+                        justifyContent: 'flex-end',
+                        fontFamily: 'Poppins',
                       }}
-                      onClick={this.enviar}
-                      href="/checkout"
                     >
-                      Continuar
-                    </Button>
-                  </Link>
-                </div>
-              </MuiThemeProvider>
-            </div>
-          </div>
-          </>
-        )}
+                      <Link
+                        to={{
+                          pathname: path,
+                          state: {
+                            totalPedido: location.state.totalPedido,
+                            cepEndereco: location.state.cepEndereco,
+                            entregaSelecionada: this.state.deliverySelected,
+                            totalFrete: this.state.priceFrete,
+                            endereco: {
+                              telefone: this.state.telefone,
+                              bairro: this.state.bairro,
+                              rua: this.state.rua,
+                              cpf: this.state.cpf,
+                              cidade: this.state.cidade,
+                              numero: this.state.numero,
+                              complemento: this.state.complemento,
+                              nome: this.state.nome + '' + this.state.sobrenome,
+                            },
+                          },
+                        }}
+                      >
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          style={{
+                            width: 120,
+                            height: 50,
+                            textDecoration: 'none',
+                          }}
+                          onClick={this.enviar}
+                          href="/checkout"
+                        >
+                          Continuar
+                        </Button>
+                        
+                      </Link>
+                    
+                    </div>
+                    
+                  </MuiThemeProvider>
+                  </Grid>
+                  </Grid>
+
+            </>
+          )}
         </Container>
         <Footer />
       </>
