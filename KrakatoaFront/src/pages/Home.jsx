@@ -1,23 +1,24 @@
 /* Pagina de Inicio */
 
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography } from '@material-ui/core/';
+import { Container, Grid, Typography, Button } from '@material-ui/core/';
 import { useDispatch } from 'react-redux';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import red from '@material-ui/core/colors/red';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import Promos from '../components/promos';
 import HomeComp from '../components/Home';
 import Footer from '../components/Footer';
 import { sendAllProducts } from '../reducers/allProducts';
-import { Button } from '@material-ui/core';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import red from '@material-ui/core/colors/red';
+
 import Themes from '../themes';
-import deli from '../img/deli.png'
-import pqKraka from '../img/pqKraka.png'
-import money from '../img/money.png'
-import pag from '../img/pagarIcone.png'
+import deli from '../img/deli.png';
+import pqKraka from '../img/pqKraka.png';
+import money from '../img/money.png';
+import pag from '../img/pagarIcone.png';
 import Estilos from '../Estilos';
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -69,40 +70,68 @@ const Home = () => (
         <Grid item lg={3} md={3} sm={3}>
           <div>7</div>
         </Grid>
-        <Grid item lg={3} md={3} sm={3}></Grid>
-        <Grid item container justify='center' lg={12} md={12}sm={12}>
-            <Button
-              variant="contained"
-              color="primary"
-              style={Themes.palette.accent}
-            >
-              VEJA TODOS
-            </Button>
+        <Grid item lg={3} md={3} sm={3} />
+        <Grid item container justify="center" lg={12} md={12} sm={12}>
+          <Button
+            variant="contained"
+            color="primary"
+            style={Themes.palette.accent}
+          >
+            VEJA TODOS
+          </Button>
         </Grid>
-        <Grid item lg={12} md={12}sm={12}>
+        <Grid item lg={12} md={12} sm={12}>
           <Typography style={{ textAlign: 'center' }} variant="h5">
             Por que Krakatoa?
           </Typography>
         </Grid>
         <Grid item lg={3} md={3} sm={3}>
-        <div style={{backgroundColor:'#E8E8E8',width:70,height:70,borderRadius:10}}>
-        <img style={{padding:'25px 0px 0px 15px'}}src={deli}/>
-        </div>        
+          <div
+            style={{
+              backgroundColor: '#E8E8E8',
+              width: 70,
+              height: 70,
+              borderRadius: 10,
+            }}
+          >
+            <img style={{ padding: '25px 0px 0px 15px' }} src={deli} />
+          </div>
         </Grid>
         <Grid item lg={3} md={3} sm={3}>
-        <div style={{backgroundColor:'#FFF3DF',width:70,height:70,borderRadius:10}}>
-        <img style={{padding:'17px 0px 0px 16px'}}src={pag}/>
-        </div>
+          <div
+            style={{
+              backgroundColor: '#FFF3DF',
+              width: 70,
+              height: 70,
+              borderRadius: 10,
+            }}
+          >
+            <img style={{ padding: '17px 0px 0px 16px' }} src={pag} />
+          </div>
         </Grid>
         <Grid item lg={3} md={3} sm={3}>
-        <div style={{backgroundColor:'#E8E8E8',width:70,height:70,borderRadius:10}}>
-        <img style={{padding:'22px 0px 0px 20px'}} src={money}/>
-        </div>
+          <div
+            style={{
+              backgroundColor: '#E8E8E8',
+              width: 70,
+              height: 70,
+              borderRadius: 10,
+            }}
+          >
+            <img style={{ padding: '22px 0px 0px 20px' }} src={money} />
+          </div>
         </Grid>
         <Grid item lg={3} md={3} sm={3}>
-        <div style={{backgroundColor:'#E8E8E8',width:70,height:70,borderRadius:10}}>
-        <img style={{padding:'20px 0px 0px 17px'}} src={pqKraka}/>
-        </div>
+          <div
+            style={{
+              backgroundColor: '#E8E8E8',
+              width: 70,
+              height: 70,
+              borderRadius: 10,
+            }}
+          >
+            <img style={{ padding: '20px 0px 0px 17px' }} src={pqKraka} />
+          </div>
         </Grid>
       </Grid>
     </Container>

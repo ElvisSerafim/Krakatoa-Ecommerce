@@ -54,12 +54,14 @@ const Produto = ({ produto, title, addItem, update }) => {
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={Imageurl}
-          title={nome}
-          component="img"
-        />
+        <a href={`/${title}/${id}`}>
+          <CardMedia
+            className={classes.media}
+            image={Imageurl}
+            title={nome}
+            component="img"
+          />
+        </a>
         <div>
           <CardContent
             style={{ display: 'flex', justifyContent: 'space-between' }}

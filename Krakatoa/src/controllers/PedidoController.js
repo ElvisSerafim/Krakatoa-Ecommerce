@@ -48,16 +48,15 @@ module.exports = {
   },
 
   async getPedidos(req, res) {
-
     try {
       const { user } = req.body;
 
       const { id } = user;
-      
+
       const usuario = await User.findById(id);
-      let arrayAux = usuario.pedidos;
-      let arrayPedidos = [];
-      let arrayPedidosFinal = [];
+      const arrayAux = usuario.pedidos;
+      const arrayPedidos = [];
+      const arrayPedidosFinal = [];
 
       while (arrayAux.length !== 0) {
         const idPedido = arrayAux.pop();
@@ -65,8 +64,8 @@ module.exports = {
         arrayPedidos.push(pedido);
       }
 
-      let arrayAuxPedidos = arrayPedidos;
-      while (arrayAuxPedidos.length != 0) {
+      const arrayAuxPedidos = arrayPedidos;
+      while (arrayAuxPedidos.length !== 0) {
         const pedidos = arrayAuxPedidos.pop();
         if (pedidos != null) {
           let arr = pedidos.produtos;
@@ -85,22 +84,18 @@ module.exports = {
             }
             arrayProdutos.push(produtoFinal);
           }
-          let pedidoFinal = {
-              pedido: pedidos,
-              produtosPedido: arrayProdutos
-          }
+          const pedidoFinal = {
+            pedido: pedidos,
+            produtosPedido: arrayProdutos,
+          };
           arrayPedidosFinal.push(pedidoFinal);
         }
       }
-
-
 
       if (usuario) return res.json(arrayPedidosFinal);
       throw new Error('Erro ao retornar pedidos !');
     } catch (error) {
       return res.status(500).send(error);
     }
-
-  }
-
+  },
 };
