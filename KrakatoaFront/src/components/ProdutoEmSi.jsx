@@ -5,7 +5,7 @@ import { Button } from '@material-ui/core/';
 import fav from '../img/favorite.svg';
 import Quantity from './Quantity';
 import Alerta from './Alerta';
-import Estilos from '../Estilos'
+import Estilos from '../Estilos';
 
 const ProdutoEmSi = ({ addItem }) => {
   const [quantity, setQuantity] = useState(1);
@@ -26,7 +26,7 @@ const ProdutoEmSi = ({ addItem }) => {
         status="success"
         openAlert={open}
       />
-      <div style={{...Estilos.flexColumnStandard, marginTop:40}}>
+      <div style={{ ...Estilos.flexColumnStandard, marginTop: 40 }}>
         <div style={{ paddingTop: 150 }}>
           <div style={Estilos.flexRowStandard}>
             <Quantity

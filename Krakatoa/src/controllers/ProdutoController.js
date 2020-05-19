@@ -138,9 +138,9 @@ module.exports = {
     try {
       const { tipo, chave } = req.body;
       let produtos;
-      if (tipo === 'pesquisa'){
+      if (tipo === 'pesquisa') {
         produtos = await Produto.find();
-      }else{
+      } else {
         produtos = await Produto.find({ tipo });
       }
       if (chave === 'menorP') {

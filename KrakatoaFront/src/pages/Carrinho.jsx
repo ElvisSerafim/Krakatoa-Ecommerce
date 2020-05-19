@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.color,
     padding: 16,
     borderRadius: 10,
+    '@media (max-width: 1280px)': {
+      marginBottom: 32,
+    },
   },
 }));
 
@@ -152,7 +155,8 @@ const Carrinho = () => {
                   Carrinho
                 </Typography>
               </Grid>
-              <Grid item lg={12}>
+              <Grid item lg={8} />
+              <Grid item lg={4} container justify="flex-end">
                 <div style={Estilos.flexRowCENTER2}>
                   <a href="/carrinho">
                     <div style={styles.searchIcon}>
@@ -169,22 +173,22 @@ const Carrinho = () => {
                   </a>
                 </div>
               </Grid>
-              <div style={{ marginTop: 64 }}>
+              <Grid item lg={12} style={{ marginTop: 64 }}>
                 <Table
                   estilo={tentativa}
                   actualTotal={atualizarTotal}
                   removerItem={removerProduct}
                 />
-              </div>
+              </Grid>
               {/* Continuar comprando e Limpar */}
               <Grid
                 item
                 lg={12}
                 container
-                justify="space-between"
+                justify="space-around"
                 style={{ marginTop: 32, marginBottom: 32 }}
               >
-                <Grid item lg={6}>
+                <Grid item lg={6} style={{ marginBottom: 32 }}>
                   <Button
                     variant="contained"
                     color="primary"
@@ -206,12 +210,15 @@ const Carrinho = () => {
                 </Grid>
               </Grid>
               {/* Frete */}
-              <Grid item lg={12} container>
+              <Grid item lg={12} spacing={4} container justify="space-around">
                 <Grid
                   item
                   lg={4}
+                  md={12}
+                  sm={12}
+                  xs={12}
                   container
-                  justify="space-between"
+                  justify="flex-end"
                   className={classes.Cor}
                   spacing={2}
                 >
@@ -261,52 +268,63 @@ const Carrinho = () => {
                     </Button>
                   </Grid>
                 </Grid>
-
+                <Grid item lg={1} md={0} sm={0} />
                 <Grid
                   item
-                  lg={8}
+                  lg={5}
+                  md={12}
+                  sm={12}
+                  xs={12}
                   container
                   justify="space-around"
                   className={classes.Cor}
                 >
-                  <Grid item lg={12}>
-                    <Typography>Total no Carrinho: </Typography>
+                  <Grid item lg={12} md={12} sm={12}>
+                    <Typography variant="h5" color="secondary">
+                      Total no Carrinho:
+                    </Typography>
                   </Grid>
-                  <Grid item lg={12} />
-
-                  <Grid item lg={12} container justify="space-between">
-                    <Grid item lg={6}>
-                      <Typography>SubTotal: </Typography>
+                  <Grid item lg={12} container justify="space-around">
+                    <Grid item lg={6} md={6} sm={6} xs={6}>
+                      <Typography variant="h5" color="secondary">
+                        SubTotal:
+                      </Typography>
                     </Grid>
-                    <Grid item lg={6}>
-                      <Typography>R$ {totalFinal}</Typography>
-                    </Grid>
-                  </Grid>
-
-                  <Grid item lg={12} container justify="space-between">
-                    <Grid item lg={6}>
-                      <Typography>Entrega: </Typography>
-                    </Grid>
-                    <Grid item lg={6}>
-                      <Typography style={Estilos.noMargin}>
-                        R$
-                        {totalFrete}
+                    <Grid item lg={6} md={6} sm={6} xs={6}>
+                      <Typography variant="h5" color="secondary">
+                        R$ {totalFinal}
                       </Typography>
                     </Grid>
                   </Grid>
-
-                  <div
-                    style={{ ...Estilos.flexRowSPACEBTW, paddingTop: '30px' }}
-                  >
-                    <Typography style={Estilos.noMargin}>Total: </Typography>
-                    <Typography style={Estilos.marginFont}>
-                      R$
-                      {total}
+                  <Grid item lg={6} md={6} sm={6} xs={6}>
+                    <Typography variant="h5" color="secondary">
+                      Entrega:
                     </Typography>
-                  </div>
+                  </Grid>
+                  <Grid item lg={6} md={6} sm={6} xs={6}>
+                    <Typography variant="h5" color="secondary">
+                      R${totalFrete}
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={6} md={6} sm={6} xs={6}>
+                    <Typography variant="h5" color="secondary">
+                      Total:
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={6} md={6} sm={6} xs={6}>
+                    <Typography variant="h5" color="secondary">
+                      R${total}
+                    </Typography>
+                  </Grid>
                 </Grid>
               </Grid>
-              <Grid item lg={12} container justify="flex-end">
+              <Grid
+                item
+                lg={12}
+                container
+                justify="flex-end"
+                style={{ marginTop: 32 }}
+              >
                 <Link
                   to={{
                     pathname: '/endereco',

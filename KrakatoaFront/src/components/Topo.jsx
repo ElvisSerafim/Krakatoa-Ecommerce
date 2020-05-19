@@ -45,12 +45,22 @@ const Topo = () => {
                   src={logo}
                   alt="Logo Krakatoa"
                   margintop="50px"
-                  style={{ borderRadius: 5, height: '8vw', maxHeight: '60px', width: 'auto'}}
+                  style={{
+                    borderRadius: 5,
+                    height: '8vw',
+                    maxHeight: '60px',
+                    width: 'auto',
+                  }}
                 />
               </div>
               <Typography
                 variant="h3"
-                style={{ fontStyle: 'normal', fontSize: '5vmax',maxHeight: '5vmax', marginTop: 0, marginLeft: 10 }}
+                style={{
+                  fontStyle: 'normal',
+                  fontSize: 'max(3vw, 40px)',
+                  marginTop: 0,
+                  marginLeft: 10,
+                }}
                 color="primary"
               >
                 KRAKATOA
