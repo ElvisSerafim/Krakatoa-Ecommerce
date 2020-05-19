@@ -13,7 +13,8 @@ import Produto from '../components/Produto';
 import Footer from '../components/Footer';
 import { addCart, sendAllProducts } from '../reducers/productsCart';
 import api from '../Services/ApiService';
-import Estilos from '../Estilos'
+import Estilos from '../Estilos';
+
 const styles = {
   foto: {
     backgroundColor: 'black',
@@ -168,7 +169,7 @@ const ProdutoPage = ({ match }) => {
 
   return (
     <>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" style={{ marginBottom: 64 }}>
         <Topo />
         <Navbar />
         <Grid container spacing={2} diretion="row" justify="flex-start">
@@ -187,7 +188,14 @@ const ProdutoPage = ({ match }) => {
           <Grid item lg={1} md={1} />
           <Grid item lg={6} md={6}>
             <div style={styles.quadradao2}>
-              <div style={{...Estilos.flexRowStandard, flexDirection: 'row',paddingBottom: '50',justifyContent: 'space-between'}}>
+              <div
+                style={{
+                  ...Estilos.flexRowStandard,
+                  flexDirection: 'row',
+                  paddingBottom: '50',
+                  justifyContent: 'space-between',
+                }}
+              >
                 <div style={styles.promo}>
                   <Typography style={styles.promoText} variant="body1">
                     Promoção
@@ -296,8 +304,13 @@ const ProdutoPage = ({ match }) => {
           </Grid>
         </Grid>
         <div
-          style={{...Estilos.flexRowStandard, paddingBottom: '40x', justifyContent: 'flex-start'}} >
-          <Typography variant="h4" color="primary">
+          style={{
+            ...Estilos.flexRowStandard,
+            paddingBottom: '40x',
+            justifyContent: 'flex-start',
+          }}
+        >
+          <Typography variant="h4" color="primary" style={{ marginTop: 64 }}>
             Produtos Relacionados
           </Typography>
         </div>

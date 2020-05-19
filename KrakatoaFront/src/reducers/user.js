@@ -7,9 +7,10 @@ b = sessionStorage.getItem('token');
 
 function getToken() {
   if (a !== null && a.length !== 0) {
+    console.log(a);
     return a;
   }
-  if (a !== null && b.length !== 0) {
+  if (b !== null && b.length !== 0) {
     return b;
   }
   return '';
@@ -22,15 +23,18 @@ const initialState = {
 
 async function tentativa() {
   function getUser() {
-    if (a != null) {
+    if (a != null && a.length !== 0) {
       const data = {
         token: a,
       };
       const agora = api.getUsuario(data).then((result) => result);
       return agora;
     }
-    if (b != null) {
-      const usuario = api.getUsuario(b);
+    if (b != null && b.length !== 0) {
+      const data = {
+        token: b,
+      };
+      const usuario = api.getUsuario(data).then((result) => result);
       return usuario;
     }
     return '';

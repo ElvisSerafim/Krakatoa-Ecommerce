@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,7 +12,8 @@ import { Box } from '@material-ui/core/';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Quantity from './Quantity';
 import { productsUpdate } from '../reducers/productsCart';
-import Estilos from '../Estilos'
+import Estilos from '../Estilos';
+
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: 'red',
@@ -26,6 +28,7 @@ const StyledTableCell = withStyles((theme) => ({
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
+    minWidth: 300,
     '&:nth-of-type(odd)': {
       backgroundColor: '#9e9e9e',
     },
@@ -34,16 +37,16 @@ const StyledTableRow = withStyles((theme) => ({
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 700,
+    minWidth: 300,
     borderRadius: 10,
     fontFamily: 'Poppins',
   },
   tableHead: {
-    height: 100,
+    maxHeight: 100,
   },
 });
 
-export default function CustomizedTables({ estilo, actualTotal, removerItem }) {
+export default function CustomizedTables({ actualTotal, removerItem }) {
   const classes = useStyles();
   const [quantity, setQuantity] = useState([]);
   const [total, setTotal] = useState([]);
@@ -105,15 +108,14 @@ export default function CustomizedTables({ estilo, actualTotal, removerItem }) {
                     />
                   </div>
                   <div
-                    style={{...Estilos.flexRowCENTER2, paddingLeft: '40px' }}
+                    style={{ ...Estilos.flexRowCENTER2, paddingLeft: '40px' }}
                   >
                     {row.nome}
                   </div>
                 </div>
               </StyledTableCell>
               <StyledTableCell align="right">
-                <div
-                  style={Estilos.flexRowCENTER2}>
+                <div style={Estilos.flexRowCENTER2}>
                   <p>R$</p>
                   <p>{row.preco}</p>
                 </div>

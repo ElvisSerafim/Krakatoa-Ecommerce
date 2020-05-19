@@ -96,13 +96,13 @@ const ApiService = {
   },
   AtualizaUsuario: async (data) => {
     try {
-      const url = 'http://localhost:4000/api/user';
+      const url = 'http://localhost:4000/api/user/me';
       const { token } = data;
       const requestInfo = {
         method: 'PUT',
         body: JSON.stringify(data),
         headers: new Headers({
-          Authorization: `'Bearer ' ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         }),
       };

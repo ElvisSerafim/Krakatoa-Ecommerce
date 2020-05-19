@@ -5,23 +5,31 @@ const User = require('../models/User');
 module.exports = {
   async Store(req, res) {
     try {
-      const { precoTotal, frete, user, produtos } = req.body;
+      const { precoTotal, frete, user, produtos, data } = req.body;
 
       const { id } = user;
+      console.log(data);
 
       const pedido = await Pedido.create({
         precoTotal,
         frete,
+        data
       });
 
+      console.log(data);
+      console.log(pedido);
 
       while (produtos.length !== 0) {
         const produtoArray = produtos.pop();
         let quantidadePedido = produtoArray.quantidade;
+        let tamanhoEscolhido = produtoArray.tamanho;
+        let corEscolhida = produtoArray.color;
         let produto = await Produto.findById(produtoArray.id);
         let final = {
           produto,
-          quantidadePedido
+          quantidadePedido,
+          tamanhoEscolhido,
+          corEscolhida
         }
         pedido.produtos.push(final);
       }
@@ -40,16 +48,15 @@ module.exports = {
   },
 
   async getPedidos(req, res) {
-
     try {
       const { user } = req.body;
 
       const { id } = user;
-      
+
       const usuario = await User.findById(id);
-      let arrayAux = usuario.pedidos;
-      let arrayPedidos = [];
-      let arrayPedidosFinal = [];
+      const arrayAux = usuario.pedidos;
+      const arrayPedidos = [];
+      const arrayPedidosFinal = [];
 
       while (arrayAux.length !== 0) {
         const idPedido = arrayAux.pop();
@@ -57,8 +64,8 @@ module.exports = {
         arrayPedidos.push(pedido);
       }
 
-      let arrayAuxPedidos = arrayPedidos;
-      while (arrayAuxPedidos.length != 0) {
+      const arrayAuxPedidos = arrayPedidos;
+      while (arrayAuxPedidos.length !== 0) {
         const pedidos = arrayAuxPedidos.pop();
         if (pedidos != null) {
           let arr = pedidos.produtos;
@@ -67,29 +74,28 @@ module.exports = {
             let item = arr.pop();
             let product = await Produto.findById(item.produto);
             let quantidadePedida = item.quantidadePedido;
-
+            let tamanho = item.tamanhoEscolhido;
+            let cor = item.corEscolhida;
             let produtoFinal = {
               produto: product,
-              quantidade: quantidadePedida
+              quantidade: quantidadePedida,
+              tamanhoEscolhida: tamanho,
+              corEscolhida: cor
             }
             arrayProdutos.push(produtoFinal);
           }
-          let pedidoFinal = {
-              pedido: pedidos,
-              produtosPedido: arrayProdutos
-          }
+          const pedidoFinal = {
+            pedido: pedidos,
+            produtosPedido: arrayProdutos,
+          };
           arrayPedidosFinal.push(pedidoFinal);
         }
       }
-
-
 
       if (usuario) return res.json(arrayPedidosFinal);
       throw new Error('Erro ao retornar pedidos !');
     } catch (error) {
       return res.status(500).send(error);
     }
-
-  }
-
+  },
 };
