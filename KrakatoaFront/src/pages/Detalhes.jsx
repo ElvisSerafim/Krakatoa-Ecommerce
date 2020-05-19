@@ -16,6 +16,8 @@ import FooterComp from '../components/Footer';
 import Topo from '../components/Topo';
 import Navbar from '../components/Nav';
 import Alerta from '../components/Alerta';
+import { useSelector, useDispatch } from 'react-redux';
+import api from '../Services/ApiService';
 
 const styles = {
   background: {
@@ -87,7 +89,7 @@ export default function Datalhes() {
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('error');
   const [passCurrent, setPassCurrent] = useState('');
-
+  const [token, setToken] = useState(sessionStorage.getItem('token'));
   const [values, setValues] = React.useState({
     default: '71999362212',
     numberformat: '1320',
@@ -100,6 +102,7 @@ export default function Datalhes() {
       const tentativa = await usuario;
       const { user } = tentativa;
       const tokenUsuario = localStorage.getItem('token');
+      console.log(user);
       setPassCurrent(user.password);
       setNome(user.nome);
       setTel(user.telefone);
@@ -107,6 +110,24 @@ export default function Datalhes() {
 
     getUser();
   }, []);
+
+  const enviar = async () => {
+
+    if (nome === '') throw new Error('Nome Vazio');
+    if (pass === '') throw new Error('Sobrenome Vazio');
+    if (newPass === '') throw new Error('Nova Senha Vazio');
+    if (tel === '') throw new Error('Telefone Vazio');
+
+    const data = {
+      nome: nome,
+      password: pass,
+      newPassword: newPass,
+      telefone: tel,
+      token: token
+    }
+    const request = await api.AtualizaUsuario(data);
+
+  }
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -216,24 +237,21 @@ export default function Datalhes() {
               <Button
                 style={styles.botao}
                 onClick={() => {
+                  setToken(sessionStorage.getItem('token'));
+                  enviar();
                   setOpen(true);
-                  setStatus('error');
+                  setStatus('sucess');
                   switch (true) {
                     case newPass.length > 0:
                       /*
                         VERIFICAR SE A SENHA ATUAL ESTÁ CERTA
                       */
+                     setStatus('sucess');              
+                       setMessage('Alterações salvas!');
 
                       /*
-                        SE ESTIVER CERTA, RODAR O CÓDIGO ABAIXO:
-                      */
-                      if (pass === passCurrent) {
-                        setStatus('success');
-                        setMessage('Alterações salvas!');
-                      } else {
-                        setStatus('error');
-                        setMessage('Senha atual está errada !');
-                      }
+                      SE ESTIVER CERTA, RODAR O CÓDIGO ABAIXO:
+                    */
                       // ATUALIZAR A SENHA PARA NEWPASS
                       break;
                     case nome.length === 0:

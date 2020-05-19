@@ -25,9 +25,9 @@ module.exports = {
   },
   async Update(req, res) {
     try {
+
       const { user } = req;
       const { newPassword, nome, telefone, password } = req.body;
-
       if (newPassword !== undefined) {
         const passwordMatchUser = await bcrypt.compare(password, user.password);
         if (passwordMatchUser) {
@@ -35,9 +35,10 @@ module.exports = {
             newPassword,
             user.password,
           );
+          console.log(isPasswordMatch);
           user.password = isPasswordMatch
-            ? (user.password = newPassword)
-            : user.password;
+            ? user.password
+            : (user.password = newPassword)
         }
       }
 

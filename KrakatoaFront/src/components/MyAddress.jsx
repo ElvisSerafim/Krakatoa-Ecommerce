@@ -17,7 +17,7 @@ export default function MyAddress() {
   const [numero, setNumero] = useState('');
   const [complemento, setComplemento] = useState('');
   const [nomeCompleto, setNomeCompleto] = useState('');
-  const [token, setToken] = useState(sessionStorage.getItem('item'));
+  const [token, setToken] = useState(sessionStorage.getItem('token'));
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('error');
   const [open, setOpen] = useState(false);
@@ -31,7 +31,7 @@ export default function MyAddress() {
       const tokenUsuario = localStorage.getItem('token');
       console.log(user);
       setNome(user.nome);
-      setNumero(user.endereco.user);
+      setNumero(user.endereco.numero);
       setCpf(user.cpf);
       setCep(user.endereco.cep);
       setBairro(user.endereco.bairro);
@@ -55,13 +55,13 @@ export default function MyAddress() {
       if (numero === '') throw new Error('Numero Vazio');
       const data = {
         nome: nomeCompleto,
-        cep,
-        cpf,
+        cep: parseInt(cep),
+        cpf: parseInt(cpf),
         bairro,
         cidade,
         rua,
         complemento,
-        numero,
+        numero: parseInt(numero),
         token,
       };
       const request = await api.UsuarioEndereco(data);
