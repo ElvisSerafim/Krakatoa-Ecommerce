@@ -48,7 +48,18 @@ const useStyles = makeStyles({
 export default function CustomizedTables({ pedidos }) {
   const classes = useStyles();
   const [pedidosUsuario, setPedidos] = useState(pedidos.produtosPedido);
+
+
+  const setData = (data) => {
+    if(data != undefined){
+      const stringData = data.toString();
+      const arrayString = stringData.split('T');
+      return arrayString[0];
+    }
+    return '';
+  }
   console.log(pedidos);
+
   return (
     <TableContainer className={classes.table}>
       <Table className={classes.table} aria-label="customized table">
@@ -71,7 +82,7 @@ export default function CustomizedTables({ pedidos }) {
                     <Typography className={classes.heading}>Pedido {i + 1}</Typography>
                     <Typography className={classes.heading}>Frete: R$ {row.pedido.frete}</Typography>
                     <Typography className={classes.heading}>Preço Total: R$ {row.pedido.precoTotal}</Typography>
-                    <Typography className={classes.heading}>Data: 12/12/2000</Typography>
+                    <Typography className={classes.heading}>Data: {setData(row.pedido.data)}</Typography>
                   </div>
 
                 </ExpansionPanelSummary>
@@ -84,16 +95,16 @@ export default function CustomizedTables({ pedidos }) {
                             <p>{item.produto.nome}</p>
                           </StyledTableCell>
                           <StyledTableCell component="th" scope="row">
-                            <p>Tamanho: GG</p>
+                            <p>Tamanho: {item.tamanhoEscolhida}</p>
                           </StyledTableCell>
                           <StyledTableCell component="th" scope="row">
-                            <p>Color: Azul</p>
+                            <p>Cor: {item.corEscolhida}</p>
                           </StyledTableCell>
                           <StyledTableCell component="th" scope="row">
                             <p>Quantidade: {item.quantidade}</p>
                           </StyledTableCell>
                           <StyledTableCell component="th" scope="row">
-                            <p>Preço: R$ {item.produto.preco}</p>
+                            <p>Preço: R$ {item.produto.preco * item.quantidade}</p>
                           </StyledTableCell>
                         </StyledTableRow>
                       ))}

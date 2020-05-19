@@ -5,23 +5,31 @@ const User = require('../models/User');
 module.exports = {
   async Store(req, res) {
     try {
-      const { precoTotal, frete, user, produtos } = req.body;
+      const { precoTotal, frete, user, produtos, data } = req.body;
 
       const { id } = user;
+      console.log(data);
 
       const pedido = await Pedido.create({
         precoTotal,
         frete,
+        data
       });
 
+      console.log(data);
+      console.log(pedido);
 
       while (produtos.length !== 0) {
         const produtoArray = produtos.pop();
         let quantidadePedido = produtoArray.quantidade;
+        let tamanhoEscolhido = produtoArray.tamanho;
+        let corEscolhida = produtoArray.color;
         let produto = await Produto.findById(produtoArray.id);
         let final = {
           produto,
-          quantidadePedido
+          quantidadePedido,
+          tamanhoEscolhido,
+          corEscolhida
         }
         pedido.produtos.push(final);
       }
@@ -67,10 +75,13 @@ module.exports = {
             let item = arr.pop();
             let product = await Produto.findById(item.produto);
             let quantidadePedida = item.quantidadePedido;
-
+            let tamanho = item.tamanhoEscolhido;
+            let cor = item.corEscolhida;
             let produtoFinal = {
               produto: product,
-              quantidade: quantidadePedida
+              quantidade: quantidadePedida,
+              tamanhoEscolhida: tamanho,
+              corEscolhida: cor
             }
             arrayProdutos.push(produtoFinal);
           }

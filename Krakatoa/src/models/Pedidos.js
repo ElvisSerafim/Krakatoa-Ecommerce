@@ -29,7 +29,12 @@ const pedidoSchema = new mongoose.Schema(
         },
         quantidadePedido: {
           type: Number,
-          require: true
+        },
+        tamanhoEscolhido: {
+          type: String,
+        },
+        corEscolhida: {
+          type: String,
         }
      }
     ],
