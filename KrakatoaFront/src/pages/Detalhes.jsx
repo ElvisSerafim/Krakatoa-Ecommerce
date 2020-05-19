@@ -10,13 +10,12 @@ import './Contato.css';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import { useSelector, useDispatch } from 'react-redux';
 import ContaComp from '../components/ContaComp';
 import FooterComp from '../components/Footer';
 import Topo from '../components/Topo';
 import Navbar from '../components/Nav';
 import Alerta from '../components/Alerta';
-import { useSelector, useDispatch } from 'react-redux';
-
 
 const styles = {
   background: {
@@ -94,16 +93,12 @@ export default function Datalhes() {
     numberformat: '1320',
   });
 
-
   const usuario = useSelector((state) => state.user);
 
-
   useEffect(() => {
-
     const getUser = async () => {
-
       const tentativa = await usuario;
-      const user = tentativa.user;
+      const { user } = tentativa;
       const tokenUsuario = localStorage.getItem('token');
       setPassCurrent(user.password);
       setNome(user.nome);
@@ -112,9 +107,6 @@ export default function Datalhes() {
 
     getUser();
   }, []);
-
-
-
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -131,7 +123,7 @@ export default function Datalhes() {
   };
   return (
     <>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" style={{ marginBottom: 64 }}>
         <Topo />
         <Navbar />
         <Alerta
@@ -142,67 +134,85 @@ export default function Datalhes() {
           vertical="top"
           horizontal="right"
         />
-        <Typography variant="h2" color="primary" />
         <Grid container spacing={2} diretion="row" justify="flex-start">
-          <Grid item lg={4} md={4}>
-            <Typography variant="h4" color="primary">
+          <Grid item lg={12} md={12} sm={12} xs={12}>
+            <Typography
+              variant="h4"
+              color="primary"
+              style={{ marginTop: 64, marginBottom: 64 }}
+            >
               Minha Conta
             </Typography>
+          </Grid>
+          <Grid item lg={4} md={4} sm={12} xs={12}>
             <ContaComp />
           </Grid>
-          <div style={styles.quadrado1}>
-            <div style={styles.flexRow}>
-              <TextField
-                type="password"
-                label="Senha Atual"
-                style={styles.pass}
-                value={pass}
-                onChange={(event) => {
-                  setPass(event.target.value);
-                }}
-              />
-              <TextField
-                color="primary"
-                label="Nome"
-                defaultValue="Gustavo Santos"
-                style={styles.nome}
-                value={nome}
-                onChange={(event) => {
-                  setNome(event.target.value);
-                }}
-              />
-            </div>
-            <div style={styles.flexRow}>
-              <TextField
-                style={styles.newpass}
-                type="password"
-                label="Nova Senha"
-                value={newPass}
-                onChange={(event) => {
-                  setNewPass(event.target.value);
-                }}
-              />
-              <FormControl style={styles.tel}>
-                <InputLabel
-                  style={{ fontSize: '1.25em' }}
-                  htmlFor="formatted-text-mask-input"
-                >
-                  Telefone
-                </InputLabel>
-                <Input
-                  defaultValue={values.default}
-                  onChange={handleChange}
-                  name="textmask"
-                  id="formatted-text-mask-input"
-                  value={tel}
+          <Grid
+            container
+            item
+            lg={8}
+            spacing={2}
+            justify="flex-start"
+            style={{ backgroundColor: 'white', borderRadius: 10 }}
+          >
+            <Grid container spacing={2} lg={12} justify="space-around">
+              <Grid item lg={6}>
+                <TextField
+                  type="password"
+                  label="Senha Atual"
+                  style={styles.pass}
+                  value={pass}
                   onChange={(event) => {
-                    setTel(event.target.value);
+                    setPass(event.target.value);
                   }}
-                  inputComponent={TextMaskCustom}
                 />
-              </FormControl>
-            </div>
-            <div>
+              </Grid>
+              <Grid item lg={6}>
+                <TextField
+                  color="primary"
+                  label="Nome"
+                  defaultValue="Gustavo Santos"
+                  style={styles.nome}
+                  value={nome}
+                  onChange={(event) => {
+                    setNome(event.target.value);
+                  }}
+                />
+              </Grid>
+              <Grid item lg={6}>
+                <TextField
+                  style={styles.newpass}
+                  type="password"
+                  label="Nova Senha"
+                  value={newPass}
+                  onChange={(event) => {
+                    setNewPass(event.target.value);
+                  }}
+                />
+              </Grid>
+              <Grid item lg={6}>
+                <FormControl style={styles.tel}>
+                  <InputLabel
+                    style={{ fontSize: '1.25em' }}
+                    htmlFor="formatted-text-mask-input"
+                  >
+                    Telefone
+                  </InputLabel>
+                  <Input
+                    defaultValue={values.default}
+                    onChange={handleChange}
+                    name="textmask"
+                    id="formatted-text-mask-input"
+                    value={tel}
+                    onChange={(event) => {
+                      setTel(event.target.value);
+                    }}
+                    inputComponent={TextMaskCustom}
+                  />
+                </FormControl>
+              </Grid>
+            </Grid>
+            <Grid item lg={12} container justify="flex-end">
               <Button
                 style={styles.botao}
                 onClick={() => {
@@ -210,20 +220,20 @@ export default function Datalhes() {
                   setStatus('error');
                   switch (true) {
                     case newPass.length > 0:
-                        /*
+                      /*
                         VERIFICAR SE A SENHA ATUAL ESTÁ CERTA
                       */
 
-                        /*
+                      /*
                         SE ESTIVER CERTA, RODAR O CÓDIGO ABAIXO:
                       */
-                        if (pass === passCurrent) {
-                          setStatus('success');
-                          setMessage('Alterações salvas!');
-                        }else {
-                          setStatus('error');
-                          setMessage('Senha atual está errada !');
-                        }
+                      if (pass === passCurrent) {
+                        setStatus('success');
+                        setMessage('Alterações salvas!');
+                      } else {
+                        setStatus('error');
+                        setMessage('Senha atual está errada !');
+                      }
                       // ATUALIZAR A SENHA PARA NEWPASS
                       break;
                     case nome.length === 0:
@@ -250,8 +260,8 @@ export default function Datalhes() {
               >
                 SALVAR
               </Button>
-            </div>
-          </div>
+            </Grid>
+          </Grid>
         </Grid>
       </Container>
       <FooterComp />

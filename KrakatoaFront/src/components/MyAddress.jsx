@@ -3,7 +3,7 @@ import { Grid, Button } from '@material-ui/core/';
 import TextField from '@material-ui/core/TextField';
 import api from '../Services/ApiService';
 import './Contato.css';
-import Alerta from '../components/Alerta';
+import Alerta from './Alerta';
 import { useSelector, useDispatch } from 'react-redux';
 
 export default function MyAddress() {
@@ -24,13 +24,10 @@ export default function MyAddress() {
 
   const usuario = useSelector((state) => state.user);
 
-
   useEffect(() => {
-
     const getUser = async () => {
-
       const tentativa = await usuario;
-      const user = tentativa.user;
+      const { user } = tentativa;
       const tokenUsuario = localStorage.getItem('token');
       console.log(user);
       setNome(user.nome);
@@ -44,9 +41,6 @@ export default function MyAddress() {
 
     getUser();
   }, []);
-
-
-
 
   const enviar = async () => {
     try {
@@ -78,154 +72,176 @@ export default function MyAddress() {
       console.log(error);
     }
   };
+
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-    setOpen(false); 
+    setOpen(false);
   };
+
   return (
-    <div style={{ padding: '20px 0px 0px 20px' }}>
-      <Alerta openAlert={open} message={message} handleClose={handleClose} status={status} vertical='top' horizontal='right' />
-      <Grid container spacing={2} diretion="row" justify="space-between">
-        <Grid item lg={6}>
+    <>
+      <Alerta
+        openAlert={open}
+        message={message}
+        handleClose={handleClose}
+        status={status}
+        vertical="top"
+        horizontal="right"
+      />
+      <Grid
+        container
+        spacing={2}
+        justify="space-around"
+        style={{ marginTop: 32, padding: 16 }}
+      >
+        <Grid item lg={5} md={5} sm={5} xs={5}>
           <TextField
             placeholder="Digite Seu Nome"
             label="Nome"
             value={nome}
+            style={{ width: '100%' }}
             onChange={(e) => {
               setNome(e.target.value);
             }}
           />
         </Grid>
-        <Grid item lg={6}>
+        <Grid item lg={5} md={5} sm={5} xs={5}>
           <TextField
             placeholder="Digite Seu Sobrenome"
             label="Sobrenome"
+            style={{ width: '100%' }}
             onChange={(e) => {
               setSobrenome(e.target.value);
             }}
           />
         </Grid>
-        <Grid item lg={6}>
+        <Grid item lg={5} md={5} sm={5} xs={5}>
           <TextField
             placeholder="Digite Seu CEP"
             label="CEP"
+            style={{ width: '100%' }}
             value={cep}
             onChange={(e) => {
               setCep(e.target.value.replace(/[^0-9]/g, ''));
             }}
           />
         </Grid>
-        <Grid item lg={6}>
+        <Grid item lg={5} md={5} sm={5} xs={5}>
           <TextField
             placeholder="Digite Seu CPF"
             label="CPF"
+            style={{ width: '100%' }}
             value={cpf}
             onChange={(e) => {
               setCpf(e.target.value.replace(/[^0-9]/g, ''));
             }}
           />
         </Grid>
-        <Grid item lg={6}>
+        <Grid item lg={5} md={5} sm={5} xs={5}>
           <TextField
             placeholder="Digite Seu Bairro"
             label="Bairro"
+            style={{ width: '100%' }}
             value={bairro}
             onChange={(e) => {
               setBairro(e.target.value);
             }}
           />
         </Grid>
-        <Grid item lg={6}>
+        <Grid item lg={5} md={5} sm={5} xs={5}>
           <TextField
             placeholder="Digite Sua Cidade"
             label="Cidade"
+            style={{ width: '100%' }}
             value={cidade}
             onChange={(e) => {
               setCidade(e.target.value);
             }}
           />
         </Grid>
-        <Grid item lg={6}>
+        <Grid item lg={5} md={5} sm={5} xs={5}>
           <TextField
             placeholder="Digite Sua Rua"
             label="Rua"
+            style={{ width: '100%' }}
             value={rua}
             onChange={(e) => {
               setRua(e.target.value);
             }}
           />
         </Grid>
-        <Grid item lg={6}>
+        <Grid item lg={5} md={5} sm={5} xs={5}>
           <TextField
             placeholder="Digite seu Numero"
             label="Número"
+            style={{ width: '100%' }}
             value={numero}
             onChange={(e) => {
               setNumero(e.target.value.replace(/[^0-9]/g, ''));
             }}
           />
         </Grid>
-        <Grid item lg={6}>
+        <Grid item lg={5} md={5} sm={5} xs={5}>
           <TextField
             placeholder="Digite seu Complemento"
             label="Complemento"
+            style={{ width: '100%' }}
             onChange={(e) => {
               setComplemento(e.target.value);
             }}
           />
         </Grid>
-        <div style={{ paddingTop: 20, width: 200, paddingRight: 100 }}>
-          <Grid item lg={10}>
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              onClick={() => {
-                setNomeCompleto(`${nome} ${sobrenome}`);
-                setToken(sessionStorage.getItem('item'));
-                enviar();
-                setOpen(true);
-                setStatus('error');
-                switch (true) {
-                  case nome.length == 0:
-                  setMessage('Insira seu nome!')
+        <Grid item lg={5} />
+        <Grid item lg={9} />
+        <Grid item lg={3}>
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            onClick={() => {
+              setNomeCompleto(`${nome} ${sobrenome}`);
+              setToken(sessionStorage.getItem('item'));
+              enviar();
+              setOpen(true);
+              setStatus('error');
+              switch (true) {
+                case nome.length === 0:
+                  setMessage('Insira seu nome!');
                   break;
-                  case sobrenome.length == 0:
-                    setMessage('Insira seu sobrenome!');
-                    break;
-                  case cep.length != 8:
-                    setMessage('Cep inválido!');
-                    break;
-                  case cpf.length != 11:
-                    setMessage('Cpf inválido!');
-                    break;
-                  case bairro.length == 0:
-                    setMessage('Insira seu bairro!');
-                    break;
-                  case cidade.length == 0:
-                    setMessage('Insira sua cidade!');
-                    break;
-                  case rua.length == 0:
-                    setMessage('Insira sua rua!');
-                    break;
-                  case numero.length == 0:
-                    setMessage('Insira o numero da sua casa!');
-                    break;
-                    setOpen(true);
-                    default:
-                    setMessage('Alterações salvas!');
-                    setStatus('success');
-                    break;
-                }
-              }}
-            >
-              Salvar
-            </Button>
-          </Grid>
-        </div>
+                case sobrenome.length === 0:
+                  setMessage('Insira seu sobrenome!');
+                  break;
+                case cep.length !== 8:
+                  setMessage('Cep inválido!');
+                  break;
+                case cpf.length !== 11:
+                  setMessage('Cpf inválido!');
+                  break;
+                case bairro.length === 0:
+                  setMessage('Insira seu bairro!');
+                  break;
+                case cidade.length === 0:
+                  setMessage('Insira sua cidade!');
+                  break;
+                case rua.length === 0:
+                  setMessage('Insira sua rua!');
+                  break;
+                case numero.length === 0:
+                  setMessage('Insira o numero da sua casa!');
+                  break;
+                default:
+                  setMessage('Alterações salvas!');
+                  setStatus('success');
+                  break;
+              }
+            }}
+          >
+            Salvar
+          </Button>
+        </Grid>
       </Grid>
-    </div>
+    </>
   );
 }
