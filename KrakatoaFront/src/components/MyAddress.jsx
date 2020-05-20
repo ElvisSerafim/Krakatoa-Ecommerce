@@ -45,7 +45,6 @@ export default function MyAddress() {
   const enviar = async () => {
     try {
       if (nome === '') throw new Error('Nome Vazio');
-      if (sobrenome === '') throw new Error('Sobrenome Vazio');
       if (cep === '') throw new Error('Cep Vazio');
       if (cpf === '') throw new Error('Cpf Vazio');
       if (bairro === '') throw new Error('Bairro Vazio');
@@ -54,7 +53,7 @@ export default function MyAddress() {
       if (complemento === '') throw new Error('Complemento Vazio');
       if (numero === '') throw new Error('Numero Vazio');
       const data = {
-        nome: nomeCompleto,
+        nome: nome,
         cep: parseInt(cep),
         cpf: parseInt(cpf),
         bairro,
@@ -104,16 +103,6 @@ export default function MyAddress() {
             style={{ width: '100%' }}
             onChange={(e) => {
               setNome(e.target.value);
-            }}
-          />
-        </Grid>
-        <Grid item lg={5} md={5} sm={5} xs={5}>
-          <TextField
-            placeholder="Digite Seu Sobrenome"
-            label="Sobrenome"
-            style={{ width: '100%' }}
-            onChange={(e) => {
-              setSobrenome(e.target.value);
             }}
           />
         </Grid>
@@ -209,9 +198,6 @@ export default function MyAddress() {
               switch (true) {
                 case nome.length === 0:
                   setMessage('Insira seu nome!');
-                  break;
-                case sobrenome.length === 0:
-                  setMessage('Insira seu sobrenome!');
                   break;
                 case cep.length !== 8:
                   setMessage('Cep inválido!');
