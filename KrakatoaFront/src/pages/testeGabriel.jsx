@@ -9,6 +9,7 @@ import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import Footer from '../components/Footer';
 import useScript from '../components/useScript';
+import ListItem from '../components/ListItem';
 
 const TesteGabriel = () => {
   useScript('https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js');
@@ -22,6 +23,7 @@ const TesteGabriel = () => {
       <Container maxWidth="lg">
         <Topo />
         <Navbar />
+        <ListItem />
       </Container>
       <Footer />
     </>

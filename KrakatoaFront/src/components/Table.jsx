@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import Table from '@material-ui/core/Table';
+import { Grid, Button } from '@material-ui/core/';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -20,7 +21,7 @@ const StyledTableCell = withStyles((theme) => ({
     color: theme.palette.common.white,
   },
   body: {
-    backgroundColor: '#FF6961',
+    backgroundColor: '#44323D',
     color: theme.palette.common.white,
     fontSize: 20,
   },
@@ -28,7 +29,7 @@ const StyledTableCell = withStyles((theme) => ({
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
-    minWidth: 300,
+    minWidth: 600,
     '&:nth-of-type(odd)': {
       backgroundColor: '#9e9e9e',
     },
@@ -37,12 +38,12 @@ const StyledTableRow = withStyles((theme) => ({
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 300,
+    minWidth: 600,
     borderRadius: 10,
     fontFamily: 'Poppins',
   },
   tableHead: {
-    maxHeight: 100,
+    height: 100,
   },
 });
 
@@ -86,13 +87,13 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
   return (
     <TableContainer className={classes.table}>
       <Table className={classes.table} aria-label="customized table">
-        <TableHead>
+        <TableHead >
           <TableRow className={classes.tableHead}>
             <StyledTableCell align="center">Produtos</StyledTableCell>
             <StyledTableCell align="center">Preço</StyledTableCell>
             <StyledTableCell align="center">Quantidade</StyledTableCell>
             <StyledTableCell align="center">Total</StyledTableCell>
-            <StyledTableCell align="center" />
+            <StyledTableCell align="center"></StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -114,12 +115,14 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
                   </div>
                 </div>
               </StyledTableCell>
+              
               <StyledTableCell align="right">
                 <div style={Estilos.flexRowCENTER2}>
                   <p>R$</p>
                   <p>{row.preco}</p>
                 </div>
               </StyledTableCell>
+
               <StyledTableCell align="center">
                 <div style={Estilos.flexRowCENTER2}>
                   <Quantity
@@ -151,6 +154,7 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
                   />
                 </div>
               </StyledTableCell>
+            
               <StyledTableCell align="center">
                 <div style={Estilos.flexRowCENTER2}>
                   <p>R$</p>
@@ -159,6 +163,7 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
                   </div>
                 </div>
               </StyledTableCell>
+              
               <StyledTableCell align="right">
                 <Box style={{ cursor: 'pointer', padding: 20 }}>
                   <HighlightOffIcon
