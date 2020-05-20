@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { Container, Typography, Box, Button, Grid } from '@material-ui/core/';
+import { Container, Typography, Box, Button, Grid, Hidden } from '@material-ui/core/';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
 import { Link } from 'react-router-dom';
@@ -243,7 +243,7 @@ export default class Endereco extends PureComponent {
                 </div>
               </Grid>
               <Grid item lg={12} container direction="row" justify="center">
-                <Grid item lg={3} md={12}>
+                <Grid item lg={3} md={12}sm={12}>
                   <TextField
                     label="Nome"
                     style={{ width: '100%' }}
@@ -253,7 +253,7 @@ export default class Endereco extends PureComponent {
                   />
                 </Grid>
                 <Grid item lg={1}></Grid>
-                <Grid item lg={3} md={12}>
+                <Grid item lg={3} md={12} sm={12}>
                   <TextField
                     label="Sobrenome"
                     onChange={(e) => {
@@ -263,7 +263,7 @@ export default class Endereco extends PureComponent {
                 </Grid>
                 <Grid item lg={1}></Grid>
 
-                <Grid item lg={3} md={12}>
+                <Grid item lg={3} md={12} sm={12}>
                   <TextField
                     label="Celular"
                     onChange={(e) => {
@@ -274,7 +274,7 @@ export default class Endereco extends PureComponent {
                 </Grid>
               </Grid>
               <Grid item lg={12} container direction="row" justify="center">
-                <Grid item lg={3} md={12}>
+                <Grid item lg={3} md={12} sm={12}>
                   <TextField
                     label="CPF"
                     onChange={(e) => {
@@ -284,7 +284,7 @@ export default class Endereco extends PureComponent {
                   />
                 </Grid>
                 <Grid item lg={1}></Grid>
-                <Grid item lg={3} md={12}>
+                <Grid item lg={3} md={12} sm={12}>
                   <TextField
                     label="CEP"
                     onChange={(e) => {
@@ -294,7 +294,7 @@ export default class Endereco extends PureComponent {
                   />
                 </Grid>
                 <Grid item lg={1}></Grid>
-                <Grid item lg={3} md={12}>
+                <Grid item lg={3} md={12} sm={12}>
                   <TextField
                     label="Bairro"
                     onChange={(e) => {
@@ -304,7 +304,7 @@ export default class Endereco extends PureComponent {
                 </Grid>
               </Grid>
               <Grid item lg={12} container direction="row" justify="center">
-                <Grid item lg={3} md={12}>
+                <Grid item lg={3} md={12} sm={12}>
                   <TextField
                     label="Cidade"
                     onChange={(e) => {
@@ -313,7 +313,7 @@ export default class Endereco extends PureComponent {
                   />
                 </Grid>
                 <Grid item lg={1}></Grid>
-                <Grid item lg={3} md={12}>
+                <Grid item lg={3} md={12} sm={12}>
                   <TextField
                     label="Rua"
                     onChange={(e) => {
@@ -322,7 +322,7 @@ export default class Endereco extends PureComponent {
                   />
                 </Grid>
                 <Grid item lg={1}></Grid>
-                <Grid item lg={3} md={12}>
+                <Grid item lg={3} md={12} sm={12}>
                   <TextField
                     label="Numero"
                     onChange={(e) => {
@@ -332,10 +332,13 @@ export default class Endereco extends PureComponent {
                   />
                 </Grid>
               </Grid>
-              <Grid item lg={12} container style={{ paddingLeft: 50 }}>
-                <Grid item lg={3}>
+ 
+              <Grid item lg={4} justify='space-between'container >
+                <Grid item lg={1}></Grid>
+                <Grid item lg={9} md={12} sm={12}>
+                  
                   <TextField
-                    style={{width:'104%'}}
+
                     label="Complemento"
                     onChange={(e) => {
                       this.setState({ complemento: e.target.value });
@@ -343,9 +346,10 @@ export default class Endereco extends PureComponent {
                     email
                   />
                 </Grid>
+                <Grid item lg={1}></Grid>
                 
               </Grid>
-              <Grid item container lg={12} md={12} justify="center">
+              <Grid item container lg={12} md={12} sm={12} justify="center">
                 <p
                   style={{
                     fontFamily: 'Poppins',
@@ -355,8 +359,8 @@ export default class Endereco extends PureComponent {
                   Tipo de entrega
                 </p>
               </Grid>
-              <Grid item lg={12} container md={12}  justify='center' alignItems="center">
-                <Grid item lg={2} md={2} >
+              <Grid item lg={12} container md={12}  sm={12}  justify='center' alignItems="center">
+                <Grid item lg={2} md={6} sm={4} >
                   <Box
                     onClick={() => {
                       this.setState({ deliverySelected: 'Pac' });
@@ -385,7 +389,7 @@ export default class Endereco extends PureComponent {
                   </Box>
                 </Grid>
 
-                <Grid item lg={2} md={2}>
+                <Grid item lg={2} md={6} sm={4}>
                   <Box
                     onClick={() => {
                       this.setState({ deliverySelected: 'Sedex' });
@@ -414,7 +418,7 @@ export default class Endereco extends PureComponent {
                   </Box>
                 </Grid>
               </Grid>
-                  <Grid item justify='center' alignItems="center" container lg={12} md={12}>
+                  <Grid item justify='center' alignItems="center" container lg={12} md={12} sm={12}>
                     <Grid item lg={1} md={12}>
                   <MuiThemeProvider theme={theme}>
                     <div

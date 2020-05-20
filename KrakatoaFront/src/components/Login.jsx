@@ -90,12 +90,12 @@ const Login = () => {
         horizontal="right"
       />
       <Grid container spacing={2} diretion="row" justify="flex-start">
-        <Grid item lg={12} md={12} sm={12}>
+        <Grid item lg={12} md={12} sm={12} xs={12}>
           <Typography variant="h5" color="secondary">
             Entrar
           </Typography>
         </Grid>
-        <Grid item lg={12} md={12} sm={12} xs={12}>
+        <Grid item lg={12} md={7} sm={7} xs={7}>
           <div style={styles.senha}>
             <TextFielde
               login
@@ -108,7 +108,7 @@ const Login = () => {
             />
           </div>
         </Grid>
-        <Grid item lg={12} md={12} sm={12} xs={12}>
+        <Grid item lg={12} md={7} sm={7} xs={7}>
           <div style={styles.senha}>
             <TextFielde
               label="Senha"
@@ -120,15 +120,9 @@ const Login = () => {
             />
           </div>
         </Grid>
-        <Grid item lg={12} md={12} sm={12} xs={12} flexDirection="row">
-          <div
-            style={{
-              ...Estilos.flexRowStandard,
-              flexWrap: 'nowrap',
-              alignSelf: 'center',
-            }}
-          >
-            <div style={styles.botaoEntrar}>
+        <Grid item lg={12} md={12} sm={12} xs={12} container flexDirection="row">
+        <Grid item lg={2} md={12} sm={12} xs={12}>
+        <div style={styles.botaoEntrar}>
               <Button
                 variant="contained"
                 color="primary"
@@ -138,13 +132,8 @@ const Login = () => {
                 Entrar
               </Button>
             </div>
-            <div
-              style={{
-                ...Estilos.flexRowStandard,
-                flexWrap: 'nowrap',
-                alignSelf: 'center',
-              }}
-            >
+        </Grid>
+        <Grid item lg={6} md={12} sm={12} container flexDirection='row' xs={12}>
               <Checkbox
                 onChange={(event) => {
                   setSessao(event.target.checked);
@@ -158,6 +147,22 @@ const Login = () => {
               >
                 Lembre-me
               </Typography>
+         </Grid>
+          <div
+            style={{
+              ...Estilos.flexRowStandard,
+              flexWrap: 'nowrap',
+              alignSelf: 'center',
+            }}
+          >
+           
+            <div
+              style={{
+                ...Estilos.flexRowStandard,
+                flexWrap: 'nowrap',
+                alignSelf: 'center',
+              }}
+            >
             </div>
           </div>
         </Grid>
