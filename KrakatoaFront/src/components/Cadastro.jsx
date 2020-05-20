@@ -70,12 +70,12 @@ const Cadastro = () => {
         horizontal="right"
       />
       <Grid container spacing={2} diretion="row" justify="flex-start">
-        <Grid item lg={12} md={12} sm={12} xs={12}>
+        <Grid item lg={12} md={7} sm={7} xs={7}>
           <Typography style={styles.topico} variant="h5" color="secondary">
             Registrar
           </Typography>
         </Grid>
-        <Grid item lg={12} md={12} sm={12} xs={12}>
+        <Grid item lg={12} md={7} sm={7} xs={7}>
           <div style={styles.senha}>
             <TextFielde
               login
@@ -88,7 +88,7 @@ const Cadastro = () => {
             />
           </div>
         </Grid>
-        <Grid item lg={12} md={12} sm={12} xs={12}>
+        <Grid item lg={12} md={7} sm={7} xs={7}>
           <div style={styles.senha}>
             <TextFielde
               label="Senha"
