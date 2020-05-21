@@ -14,7 +14,7 @@ const pedidoSchema = new mongoose.Schema(
 
     data: {
       type: Date,
-      required: true
+      required: true,
     },
 
     user: {
@@ -23,9 +23,10 @@ const pedidoSchema = new mongoose.Schema(
     },
 
     produtos: [
-      { 
+      {
         produto: {
-          type: mongoose.Schema.Types.ObjectId, ref: 'Produto'
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Produto',
         },
         quantidadePedido: {
           type: Number,
@@ -35,8 +36,8 @@ const pedidoSchema = new mongoose.Schema(
         },
         corEscolhida: {
           type: String,
-        }
-     }
+        },
+      },
     ],
   },
   { timestamps: true },

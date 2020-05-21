@@ -111,22 +111,20 @@ export default function Datalhes() {
   }, []);
 
   const enviar = async () => {
-
     if (nome === '') throw new Error('Nome Vazio');
     if (pass === '') throw new Error('Sobrenome Vazio');
     if (newPass === '') throw new Error('Nova Senha Vazio');
     if (tel === '') throw new Error('Telefone Vazio');
 
     const data = {
-      nome: nome,
+      nome,
       password: pass,
       newPassword: newPass,
       telefone: tel,
-      token: token
-    }
+      token,
+    };
     const request = await api.AtualizaUsuario(data);
-
-  }
+  };
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -245,8 +243,8 @@ export default function Datalhes() {
                       /*
                         VERIFICAR SE A SENHA ATUAL ESTÁ CERTA
                       */
-                     setStatus('sucess');              
-                       setMessage('Alterações salvas!');
+                      setStatus('sucess');
+                      setMessage('Alterações salvas!');
 
                       /*
                       SE ESTIVER CERTA, RODAR O CÓDIGO ABAIXO:

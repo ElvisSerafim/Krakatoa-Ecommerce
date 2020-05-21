@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Button } from '@material-ui/core/';
 import TextField from '@material-ui/core/TextField';
+import { useSelector, useDispatch } from 'react-redux';
 import api from '../Services/ApiService';
 import './Contato.css';
 import Alerta from './Alerta';
-import { useSelector, useDispatch } from 'react-redux';
 
 export default function MyAddress() {
   const [nome, setNome] = useState('');
@@ -53,14 +53,14 @@ export default function MyAddress() {
       if (complemento === '') throw new Error('Complemento Vazio');
       if (numero === '') throw new Error('Numero Vazio');
       const data = {
-        nome: nome,
-        cep: parseInt(cep),
-        cpf: parseInt(cpf),
+        nome,
+        cep: parseInt(cep, 10),
+        cpf: parseInt(cpf, 10),
         bairro,
         cidade,
         rua,
         complemento,
-        numero: parseInt(numero),
+        numero: parseInt(numero, 10),
         token,
       };
       const request = await api.UsuarioEndereco(data);

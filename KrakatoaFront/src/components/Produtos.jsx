@@ -3,12 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import NoSsr from '@material-ui/core/NoSsr';
 import Produto from './Produto';
 import { addCart } from '../reducers/productsCart';
 import ComboBox from './ComboBox';
 import api from '../Services/ApiService';
 import { updateProducts } from '../reducers/products';
-import NoSsr from '@material-ui/core/NoSsr';
+
 const useStyles = makeStyles({
   GridContainer: {
     '@media (min-width: 1024px)': {
@@ -70,7 +71,7 @@ const Produtos = ({ title, alert, name }) => {
           label="Ordenar por: "
         />
       </Grid>
-      <NoSsr defer={true}>
+      <NoSsr defer>
         {item.map((value) => (
           <Grid
             key={value.id}
@@ -81,18 +82,17 @@ const Produtos = ({ title, alert, name }) => {
             xm={6}
             className={classes.product}
           >
-            <NoSsr defer={true}>
-            <Produto
-              produto={value}
-              update={() => {}}
-              title={lower}
-              addItem={addItemCart}
-            />
+            <NoSsr defer>
+              <Produto
+                produto={value}
+                update={() => {}}
+                title={lower}
+                addItem={addItemCart}
+              />
             </NoSsr>
           </Grid>
-          
         ))}
-        </NoSsr>
+      </NoSsr>
     </Grid>
   ));
 };

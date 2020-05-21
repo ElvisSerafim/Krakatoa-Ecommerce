@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /**
  * Componente adaptado de Elvis Serafim (Wakandaaaa!)
  */
@@ -128,7 +129,8 @@ class TextField extends Component {
           </input>
         </div>
       );
-    } else if (password) {
+    }
+    if (password) {
       return (
         <div style={styles.container}>
           <p style={styles.inputsMinhaConta}>&nbsp;{label}</p>
@@ -143,7 +145,8 @@ class TextField extends Component {
           </input>
         </div>
       );
-    } else if (cpf) {
+    }
+    if (cpf) {
       return (
         <div style={styles.container}>
           <p>&nbsp;{label}</p>
@@ -161,7 +164,8 @@ class TextField extends Component {
           </Cleave>
         </div>
       );
-    } else if (cnpj) {
+    }
+    if (cnpj) {
       return (
         <div style={styles.container}>
           <p>&nbsp;{label}</p>
@@ -179,7 +183,8 @@ class TextField extends Component {
           </Cleave>
         </div>
       );
-    } else if (numberOnly) {
+    }
+    if (numberOnly) {
       return (
         <div style={styles.container}>
           <p style={styles.inputs}>&nbsp;{label}</p>
@@ -196,10 +201,11 @@ class TextField extends Component {
           </Cleave>
         </div>
       );
-    } else if (date) {
+    }
+    if (date) {
       return (
         <div style={styles.container}>
-           <p style={styles.inputs}>&nbsp;{label}</p>
+          <p style={styles.inputs}>&nbsp;{label}</p>
           <Cleave
             value={this.props.value}
             onChange={this.props.onChange}
@@ -213,7 +219,8 @@ class TextField extends Component {
           </Cleave>
         </div>
       );
-    } else if (time) {
+    }
+    if (time) {
       return (
         <div style={styles.container}>
           <p>&nbsp;{label}</p>
@@ -230,7 +237,8 @@ class TextField extends Component {
           </Cleave>
         </div>
       );
-    } else if (datetime) {
+    }
+    if (datetime) {
       return (
         <div style={styles.container}>
           <p>&nbsp;{label}</p>
@@ -248,7 +256,8 @@ class TextField extends Component {
           </Cleave>
         </div>
       );
-    } else if (phone) {
+    }
+    if (phone) {
       return (
         <div style={styles.container}>
           <p style={styles.inputs}>&nbsp;{label}</p>
@@ -265,7 +274,8 @@ class TextField extends Component {
           </Cleave>
         </div>
       );
-    } else if (select) {
+    }
+    if (select) {
       return (
         <div style={styles.container}>
           <label>
@@ -278,7 +288,8 @@ class TextField extends Component {
           </label>
         </div>
       );
-    } else if (login) {
+    }
+    if (login) {
       return (
         <div style={styles.container}>
           {label && <p style={styles.inputsMinhaConta}>&nbsp;{label}</p>}
@@ -292,25 +303,28 @@ class TextField extends Component {
           </input>
         </div>
       );
-    } else {
-      return (
-        <div style={styles.container}>
-          {label && <p style={{...styles.inputs,...this.props.styleslabel}}>&nbsp;{label}</p>}
-          <input
-            value={this.props.value}
-            onChange={this.props.onChange}
-            onFocus={(this.value = '')}
-            style={{ ...styles.main, ...style }}
-          >
-            {children}
-          </input>
-        </div>
-      );
     }
+    return (
+      <div style={styles.container}>
+        {label && (
+          <p style={{ ...styles.inputs, ...this.props.styleslabel }}>
+            &nbsp;{label}
+          </p>
+        )}
+        <input
+          value={this.props.value}
+          onChange={this.props.onChange}
+          onFocus={(this.value = '')}
+          style={{ ...styles.main, ...style }}
+        >
+          {children}
+        </input>
+      </div>
+    );
   }
 }
 
-//Essa funcao comentada é a funcao responsavel para fazer a navagecao para outrarota
+// Essa funcao comentada é a funcao responsavel para fazer a navagecao para outrarota
 // this.props.history.push('./outrarota')
 
 export default withStyles(styles)(TextField);

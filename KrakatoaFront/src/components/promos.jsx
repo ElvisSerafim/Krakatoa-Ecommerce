@@ -53,9 +53,16 @@ export default class Promos extends PureComponent {
   render() {
     return (
       <div style={styles.promo}>
-        <Grid container spacing={2} direction="row" justify="flex-start">
+        <Grid container spacing={2} direction="row" justify="space-around">
           {data.map((elem) => (
-            <Grid item lg={elem.size} key={data.indexOf(elem)}>
+            <Grid
+              item
+              lg={elem.size}
+              md={4}
+              sm={4}
+              xs={12}
+              key={data.indexOf(elem)}
+            >
               <Card
                 style={styles.root}
                 className={elem.quarter}
