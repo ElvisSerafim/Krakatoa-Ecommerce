@@ -25,7 +25,6 @@ module.exports = {
   },
   async Update(req, res) {
     try {
-
       const { user } = req;
       const { newPassword, nome, telefone, password } = req.body;
       if (newPassword !== undefined) {
@@ -38,7 +37,7 @@ module.exports = {
           console.log(isPasswordMatch);
           user.password = isPasswordMatch
             ? user.password
-            : (user.password = newPassword)
+            : (user.password = newPassword);
         }
       }
 
