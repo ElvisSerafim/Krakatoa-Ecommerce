@@ -90,7 +90,7 @@ ReactDOM.render(
           <Route path="/carrinho" component={Carrinho} />
           <Route path="/testeGabriel" component={TesteGabriel} />
           <Route path="/login" component={Login} render={(props) => <Login {...props} />} />
-
+          <Route path='/inicio' component={Home}/>
           <PrivateRoute path="/conta" exact component={MinhaConta} />
           <PrivateRoute path="/endereco" component={Endereco} />
           <PrivateRoute path="/sumario" component={Sumario} />
