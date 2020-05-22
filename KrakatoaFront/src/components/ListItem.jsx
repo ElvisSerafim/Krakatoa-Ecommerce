@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removerCart, removeProducts } from '../reducers/productsCart';
 import ItemMobile from './ItemMobile';
 
-const ListItem = ({ }) => {
+const ListItem = ({atualizarTotal }) => {
     const [products, setProducts] = useState([1, 1]);
     const [total, setTotal] = useState(0);
     const allProducts = useSelector((state) => state.productsCart);
@@ -17,7 +17,8 @@ const ListItem = ({ }) => {
             aux = aux + (item.preco * item.quantidade);
         });
         setTotal(aux);
-    });
+        atualizarTotal(aux);
+    }, []);
 
 
     const removerProduct = (produto) => {
@@ -27,6 +28,7 @@ const ListItem = ({ }) => {
     const updateTotal = (index) => {
         let aux = total + allProducts[index].preco;
         setTotal(aux);
+        atualizarTotal(aux);
         allProducts[index].quantidade++;
         dispatch(productsUpdate(allProducts));
       };
@@ -34,6 +36,7 @@ const ListItem = ({ }) => {
       const updateSubTotal = (index) => {
         let aux = total - allProducts[index].preco;
         setTotal(aux);
+        atualizarTotal(aux);
         allProducts[index].quantidade--;
         dispatch(productsUpdate(allProducts));
       };

@@ -35,7 +35,13 @@ const Produto = ({ produto, title, addItem, update }) => {
   const [type, setType] = useState(title);
   const classes = useStyles();
   useEffect(() => {
-    setImageurl(`http://localhost:4000/static/imgs/${id}.jpeg`);
+    if(produto.imagens.length != 0){
+      console.log(produto.imagens[0]);
+      setImageurl(`http://localhost:4000/static/imgs/${produto.imagens[0]}.jpeg`);
+    }else {
+      setImageurl(`http://localhost:4000/static/imgs/${id}.jpeg`);
+    }
+   
   }, []);
   const FuncCapitalize = (str) => {
     str = str.split(' ');

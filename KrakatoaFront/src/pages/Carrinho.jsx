@@ -189,7 +189,7 @@ const Carrinho = () => {
                   </Grid>
                 </Hidden>
                 <Hidden lgUp="true">
-                  <ListItem />
+                  <ListItem atualizarTotal={atualizarTotalList}/>
                 </Hidden>
                 {/* Continuar comprando e Limpar */}
                 <Grid
@@ -249,6 +249,7 @@ const Carrinho = () => {
                         onChange={(event) => {
                           setCep(event.target.value);
                         }}
+                        value={cep}
                         style={{
                           color: 'red',
                           backgroundColor: 'white',
@@ -256,7 +257,6 @@ const Carrinho = () => {
                           width: '100%',
                           marginBottom: 16,
                         }}
-                        numberOnly
                       />
                     </Grid>
                     <Grid

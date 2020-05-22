@@ -32,8 +32,13 @@ const produtoSchema = new mongoose.Schema(
         require: true,
       },
     ],
-
-    color: [
+    imagens: [
+      {
+        type: String,
+        require: true,
+      },
+    ],
+    cores: [
       {
         type: String,
         require: true,

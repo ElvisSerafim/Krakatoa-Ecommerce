@@ -49,8 +49,8 @@ module.exports = {
 
       user.telefone =
         typeof telefone === 'string' &&
-        telefone.length === 11 &&
-        user.telefone !== telefone
+          telefone.length === 11 &&
+          user.telefone !== telefone
           ? (user.telefone = telefone)
           : user.telefone;
 
@@ -125,10 +125,16 @@ module.exports = {
         rua,
         numero,
         nome,
+        complemento,
         telefone,
         cpf,
       } = req.body;
 
+      user.endereco.complemento =
+        typeof complemento === 'string' && user.endereco.complemento !== complemento
+          ? complemento
+          : user.endereco.complemento;
+          
       user.endereco.cep =
         typeof cep === 'number' && user.endereco.cep !== cep
           ? cep
@@ -136,29 +142,29 @@ module.exports = {
 
       user.endereco.estado =
         typeof estado === 'string' &&
-        estado.trim().length > 0 &&
-        user.endereco.estado !== estado
+          estado.trim().length > 0 &&
+          user.endereco.estado !== estado
           ? estado
           : user.endereco.estado;
 
       user.endereco.cidade =
         typeof cidade === 'string' &&
-        cidade.trim().length > 0 &&
-        user.endereco.cidade !== cidade
+          cidade.trim().length > 0 &&
+          user.endereco.cidade !== cidade
           ? cidade
           : user.endereco.cidade;
 
       user.endereco.bairro =
         typeof bairro === 'string' &&
-        bairro.trim().length > 0 &&
-        user.endereco.bairro !== bairro
+          bairro.trim().length > 0 &&
+          user.endereco.bairro !== bairro
           ? bairro
           : user.endereco.bairro;
 
       user.endereco.rua =
         typeof rua === 'string' &&
-        rua.trim().length > 0 &&
-        user.endereco.rua !== rua
+          rua.trim().length > 0 &&
+          user.endereco.rua !== rua
           ? rua
           : user.endereco.rua;
 
@@ -174,8 +180,8 @@ module.exports = {
 
       user.telefone =
         typeof telefone === 'string' &&
-        telefone.trim().length === 11 &&
-        user.telefone !== telefone
+          telefone.trim().length === 11 &&
+          user.telefone !== telefone
           ? telefone
           : user.telefone;
 

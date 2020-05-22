@@ -37,6 +37,7 @@ const userSchema = new mongoose.Schema(
       bairro: String,
       rua: String,
       numero: Number,
+      complemento: String
     },
     pedidos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Pedido' }],
     tokens: [

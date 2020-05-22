@@ -10,6 +10,8 @@ module.exports = {
       tipo,
       tamanho,
       promocao,
+      imagens,
+      cores,
       promopreco,
       quantidade,
       vendas,
@@ -24,11 +26,13 @@ module.exports = {
           colecao,
           tipo,
           tamanho,
+          imagens,
+          cores,
+          descricao,
           promocao,
           promopreco,
           quantidade,
-          vendas,
-          descricao,
+          vendas
         });
         return res.json(produto);
       }
