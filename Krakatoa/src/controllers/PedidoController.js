@@ -8,29 +8,25 @@ module.exports = {
       const { precoTotal, frete, user, produtos, data } = req.body;
 
       const { id } = user;
-      console.log(data);
 
       const pedido = await Pedido.create({
         precoTotal,
         frete,
-        data
+        data,
       });
-
-      console.log(data);
-      console.log(pedido);
 
       while (produtos.length !== 0) {
         const produtoArray = produtos.pop();
-        let quantidadePedido = produtoArray.quantidade;
-        let tamanhoEscolhido = produtoArray.tamanho;
-        let corEscolhida = produtoArray.color;
-        let produto = await Produto.findById(produtoArray.id);
-        let final = {
+        const quantidadePedido = produtoArray.quantidade;
+        const tamanhoEscolhido = produtoArray.tamanho;
+        const corEscolhida = produtoArray.color;
+        const produto = await Produto.findById(produtoArray.id);
+        const final = {
           produto,
           quantidadePedido,
           tamanhoEscolhido,
-          corEscolhida
-        }
+          corEscolhida,
+        };
         pedido.produtos.push(final);
       }
 
@@ -68,20 +64,20 @@ module.exports = {
       while (arrayAuxPedidos.length !== 0) {
         const pedidos = arrayAuxPedidos.pop();
         if (pedidos != null) {
-          let arr = pedidos.produtos;
-          let arrayProdutos = [];
+          const arr = pedidos.produtos;
+          const arrayProdutos = [];
           while (arr.length != 0) {
-            let item = arr.pop();
-            let product = await Produto.findById(item.produto);
-            let quantidadePedida = item.quantidadePedido;
-            let tamanho = item.tamanhoEscolhido;
-            let cor = item.corEscolhida;
-            let produtoFinal = {
+            const item = arr.pop();
+            const product = await Produto.findById(item.produto);
+            const quantidadePedida = item.quantidadePedido;
+            const tamanho = item.tamanhoEscolhido;
+            const cor = item.corEscolhida;
+            const produtoFinal = {
               produto: product,
               quantidade: quantidadePedida,
               tamanhoEscolhida: tamanho,
-              corEscolhida: cor
-            }
+              corEscolhida: cor,
+            };
             arrayProdutos.push(produtoFinal);
           }
           const pedidoFinal = {

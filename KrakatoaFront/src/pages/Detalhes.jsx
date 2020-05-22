@@ -17,7 +17,7 @@ import Topo from '../components/Topo';
 import Navbar from '../components/Nav';
 import Alerta from '../components/Alerta';
 import api from '../Services/ApiService';
-
+import Hidden from '@material-ui/core/Hidden';
 const styles = {
   background: {
     backgroundColor: '#D0D0D0',
@@ -42,10 +42,10 @@ const styles = {
     height: 50,
     width: '20%',
   },
-  tel: { marginLeft: 64, marginTop: 20, width: 200 },
-  newpass: { marginLeft: 160, marginTop: 20, width: 200 },
-  nome: { marginLeft: 64, marginTop: 50, width: 200 },
-  pass: { marginLeft: 160, marginTop: 50, width: 200 },
+  tel: {width: 200 },
+  newpass: {  width: 200 },
+  nome: {  width: 200 },
+  pass: {  width: 200 },
 };
 
 function TextMaskCustom(props) {
@@ -111,22 +111,20 @@ export default function Datalhes() {
   }, []);
 
   const enviar = async () => {
-
     if (nome === '') throw new Error('Nome Vazio');
     if (pass === '') throw new Error('Sobrenome Vazio');
     if (newPass === '') throw new Error('Nova Senha Vazio');
     if (tel === '') throw new Error('Telefone Vazio');
 
     const data = {
-      nome: nome,
+      nome,
       password: pass,
       newPassword: newPass,
       telefone: tel,
-      token: token
-    }
+      token,
+    };
     const request = await api.AtualizaUsuario(data);
-
-  }
+  };
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -154,7 +152,7 @@ export default function Datalhes() {
           vertical="top"
           horizontal="right"
         />
-        <Grid container spacing={2} diretion="row" justify="flex-start">
+        <Grid container spacing={2} diretion="row" justify="space-around">
           <Grid item lg={12} md={12} sm={12} xs={12}>
             <Typography
               variant="h4"
@@ -164,7 +162,7 @@ export default function Datalhes() {
               Minha Conta
             </Typography>
           </Grid>
-          <Grid item lg={4} md={4} sm={12} xs={12}>
+          <Grid item lg={4} md={2} sm={4} xs={12}>
             <ContaComp />
           </Grid>
           <Grid
@@ -173,10 +171,13 @@ export default function Datalhes() {
             lg={8}
             spacing={2}
             justify="flex-start"
-            style={{ backgroundColor: 'white', borderRadius: 10 }}
+            style={{ paddingTop: 50, backgroundColor: 'white', borderRadius: 10 }}
           >
-            <Grid container spacing={2} lg={12} justify="space-around">
-              <Grid item lg={6}>
+            <Grid container spacing={2} lg={12} justify="center" direction='row'>
+            <Hidden smDown='true'>
+              <Grid item lg={2}></Grid>                
+              </Hidden>
+              <Grid item lg={5} md={5} sm={5} xs={7}>
                 <TextField
                   type="password"
                   label="Senha Atual"
@@ -187,7 +188,7 @@ export default function Datalhes() {
                   }}
                 />
               </Grid>
-              <Grid item lg={6}>
+              <Grid item lg={5} md={5} sm={5} xs={7}>
                 <TextField
                   color="primary"
                   label="Nome"
@@ -199,7 +200,10 @@ export default function Datalhes() {
                   }}
                 />
               </Grid>
-              <Grid item lg={6}>
+              <Hidden smDown='true'>
+              <Grid item lg={2}></Grid>                
+              </Hidden>
+              <Grid item lg={5} md={5} sm={5} xs={7}>
                 <TextField
                   style={styles.newpass}
                   type="password"
@@ -210,7 +214,7 @@ export default function Datalhes() {
                   }}
                 />
               </Grid>
-              <Grid item lg={6}>
+              <Grid item lg={5} md={5} sm={5} xs={7}>
                 <FormControl style={styles.tel}>
                   <InputLabel
                     style={{ fontSize: '1.25em' }}
@@ -245,8 +249,8 @@ export default function Datalhes() {
                       /*
                         VERIFICAR SE A SENHA ATUAL ESTÁ CERTA
                       */
-                     setStatus('sucess');              
-                       setMessage('Alterações salvas!');
+                      setStatus('sucess');
+                      setMessage('Alterações salvas!');
 
                       /*
                       SE ESTIVER CERTA, RODAR O CÓDIGO ABAIXO:

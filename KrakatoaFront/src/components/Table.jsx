@@ -3,13 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import Table from '@material-ui/core/Table';
-import { Grid, Button } from '@material-ui/core/';
+import { Grid, Button, Box } from '@material-ui/core/';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Box } from '@material-ui/core/';
+
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Quantity from './Quantity';
 import { productsUpdate } from '../reducers/productsCart';
@@ -27,7 +27,7 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-const StyledTableRow = withStyles((theme) => ({
+const StyledTableRow = withStyles(() => ({
   root: {
     minWidth: 600,
     '&:nth-of-type(odd)': {
@@ -87,13 +87,13 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
   return (
     <TableContainer className={classes.table}>
       <Table className={classes.table} aria-label="customized table">
-        <TableHead >
+        <TableHead>
           <TableRow className={classes.tableHead}>
             <StyledTableCell align="center">Produtos</StyledTableCell>
             <StyledTableCell align="center">Preço</StyledTableCell>
             <StyledTableCell align="center">Quantidade</StyledTableCell>
             <StyledTableCell align="center">Total</StyledTableCell>
-            <StyledTableCell align="center"></StyledTableCell>
+            <StyledTableCell align="center" />
           </TableRow>
         </TableHead>
         <TableBody>
@@ -115,7 +115,7 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
                   </div>
                 </div>
               </StyledTableCell>
-              
+
               <StyledTableCell align="right">
                 <div style={Estilos.flexRowCENTER2}>
                   <p>R$</p>
@@ -154,7 +154,7 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
                   />
                 </div>
               </StyledTableCell>
-            
+
               <StyledTableCell align="center">
                 <div style={Estilos.flexRowCENTER2}>
                   <p>R$</p>
@@ -163,7 +163,7 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
                   </div>
                 </div>
               </StyledTableCell>
-              
+
               <StyledTableCell align="right">
                 <Box style={{ cursor: 'pointer', padding: 20 }}>
                   <HighlightOffIcon

@@ -27,8 +27,13 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    backgroundColor:'#44323D'
+  },
+  svg:{
+    color:'white'
   },
   drawerHeader: {
+   
     display: 'flex',
     alignItems: 'center',
     padding: theme.spacing(0, 1),
@@ -76,14 +81,15 @@ export default function PersistentDrawerLeft() {
           onClick={handleDrawerClose}
           classes={{
             paper: classes.drawerPaper,
+
           }}
         >
           <div className={classes.drawerHeader}>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'ltr' ? (
-                <ChevronLeftIcon />
+                <ChevronLeftIcon className={classes.svg}/>
               ) : (
-                <ChevronRightIcon />
+                <ChevronRightIcon className={classes.svg} />
               )}
             </IconButton>
           </div>
@@ -99,7 +105,7 @@ export default function PersistentDrawerLeft() {
               'Sobre',
               'Contato',
             ].map((text) => (
-              <a href={`/${text}`}>
+              <a href={`/${text}`} style={{textDecoration:'none',color :'white'}}>
                 <ListItem button key={text}>
                   <ListItemText primary={text} />
                 </ListItem>
