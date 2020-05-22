@@ -13,6 +13,7 @@ const ApiService = {
       const request = await fetch(url, requestInfo);
       if (request.ok) {
         const response = await request.json();
+        console.log(response);
         return response;
       }
       throw new Error('Não foi possivel acessar o servidor');

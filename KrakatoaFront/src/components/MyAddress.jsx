@@ -37,10 +37,11 @@ export default function MyAddress() {
       setBairro(user.endereco.bairro);
       setCidade(user.endereco.cidade);
       setRua(user.endereco.rua);
+      setComplemento(user.endereco.complemento);
     };
 
     getUser();
-  }, []);
+  }, [usuario]);
 
   const enviar = async () => {
     try {
@@ -50,7 +51,6 @@ export default function MyAddress() {
       if (bairro === '') throw new Error('Bairro Vazio');
       if (cidade === '') throw new Error('Cidade Vazia');
       if (rua === '') throw new Error('Rua Vazia');
-      if (complemento === '') throw new Error('Complemento Vazio');
       if (numero === '') throw new Error('Numero Vazio');
       const data = {
         nome,
@@ -176,6 +176,7 @@ export default function MyAddress() {
           <TextField
             placeholder="Digite seu Complemento"
             label="Complemento"
+            value={complemento}
             style={{ width: '100%' }}
             onChange={(e) => {
               setComplemento(e.target.value);
@@ -191,7 +192,6 @@ export default function MyAddress() {
             fullWidth
             onClick={() => {
               setNomeCompleto(`${nome} ${sobrenome}`);
-              setToken(sessionStorage.getItem('item'));
               enviar();
               setOpen(true);
               setStatus('error');
@@ -199,7 +199,7 @@ export default function MyAddress() {
                 case nome.length === 0:
                   setMessage('Insira seu nome!');
                   break;
-                case cep.length !== 8:
+                case cep.toString().length !== 8:
                   setMessage('Cep inválido!');
                   break;
                 case cpf.length !== 11:
@@ -216,7 +216,7 @@ export default function MyAddress() {
                   break;
                 case numero.length === 0:
                   setMessage('Insira o numero da sua casa!');
-                  break;
+                  break;                  
                 default:
                   setMessage('Alterações salvas!');
                   setStatus('success');

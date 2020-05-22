@@ -61,6 +61,7 @@ const styles = {
     width: '100%',
     borderRadius: '10px',
     objectFit: 'cover',
+    cursor: 'pointer'
   },
   product: { color: 'white', fontSize: '0.7em', padding: 10 },
   num: { paddingLeft: 350, color: '#F0F0F0' },
@@ -91,6 +92,8 @@ const ProdutoPage = ({ match }) => {
   const [color, setColor] = useState([]);
   const [colors, setColors] = useState([]);
   const [products, setProducts] = useState([]);
+  const [fotoAtual, setFotoAtual] = useState('');
+  const [fotos, setFotos] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -98,11 +101,11 @@ const ProdutoPage = ({ match }) => {
     const getProducts = async () => {
       request = await api.ListaProdutos();
       setProducts(request);
-      getProduto(request);
+      await getProduto(request);
     };
     getProducts();
   }, [atualizar]);
-  const url = `http://localhost:4000/static/imgs/${match.params.id}.jpeg`;
+
   const getProduto = (produtos) => {
     const produtosType = [];
     let tipo;
@@ -111,9 +114,16 @@ const ProdutoPage = ({ match }) => {
         tipo = item.tipo;
         console.log(item);
         setSizes(item.tamanho);
-        setColors(item.color);
+        setColors(item.cores);
         setPosicao(i);
-        item.Imageurl = `http://localhost:4000/static/imgs/${item.id}.jpeg`;
+        if (item.imagens.length != 0) {
+          item.Imageurl = `http://localhost:4000/static/imgs/${item.imagens[0]}.jpeg`;
+          setFotoAtual(`http://localhost:4000/static/imgs/${item.imagens[0]}.jpeg`);
+          setFotos(item.imagens);
+        } else {
+          item.Imageurl = `http://localhost:4000/static/imgs/${item.id}.jpeg`;
+          setFotoAtual(item.Imageurl);
+        }
         setProduct(item);
         setType(item.tipo);
       }
@@ -175,14 +185,21 @@ const ProdutoPage = ({ match }) => {
         <Grid container spacing={2} diretion="row" justify="flex-start">
           <Grid item lg={1} md={1}>
             <div style={styles.marginDiv}>
-              <div style={styles.foto} />
-              <div style={styles.foto} />
-              <div style={styles.foto} />
+              {fotos.map((item) => (
+                <div style={styles.foto}>
+                  <img
+                    src={`http://localhost:4000/static/imgs/${item}.jpeg`}
+                    onClick={(event)=>{
+                      setFotoAtual(`http://localhost:4000/static/imgs/${item}.jpeg`);
+                    }} 
+                    style={styles.img} alt="produto" />
+                </div>
+              ))}
             </div>
           </Grid>
           <Grid item lg={4} md={4}>
             <div style={styles.quadradao1}>
-              <img src={url} style={styles.img} alt="produto" />
+              <img src={fotoAtual} style={styles.img} alt="produto" />
             </div>
           </Grid>
           <Grid item lg={1} md={1} />
