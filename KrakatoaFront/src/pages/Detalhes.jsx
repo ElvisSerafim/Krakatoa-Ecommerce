@@ -112,7 +112,6 @@ export default function Datalhes() {
 
   const enviar = async () => {
     if (nome === '') throw new Error('Nome Vazio');
-    if (pass === '') throw new Error('Sobrenome Vazio');
     if (newPass === '') throw new Error('Nova Senha Vazio');
     if (tel === '') throw new Error('Telefone Vazio');
 
@@ -162,17 +161,20 @@ export default function Datalhes() {
               Minha Conta
             </Typography>
           </Grid>
-          <Grid item lg={4} md={2} sm={4} xs={12}>
+          <Grid direction = 'row' item lg={4} md={4} sm={4} xs={12}>
             <ContaComp />
           </Grid>
+
           <Grid
             container
             item
             lg={8}
+            sm={8}
             spacing={2}
             justify="flex-start"
             style={{ paddingTop: 50, backgroundColor: 'white', borderRadius: 10 }}
           >
+
             <Grid container spacing={2} lg={12} justify="center" direction='row'>
             <Hidden smDown='true'>
               <Grid item lg={2}></Grid>                
@@ -246,9 +248,11 @@ export default function Datalhes() {
                   setStatus('sucess');
                   switch (true) {
                     case newPass.length > 0:
+                      if (pass === '') setMessage('Senha vazio');
                       /*
                         VERIFICAR SE A SENHA ATUAL ESTÁ CERTA
                       */
+                     
                       setStatus('sucess');
                       setMessage('Alterações salvas!');
 

@@ -13,6 +13,7 @@ import Navbar from '../components/Nav';
 import ApiService from '../Services/ApiService';
 import ContaComp from '../components/ContaComp';
 import Estilos from '../Estilos';
+import Hidden from '@material-ui/core/Hidden';
 
 const styles = {
   background: {
@@ -90,15 +91,21 @@ function MinhaConta() {
               Minha Conta
             </Typography>
           </Grid>
-          <Grid item lg={4} md={4} style={{ marginBottom: 64 }}>
+          <Grid item lg={4} md={3} sm={5} style={{ marginBottom: 64 }}>
             <ContaComp />
           </Grid>
+          <Hidden smUp>
+          <Grid item sm={1}></Grid>
+          </Hidden>
+          <Hidden mdUp>
+          <Grid item md={1}></Grid>
+          </Hidden>
           <Grid
             container
             item
             lg={4}
-            md={8}
-            sm={12}
+            md={6}
+            sm={6}
             justify="space-around"
             className={classes.Cor}
           >
@@ -111,18 +118,18 @@ function MinhaConta() {
                 href="pedidos"
                 style={{ textDecoration: 'none', color: 'red' }}
               >
-                Compras recentes
+                Compras recentes {' '}
               </a>
-              gerenciar seus
+              gerenciar seus {' '}
               <a
                 href="meuendereco"
                 style={{ textDecoration: 'none', color: 'red' }}
-              >
-                Endereços de entrega
+              > 
+                Endereços de entrega {' '}
               </a>
-              e editar suas
+              e editar suas {' '}
               <a
-                href="/detalhes"
+                href="detalhes"
                 style={{ textDecoration: 'none', color: 'red' }}
               >
                 Senhas e detalhes da conta

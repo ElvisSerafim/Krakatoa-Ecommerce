@@ -141,7 +141,7 @@ const Home = () => {
             </Typography>
           </Grid>
 
-          <Grid item lg={3} md={12} sm={12} xs={12}>
+          <Grid item lg={3} md={3} sm={3} xs={12}>
             <div style={styles.deli}>
               <img
                 style={{ padding: '25px 0px 0px 15px' }}
@@ -160,7 +160,7 @@ const Home = () => {
               nec augueegestas ullamcorper
             </Typography>
           </Grid>
-          <Grid item lg={3} md={12} sm={12} xs={12}>
+          <Grid item lg={3} md={3} sm={3} xs={12}>
             <div style={styles.pag}>
               <img
                 style={{ padding: '17px 0px 0px 16px' }}
@@ -179,7 +179,7 @@ const Home = () => {
               nec augueegestas ullamcorper
             </Typography>
           </Grid>
-          <Grid item lg={3} md={12} sm={12} xs={12}>
+          <Grid item lg={3} md={3} sm={3} xs={12}>
             <div style={styles.money}>
               <img
                 style={{ padding: '22px 0px 0px 20px' }}
@@ -198,7 +198,7 @@ const Home = () => {
               nec augueegestas ullamcorper
             </Typography>
           </Grid>
-          <Grid item lg={3} md={3} sm={12} xs={12}>
+          <Grid item lg={3} md={3} sm={3} xs={12}>
             <div style={styles.pqKraka}>
               <img
                 style={{ padding: '20px 0px 0px 17px' }}
@@ -222,8 +222,8 @@ const Home = () => {
               Novidades
             </Typography>
           </Grid>
-          <Grid item container justify="space-between" lg={12} md={12} sm={12}>
-            {products.map((item, i) => (
+          
+          {products.map((item, i) => (
               <Grid item lg={3} md={3} sm={3}>
                 <Produto
                   produto={item}
@@ -233,6 +233,8 @@ const Home = () => {
                 />
               </Grid>
             ))}
+          <Grid item container  lg={12} md={12} sm={12}>
+            
             <Grid
               item
               container
