@@ -84,7 +84,7 @@ export default function MyAddress() {
       <Alerta
         openAlert={open}
         message={message}
-        handleClose={handleClose}
+        handleClose={handleClose} 
         status={status}
         vertical="top"
         horizontal="right"
@@ -94,8 +94,9 @@ export default function MyAddress() {
         spacing={2}
         justify="space-around"
         style={{ marginTop: 32, padding: 16 }}
+        md={12}
       >
-        <Grid item lg={5} md={5} sm={5} xs={5}>
+        <Grid item lg={6} md={6} sm={6} xs={6}>
           <TextField
             placeholder="Digite Seu Nome"
             label="Nome"
@@ -106,7 +107,7 @@ export default function MyAddress() {
             }}
           />
         </Grid>
-        <Grid item lg={5} md={5} sm={5} xs={5}>
+        <Grid item lg={6} md={6} sm={6} xs={6}>
           <TextField
             placeholder="Digite Seu CEP"
             label="CEP"
@@ -117,7 +118,7 @@ export default function MyAddress() {
             }}
           />
         </Grid>
-        <Grid item lg={5} md={5} sm={5} xs={5}>
+        <Grid item lg={6} md={6} sm={6} xs={6}>
           <TextField
             placeholder="Digite Seu CPF"
             label="CPF"
@@ -128,7 +129,7 @@ export default function MyAddress() {
             }}
           />
         </Grid>
-        <Grid item lg={5} md={5} sm={5} xs={5}>
+        <Grid item lg={6} md={6} sm={6} xs={6}>
           <TextField
             placeholder="Digite Seu Bairro"
             label="Bairro"
@@ -139,7 +140,7 @@ export default function MyAddress() {
             }}
           />
         </Grid>
-        <Grid item lg={5} md={5} sm={5} xs={5}>
+        <Grid item lg={6} md={6} sm={6} xs={6}>
           <TextField
             placeholder="Digite Sua Cidade"
             label="Cidade"
@@ -150,7 +151,7 @@ export default function MyAddress() {
             }}
           />
         </Grid>
-        <Grid item lg={5} md={5} sm={5} xs={5}>
+        <Grid item lg={6} md={6} sm={6} xs={6}>
           <TextField
             placeholder="Digite Sua Rua"
             label="Rua"
@@ -161,7 +162,7 @@ export default function MyAddress() {
             }}
           />
         </Grid>
-        <Grid item lg={5} md={5} sm={5} xs={5}>
+        <Grid item lg={6} md={6} sm={6} xs={6}>
           <TextField
             placeholder="Digite seu Numero"
             label="Número"
@@ -172,7 +173,7 @@ export default function MyAddress() {
             }}
           />
         </Grid>
-        <Grid item lg={5} md={5} sm={5} xs={5}>
+        <Grid item lg={6} md={6} sm={6} xs={6}>
           <TextField
             placeholder="Digite seu Complemento"
             label="Complemento"
