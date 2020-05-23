@@ -11,13 +11,14 @@ import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import { useSelector, useDispatch } from 'react-redux';
+import Hidden from '@material-ui/core/Hidden';
 import ContaComp from '../components/ContaComp';
 import FooterComp from '../components/Footer';
 import Topo from '../components/Topo';
 import Navbar from '../components/Nav';
 import Alerta from '../components/Alerta';
 import api from '../Services/ApiService';
-import Hidden from '@material-ui/core/Hidden';
+
 const styles = {
   background: {
     backgroundColor: '#D0D0D0',
@@ -37,15 +38,9 @@ const styles = {
     borderRadius: 10,
   },
   botao: {
-    marginTop: 30,
-    marginLeft: 310,
     height: 50,
     width: '20%',
   },
-  tel: {width: 200 },
-  newpass: {  width: 200 },
-  nome: {  width: 200 },
-  pass: {  width: 200 },
 };
 
 function TextMaskCustom(props) {
@@ -151,92 +146,94 @@ export default function Datalhes() {
           vertical="top"
           horizontal="right"
         />
-        <Grid container spacing={2} diretion="row" justify="space-around">
+        <Grid container spacing={2} justify="space-around">
           <Grid item lg={12} md={12} sm={12} xs={12}>
-            <Typography
-              variant="h4"
-              color="primary"
-              style={{ marginTop: 64, marginBottom: 64 }}
-            >
+            <Typography variant="h4" color="primary" style={{ marginTop: 64 }}>
               Minha Conta
             </Typography>
           </Grid>
-          <Grid direction = 'row' item lg={4} md={4} sm={4} xs={12}>
+          <Grid
+            item
+            container
+            justify="space-around"
+            lg={3}
+            md={3}
+            sm={12}
+            xs={12}
+            style={{ marginBottom: 32 }}
+          >
             <ContaComp />
           </Grid>
-
           <Grid
-            container
             item
-            lg={8}
-            sm={8}
+            container
+            lg={7}
+            md={7}
+            sm={12}
+            xs={12}
             spacing={2}
-            justify="flex-start"
-            style={{ paddingTop: 50, backgroundColor: 'white', borderRadius: 10 }}
+            justify="space-around"
+            style={{
+              backgroundColor: 'white',
+              borderRadius: 10,
+              width: '100%',
+              height: '100%',
+              padding: 30,
+            }}
           >
-
-            <Grid container spacing={2} lg={12} justify="center" direction='row'>
-            <Hidden smDown='true'>
-              <Grid item lg={2}></Grid>                
-              </Hidden>
-              <Grid item lg={5} md={5} sm={5} xs={7}>
-                <TextField
-                  type="password"
-                  label="Senha Atual"
-                  style={styles.pass}
-                  value={pass}
+            <Grid item lg={6} md={6} sm={12} xs={12}>
+              <TextField
+                type="password"
+                label="Senha Atual"
+                value={pass}
+                fullWidth
+                onChange={(event) => {
+                  setPass(event.target.value);
+                }}
+              />
+            </Grid>
+            <Grid item lg={6} md={6} sm={12} xs={12}>
+              <TextField
+                color="primary"
+                label="Nome"
+                fullWidth
+                value={nome}
+                onChange={(event) => {
+                  setNome(event.target.value);
+                }}
+              />
+            </Grid>
+            <Grid item lg={6} md={6} sm={12} xs={12}>
+              <TextField
+                type="password"
+                fullWidth
+                label="Nova Senha"
+                value={newPass}
+                onChange={(event) => {
+                  setNewPass(event.target.value);
+                }}
+              />
+            </Grid>
+            <Grid item lg={6} md={6} sm={12} xs={12}>
+              <FormControl style={{ width: '100%' }}>
+                <InputLabel
+                  style={{ fontSize: '1.25em' }}
+                  htmlFor="formatted-text-mask-input"
+                >
+                  Telefone
+                </InputLabel>
+                <Input
+                  defaultValue={values.default}
+                  onChange={handleChange}
+                  name="textmask"
+                  id="formatted-text-mask-input"
+                  value={tel}
                   onChange={(event) => {
-                    setPass(event.target.value);
+                    setTel(event.target.value);
                   }}
+                  inputComponent={TextMaskCustom}
                 />
-              </Grid>
-              <Grid item lg={5} md={5} sm={5} xs={7}>
-                <TextField
-                  color="primary"
-                  label="Nome"
-                  defaultValue="Gustavo Santos"
-                  style={styles.nome}
-                  value={nome}
-                  onChange={(event) => {
-                    setNome(event.target.value);
-                  }}
-                />
-              </Grid>
-              <Hidden smDown='true'>
-              <Grid item lg={2}></Grid>                
-              </Hidden>
-              <Grid item lg={5} md={5} sm={5} xs={7}>
-                <TextField
-                  style={styles.newpass}
-                  type="password"
-                  label="Nova Senha"
-                  value={newPass}
-                  onChange={(event) => {
-                    setNewPass(event.target.value);
-                  }}
-                />
-              </Grid>
-              <Grid item lg={5} md={5} sm={5} xs={7}>
-                <FormControl style={styles.tel}>
-                  <InputLabel
-                    style={{ fontSize: '1.25em' }}
-                    htmlFor="formatted-text-mask-input"
-                  >
-                    Telefone
-                  </InputLabel>
-                  <Input
-                    defaultValue={values.default}
-                    onChange={handleChange}
-                    name="textmask"
-                    id="formatted-text-mask-input"
-                    value={tel}
-                    onChange={(event) => {
-                      setTel(event.target.value);
-                    }}
-                    inputComponent={TextMaskCustom}
-                  />
-                </FormControl>
-              </Grid>
+              </FormControl>
             </Grid>
             <Grid item lg={12} container justify="flex-end">
               <Button
@@ -252,7 +249,7 @@ export default function Datalhes() {
                       /*
                         VERIFICAR SE A SENHA ATUAL ESTÁ CERTA
                       */
-                     
+
                       setStatus('sucess');
                       setMessage('Alterações salvas!');
 

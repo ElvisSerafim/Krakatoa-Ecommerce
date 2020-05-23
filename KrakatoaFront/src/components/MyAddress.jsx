@@ -84,7 +84,7 @@ export default function MyAddress() {
       <Alerta
         openAlert={open}
         message={message}
-        handleClose={handleClose} 
+        handleClose={handleClose}
         status={status}
         vertical="top"
         horizontal="right"
@@ -94,7 +94,7 @@ export default function MyAddress() {
         spacing={2}
         justify="space-around"
         style={{ marginTop: 32, padding: 16 }}
-        md={12}
+        lg={12}
       >
         <Grid item lg={6} md={6} sm={6} xs={6}>
           <TextField
@@ -217,7 +217,7 @@ export default function MyAddress() {
                   break;
                 case numero.length === 0:
                   setMessage('Insira o numero da sua casa!');
-                  break;                  
+                  break;
                 default:
                   setMessage('Alterações salvas!');
                   setStatus('success');
