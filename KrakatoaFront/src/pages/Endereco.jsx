@@ -121,7 +121,7 @@ export default class Endereco extends PureComponent {
         case sobrenome.length === 0 || sobrenome === ' ':
           this.setState({ message: 'Insira seu sobrenome!' });
           break;
-        case telefone.length !== 11:
+        case telefone.toString().length !== 11:
           this.setState({
             message: 'Você deve inserir um número de telefone válido com DDD',
           });
@@ -458,7 +458,7 @@ export default class Endereco extends PureComponent {
                             height: 50,
                             textDecoration: 'none',
                           }}
-                          onClick={this.enviar}
+                          onClick={() => {this.enviar()}}
                           href="/checkout"
                         >
                           Continuar

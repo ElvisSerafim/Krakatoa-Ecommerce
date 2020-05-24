@@ -17,7 +17,6 @@ import Estilos from '../Estilos';
 
 const styles = {
   foto: {
-    backgroundColor: 'black',
     borderRadius: 5,
     height: 122,
     marginTop: 10,
