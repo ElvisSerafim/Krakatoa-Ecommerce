@@ -1,7 +1,7 @@
 /* Pagina de Contato
  */
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography, Box } from '@material-ui/core/';
+import { Container, Grid, Typography, Hidden } from '@material-ui/core/';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import FooterComp from '../components/Footer';
@@ -10,7 +10,7 @@ import Lista from '../components/ListaPedidos';
 import ContaComp from '../components/ContaComp';
 import api from '../Services/ApiService';
 import { useSelector, useDispatch } from 'react-redux';
-
+import PedidosMobile from '../components/PedidosMobile';
 
 const Pedidos = () => {
   const [pedidosUsuario, setPedidos] = useState([]);
@@ -60,9 +60,26 @@ const Pedidos = () => {
           <Grid item lg={4} sm={12}>
             <ContaComp />
           </Grid>
-          <Grid style={{ width: '100%' }} item lg={8} sm={12}>
-            <Lista pedidos={pedidosUsuario} />
-          </Grid>
+          <Hidden smDown="true">
+            <Grid style={{ width: '100%' }} item lg={8} sm={12}>
+              <Lista pedidos={pedidosUsuario} />
+            </Grid>
+          </Hidden>
+          <Hidden lgUp="true">
+            <Typography
+              variant="h4"
+              style={{
+                fontWeight: 'bold',
+                marginTop: '20px'
+              }}
+              color="primary"
+            >
+              Meus Pedidos
+          </Typography>
+            <div style={{ marginBottom: 20, paddingLeft: 30}}>
+              <PedidosMobile pedidos={pedidosUsuario}/>
+            </div>
+          </Hidden>
         </Grid>
       </Container>
       <FooterComp />

@@ -83,7 +83,6 @@ const Produto = ({ produto, title, addItem, update }) => {
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
                 R$ {preco}
-                {colecao}
               </Typography>
             </div>
             <AddShoppingCartIcon

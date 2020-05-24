@@ -249,7 +249,6 @@ const Carrinho = () => {
                         onChange={(event) => {
                           setCep(event.target.value);
                         }}
-                        value={cep}
                         style={{
                           color: 'red',
                           backgroundColor: 'white',
