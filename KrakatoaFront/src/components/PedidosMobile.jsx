@@ -41,15 +41,20 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-
+const setData = (data) => {
+  if(data != undefined){
+    const stringData = data.toString();
+    const arrayString = stringData.split('T');
+    return arrayString[0];
+  }
+  return '';
+}
 
 
 
 const PedidosMobile = ({ theme, pedidos }) => {
   const classes = useStyles();
 
-  const [mec, setSearch] = useState('');
-  const [teste, setTeste] = useState([1, 1, 1, 1, 1]);
   return (
     <>
       <div className={classes.root}>
@@ -63,7 +68,7 @@ const PedidosMobile = ({ theme, pedidos }) => {
               >
                 <div style={Estilo.flexRowSPACEBTW}>
                   <Typography className={classes.heading}>Pedido {i + 1}</Typography>
-                  <Typography className={classes.heading}>Data: 12/12/2000</Typography>
+                  <Typography className={classes.heading}>Data: {setData(item.pedido.data)}</Typography>
                 </div>
 
               </ExpansionPanelSummary>
@@ -89,13 +94,13 @@ const PedidosMobile = ({ theme, pedidos }) => {
                           <TableBody>
                             {item.produtosPedido.map((row, i) => (
                               <StyledTableRow >
-                                <div style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'column', marginBottom: '10px', border: 'solid', borderRadius: 10, padding: '5px', boxShadow: '10px 10px 20px black' }}>
+                                <div style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'column', marginBottom: '10px', border: 'solid', borderRadius: 10, padding: '5px' }}>
                                   <div style={{ fontFamily: 'Poppins', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                                     <p style={{ margin: 0 }}>{row.produto.nome}</p>
                                     <p style={{ margin: 0 }}>Qnt: {row.quantidade}</p>
                                   </div>
                                   <div style={{ fontFamily: 'Poppins', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <p>Tamanho: {row.tamanhoEscolhida}</p>
+                                    <p>Tam: {row.tamanhoEscolhida}</p>
                                     <p>Cor: {row.corEscolhida}</p>
                                   </div>
                                   <div style={Estilo.flexColumnCENTER}>

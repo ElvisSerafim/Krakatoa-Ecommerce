@@ -44,7 +44,7 @@ const Pedidos = () => {
 
   return (
     <>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" style={{marginBottom: 64}}>
         <Topo />
         <Navbar />
         <Grid container spacing={2} diretion="row" justify="flex-start">
@@ -76,7 +76,7 @@ const Pedidos = () => {
             >
               Meus Pedidos
           </Typography>
-            <div style={{ marginBottom: 20, paddingLeft: 30}}>
+            <div style={{ marginBottom: 20, width: '100%'}}>
               <PedidosMobile pedidos={pedidosUsuario}/>
             </div>
           </Hidden>
