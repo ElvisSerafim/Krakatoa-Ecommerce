@@ -120,9 +120,17 @@ const Login = () => {
             />
           </div>
         </Grid>
-        <Grid item lg={12} md={12} sm={12} xs={12} container flexDirection="row">
-        <Grid item lg={2} md={12} sm={12} xs={12}>
-        <div style={styles.botaoEntrar}>
+        <Grid
+          item
+          lg={12}
+          md={12}
+          sm={12}
+          xs={12}
+          container
+          flexDirection="row"
+        >
+          <Grid item lg={2} md={12} sm={12} xs={12}>
+            <div style={styles.botaoEntrar}>
               <Button
                 variant="contained"
                 color="primary"
@@ -132,22 +140,30 @@ const Login = () => {
                 Entrar
               </Button>
             </div>
-        </Grid>
-        <Grid item lg={6} md={12} sm={12} container flexDirection='row' xs={12}>
-              <Checkbox
-                onChange={(event) => {
-                  setSessao(event.target.checked);
-                }}
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-              />
-              <Typography
-                variant="body2"
-                color="secondary"
-                style={{ marginBottom: 0 }}
-              >
-                Lembre-me
-              </Typography>
-         </Grid>
+          </Grid>
+          <Grid
+            item
+            lg={6}
+            md={12}
+            sm={12}
+            container
+            flexDirection="row"
+            xs={12}
+          >
+            <Checkbox
+              onChange={(event) => {
+                setSessao(event.target.checked);
+              }}
+              inputProps={{ 'aria-label': 'primary checkbox' }}
+            />
+            <Typography
+              variant="body2"
+              color="secondary"
+              style={{ marginBottom: 0 }}
+            >
+              Lembre-me
+            </Typography>
+          </Grid>
           <div
             style={{
               ...Estilos.flexRowStandard,
@@ -155,15 +171,13 @@ const Login = () => {
               alignSelf: 'center',
             }}
           >
-           
             <div
               style={{
                 ...Estilos.flexRowStandard,
                 flexWrap: 'nowrap',
                 alignSelf: 'center',
               }}
-            >
-            </div>
+            />
           </div>
         </Grid>
         <Grid item lg={12} md={12} sm={12} xs={12}>

@@ -16,11 +16,11 @@ export default function MyAddress() {
   const [rua, setRua] = useState('');
   const [numero, setNumero] = useState('');
   const [complemento, setComplemento] = useState('');
-  const [nomeCompleto, setNomeCompleto] = useState('');
-  const [token, setToken] = useState(sessionStorage.getItem('token'));
+  const [token] = useState(sessionStorage.getItem('token'));
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('error');
   const [open, setOpen] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
 
   const usuario = useSelector((state) => state.user);
 
@@ -29,7 +29,6 @@ export default function MyAddress() {
       const tentativa = await usuario;
       const { user } = tentativa;
       const tokenUsuario = localStorage.getItem('token');
-      console.log(user);
       setNome(user.nome);
       setNumero(user.endereco.numero);
       setCpf(user.cpf);
@@ -65,10 +64,14 @@ export default function MyAddress() {
       };
       const request = await api.UsuarioEndereco(data);
       if (request) {
-        console.log(request);
+        setOpenAlert(true);
+        setMessage('Mensagem enviada com sucesso!');
+        setStatus('success');
       }
     } catch (error) {
-      console.log(error);
+      setOpenAlert(true);
+      setMessage('Checar Email e Senha');
+      setStatus('error');
     }
   };
 
