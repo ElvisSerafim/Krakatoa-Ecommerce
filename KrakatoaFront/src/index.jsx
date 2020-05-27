@@ -25,6 +25,7 @@ import MyAddress from './pages/MyAddress';
 import { sendAllProducts } from './reducers/allProducts';
 import {PrivateRoute} from './Services/auth';
 import Pedidos from './pages/Pedidos';
+import Politicas from './pages/Politicas';
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
@@ -91,6 +92,7 @@ ReactDOM.render(
           <Route path="/testeGabriel" component={TesteGabriel} />
           <Route path="/login" component={Login} render={(props) => <Login {...props} />} />
           <Route path='/inicio' component={Home}/>
+          <Route path='/politicasdaloja' component={Politicas}/>
           <PrivateRoute path="/conta" exact component={MinhaConta} />
           <PrivateRoute path="/endereco" component={Endereco} />
           <PrivateRoute path="/sumario" component={Sumario} />
