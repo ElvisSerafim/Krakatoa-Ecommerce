@@ -11,7 +11,6 @@ import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import { useSelector, useDispatch } from 'react-redux';
-import Hidden from '@material-ui/core/Hidden';
 import ContaComp from '../components/ContaComp';
 import FooterComp from '../components/Footer';
 import Topo from '../components/Topo';
@@ -84,6 +83,7 @@ export default function Datalhes() {
   const [status, setStatus] = useState('error');
   const [passCurrent, setPassCurrent] = useState('');
   const [token, setToken] = useState(sessionStorage.getItem('token'));
+  const [openAlert, setOpenAlert] = useState(false);
   const [values, setValues] = React.useState({
     default: '71999362212',
     numberformat: '1320',
@@ -95,8 +95,6 @@ export default function Datalhes() {
     const getUser = async () => {
       const tentativa = await usuario;
       const { user } = tentativa;
-      const tokenUsuario = localStorage.getItem('token');
-      console.log(user);
       setPassCurrent(user.password);
       setNome(user.nome);
       setTel(user.telefone);
@@ -106,18 +104,29 @@ export default function Datalhes() {
   }, []);
 
   const enviar = async () => {
-    if (nome === '') throw new Error('Nome Vazio');
-    if (newPass === '') throw new Error('Nova Senha Vazio');
-    if (tel === '') throw new Error('Telefone Vazio');
+    try {
+      if (nome === '') throw new Error('Nome Vazio');
+      if (newPass === '') throw new Error('Nova Senha Vazio');
+      if (tel === '') throw new Error('Telefone Vazio');
 
-    const data = {
-      nome,
-      password: pass,
-      newPassword: newPass,
-      telefone: tel,
-      token,
-    };
-    const request = await api.AtualizaUsuario(data);
+      const data = {
+        nome,
+        password: pass,
+        newPassword: newPass,
+        telefone: tel,
+        token,
+      };
+      const request = await api.AtualizaUsuario(data);
+      if (request) {
+        setOpenAlert(true);
+        setMessage('Dados Alterados com Sucesso');
+        setStatus('success');
+      }
+    } catch (error) {
+      setOpenAlert(true);
+      setMessage('Falha na mudança');
+      setStatus('error');
+    }
   };
 
   const handleClose = (event, reason) => {
@@ -135,9 +144,9 @@ export default function Datalhes() {
   };
   return (
     <>
+      <Topo />
+      <Navbar />
       <Container maxWidth="lg" style={{ marginBottom: 64 }}>
-        <Topo />
-        <Navbar />
         <Alerta
           openAlert={open}
           message={message}

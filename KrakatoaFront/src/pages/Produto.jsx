@@ -60,7 +60,7 @@ const styles = {
     width: '100%',
     borderRadius: '10px',
     objectFit: 'cover',
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   product: { color: 'white', fontSize: '0.7em', padding: 10 },
   num: { paddingLeft: 350, color: '#F0F0F0' },
@@ -111,13 +111,14 @@ const ProdutoPage = ({ match }) => {
     produtos.map((item, i) => {
       if (item.id === match.params.id) {
         tipo = item.tipo;
-        console.log(item);
         setSizes(item.tamanho);
         setColors(item.cores);
         setPosicao(i);
         if (item.imagens.length != 0) {
           item.Imageurl = `http://localhost:4000/static/imgs/${item.imagens[0]}.jpeg`;
-          setFotoAtual(`http://localhost:4000/static/imgs/${item.imagens[0]}.jpeg`);
+          setFotoAtual(
+            `http://localhost:4000/static/imgs/${item.imagens[0]}.jpeg`,
+          );
           setFotos(item.imagens);
         } else {
           item.Imageurl = `http://localhost:4000/static/imgs/${item.id}.jpeg`;
@@ -139,7 +140,6 @@ const ProdutoPage = ({ match }) => {
 
   const addItemCart = (productCart, quantity) => {
     productCart.quantidade = quantity;
-    console.log(productCart);
     dispatch(addCart(productCart));
   };
 
@@ -178,9 +178,9 @@ const ProdutoPage = ({ match }) => {
 
   return (
     <>
+      <Topo />
+      <Navbar />
       <Container maxWidth="lg" style={{ marginBottom: 64 }}>
-        <Topo />
-        <Navbar />
         <Grid container spacing={2} diretion="row" justify="flex-start">
           <Grid item lg={1} md={1}>
             <div style={styles.marginDiv}>
@@ -188,10 +188,14 @@ const ProdutoPage = ({ match }) => {
                 <div style={styles.foto}>
                   <img
                     src={`http://localhost:4000/static/imgs/${item}.jpeg`}
-                    onClick={(event)=>{
-                      setFotoAtual(`http://localhost:4000/static/imgs/${item}.jpeg`);
-                    }} 
-                    style={styles.img} alt="produto" />
+                    onClick={(event) => {
+                      setFotoAtual(
+                        `http://localhost:4000/static/imgs/${item}.jpeg`,
+                      );
+                    }}
+                    style={styles.img}
+                    alt="produto"
+                  />
                 </div>
               ))}
             </div>

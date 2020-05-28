@@ -49,15 +49,14 @@ export default function CustomizedTables({ pedidos }) {
   const classes = useStyles();
   const [pedidosUsuario, setPedidos] = useState(pedidos.produtosPedido);
 
-
   const setData = (data) => {
-    if(data != undefined){
+    if (data !== undefined) {
       const stringData = data.toString();
       const arrayString = stringData.split('T');
       return arrayString[0];
     }
     return '';
-  }
+  };
   console.log(pedidos);
 
   return (
@@ -77,18 +76,27 @@ export default function CustomizedTables({ pedidos }) {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-
                   <div style={Estilo.flexRowSPACEBTW}>
-                    <Typography className={classes.heading}>Pedido {i + 1}</Typography>
-                    <Typography className={classes.heading}>Frete: R$ {row.pedido.frete}</Typography>
-                    <Typography className={classes.heading}>Preço Total: R$ {row.pedido.precoTotal}</Typography>
-                    <Typography className={classes.heading}>Data: {setData(row.pedido.data)}</Typography>
+                    <Typography className={classes.heading}>
+                      Pedido {i + 1}
+                    </Typography>
+                    <Typography className={classes.heading}>
+                      Frete: R$ {row.pedido.frete}
+                    </Typography>
+                    <Typography className={classes.heading}>
+                      Preço Total: R$ {row.pedido.precoTotal}
+                    </Typography>
+                    <Typography className={classes.heading}>
+                      Data: {setData(row.pedido.data)}
+                    </Typography>
                   </div>
-
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
-                  <Table className={classes.table} aria-label="customized table">
-                    <TableBody >
+                  <Table
+                    className={classes.table}
+                    aria-label="customized table"
+                  >
+                    <TableBody>
                       {row.produtosPedido.map((item, i) => (
                         <StyledTableRow key={i}>
                           <StyledTableCell component="th" scope="row">
@@ -104,7 +112,9 @@ export default function CustomizedTables({ pedidos }) {
                             <p>Quantidade: {item.quantidade}</p>
                           </StyledTableCell>
                           <StyledTableCell component="th" scope="row">
-                            <p>Preço: R$ {item.produto.preco * item.quantidade}</p>
+                            <p>
+                              Preço: R$ {item.produto.preco * item.quantidade}
+                            </p>
                           </StyledTableCell>
                         </StyledTableRow>
                       ))}

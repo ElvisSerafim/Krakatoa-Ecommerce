@@ -7,12 +7,12 @@ import Badge from '@material-ui/core/Badge';
 import Conta from '@material-ui/icons/AccountCircleOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
-import SearchBar from './SearchBar';
-import logo from '../img/logoVermelha.jpg';
-import Drawer from './Drawer';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import SearchBar from './SearchBar';
+import logo from '../img/logoVermelha.jpg';
+import Drawer from './Drawer';
 
 const useStyles = makeStyles(() => ({
   box: {
@@ -22,9 +22,6 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'space-around',
     alignItems: 'center',
     marginTop: '2%',
-    '@media (max-width: 950px)': {
-      /* flexDirection: 'row-reverse', */
-    },
   },
 
   colorPrimary: {
@@ -32,6 +29,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: "#44323D"
   }
 }));
+
 
 const StyledBadge = withStyles((theme) => ({
 }))(Badge);
@@ -44,7 +42,7 @@ const Topo = () => {
     <Container maxWidth="lg">
       <div className={classes.Top}>
         <Box className={classes.box}>
-          <Hidden mdUp="true">
+          <Hidden mdUp>
             <Drawer />
           </Hidden>
           <Link to="/" style={{ textDecoration: 'none' }}>
@@ -82,13 +80,12 @@ const Topo = () => {
               </Typography>
             </Box>
           </Link>
-          <Hidden smDown="true">
+          <Hidden smDown>
             <div style={{ minWidth: '200px', maxWidth: '100%' }}>
               <SearchBar />
             </div>
           </Hidden>
           <Hidden smDown="true">
-
             <a href="/conta/">
               <IconButton aria-label="conta">
                 <Conta color="primary" fontSize="large" />

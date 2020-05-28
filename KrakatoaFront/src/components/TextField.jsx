@@ -296,7 +296,6 @@ class TextField extends Component {
           <input
             value={this.props.value}
             onChange={this.props.onChange}
-            onFocus={(this.value = '')}
             style={{ ...styles.main, ...style }}
           >
             {children}
@@ -314,7 +313,6 @@ class TextField extends Component {
         <input
           value={this.props.value}
           onChange={this.props.onChange}
-          onFocus={(this.value = '')}
           style={{ ...styles.main, ...style }}
         >
           {children}
