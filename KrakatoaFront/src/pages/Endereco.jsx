@@ -53,7 +53,7 @@ const theme = createMuiTheme({
 });
 let path = '';
 
-export default class Endereco extends PureComponent {
+class Endereco extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -498,3 +498,4 @@ export default class Endereco extends PureComponent {
     );
   }
 }
+export default Endereco;
