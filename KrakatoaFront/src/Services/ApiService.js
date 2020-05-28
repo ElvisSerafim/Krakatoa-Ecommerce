@@ -3,7 +3,7 @@
 const ApiService = {
   ListaProdutos: async () => {
     try {
-      const url = 'http://localhost:4000/api/produtos/';
+      const url = 'http://64.227.106.165/api/produtos/';
       const requestInfo = {
         method: 'GET',
         headers: new Headers({
@@ -22,7 +22,7 @@ const ApiService = {
   },
   GetProdutos: async (data) => {
     try {
-      const url = 'http://localhost:4000/api/produtos/query';
+      const url = 'http://64.227.106.165/api/produtos/query';
       const requestInfo = {
         method: 'POST',
         body: JSON.stringify(data),
@@ -45,7 +45,7 @@ const ApiService = {
   },
   Cadastro: async (data) => {
     try {
-      const url = 'http://localhost:4000/api/user/';
+      const url = 'http://64.227.106.165/api/user/';
       const requestInfo = {
         method: 'POST',
         body: JSON.stringify(data),
@@ -70,7 +70,7 @@ const ApiService = {
   },
   Login: async (data) => {
     try {
-      const url = 'http://localhost:4000/api/user/login';
+      const url = 'http://64.227.106.165/api/user/login';
       const requestInfo = {
         method: 'POST',
         body: JSON.stringify(data),
@@ -96,7 +96,7 @@ const ApiService = {
   },
   AtualizaUsuario: async (data) => {
     try {
-      const url = 'http://localhost:4000/api/user/me';
+      const url = 'http://64.227.106.165/api/user/me';
       const { token } = data;
       const requestInfo = {
         method: 'PUT',
@@ -117,7 +117,7 @@ const ApiService = {
   },
   UsuarioEndereco: async (data) => {
     try {
-      const url = 'http://localhost:4000/api/user/me/endereco';
+      const url = 'http://64.227.106.165/api/user/me/endereco';
       const { token } = data;
       const Authorization = `Bearer ${token}`;
       const requestInfo = {
@@ -138,7 +138,7 @@ const ApiService = {
     }
   },
   ApagarUsuario: async (email, password) => {
-    const res = await (fetch('http://localhost:4000/api/user'),
+    const res = await (fetch('http://64.227.106.165/api/user'),
     {
       method: 'DELETE',
       headers: { 'content-type': 'application/json' },
@@ -159,7 +159,7 @@ const ApiService = {
         }),
       };
       const request = await fetch(
-        'http://localhost:4000/api/contato',
+        'http://64.227.106.165/api/contato',
         requestInfo,
       );
       if (request.ok) {
@@ -181,7 +181,7 @@ const ApiService = {
         }),
       };
       const request = await fetch(
-        'http://localhost:4000/api/calcPrazo',
+        'http://64.227.106.165/api/calcPrazo',
         requestInfo,
       );
       if (request.ok) {
@@ -202,7 +202,7 @@ const ApiService = {
           'Content-Type': 'application/json',
         }),
       };
-      const url = 'http://localhost:4000/api/calcPrazoPreco';
+      const url = 'http://64.227.106.165/api/calcPrazoPreco';
       const request = await fetch(url, requestInfo);
       if (request.ok) {
         return request.json();
@@ -224,7 +224,7 @@ const ApiService = {
           'Content-Type': 'application/json',
         }),
       };
-      const url = 'http://localhost:4000/api/user/me/logout';
+      const url = 'http://64.227.106.165/api/user/me/logout';
       const request = await fetch(url, requestInfo);
       if (request.ok) {
         return request.json();
@@ -236,7 +236,7 @@ const ApiService = {
   },
   getUsuario: async (data) => {
     try {
-      const url = 'http://localhost:4000/api/user/me/';
+      const url = 'http://64.227.106.165/api/user/me/';
       const { token } = data;
       const requestInfo = {
         method: 'GET',
@@ -268,7 +268,7 @@ const ApiService = {
           'Content-Type': 'application/json',
         }),
       };
-      const url = 'http://localhost:4000/api/pedidos';
+      const url = 'http://64.227.106.165/api/pedidos';
       const request = await fetch(url, requestInfo);
       if (request.ok) {
         return request.json();

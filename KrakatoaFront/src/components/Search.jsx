@@ -19,7 +19,7 @@ class BodyData extends Component {
   };
 
   getData = () => {
-    fetch(`http://localhost:4000/api/produtos/`)
+    fetch(`http://64.227.106.165/api/produtos/`)
       .then((response) => response.json())
       .then((responseData) => {
         // console.log(responseData)

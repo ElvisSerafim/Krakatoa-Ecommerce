@@ -115,13 +115,13 @@ const ProdutoPage = ({ match }) => {
         setColors(item.cores);
         setPosicao(i);
         if (item.imagens.length != 0) {
-          item.Imageurl = `http://localhost:4000/static/imgs/${item.imagens[0]}.jpeg`;
+          item.Imageurl = `http://64.227.106.165/api/static/imgs/${item.imagens[0]}.jpeg`;
           setFotoAtual(
-            `http://localhost:4000/static/imgs/${item.imagens[0]}.jpeg`,
+            `http://64.227.106.165/api/static/imgs/${item.imagens[0]}.jpeg`,
           );
           setFotos(item.imagens);
         } else {
-          item.Imageurl = `http://localhost:4000/static/imgs/${item.id}.jpeg`;
+          item.Imageurl = `http://64.227.106.165/api/static/imgs/${item.id}.jpeg`;
           setFotoAtual(item.Imageurl);
         }
         setProduct(item);
@@ -187,10 +187,10 @@ const ProdutoPage = ({ match }) => {
               {fotos.map((item) => (
                 <div style={styles.foto}>
                   <img
-                    src={`http://localhost:4000/static/imgs/${item}.jpeg`}
+                    src={`http://64.227.106.165/api/static/imgs/${item}.jpeg`}
                     onClick={(event) => {
                       setFotoAtual(
-                        `http://localhost:4000/static/imgs/${item}.jpeg`,
+                        `http://64.227.106.165/api/static/imgs/${item}.jpeg`,
                       );
                     }}
                     style={styles.img}
