@@ -6,13 +6,11 @@ export default function reducer(state = INITIAL_STATE, action) {
     let flag = false;
     state.map((item, i) => {
       if (item.nome === action.product.nome) {
-        console.log('Encontrado');
         item.quantidade += action.product.quantidade;
         flag = true;
       }
     });
     if (flag === true) {
-      console.log([...state]);
       return [...state];
     }
     return [...state, action.product];

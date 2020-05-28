@@ -13,7 +13,6 @@ const ApiService = {
       const request = await fetch(url, requestInfo);
       if (request.ok) {
         const response = await request.json();
-        console.log(response);
         return response;
       }
       throw new Error('Não foi possivel acessar o servidor');
@@ -125,7 +124,7 @@ const ApiService = {
         method: 'PUT',
         body: JSON.stringify(data),
         headers: new Headers({
-          Authorization: Authorization,
+          Authorization,
           'Content-Type': 'application/json',
         }),
       };
@@ -221,7 +220,7 @@ const ApiService = {
         method: 'POST',
         body: JSON.stringify(data),
         headers: new Headers({
-          Authorization: Authorization,
+          Authorization,
           'Content-Type': 'application/json',
         }),
       };
@@ -265,7 +264,7 @@ const ApiService = {
         method: 'POST',
         body: JSON.stringify(data),
         headers: new Headers({
-          Authorization: Authorization,
+          Authorization,
           'Content-Type': 'application/json',
         }),
       };
