@@ -1,8 +1,11 @@
 import React from 'react';
 import { Typography, Box, Container } from '@material-ui/core/';
 import { Link } from 'react-router-dom';
-import Carrinho from '@material-ui/icons/ShoppingCartOutlined';
+import { useSelector } from 'react-redux';
+import Carrinho from '@material-ui/icons/ShoppingCart';
+import Badge from '@material-ui/core/Badge';
 import Conta from '@material-ui/icons/AccountCircleOutlined';
+import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import SearchBar from './SearchBar';
 import logo from '../img/logoVermelha.jpg';
@@ -23,11 +26,20 @@ const useStyles = makeStyles(() => ({
       /* flexDirection: 'row-reverse', */
     },
   },
+
+  colorPrimary: {
+    color: "white",
+    backgroundColor: "#44323D"
+  }
 }));
 
+const StyledBadge = withStyles((theme) => ({
+}))(Badge);
 
 const Topo = () => {
   const classes = useStyles();
+  const allProducts = useSelector((state) => state.productsCart);
+
   return (
     <Container maxWidth="lg">
       <div className={classes.Top}>
@@ -78,12 +90,25 @@ const Topo = () => {
           <Hidden smDown="true">
 
             <a href="/conta/">
-              <Conta color="primary" fontSize="large" />
+              <IconButton aria-label="conta">
+                <Conta color="primary" fontSize="large" />
+              </IconButton>
             </a>
           </Hidden>
           <Hidden smDown="true">
             <a href="/carrinho">
-              <Carrinho color="primary" fontSize="large" />
+              <IconButton aria-label="carrinho">
+                <StyledBadge anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }} 
+                classes={{
+                  colorPrimary: classes.colorPrimary
+                }}
+                badgeContent={allProducts.length} showZero color="primary">
+                  <Carrinho color="primary" fontSize="large" />
+                </StyledBadge>
+              </IconButton>
             </a>
           </Hidden>
         </Box>

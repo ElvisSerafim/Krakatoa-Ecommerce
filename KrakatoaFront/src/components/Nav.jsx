@@ -40,8 +40,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     backgroundColor: theme.palette.background.color,
     color: '#fff',
-    border: 0
   },
+  
 }));
 
 
