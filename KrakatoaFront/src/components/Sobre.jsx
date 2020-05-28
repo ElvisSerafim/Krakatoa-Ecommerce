@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const url = 'http://64.227.106.165/static/imgs/sobre';
+const url = 'http://64.227.106.165/api/static/imgs/sobre';
 
 const Sobre = () => {
   const classes = useStyles();
