@@ -7,7 +7,6 @@ b = sessionStorage.getItem('token');
 
 function getToken() {
   if (a !== null && a.length !== 0) {
-    console.log(a);
     return a;
   }
   if (b !== null && b.length !== 0) {

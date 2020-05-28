@@ -32,7 +32,7 @@ const Topo = () => {
     <Container maxWidth="lg">
       <div className={classes.Top}>
         <Box className={classes.box}>
-          <Hidden mdUp="true">
+          <Hidden mdUp>
             <Drawer />
           </Hidden>
           <Link to="/" style={{ textDecoration: 'none' }}>
@@ -70,7 +70,7 @@ const Topo = () => {
               </Typography>
             </Box>
           </Link>
-          <Hidden smDown="true">
+          <Hidden smDown>
             <div style={{ minWidth: '200px', maxWidth: '100%' }}>
               <SearchBar />
             </div>

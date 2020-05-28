@@ -13,12 +13,11 @@ const ApiService = {
       const request = await fetch(url, requestInfo);
       if (request.ok) {
         const response = await request.json();
-        console.log(response);
         return response;
       }
       throw new Error('Não foi possivel acessar o servidor');
     } catch (error) {
-      return (error);
+      return error;
     }
   },
   GetProdutos: async (data) => {
@@ -125,7 +124,7 @@ const ApiService = {
         method: 'PUT',
         body: JSON.stringify(data),
         headers: new Headers({
-          'Authorization': Authorization,
+          Authorization,
           'Content-Type': 'application/json',
         }),
       };
@@ -204,10 +203,7 @@ const ApiService = {
         }),
       };
       const url = 'http://localhost:4000/api/calcPrazoPreco';
-      const request = await fetch(
-        url,
-        requestInfo,
-      );
+      const request = await fetch(url, requestInfo);
       if (request.ok) {
         return request.json();
       }
@@ -224,15 +220,12 @@ const ApiService = {
         method: 'POST',
         body: JSON.stringify(data),
         headers: new Headers({
-          'Authorization': Authorization,
+          Authorization,
           'Content-Type': 'application/json',
         }),
       };
       const url = 'http://localhost:4000/api/user/me/logout';
-      const request = await fetch(
-        url,
-        requestInfo,
-      );
+      const request = await fetch(url, requestInfo);
       if (request.ok) {
         return request.json();
       }
@@ -248,7 +241,7 @@ const ApiService = {
       const requestInfo = {
         method: 'GET',
         headers: new Headers({
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         }),
       };
@@ -271,15 +264,12 @@ const ApiService = {
         method: 'POST',
         body: JSON.stringify(data),
         headers: new Headers({
-          'Authorization': Authorization,
+          Authorization,
           'Content-Type': 'application/json',
         }),
       };
       const url = 'http://localhost:4000/api/pedidos';
-      const request = await fetch(
-        url,
-        requestInfo,
-      );
+      const request = await fetch(url, requestInfo);
       if (request.ok) {
         return request.json();
       }
@@ -287,8 +277,7 @@ const ApiService = {
     } catch (error) {
       return 'Não foi possivel acessar o servidor';
     }
-
-  }
+  },
 };
 
 export default ApiService;
