@@ -36,7 +36,6 @@ const Produto = ({ produto, title, addItem, update }) => {
   const classes = useStyles();
   useEffect(() => {
     if (produto.imagens.length !== 0) {
-      console.log(produto.imagens[0]);
       setImageurl(
         `http://64.227.106.165/api/static/imgs/${produto.imagens[0]}.jpeg`,
       );
