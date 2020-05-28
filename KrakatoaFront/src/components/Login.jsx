@@ -120,15 +120,7 @@ const Login = () => {
             />
           </div>
         </Grid>
-        <Grid
-          item
-          lg={12}
-          md={12}
-          sm={12}
-          xs={12}
-          container
-          flexDirection="row"
-        >
+        <Grid item lg={12} md={12} sm={12} xs={12} container>
           <Grid item lg={2} md={12} sm={12} xs={12}>
             <div style={styles.botaoEntrar}>
               <Button
@@ -141,15 +133,7 @@ const Login = () => {
               </Button>
             </div>
           </Grid>
-          <Grid
-            item
-            lg={6}
-            md={12}
-            sm={12}
-            container
-            flexDirection="row"
-            xs={12}
-          >
+          <Grid item lg={6} md={12} sm={12} container xs={12}>
             <Checkbox
               onChange={(event) => {
                 setSessao(event.target.checked);

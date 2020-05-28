@@ -8,7 +8,6 @@ import Alerta from './Alerta';
 
 export default function MyAddress() {
   const [nome, setNome] = useState('');
-  const [sobrenome, setSobrenome] = useState('');
   const [cep, setCep] = useState('');
   const [cpf, setCpf] = useState('');
   const [bairro, setBairro] = useState('');
@@ -28,7 +27,6 @@ export default function MyAddress() {
     const getUser = async () => {
       const tentativa = await usuario;
       const { user } = tentativa;
-      const tokenUsuario = localStorage.getItem('token');
       setNome(user.nome);
       setNumero(user.endereco.numero);
       setCpf(user.cpf);
@@ -65,12 +63,12 @@ export default function MyAddress() {
       const request = await api.UsuarioEndereco(data);
       if (request) {
         setOpenAlert(true);
-        setMessage('Mensagem enviada com sucesso!');
+        setMessage('Dados Alterados com Sucesso');
         setStatus('success');
       }
     } catch (error) {
       setOpenAlert(true);
-      setMessage('Checar Email e Senha');
+      setMessage('Falha na mudança');
       setStatus('error');
     }
   };
@@ -195,7 +193,6 @@ export default function MyAddress() {
             color="primary"
             fullWidth
             onClick={() => {
-              setNomeCompleto(`${nome} ${sobrenome}`);
               enviar();
               setOpen(true);
               setStatus('error');

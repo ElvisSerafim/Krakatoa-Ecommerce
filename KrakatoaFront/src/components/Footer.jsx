@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Topo = (theme) => {
+const Topo = () => {
   const classes = useStyles();
   return (
     <div className={classes.Fundo}>
@@ -116,7 +116,7 @@ const Topo = (theme) => {
               </a>
             </div>
           </Grid>
-          <Hidden smDown="true">
+          <Hidden smDown>
             <Grid item lg={4} md={4} sm={12}>
               <div>
                 <Typography variant="h4" color="secondary">
@@ -178,9 +178,7 @@ const Topo = (theme) => {
                 <Typography variant="h4" color="secondary">
                   Designer
                 </Typography>
-                <Typography style={styles.lore}>
-                  E-PUSH
-                </Typography>
+                <Typography style={styles.lore}>E-PUSH</Typography>
               </div>
             </div>
           </Grid>

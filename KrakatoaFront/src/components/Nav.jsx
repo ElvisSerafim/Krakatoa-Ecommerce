@@ -13,7 +13,7 @@ const styles = {
 };
 
 const NavBar = () => (
-  <Hidden smDown="true">
+  <Hidden smDown>
     <div style={{ width: '100%' }}>
       <Box
         display="flex"
