@@ -27,7 +27,6 @@ const theme = createMuiTheme({
     h3: {
       fontSize: '3.25em',
       fontWeight: '1000',
-      fontStyle: 'italic',
       marginTop: 64,
     },
     h4: {
@@ -47,8 +46,8 @@ const theme = createMuiTheme({
     },
     h1: {
       fontSize: '1.25em',
-      fontWeight:'bold'
-    }
+      fontWeight: 'bold',
+    },
   },
 });
 export default theme;
