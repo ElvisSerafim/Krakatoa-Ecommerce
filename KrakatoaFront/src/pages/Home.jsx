@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, Button } from '@material-ui/core/';
-import { useDispatch } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
 import Hidden from '@material-ui/core/Hidden';
@@ -21,7 +21,8 @@ import money from '../img/money.png';
 import pag from '../img/pagarIcone.png';
 import Estilos from '../Estilos';
 import api from '../Services/ApiService';
-
+import Alerta from '../components/Alerta';
+import { addCart } from '../reducers/productsCart';
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -61,7 +62,14 @@ const styles = {
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const [open, setOpen] = useState(false);
 
+  const fechar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
   useEffect(() => {
     let request = [];
     const getProducts = async () => {
@@ -79,11 +87,20 @@ const Home = () => {
 
   const addItemCart = (productCart) => {
     productCart.quantidade = 1;
-    alert();
+    dispatch(addCart(productCart));
+    setOpen(true);
   };
-
+  const dispatch = useDispatch();
   return (
     <>
+             <Alerta
+            message="Produto adicionado"
+            vertical="top"
+            horizontal="right"
+            status="success"
+            handleClose={fechar}
+            openAlert={open}
+          />
       <Topo />
       <Navbar />
       <Container maxWidth="lg">
