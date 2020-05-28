@@ -172,9 +172,9 @@ const Sumario = ({ location }) => {
 
   return (
     <>
+      <Topo />
+      <Navbar />
       <Container maxWidth="lg">
-        <Topo />
-        <Navbar />
         {location.state === undefined ? (
           <Redirect
             to={{

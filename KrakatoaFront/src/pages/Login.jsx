@@ -26,9 +26,9 @@ const LoginPage = () => {
   const classes = useStyles();
   return (
     <>
+      <Topo />
+      <Navbar />
       <Container maxWidth="lg" style={{ marginBottom: 64 }}>
-        <Topo />
-        <Navbar />
         <Typography
           variant="h3"
           color="primary"

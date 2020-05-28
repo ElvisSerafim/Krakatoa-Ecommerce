@@ -5,6 +5,7 @@ import { Container, Grid, Typography, Button } from '@material-ui/core/';
 import { useDispatch } from 'react-redux';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
+import Hidden from '@material-ui/core/Hidden';
 import TextField from '../components/TextField';
 import Produto from '../components/Produto';
 import Navbar from '../components/Nav';
@@ -13,7 +14,6 @@ import Promos from '../components/promos';
 import HomeComp from '../components/Home';
 import Footer from '../components/Footer';
 import { sendAllProducts } from '../reducers/allProducts';
-import Hidden from '@material-ui/core/Hidden';
 import Themes from '../themes';
 import deli from '../img/deli.png';
 import pqKraka from '../img/pqKraka.png';
@@ -84,11 +84,10 @@ const Home = () => {
 
   return (
     <>
+      <Topo />
+      <Navbar />
       <Container maxWidth="lg">
-        <Topo />
-        <div style={{ marginBottom: 64 }}>
-          <Navbar />
-        </div>
+        <div style={{ marginBottom: 64 }} />
       </Container>
       <Grid item lg={12} md={12}>
         <HomeComp />
@@ -222,19 +221,18 @@ const Home = () => {
               Novidades
             </Typography>
           </Grid>
-          
+
           {products.map((item, i) => (
-              <Grid item lg={3} md={3} sm={3}>
-                <Produto
-                  produto={item}
-                  update={() => {}}
-                  title={item.tipo}
-                  addItem={addItemCart}
-                />
-              </Grid>
-            ))}
-          <Grid item container  lg={12} md={12} sm={12}>
-            
+            <Grid item lg={3} md={3} sm={3}>
+              <Produto
+                produto={item}
+                update={() => {}}
+                title={item.tipo}
+                addItem={addItemCart}
+              />
+            </Grid>
+          ))}
+          <Grid item container lg={12} md={12} sm={12}>
             <Grid
               item
               container
@@ -252,39 +250,43 @@ const Home = () => {
         </Grid>
       </Container>
       <div
-      style={{
-        backgroundColor: '#44323D',
-        width: '100%',
-        paddingTop: '2vw',
-        height: 200,
-        marginBottom: 100,
-        borderRadius: 20,
+        style={{
+          backgroundColor: '#44323D',
+          width: '100%',
+          paddingTop: '2vw',
+          height: 200,
+          marginBottom: 100,
+          borderRadius: 20,
+        }}
+      >
+        <Grid
+          item
+          alignItems="center"
+          justify="space-around"
+          container
+          lg={12}
+          md={12}
+          sm={12}
+        >
+          <Grid item container xl={3} lg={3} md={4} sm={5}>
+            <div style={Estilos.flexColumnStandard}>
+              <Typography
+                color="secondary"
+                style={{ textAlign: 'center', fontSize: '1.2em' }}
+              >
+                Se inscreva no nosso loja
+              </Typography>
 
-      }}
-      
-    >
-      <Grid item  alignItems='center' justify='space-around' container lg={12}md={12}sm={12}>
-
-        <Grid item  container xl={3}lg={3} md={4} sm={5}>
-          <div style = {Estilos.flexColumnStandard}>
-          <Typography
-            color="secondary"
-            style={{ textAlign:'center' ,fontSize: '1.2em' }}
-          >
-            Se inscreva no nosso loja 
-          </Typography>
-
-
-          <Typography
-            color="secondary"
-            style={{textAlign:'center', fontSize: '1.2em' }}
-            variant="h5"
-            >
-            {' '}
-             e receba ofertas exclusivas!
-          </Typography>
-          </div>
-            </Grid>
+              <Typography
+                color="secondary"
+                style={{ textAlign: 'center', fontSize: '1.2em' }}
+                variant="h5"
+              >
+                {' '}
+                e receba ofertas exclusivas!
+              </Typography>
+            </div>
+          </Grid>
 
           <div style={{ width: 215 }}>
             <TextField
@@ -293,21 +295,15 @@ const Home = () => {
               label="Escreva seu melhor email"
             />
           </div>
-        <Grid justify="center" item container lg={3} md={3} sm={5}>
-          <div style={{borderRadius:100,width:200, paddingTop:35}}>
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-          >
-            SE INSCREVA
-          </Button>
-          
-          </div>
+          <Grid justify="center" item container lg={3} md={3} sm={5}>
+            <div style={{ borderRadius: 100, width: 200, paddingTop: 35 }}>
+              <Button variant="contained" color="primary" fullWidth>
+                SE INSCREVA
+              </Button>
+            </div>
+          </Grid>
         </Grid>
-            
-      </Grid>
-    </div>
+      </div>
       <Footer />
     </>
   );

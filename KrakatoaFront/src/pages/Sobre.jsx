@@ -28,9 +28,9 @@ const Sobre = () => {
   const classes = useStyles();
   return (
     <>
+      <Topo />
+      <Navbar />
       <Container maxWidth="lg">
-        <Topo />
-        <Navbar />
         <Typography variant="h2" color="primary">
           Sobre
         </Typography>

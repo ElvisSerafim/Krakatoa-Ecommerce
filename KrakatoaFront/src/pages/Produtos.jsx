@@ -88,6 +88,8 @@ const Produtos = ({ title, name }) => {
   const classes = useStyles();
   return (
     <>
+      <Topo />
+      <Navbar />
       <Box
         display="flex"
         justifyContent="center"
@@ -96,8 +98,6 @@ const Produtos = ({ title, name }) => {
         marginBottom="64px"
       >
         <Container maxWidth="lg">
-          <Topo />
-          <Navbar />
           <Alerta
             message="Produto adicionado"
             vertical="top"

@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography } from '@material-ui/core/';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import Hidden from '@material-ui/core/Hidden';
 import Topo from '../components/Topo';
 import FooterComp from '../components/Footer';
 import './Contato.css';
@@ -13,7 +14,6 @@ import Navbar from '../components/Nav';
 import ApiService from '../Services/ApiService';
 import ContaComp from '../components/ContaComp';
 import Estilos from '../Estilos';
-import Hidden from '@material-ui/core/Hidden';
 
 const styles = {
   background: {
@@ -75,9 +75,9 @@ function MinhaConta() {
 
   return (
     <>
+      <Topo />
+      <Navbar />
       <Container maxWidth="lg">
-        <Topo />
-        <Navbar />
         <Typography variant="h2" color="primary" />
         <Grid
           container
@@ -95,10 +95,10 @@ function MinhaConta() {
             <ContaComp />
           </Grid>
           <Hidden smUp>
-          <Grid item sm={1}></Grid>
+            <Grid item sm={1} />
           </Hidden>
           <Hidden mdUp>
-          <Grid item md={1}></Grid>
+            <Grid item md={1} />
           </Hidden>
           <Grid
             container
@@ -118,16 +118,16 @@ function MinhaConta() {
                 href="pedidos"
                 style={{ textDecoration: 'none', color: 'red' }}
               >
-                Compras recentes {' '}
+                Compras recentes{' '}
               </a>
-              gerenciar seus {' '}
+              gerenciar seus{' '}
               <a
                 href="meuendereco"
                 style={{ textDecoration: 'none', color: 'red' }}
-              > 
-                Endereços de entrega {' '}
+              >
+                Endereços de entrega{' '}
               </a>
-              e editar suas {' '}
+              e editar suas{' '}
               <a
                 href="detalhes"
                 style={{ textDecoration: 'none', color: 'red' }}

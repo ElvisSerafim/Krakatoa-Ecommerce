@@ -1,20 +1,20 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { Typography, Box } from '@material-ui/core/';
+import { Typography, Box, Container } from '@material-ui/core/';
 import Hidden from '@material-ui/core/Hidden';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Menu from 'material-ui-popup-state/HoverMenu'
+import Menu from 'material-ui-popup-state/HoverMenu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import { currentPage } from '../reducers/page';
 import {
   usePopupState,
   bindHover,
   bindMenu,
 } from 'material-ui-popup-state/hooks';
-
+import { currentPage } from '../reducers/page';
 
 const styles = {
   typography: {
@@ -23,15 +23,16 @@ const styles = {
   },
   a: {
     textDecoration: 'none',
-    color: 'white'
+    color: 'white',
   },
 };
 
 const useStyles = makeStyles((theme) => ({
-
   navBar: {
     backgroundColor: theme.palette.background.color,
-    width: '100%'
+    width: '100%',
+    margin: 0,
+    padding: 0,
   },
   popover: {
     pointerEvents: 'none',
@@ -40,10 +41,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     backgroundColor: theme.palette.background.color,
     color: '#fff',
-    border: 0
+    borderStyle: 'none',
   },
 }));
-
 
 const StyledTabs = withStyles({
   indicator: {
@@ -58,7 +58,6 @@ const StyledTabs = withStyles({
   },
 })((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
 
-
 const StyledTab = withStyles((theme) => ({
   root: {
     textTransform: 'none',
@@ -70,14 +69,20 @@ const StyledTab = withStyles((theme) => ({
       opacity: 1,
     },
   },
-}))((props) => <div><Tab disableRipple {...props} component="a" /></div>);
-
+}))((props) => (
+  <div>
+    <Tab disableRipple {...props} component="a" />
+  </div>
+));
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const page = useSelector((state) => state.page);
   const popupState = usePopupState({ variant: 'popover', popupId: 'demoMenu' });
-  const popupStateCangas = usePopupState({ variant: 'popover', popupId: 'demoMenu' });
+  const popupStateCangas = usePopupState({
+    variant: 'popover',
+    popupId: 'demoMenu',
+  });
   const handleChange = (event, newValue) => {
     dispatch(currentPage(newValue));
   };
@@ -91,13 +96,27 @@ const NavBar = () => {
             display="flex"
             flexDirection="row"
             flexWrap="nowrap"
-            justifyContent="space-evenly"
             alignItems="center"
             marginTop="2%"
           >
-            <StyledTabs value={page} onChange={handleChange} aria-label="styled tabs example">
-              <StyledTab label="Inicio" href="/" />
-              <StyledTab label="Cangas" href="/cangas" {...bindHover(popupStateCangas)} />
+            <Container
+              maxWidth="lg"
+              style={{
+                display: 'flex',
+                justifyContent: 'space-evenly',
+              }}
+            >
+              <StyledTabs
+                value={page}
+                onChange={handleChange}
+                aria-label="styled tabs example"
+              >
+                <StyledTab label="Inicio" href="/" />
+                <StyledTab
+                  label="Cangas"
+                  href="/cangas"
+                  {...bindHover(popupStateCangas)}
+                />
                 <StyledTab
                   label="Confecções"
                   href="/vestidos"
@@ -109,32 +128,37 @@ const NavBar = () => {
                   anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
                   transformOrigin={{ vertical: 'top', horizontal: 'center' }}
                   classes={{
-                    paper: classes.paper
+                    paper: classes.paper,
                   }}
                 >
-                  <a href="/vestidos" onClick={() => {
-                        dispatch(currentPage(2));
-                  }} style={styles.a}>
-                    <MenuItem>
-                      Vestidos
-                  </MenuItem>
+                  <a
+                    href="/vestidos"
+                    onClick={() => {
+                      dispatch(currentPage(2));
+                    }}
+                    style={styles.a}
+                  >
+                    <MenuItem>Vestidos</MenuItem>
                   </a>
-                  <a href="/shorts"  onClick={() => {
-                        dispatch(currentPage(2));
-                  }} style={styles.a}>
-                    <MenuItem>
-                      Shorts
-                  </MenuItem>
+                  <a
+                    href="/shorts"
+                    onClick={() => {
+                      dispatch(currentPage(2));
+                    }}
+                    style={styles.a}
+                  >
+                    <MenuItem>Shorts</MenuItem>
                   </a>
-                  <a href="/batas"  onClick={() => {
-                        dispatch(currentPage(2));
-                  }}  style={styles.a}>
-                    <MenuItem>
-                      Batas
-                  </MenuItem>
+                  <a
+                    href="/batas"
+                    onClick={() => {
+                      dispatch(currentPage(2));
+                    }}
+                    style={styles.a}
+                  >
+                    <MenuItem>Batas</MenuItem>
                   </a>
                 </Menu>
-
 
                 <Menu
                   {...bindMenu(popupStateCangas)}
@@ -142,49 +166,57 @@ const NavBar = () => {
                   anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
                   transformOrigin={{ vertical: 'top', horizontal: 'center' }}
                   classes={{
-                    paper: classes.paper
+                    paper: classes.paper,
                   }}
                 >
-                  <a href="/vestidos" onClick={() => {
-                        dispatch(currentPage(1));
-                  }} style={styles.a}>
-                    <MenuItem>
-                      Mandalas
-                  </MenuItem>
+                  <a
+                    href="/vestidos"
+                    onClick={() => {
+                      dispatch(currentPage(1));
+                    }}
+                    style={styles.a}
+                  >
+                    <MenuItem>Mandalas</MenuItem>
                   </a>
-                  <a href="/shorts"  onClick={() => {
-                        dispatch(currentPage(1));
-                  }} style={styles.a}>
-                    <MenuItem>
-                      Turística
-                  </MenuItem>
+                  <a
+                    href="/shorts"
+                    onClick={() => {
+                      dispatch(currentPage(1));
+                    }}
+                    style={styles.a}
+                  >
+                    <MenuItem>Turística</MenuItem>
                   </a>
-                  <a href="/batas"  onClick={() => {
-                        dispatch(currentPage(1));
-                  }}  style={styles.a}>
-                    <MenuItem>
-                      Pompom
-                  </MenuItem>
-                  </a>
-
-                  <a href="/batas"  onClick={() => {
-                        dispatch(currentPage(1));
-                  }}  style={styles.a}>
-                    <MenuItem>
-                      Estampada
-                  </MenuItem>
+                  <a
+                    href="/batas"
+                    onClick={() => {
+                      dispatch(currentPage(1));
+                    }}
+                    style={styles.a}
+                  >
+                    <MenuItem>Pompom</MenuItem>
                   </a>
 
+                  <a
+                    href="/batas"
+                    onClick={() => {
+                      dispatch(currentPage(1));
+                    }}
+                    style={styles.a}
+                  >
+                    <MenuItem>Estampada</MenuItem>
+                  </a>
                 </Menu>
 
-              <StyledTab label="Sobre" href="/sobre" />
-              <StyledTab label="Contato" href="/contato" />
-            </StyledTabs>
+                <StyledTab label="Sobre" href="/sobre" />
+                <StyledTab label="Contato" href="/contato" />
+              </StyledTabs>
+            </Container>
           </Box>
         </div>
       </Hidden>
     </>
-  )
-}
+  );
+};
 
 export default NavBar;

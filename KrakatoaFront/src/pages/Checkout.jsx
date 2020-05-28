@@ -40,9 +40,9 @@ const Checkout = () => {
   const classes = 'a';
   return (
     <>
+      <Topo />
+      <Navbar />
       <Container maxWidth="lg">
-        <Topo />
-        <Navbar />
         <Grid container spacing={2} style={{ marginTop: 64, marginBottom: 64 }}>
           <Typography style={styles.title}>Pagamento</Typography>
           <div style={Estilos.flexRowCENTER2}>

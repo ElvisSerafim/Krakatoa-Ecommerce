@@ -1,6 +1,13 @@
 import React, { PureComponent } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { Container, Typography, Box, Button, Grid, Hidden } from '@material-ui/core/';
+import {
+  Container,
+  Typography,
+  Box,
+  Button,
+  Grid,
+  Hidden,
+} from '@material-ui/core/';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
 import { Link } from 'react-router-dom';
@@ -21,7 +28,7 @@ const styles = {
     fontSize: '2.5em',
     color: '#FF5757',
     fontWeight: '700',
-    paddingTop:20
+    paddingTop: 20,
   },
   hrstyle: {
     color: 'red',
@@ -206,9 +213,9 @@ export default class Endereco extends PureComponent {
     const { location } = this.props;
     return (
       <>
+        <Topo />
+        <Navbar />
         <Container maxWidth="lg">
-          <Topo />
-          <Navbar />
           {location.state == undefined ? (
             <Redirect
               to={{
@@ -243,7 +250,7 @@ export default class Endereco extends PureComponent {
                 </div>
               </Grid>
               <Grid item lg={12} container direction="row" justify="center">
-                <Grid item lg={3} md={12}sm={12}>
+                <Grid item lg={3} md={12} sm={12}>
                   <TextField
                     label="Nome"
                     style={{ width: '100%' }}
@@ -332,13 +339,11 @@ export default class Endereco extends PureComponent {
                   />
                 </Grid>
               </Grid>
- 
-              <Grid item lg={4} justify='space-between'container >
+
+              <Grid item lg={4} justify="space-between" container>
                 <Grid item lg={1}></Grid>
                 <Grid item lg={9} md={12} sm={12}>
-                  
                   <TextField
-
                     label="Complemento"
                     onChange={(e) => {
                       this.setState({ complemento: e.target.value });
@@ -347,7 +352,6 @@ export default class Endereco extends PureComponent {
                   />
                 </Grid>
                 <Grid item lg={1}></Grid>
-                
               </Grid>
               <Grid item container lg={12} md={12} sm={12} justify="center">
                 <p
@@ -359,8 +363,16 @@ export default class Endereco extends PureComponent {
                   Tipo de entrega
                 </p>
               </Grid>
-              <Grid item lg={12} container md={12}  sm={12}  justify='center' alignItems="center">
-                <Grid item lg={2} md={6} sm={4} >
+              <Grid
+                item
+                lg={12}
+                container
+                md={12}
+                sm={12}
+                justify="center"
+                alignItems="center"
+              >
+                <Grid item lg={2} md={6} sm={4}>
                   <Box
                     onClick={() => {
                       this.setState({ deliverySelected: 'Pac' });
@@ -418,8 +430,16 @@ export default class Endereco extends PureComponent {
                   </Box>
                 </Grid>
               </Grid>
-                  <Grid item justify='center' alignItems="center" container lg={12} md={12} sm={12}>
-                    <Grid item lg={1} md={12}>
+              <Grid
+                item
+                justify="center"
+                alignItems="center"
+                container
+                lg={12}
+                md={12}
+                sm={12}
+              >
+                <Grid item lg={1} md={12}>
                   <MuiThemeProvider theme={theme}>
                     <div
                       style={{
@@ -458,20 +478,18 @@ export default class Endereco extends PureComponent {
                             height: 50,
                             textDecoration: 'none',
                           }}
-                          onClick={() => {this.enviar()}}
+                          onClick={() => {
+                            this.enviar();
+                          }}
                           href="/checkout"
                         >
                           Continuar
                         </Button>
-                        
                       </Link>
-                    
                     </div>
-                    
                   </MuiThemeProvider>
-                  </Grid>
-                  </Grid>
-
+                </Grid>
+              </Grid>
             </>
           )}
         </Container>
