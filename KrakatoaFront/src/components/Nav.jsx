@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#fff',
     borderStyle: 'none',
   },
+  
 }));
 
 const StyledTabs = withStyles({

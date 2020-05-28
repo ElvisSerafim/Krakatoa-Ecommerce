@@ -5,17 +5,17 @@ import InputBase from '@material-ui/core/InputBase';
 import { useDispatch } from 'react-redux';
 import { sendSearch } from '../reducers/search';
 import { withRouter, useHistory } from 'react-router-dom';
+import IconButton from '@material-ui/core/IconButton';
 
 
 const useStyles = makeStyles((theme) => ({
   search: {
+    fontFamily: 'Poppins',
     position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: 'black',
-    '&:hover': {
-      backgroundColor: 'black',
-    },
+    borderRadius: 8,
     marginRight: theme.spacing(2),
+    borderStyle: 'solid',
+    borderColor: theme.palette.background.color,
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -27,23 +27,26 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 2),
     height: '100%',
     position: 'absolute',
-    pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     color: 'white',
+    backgroundColor: theme.palette.background.color,
   },
   inputRoot: {
-    color: 'white',
+    color: theme.palette.background.color,
+    paddingLeft: `calc(1em + ${theme.spacing(6)}px)`,
   },
   inputInput: {
+    fontFamily: 'Poppins',
+    color: theme.palette.background.color,
     padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
       width: '20ch',
     },
+
   },
   sectionDesktop: {
     display: 'none',
@@ -61,8 +64,15 @@ const SearchBar = ({ redrec }) => {
 
   return (
     <div className={classes.search}>
-      <div className={classes.searchIcon}>
-        <SearchIcon />
+      <div className={classes.searchIcon} onClick={(event) => {
+        if (search.length === 0) return 0;
+
+        history.push('/pesquisa');
+        dispatch(sendSearch(search));
+
+        setSearch('');
+      }}>
+        <SearchIcon  />
       </div>
       <InputBase
         onKeyPress={(event) => {
