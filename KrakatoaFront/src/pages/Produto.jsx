@@ -114,7 +114,7 @@ const ProdutoPage = ({ match }) => {
         setSizes(item.tamanho);
         setColors(item.cores);
         setPosicao(i);
-        if (item.imagens.length != 0) {
+        if (item.imagens.length !== 0) {
           item.Imageurl = `http://64.227.106.165/api/static/imgs/${item.imagens[0]}.jpeg`;
           setFotoAtual(
             `http://64.227.106.165/api/static/imgs/${item.imagens[0]}.jpeg`,
