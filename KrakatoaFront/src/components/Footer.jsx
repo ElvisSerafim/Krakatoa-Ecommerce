@@ -139,7 +139,7 @@ const Topo = () => {
                     <Typography style={styles.lore}>Entregas</Typography>
                   </a>
                   <a
-                    href="/politicas"
+                    href="/politicasdaloja"
                     style={{ textDecoration: 'none' }}
                     variant="body1"
                   >
