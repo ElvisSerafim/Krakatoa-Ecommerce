@@ -16,46 +16,38 @@ const Pedidos = () => {
   const [pedidosUsuario, setPedidos] = useState([]);
   const usuario = useSelector((state) => state.user);
 
-
   useEffect(() => {
-
-    var pedidos, data;
+    let pedidos;
+    let data;
     const getUser = async () => {
-
       const tentativa = await usuario;
-      const user = tentativa.user;
+      const { user } = tentativa;
       const token = localStorage.getItem('token');
       data = {
         token,
-        user
-      }
+        user,
+      };
       getPedido();
-
     };
 
     const getPedido = async () => {
       pedidos = await api.getPedidos(data);
       setPedidos(pedidos);
-    }
+    };
 
     getUser();
   }, []);
 
-
   return (
     <>
-      <Container maxWidth="lg" style={{marginBottom: 64}}>
-        <Topo />
-        <Navbar />
+      <Topo />
+      <Navbar />
+      <Container maxWidth="lg" style={{ marginBottom: 64 }}>
         <Grid container spacing={2} diretion="row" justify="flex-start">
           <Grid item lg={12}>
-            <Typography
-              variant="h4"
-              color="primary"
-              style={{ marginTop: 60 }}
-            >
+            <Typography variant="h4" color="primary" style={{ marginTop: 60 }}>
               Minha Conta
-              </Typography>
+            </Typography>
           </Grid>
           <Grid item lg={4} sm={12}>
             <ContaComp />
@@ -70,14 +62,14 @@ const Pedidos = () => {
               variant="h4"
               style={{
                 fontWeight: 'bold',
-                marginTop: '20px'
+                marginTop: '20px',
               }}
               color="primary"
             >
               Meus Pedidos
-          </Typography>
-            <div style={{ marginBottom: 20, width: '100%'}}>
-              <PedidosMobile pedidos={pedidosUsuario}/>
+            </Typography>
+            <div style={{ marginBottom: 20, width: '100%' }}>
+              <PedidosMobile pedidos={pedidosUsuario} />
             </div>
           </Hidden>
         </Grid>
@@ -85,6 +77,6 @@ const Pedidos = () => {
       <FooterComp />
     </>
   );
-}
+};
 
 export default Pedidos;

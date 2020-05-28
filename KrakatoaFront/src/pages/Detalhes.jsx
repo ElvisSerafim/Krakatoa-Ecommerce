@@ -144,9 +144,9 @@ export default function Datalhes() {
   };
   return (
     <>
+      <Topo />
+      <Navbar />
       <Container maxWidth="lg" style={{ marginBottom: 64 }}>
-        <Topo />
-        <Navbar />
         <Alerta
           openAlert={open}
           message={message}

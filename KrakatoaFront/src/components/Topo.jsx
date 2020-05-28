@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 import Carrinho from '@material-ui/icons/ShoppingCartOutlined';
 import Conta from '@material-ui/icons/AccountCircleOutlined';
 import Hidden from '@material-ui/core/Hidden';
-import SearchBar from './SearchBar';
-import logo from '../img/logoVermelha.jpg';
-import Drawer from './Drawer';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import SearchBar from './SearchBar';
+import logo from '../img/logoVermelha.jpg';
+import Drawer from './Drawer';
 
 const useStyles = makeStyles(() => ({
   box: {
@@ -19,12 +19,8 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'space-around',
     alignItems: 'center',
     marginTop: '2%',
-    '@media (max-width: 950px)': {
-      /* flexDirection: 'row-reverse', */
-    },
   },
 }));
-
 
 const Topo = () => {
   const classes = useStyles();
@@ -76,7 +72,6 @@ const Topo = () => {
             </div>
           </Hidden>
           <Hidden smDown="true">
-
             <a href="/conta/">
               <Conta color="primary" fontSize="large" />
             </a>

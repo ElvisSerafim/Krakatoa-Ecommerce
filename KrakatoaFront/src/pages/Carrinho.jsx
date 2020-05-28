@@ -140,9 +140,9 @@ const Carrinho = () => {
   const classes = useStyles();
   return (
     <>
+      <Topo />
+      <Navbar />
       <Container maxWidth="lg">
-        <Topo />
-        <Navbar />
         {length === 0 ? (
           <div style={{ ...Estilos.flexRowCENTER2, padding: 64 }}>
             <Typography

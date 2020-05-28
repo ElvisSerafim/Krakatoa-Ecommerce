@@ -12,9 +12,9 @@ import MyAddressComp from '../components/MyAddress';
 
 const MinhaConta = () => (
   <>
+    <Topo />
+    <Navbar />
     <Container maxWidth="lg" style={{ marginBottom: 64 }}>
-      <Topo />
-      <Navbar />
       <Grid
         container
         spacing={2}

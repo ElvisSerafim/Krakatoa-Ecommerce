@@ -41,9 +41,9 @@ const Contato = () => {
   const classes = useStyles();
   return (
     <>
+      <Topo />
+      <Navbar />
       <Container maxWidth="lg">
-        <Topo />
-        <Navbar />
         <Typography variant="h2" color="primary">
           Contato
         </Typography>
