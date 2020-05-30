@@ -112,13 +112,15 @@ const NavBar = () => {
                 onChange={handleChange}
                 aria-label="styled tabs example"
               >
-                <StyledTab label="Inicio" href="/" />
+                <StyledTab style={{fontSize:'1.25em'}} label="Inicio" href="/" />
                 <StyledTab
+                  style={{fontSize:'1.25em'}}
                   label="Cangas"
                   href="/cangas"
                   {...bindHover(popupStateCangas)}
                 />
                 <StyledTab
+                  style={{fontSize:'1.25em'}}
                   label="Confecções"
                   href="/vestidos"
                   {...bindHover(popupState)}
@@ -139,7 +141,7 @@ const NavBar = () => {
                     }}
                     style={styles.a}
                   >
-                    <MenuItem>Vestidos</MenuItem>
+                    <MenuItem style={{fontSize:'1.25em'}}>Vestidos</MenuItem>
                   </a>
                   <a
                     href="/shorts"
@@ -148,7 +150,7 @@ const NavBar = () => {
                     }}
                     style={styles.a}
                   >
-                    <MenuItem>Shorts</MenuItem>
+                    <MenuItem style={{fontSize:'1.25em'}}>Shorts</MenuItem>
                   </a>
                   <a
                     href="/batas"
@@ -157,7 +159,7 @@ const NavBar = () => {
                     }}
                     style={styles.a}
                   >
-                    <MenuItem>Batas</MenuItem>
+                    <MenuItem style={{fontSize:'1.25em'}}>Batas</MenuItem>
                   </a>
                 </Menu>
 
@@ -177,7 +179,7 @@ const NavBar = () => {
                     }}
                     style={styles.a}
                   >
-                    <MenuItem>Mandalas</MenuItem>
+                    <MenuItem style={{fontSize:'1.25em'}}>Mandalas</MenuItem>
                   </a>
                   <a
                     href="/shorts"
@@ -186,7 +188,7 @@ const NavBar = () => {
                     }}
                     style={styles.a}
                   >
-                    <MenuItem>Turística</MenuItem>
+                    <MenuItem style={{fontSize:'1.25em'}}>Turística</MenuItem>
                   </a>
                   <a
                     href="/batas"
@@ -195,7 +197,7 @@ const NavBar = () => {
                     }}
                     style={styles.a}
                   >
-                    <MenuItem>Pompom</MenuItem>
+                    <MenuItem style={{fontSize:'1.25em'}}>Pompom</MenuItem>
                   </a>
 
                   <a
@@ -205,12 +207,13 @@ const NavBar = () => {
                     }}
                     style={styles.a}
                   >
-                    <MenuItem>Estampada</MenuItem>
+                    <MenuItem style={{fontSize:'1.25em'}}>Estampada</MenuItem>
                   </a>
                 </Menu>
 
-                <StyledTab label="Sobre" href="/sobre" />
-                <StyledTab label="Contato" href="/contato" />
+                <StyledTab style={{fontSize:'1.25em'}} label="Sobre" href="/sobre" />
+                <StyledTab style={{fontSize:'1.25em'}} label="Contato" href="/contato" />
+                <StyledTab style={{fontSize:'1.25em'}}label="Políticas" href="/politicasdaloja"/>
               </StyledTabs>
             </Container>
           </Box>
