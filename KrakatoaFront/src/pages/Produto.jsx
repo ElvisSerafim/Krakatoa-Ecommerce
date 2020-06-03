@@ -257,9 +257,8 @@ const ProdutoPage = ({ match }) => {
                     {product.nome}
                   </Typography>
                   <Typography
-                    style={{ paddingTop: 30 }}
+                    style={{ paddingTop: 30, color: 'red'}}
                     variant="h4"
-                    color="primary"
                     id="price"
                   >
                     R$ {product.preco}

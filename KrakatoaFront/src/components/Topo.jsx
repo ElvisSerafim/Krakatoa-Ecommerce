@@ -109,6 +109,11 @@ const Topo = () => {
             </a>
           </Hidden>
         </Box>
+        <Hidden lgUp>
+            <div style={{ paddingLeft: 10,display: 'flex', flex: 1,  flexDirection: 'row', alignItems: 'center', justifyContent: 'center', maxWidth: '95%', marginTop: '10px'}}>
+              <SearchBar />
+            </div>
+          </Hidden>
       </div>
     </Container>
   );
