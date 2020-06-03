@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography } from '@material-ui/core/';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import Hidden from '@material-ui/core/Hidden';
 import Navbar from '../components/Nav';
 import ComboBox from '../components/ComboBox';
 import Topo from '../components/Topo';
@@ -14,6 +15,7 @@ import Footer from '../components/Footer';
 import { addCart, sendAllProducts } from '../reducers/productsCart';
 import api from '../Services/ApiService';
 import Estilos from '../Estilos';
+import ProdutoMobile from '../components/ProdutoMobile'
 
 const styles = {
   foto: {
@@ -72,23 +74,22 @@ const styles = {
   },
 };
 
-const useStyles = makeStyles((theme) => ( {
+const useStyles = makeStyles((theme) => ({
   quadradao2: {
     backgroundColor: theme.palette.background.color,
     borderRadius: 10,
     height: 700,
     marginTop: 40,
   },
-  backgroundC:{
+  backgroundC: {
     backgroundColor: theme.palette.background.color
-    },
+  },
   GridContainer: {
     '@media (min-width: 954px)': {
       justifyContent: 'flex-start',
     },
   },
 }));
-
 const ProdutoPage = ({ match }) => {
   const [product, setProduct] = useState('');
   const [type, setType] = useState('');
@@ -101,6 +102,7 @@ const ProdutoPage = ({ match }) => {
   const [products, setProducts] = useState([]);
   const [fotoAtual, setFotoAtual] = useState('');
   const [fotos, setFotos] = useState([]);
+  const [fotosMobile, setFotosMobile] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -122,12 +124,14 @@ const ProdutoPage = ({ match }) => {
         setSizes(item.tamanho);
         setColors(item.cores);
         setPosicao(i);
-        if (item.imagens.length !== 0) {
+        if (item.imagens.length != 0) {
           item.Imageurl = `http://64.227.106.165/api/static/imgs/${item.imagens[0]}.jpeg`;
           setFotoAtual(
             `http://64.227.106.165/api/static/imgs/${item.imagens[0]}.jpeg`,
           );
           setFotos(item.imagens);
+          setFotosMobile(item.imagens);
+          console.log(item.imagens);
         } else {
           item.Imageurl = `http://64.227.106.165/api/static/imgs/${item.id}.jpeg`;
           setFotoAtual(item.Imageurl);
@@ -190,105 +194,117 @@ const ProdutoPage = ({ match }) => {
       <Navbar />
       <Container maxWidth="lg" style={{ marginBottom: 64 }}>
         <Grid container spacing={2} diretion="row" justify="flex-start">
-          <Grid item lg={1} md={1}>
-            <div style={styles.marginDiv}>
-              {fotos.map((item) => (
-                <div style={styles.foto}>
-                  <img
-                    src={`http://64.227.106.165/api/static/imgs/${item}.jpeg`}
-                    onClick={(event) => {
-                      setFotoAtual(
-                        `http://64.227.106.165/api/static/imgs/${item}.jpeg`,
-                      );
-                    }}
-                    style={styles.img}
-                    alt="produto"
-                  />
-                </div>
-              ))}
+          <Hidden smDown>
+            <Grid item lg={1} md={1}>
+              <div style={styles.marginDiv}>
+                {fotos.map((item) => (
+                  <div style={styles.foto}>
+                    <img
+                      src={`http://64.227.106.165/api/static/imgs/${item}.jpeg`}
+                      onClick={(event) => {
+                        setFotoAtual(
+                          `http://64.227.106.165/api/static/imgs/${item}.jpeg`,
+                        );
+                      }}
+                      style={styles.img}
+                      alt="produto"
+                    />
+                  </div>
+                ))}
+              </div>
+            </Grid>
+            <Grid item lg={4} md={4}>
+              <div className={classes.backgroundC} style={styles.quadradao1}>
+                <img src={fotoAtual} style={styles.img} alt="produto" />
+              </div>
+            </Grid>
+          </Hidden>
+          <Hidden lgUp>
+            <div style={{ marginTop: 30 }}>
+              <ProdutoMobile produto={product} imagens={fotosMobile} />
             </div>
-          </Grid>
-          <Grid item lg={4} md={4}>
-            <div className={classes.backgroundC} style={styles.quadradao1}>
-              <img src={fotoAtual} style={styles.img} alt="produto" />
-            </div>
-          </Grid>
+          </Hidden>
           <Grid item lg={1} md={1} />
-          <Grid item lg={6} md={6}>
-            <div className={classes.quadradao2}>
-              <div
-                style={{
-                  ...Estilos.flexRowStandard,
-                  flexDirection: 'row',
-                  paddingBottom: '50',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <div style={styles.promo}>
-                  <Typography style={styles.promoText} variant="body1">
-                    Promoção
-                  </Typography>
-                </div>
-                <div>
-                  <Typography style={styles.product} variant="body1">
-                    ID do Produto: {match.params.id}
-                  </Typography>
-                </div>
-              </div>
-              <div style={styles.quad2inside}>
-                <Typography
-                  style={{ fontStyle: 'normal', margin: 0 }}
-                  color="secondary"
-                  variant="h3"
-                >
-                  {product.nome}
-                </Typography>
-                <Typography
-                  style={{ paddingTop: 30, color:'red' }}
-                  variant="h4"
-                  id="price"
-                >
-                  R$ {product.preco}
-                </Typography>
-                <div style={{ marginTop: 50 }}>
-                  <ComboBox
-                    onChange={(event) => {
-                      setSize(event.target.value);
-                    }}
-                    style={{
-                      backgroundColor: 'white',
-                      width: '150px',
-                      borderRadius: 7,
-                    }}
-                    value={size}
-                    items={sizes}
-                    label="Tamanhos"
-                  />
-                </div>
-                <div style={{ marginTop: 50 }}>
-                  <ComboBox
-                    onChange={(event) => {
-                      setColor(event.target.value);
-                    }}
-                    style={{
-                      backgroundColor: 'white',
-                      width: '150px',
-                      borderRadius: 7,
-                      marginTop: 20,
-                    }}
-                    value={color}
-                    items={colors}
-                    label="Cores"
-                  />
-                </div>
-                <ProdutoEmSi
-                  addItem={(quantity) => {
-                    addItemCart(product, quantity);
+          <Hidden smDown>
+
+            <Grid item lg={6} md={6}>
+              <div className={classes.quadradao2}>
+                <div
+                  style={{
+                    ...Estilos.flexRowStandard,
+                    flexDirection: 'row',
+                    paddingBottom: '50',
+                    justifyContent: 'space-between',
                   }}
-                />
+                >
+                  <div style={styles.promo}>
+                    <Typography style={styles.promoText} variant="body1">
+                      Promoção
+                  </Typography>
+                  </div>
+                  <div>
+                    <Typography style={styles.product} variant="body1">
+                      ID do Produto: {match.params.id}
+                    </Typography>
+                  </div>
+                </div>
+                <div style={styles.quad2inside}>
+                  <Typography
+                    style={{ fontStyle: 'normal', margin: 0 }}
+                    color="secondary"
+                    variant="h3"
+                  >
+                    {product.nome}
+                  </Typography>
+                  <Typography
+                    style={{ paddingTop: 30 }}
+                    variant="h4"
+                    color="primary"
+                    id="price"
+                  >
+                    R$ {product.preco}
+                  </Typography>
+                  <div style={{ marginTop: 50 }}>
+                    <ComboBox
+                      onChange={(event) => {
+                        setSize(event.target.value);
+                      }}
+                      style={{
+                        backgroundColor: 'white',
+                        width: '150px',
+                        borderRadius: 7,
+                      }}
+                      value={size}
+                      items={sizes}
+                      label="Tamanhos"
+                    />
+                  </div>
+                  <div style={{ marginTop: 50 }}>
+                    <ComboBox
+                      onChange={(event) => {
+                        setColor(event.target.value);
+                      }}
+                      style={{
+                        backgroundColor: 'white',
+                        width: '150px',
+                        borderRadius: 7,
+                        marginTop: 20,
+                      }}
+                      value={color}
+                      items={colors}
+                      label="Cores"
+                    />
+                  </div>
+                  <ProdutoEmSi
+                    addItem={(quantity) => {
+                      addItemCart(product, quantity);
+                    }}
+                  />
+                </div>
               </div>
-            </div>
-          </Grid>
+            </Grid>
+          </Hidden>
+
           <Grid item lg={12} md={12}>
             <div
               className={classes.backgroundC}
