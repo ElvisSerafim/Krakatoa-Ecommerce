@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#fff',
     borderStyle: 'none',
   },
-  
+
 }));
 
 const StyledTabs = withStyles({
@@ -112,19 +112,22 @@ const NavBar = () => {
                 onChange={handleChange}
                 aria-label="styled tabs example"
               >
-                <StyledTab style={{fontSize:'1.25em'}} label="Inicio" href="/" />
+                <StyledTab style={{ fontSize: '1.25em' }} label="Inicio" href="/" />
                 <StyledTab
-                  style={{fontSize:'1.25em'}}
+                  style={{ fontSize: '1.25em' }}
                   label="Cangas"
                   href="/cangas"
                   {...bindHover(popupStateCangas)}
                 />
                 <StyledTab
-                  style={{fontSize:'1.25em'}}
+                  style={{ fontSize: '1.25em' }}
                   label="Confecções"
                   href="/vestidos"
                   {...bindHover(popupState)}
                 />
+                <StyledTab style={{ fontSize: '1.25em' }} label="Sobre" href="/sobre" />
+                <StyledTab style={{ fontSize: '1.25em' }} label="Contato" href="/contato" />
+                <StyledTab style={{ fontSize: '1.25em' }} label="Políticas" href="/politicasdaloja" />
                 <Menu
                   {...bindMenu(popupState)}
                   getContentAnchorEl={null}
@@ -141,7 +144,7 @@ const NavBar = () => {
                     }}
                     style={styles.a}
                   >
-                    <MenuItem style={{fontSize:'1.25em'}}>Vestidos</MenuItem>
+                    <MenuItem style={{ fontSize: '1.25em' }}>Vestidos</MenuItem>
                   </a>
                   <a
                     href="/shorts"
@@ -150,7 +153,7 @@ const NavBar = () => {
                     }}
                     style={styles.a}
                   >
-                    <MenuItem style={{fontSize:'1.25em'}}>Shorts</MenuItem>
+                    <MenuItem style={{ fontSize: '1.25em' }}>Shorts</MenuItem>
                   </a>
                   <a
                     href="/batas"
@@ -159,7 +162,7 @@ const NavBar = () => {
                     }}
                     style={styles.a}
                   >
-                    <MenuItem style={{fontSize:'1.25em'}}>Batas</MenuItem>
+                    <MenuItem style={{ fontSize: '1.25em' }}>Batas</MenuItem>
                   </a>
                 </Menu>
 
@@ -179,7 +182,7 @@ const NavBar = () => {
                     }}
                     style={styles.a}
                   >
-                    <MenuItem style={{fontSize:'1.25em'}}>Mandalas</MenuItem>
+                    <MenuItem style={{ fontSize: '1.25em' }}>Mandalas</MenuItem>
                   </a>
                   <a
                     href="/shorts"
@@ -188,7 +191,7 @@ const NavBar = () => {
                     }}
                     style={styles.a}
                   >
-                    <MenuItem style={{fontSize:'1.25em'}}>Turística</MenuItem>
+                    <MenuItem style={{ fontSize: '1.25em' }}>Turística</MenuItem>
                   </a>
                   <a
                     href="/batas"
@@ -197,7 +200,7 @@ const NavBar = () => {
                     }}
                     style={styles.a}
                   >
-                    <MenuItem style={{fontSize:'1.25em'}}>Pompom</MenuItem>
+                    <MenuItem style={{ fontSize: '1.25em' }}>Pompom</MenuItem>
                   </a>
 
                   <a
@@ -207,13 +210,9 @@ const NavBar = () => {
                     }}
                     style={styles.a}
                   >
-                    <MenuItem style={{fontSize:'1.25em'}}>Estampada</MenuItem>
+                    <MenuItem style={{ fontSize: '1.25em' }}>Estampada</MenuItem>
                   </a>
                 </Menu>
-
-                <StyledTab style={{fontSize:'1.25em'}} label="Sobre" href="/sobre" />
-                <StyledTab style={{fontSize:'1.25em'}} label="Contato" href="/contato" />
-                <StyledTab style={{fontSize:'1.25em'}}label="Políticas" href="/politicasdaloja"/>
               </StyledTabs>
             </Container>
           </Box>
