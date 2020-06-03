@@ -25,7 +25,6 @@ const styles = {
     maxWidth: 116,
   },
   quadradao1: {
-    backgroundColor: 'black',
     borderRadius: 10,
     height: 700,
     marginTop: 40,
@@ -75,14 +74,22 @@ const styles = {
   },
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
+  quadradao2: {
+    backgroundColor: theme.palette.background.color,
+    borderRadius: 10,
+    height: 700,
+    marginTop: 40,
+  },
+  backgroundC: {
+    backgroundColor: theme.palette.background.color
+  },
   GridContainer: {
     '@media (min-width: 954px)': {
       justifyContent: 'flex-start',
     },
   },
-});
-
+}));
 const ProdutoPage = ({ match }) => {
   const [product, setProduct] = useState('');
   const [type, setType] = useState('');
@@ -207,7 +214,7 @@ const ProdutoPage = ({ match }) => {
               </div>
             </Grid>
             <Grid item lg={4} md={4}>
-              <div style={styles.quadradao1}>
+              <div className={classes.backgroundC} style={styles.quadradao1}>
                 <img src={fotoAtual} style={styles.img} alt="produto" />
               </div>
             </Grid>
@@ -221,7 +228,7 @@ const ProdutoPage = ({ match }) => {
           <Hidden smDown>
 
             <Grid item lg={6} md={6}>
-              <div style={styles.quadradao2}>
+              <div className={classes.quadradao2}>
                 <div
                   style={{
                     ...Estilos.flexRowStandard,
@@ -300,8 +307,8 @@ const ProdutoPage = ({ match }) => {
 
           <Grid item lg={12} md={12}>
             <div
+              className={classes.backgroundC}
               style={{
-                backgroundColor: 'black',
                 width: 200,
                 height: 35,
                 marginTop: 100,
@@ -316,8 +323,8 @@ const ProdutoPage = ({ match }) => {
               </Typography>
             </div>
             <div
+              className={classes.backgroundC}
               style={{
-                backgroundColor: 'black',
                 width: '100%',
                 maxWidth: 1240,
                 height: 350,
