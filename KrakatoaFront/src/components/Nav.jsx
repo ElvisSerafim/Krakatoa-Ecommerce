@@ -210,10 +210,8 @@ const NavBar = () => {
                     <MenuItem style={{fontSize:'1.25em'}}>Estampada</MenuItem>
                   </a>
                 </Menu>
-
                 <StyledTab style={{fontSize:'1.25em'}} label="Sobre" href="/sobre" />
                 <StyledTab style={{fontSize:'1.25em'}} label="Contato" href="/contato" />
-                <StyledTab style={{fontSize:'1.25em'}}label="Políticas" href="/politicasdaloja"/>
               </StyledTabs>
             </Container>
           </Box>
