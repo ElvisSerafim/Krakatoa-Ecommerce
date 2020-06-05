@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Poppins',
     position: 'relative',
     borderRadius: 8,
-    marginRight: theme.spacing(2),
     borderStyle: 'solid',
     borderColor: theme.palette.background.color,
     marginLeft: 0,
@@ -45,6 +44,10 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     [theme.breakpoints.up('md')]: {
       width: '20ch',
+    }, 
+    '&::placeholder': {
+      fontFamily: 'Poppins',
+      color: 'black',
     },
 
   },
