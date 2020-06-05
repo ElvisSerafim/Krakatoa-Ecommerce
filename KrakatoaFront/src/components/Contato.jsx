@@ -4,8 +4,6 @@ import { Button, TextField, Grid } from '@material-ui/core';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import api from '../Services/ApiService';
 import Alerta from './Alerta';
-import Themes from '../themes';
-import Estilos from '../Estilos';
 const theme = createMuiTheme({
   palette: {
     primary: {
