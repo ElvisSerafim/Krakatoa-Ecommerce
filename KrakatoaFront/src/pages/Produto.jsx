@@ -15,7 +15,12 @@ import Footer from '../components/Footer';
 import { addCart, sendAllProducts } from '../reducers/productsCart';
 import api from '../Services/ApiService';
 import Estilos from '../Estilos';
-import ProdutoMobile from '../components/ProdutoMobile'
+import fav from '../img/favorite.svg';
+import { Button } from '@material-ui/core/';
+import ProdutoMobile from '../components/ProdutoMobile';
+import Quantity from '../components/Quantity';
+import Alerta from '../components/Alerta';
+
 
 const styles = {
   foto: {
@@ -92,6 +97,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const ProdutoPage = ({ match }) => {
   const [product, setProduct] = useState('');
+  const [quantity, setQuantity] = useState(1);
   const [type, setType] = useState('');
   const [posicao, setPosicao] = useState();
   const [allProducts, setAllProducts] = useState([]);
@@ -103,6 +109,7 @@ const ProdutoPage = ({ match }) => {
   const [fotoAtual, setFotoAtual] = useState('');
   const [fotos, setFotos] = useState([]);
   const [fotosMobile, setFotosMobile] = useState([]);
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -115,6 +122,12 @@ const ProdutoPage = ({ match }) => {
     getProducts();
   }, [atualizar]);
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
   const getProduto = (produtos) => {
     const produtosType = [];
     let tipo;
@@ -131,7 +144,6 @@ const ProdutoPage = ({ match }) => {
           );
           setFotos(item.imagens);
           setFotosMobile(item.imagens);
-          console.log(item.imagens);
         } else {
           item.Imageurl = `http://64.227.106.165/api/static/imgs/${item.id}.jpeg`;
           setFotoAtual(item.Imageurl);
@@ -151,6 +163,7 @@ const ProdutoPage = ({ match }) => {
   };
 
   const addItemCart = (productCart, quantity) => {
+    console.log(quantity);
     productCart.quantidade = quantity;
     dispatch(addCart(productCart));
   };
@@ -257,7 +270,7 @@ const ProdutoPage = ({ match }) => {
                     {product.nome}
                   </Typography>
                   <Typography
-                    style={{ paddingTop: 30, color: 'red'}}
+                    style={{ paddingTop: 30, color: 'red' }}
                     variant="h4"
                     id="price"
                   >
@@ -294,14 +307,138 @@ const ProdutoPage = ({ match }) => {
                       label="Cores"
                     />
                   </div>
-                  <ProdutoEmSi
-                    addItem={(quantity) => {
-                      addItemCart(product, quantity);
+
+                  <Alerta
+                    message="Produto adicionado!"
+                    vertical="top"
+                    horizontal="right"
+                    handleClose={handleClose}
+                    status="success"
+                    openAlert={open}
+                  />
+                  <div style={{ ...Estilos.flexColumnStandard, marginTop: 40 }}>
+                    <div style={{ paddingTop: 150 }}>
+                      <div style={Estilos.flexRowStandard}>
+                        <Quantity
+                          onClickPlus={() => {
+                            let aux = quantity;
+                            aux++;
+                            setQuantity(aux);
+                          }}
+                          quantidade={quantity}
+                          onClickMinus={() => {
+                            let aux = quantity;
+                            aux--;
+                            const comparator = aux;
+                            if (comparator >= 1) {
+                              setQuantity(aux);
+                            }
+                          }}
+                        />
+                        <div>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            style={{ marginLeft: 70, width: '100%', maxHeight: '100%' }}
+                            onClick={() => {
+                              setOpen(true);
+                              addItemCart(product, quantity);
+                            }}
+                          >
+                            ADICIONAR AO CARRINHO
+                           </Button>
+                        </div>
+                        <a style={{ marginLeft: 120, height: 10 }} href="##">
+                          <img src={fav} alt="Favorite" />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </Grid>
+          </Hidden>
+
+          <Hidden lgUp>
+            <Alerta
+              message="Produto adicionado!"
+              vertical="top"
+              horizontal="right"
+              handleClose={handleClose}
+              status="success"
+              openAlert={open}
+            />
+            <div style={{ marginTop: 50, width: '100%', backgroundColor: '#44323D', padding: 10 }}>
+              <div style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'space-around' }}>
+                <ComboBox
+                  onChange={(event) => {
+                    setSize(event.target.value);
+                  }}
+                  style={{
+                    backgroundColor: 'white',
+                    width: '150px',
+                    borderRadius: 7,
+                  }}
+                  value={size}
+                  items={sizes}
+                  label="Tamanhos"
+                />
+
+                <ComboBox
+                  onChange={(event) => {
+                    setColor(event.target.value);
+                  }}
+                  style={{
+                    backgroundColor: 'white',
+                    width: '150px',
+                    borderRadius: 7,
+                  }}
+                  value={color}
+                  items={colors}
+                  label="Cores"
+                />
+              </div>
+
+              <div style={Estilos.flexRowCENTER}>
+                <div style={{ marginTop: 20 }}>
+                  <Quantity
+                    quantidade={quantity}
+
+                    onClickPlus={() => {
+                      let aux = quantity;
+                      aux++;
+                      setQuantity(aux);
+                    }}
+                    quantidade={quantity}
+                    onClickMinus={() => {
+                      let aux = quantity;
+                      aux--;
+                      const comparator = aux;
+                      if (comparator >= 1) {
+                        setQuantity(aux);
+                      }
                     }}
                   />
                 </div>
               </div>
-            </Grid>
+            </div>
+
+            <div style={Estilos.flexRowCENTER}>
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ width: '100%', maxHeight: '100%' }}
+                onClick={() => {
+                  setOpen(true);
+                  addItemCart(product, quantity);
+                }}
+              >
+                ADICIONAR AO CARRINHO
+              </Button>
+            </div>
+
+
           </Hidden>
 
           <Grid item lg={12} md={12}>
@@ -329,19 +466,20 @@ const ProdutoPage = ({ match }) => {
                 height: 350,
               }}
             >
-              <div style={{ maxWidth: 1100 }}>
-                <Typography
-                  variant="h6"
-                  color="secondary"
-                  style={{
-                    paddingLeft: '50px',
-                    paddingTop: '64px',
-                    width: '100%',
-                  }}
-                >
-                  {product.descricao}
-                </Typography>
-              </div>
+              <Typography
+                variant="h6"
+                color="secondary"
+                style={{
+                  paddingTop: '64px',
+                  width: '100%',
+                  fontSize: 'clamp(16px, 4vw, 22px)',
+                  marginLeft: 5,
+
+                }}
+              >
+                {product.descricao}
+                <br></br>
+              </Typography>
             </div>
           </Grid>
         </Grid>
@@ -373,6 +511,7 @@ const ProdutoPage = ({ match }) => {
                     atualiza();
                   }}
                   addItem={(product) => {
+                    setOpen(true);
                     addItemCart(product, 1);
                   }}
                 />
