@@ -2,9 +2,14 @@ import React from 'react';
 import { Typography, Container, Grid } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
-import logo from '../img/logoVermelha.jpg';
+import logo from '../img/logoBranca.png';
 import fbBranco from '../img/fbBranco.png';
 import instaBranco from '../img/instaBranco.png';
+
+import visa from '../img/visa.png';
+import elo from '../img/elo.png';
+import mastercard from '../img/mastercard.png';
+import boleto from '../img/boleto.png';
 
 const styles = {
   shoppingEcontato: {
@@ -49,7 +54,7 @@ const styles = {
   social: {
     marginTop: 10,
     marginRight: 10,
-    height: '16px',
+    height: 25,
     marginBottom: 15,
   },
   hrstyle: {
@@ -58,6 +63,11 @@ const styles = {
     backgroundColor: '#E8E8E8',
     height: 0.5,
     borderColor: '#E8E8E8',
+  },
+  nomeElogo: {
+    display: 'flex',
+    alignContent: 'center',
+    alignItems: 'center',
   },
 };
 
@@ -87,86 +97,25 @@ const Topo = () => {
           className={classes.GridContainer}
           width="100%"
         >
-          <Grid item lg={4} md={4} sm={6} xs={12}>
+          <Grid item lg={6} md={6} sm={6} xs={12}>
             <div style={styles.nomeElogo}>
               <img src={logo} style={styles.logostyle} alt="Logo Krakatoa" />
-              <Typography variant="h4" color="secondary">
+              <Typography
+                style={{ margin: 0, width: '100%', height: '100%' }}
+                variant="h4"
+                color="secondary"
+              >
                 KRAKATOA
               </Typography>
             </div>
             <div style={styles.loreKrak}>
-              <Typography variant="body1" color="secondary">
-                Krakatoa, sua marca feita pra aquele dia de praia
-              </Typography>
-              <Typography variant="body1" color="secondary">
-                no sol forte de Salvador! Seja com nossas Kangas
-              </Typography>
-              <Typography variant="body1" color="secondary">
-                ou com nossa linha de roupa de Praia
-              </Typography>
-              <a href="https://www.facebook.com/profile.php?id=100013226432242">
-                <img src={fbBranco} style={styles.social} alt="Logo facebook" />
-              </a>
-              <a href="https://www.instagram.com/krakatoacangas/?hl=pt-br">
-                <img
-                  src={instaBranco}
-                  style={styles.social}
-                  alt="Logo Instagram"
-                />
-              </a>
-            </div>
-          </Grid>
-          <Hidden smDown>
-            <Grid item lg={4} md={4} sm={12}>
               <div>
-                <Typography variant="h4" color="secondary">
-                  Shopping Online
+                <Typography style={styles.lore} variant="body1">
+                  Rua do Palame, nº 43 – Itapõa
                 </Typography>
-                <div style={styles.marginPar}>
-                  <a
-                    href="/minhaconta/pedidos"
-                    style={{ textDecoration: 'none' }}
-                  >
-                    <Typography style={styles.lore} variant="body1">
-                      Pedidos
-                    </Typography>
-                  </a>
-                  <a
-                    href="/tipo/entrega"
-                    style={{ textDecoration: 'none' }}
-                    variant="body1"
-                  >
-                    <Typography style={styles.lore}>Entregas</Typography>
-                  </a>
-                  <a
-                    href="/politicasdaloja"
-                    style={{ textDecoration: 'none' }}
-                    variant="body1"
-                  >
-                    <Typography style={styles.lore}>
-                      Políticas da Loja
-                    </Typography>
-                  </a>
-                  <a href="/tipo/pagamento" style={{ textDecoration: 'none' }}>
-                    <Typography style={styles.lore} variant="body1">
-                      Opções de pagamento
-                    </Typography>
-                  </a>
-                  <a href="/contato" style={{ textDecoration: 'none' }}>
-                    <Typography style={styles.lore} variant="body1">
-                      Contatos
-                    </Typography>
-                  </a>
-                </div>
-              </div>
-            </Grid>
-          </Hidden>
-          <Grid item lg={4} md={4} sm={6} xs={12} style={{ width: '100%' }}>
-            <div>
-              <Typography variant="h4" color="secondary">
-                Contato
-              </Typography>
-              <div>
+                <Typography style={styles.lore} variant="body1">
+                  CEP.: 41610-200 – Salvador/BA
+                </Typography>
                 <Typography style={styles.lore} variant="body1">
                   Email: contato@krakotoacangas.com.br
                 </Typography>
@@ -174,11 +123,86 @@ const Topo = () => {
                   Telefone: (71) 3375-3856
                 </Typography>
               </div>
+            </div>
+          </Grid>
+          <Hidden smDown>
+            <Grid item lg={6} md={6} sm={12}>
+              <div>
+                <div>
+                  <a href="/sobre" style={{ textDecoration: 'none' }}>
+                    <Typography variant="h6" color="secondary">
+                      Quem Somos
+                    </Typography>
+                  </a>
+                  <a href="/tipo/entrega" style={{ textDecoration: 'none' }}>
+                    <Typography variant="h6" color="secondary">
+                      Prazo de Entrega
+                    </Typography>
+                  </a>
+                  <a href="/politicasdaloja" style={{ textDecoration: 'none' }}>
+                    <Typography variant="h6" color="secondary">
+                      Nossas Políticas
+                    </Typography>
+                  </a>
+                  <a href="/tipo/pagamento" style={{ textDecoration: 'none' }}>
+                    <Typography variant="h6" color="secondary">
+                      Revenda
+                    </Typography>
+                  </a>
+                  <a href="/contato" style={{ textDecoration: 'none' }}>
+                    <Typography variant="h6" color="secondary">
+                      Fale Conosco
+                    </Typography>
+                  </a>
+                </div>
+              </div>
+            </Grid>
+          </Hidden>
+          <Grid item lg={6} md={6} sm={6} xs={12} style={{ width: '100%' }}>
+            <div>
               <div style={styles.marginDiv}>
-                <Typography variant="h4" color="secondary">
-                  Designer
+                <Typography variant="h6" color="secondary">
+                  Nossas Redes Sociais
                 </Typography>
-                <Typography style={styles.lore}>E-PUSH</Typography>
+                <a href="https://www.facebook.com/profile.php?id=100013226432242">
+                  <img
+                    src={fbBranco}
+                    style={styles.social}
+                    alt="Logo facebook"
+                  />
+                </a>
+                <a href="https://www.instagram.com/krakatoacangas/?hl=pt-br">
+                  <img
+                    src={instaBranco}
+                    style={styles.social}
+                    alt="Logo Instagram"
+                  />
+                </a>
+              </div>
+            </div>
+          </Grid>
+          <Grid item lg={6} md={6} sm={6} xs={12} style={{ width: '100%' }}>
+            <div>
+              <div style={styles.marginDiv}>
+                <Typography variant="h6" color="secondary">
+                  Maneiras de Pagamento
+                </Typography>
+                <a href="https://www.facebook.com/profile.php?id=100013226432242">
+                  <img src={visa} style={styles.social} alt="Cartão Visa" />
+                </a>
+                <a href="https://www.instagram.com/krakatoacangas/?hl=pt-br">
+                  <img
+                    src={mastercard}
+                    style={styles.social}
+                    alt="Cartão Mastercard"
+                  />
+                </a>
+                <a href="https://www.instagram.com/krakatoacangas/?hl=pt-br">
+                  <img src={elo} style={styles.social} alt="Cartão Elo" />
+                </a>
+                <a href="https://www.instagram.com/krakatoacangas/?hl=pt-br">
+                  <img src={boleto} style={styles.social} alt="Boleto" />
+                </a>
               </div>
             </div>
           </Grid>
