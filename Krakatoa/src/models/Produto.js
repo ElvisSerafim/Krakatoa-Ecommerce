@@ -16,6 +16,9 @@ const produtoSchema = new mongoose.Schema(
     colecao: {
       type: String,
     },
+    categoria: {
+      type: String,
+    },
     tipo: {
       type: String,
       require: true,

@@ -14,6 +14,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -35,11 +36,11 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
   },
   rootLanducci: {
-    backgroundColor : '#44323D',
-    color:'white',
+    backgroundColor: '#44323D',
+    color: 'white',
     boxShadow: 'none',
-    boxLines:'none',
-    borderStyle:'none'
+    boxLines: 'none',
+    borderStyle: 'none',
   },
   drawerHeader: {
     display: 'flex',
@@ -101,13 +102,7 @@ export default function PersistentDrawerLeft() {
         </div>
         <Divider />
         <List>
-          {[
-            'Inicio',
-            'Conta',
-            'Carrinho',
-            'Sobre',
-            'Contato',
-          ].map((text) => (
+          {['Inicio', 'Conta', 'Carrinho', 'Sobre', 'Contato'].map((text) => (
             <a
               href={`/${text}`}
               style={{ textDecoration: 'none', color: 'white' }}
@@ -117,60 +112,61 @@ export default function PersistentDrawerLeft() {
               </ListItem>
             </a>
           ))}
-          <ExpansionPanel classes={{
-              root: classes.rootLanducci
-            }}>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon style={{color:'white'}}/>}>
+          <ExpansionPanel
+            classes={{
+              root: classes.rootLanducci,
+            }}
+          >
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
+            >
               <Typography>Cangas</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <div>
-                <a href='/Mandalas' style={{ textDecoration: 'none', color: 'white' }}>
-              <Typography style={{paddingBottom:10}}>
-              Mandalas
-              </Typography>
-              </a>
-              <a href='/Turisticas' style={{ textDecoration: 'none', color: 'white' }}>
-              <Typography style={{paddingBottom:10}}>
-              Turística
-              </Typography>
-              </a>
-              <a href='/Pompom' style={{ textDecoration: 'none', color: 'white' }}>
-              <Typography style={{paddingBottom:10}}>
-                Pompom
-              </Typography>
-              </a>
-              <a href='/Estampada' style={{ textDecoration: 'none', color: 'white' }}>
-              <Typography style={{paddingBottom:10}}>
-                Estampada
-              </Typography>  
-              </a>
+                {[
+                  'Todas',
+                  'Mandalas',
+                  'Turisticas',
+                  'Estampadas',
+                  'Pompom',
+                ].map((text) => (
+                  <a
+                    href={`/${text}`}
+                    style={{ textDecoration: 'none', color: 'white' }}
+                  >
+                    <ListItem button key={text}>
+                      <ListItemText primary={text} />
+                    </ListItem>
+                  </a>
+                ))}
               </div>
             </ExpansionPanelDetails>
           </ExpansionPanel>
-          <ExpansionPanel classes={{
-              root: classes.rootLanducci
-            }}>
-                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon style={{color:'white'}}/>}>
+          <ExpansionPanel
+            classes={{
+              root: classes.rootLanducci,
+            }}
+          >
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
+            >
               <Typography>Confecções</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <div>
-              <a href='/Vestidos' style={{ textDecoration: 'none', color: 'white' }}>
-              <Typography style={{paddingBottom:10}}>
-              Vetidos
-              </Typography>
-              </a>
-              <a href='/Shorts' style={{ textDecoration: 'none', color: 'white' }}>
-              <Typography style={{paddingBottom:10}}>
-                Shorts
-              </Typography>
-              </a>
-              <a href='/Batas' style={{ textDecoration: 'none', color: 'white' }}>
-              <Typography style={{paddingBottom:10}}>
-                Batas
-              </Typography>  
-              </a>
+                {['Todos', 'Vestidos', 'Batas', 'Shorts', 'Macaquinho'].map(
+                  (text) => (
+                    <a
+                      href={`/${text}`}
+                      style={{ textDecoration: 'none', color: 'white' }}
+                    >
+                      <ListItem button key={text}>
+                        <ListItemText primary={text} />
+                      </ListItem>
+                    </a>
+                  ),
+                )}
               </div>
             </ExpansionPanelDetails>
           </ExpansionPanel>

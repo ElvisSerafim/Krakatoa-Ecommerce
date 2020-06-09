@@ -8,10 +8,8 @@ import Conta from '@material-ui/icons/AccountCircleOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import SearchBar from './SearchBar';
-import logo from '../img/logoVermelha.jpg';
+import logo from '../img/logo192.png';
 import Drawer from './Drawer';
 
 const useStyles = makeStyles(() => ({
@@ -25,14 +23,12 @@ const useStyles = makeStyles(() => ({
   },
 
   colorPrimary: {
-    color: "white",
-    backgroundColor: "#44323D"
-  }
+    color: 'white',
+    backgroundColor: '#44323D',
+  },
 }));
 
-
-const StyledBadge = withStyles((theme) => ({
-}))(Badge);
+const StyledBadge = withStyles((theme) => ({}))(Badge);
 
 const Topo = () => {
   const classes = useStyles();
@@ -95,25 +91,24 @@ const Topo = () => {
           <Hidden smDown="true">
             <a href="/carrinho">
               <IconButton aria-label="carrinho">
-                <StyledBadge anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }} 
-                classes={{
-                  colorPrimary: classes.colorPrimary
-                }}
-                badgeContent={allProducts.length} showZero color="primary">
+                <StyledBadge
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  classes={{
+                    colorPrimary: classes.colorPrimary,
+                  }}
+                  badgeContent={allProducts.length}
+                  showZero
+                  color="primary"
+                >
                   <Carrinho color="primary" fontSize="large" />
                 </StyledBadge>
               </IconButton>
             </a>
           </Hidden>
         </Box>
-        <Hidden lgUp>
-            <div style={{ paddingLeft: 10,display: 'flex', flex: 1,  flexDirection: 'row', alignItems: 'center', justifyContent: 'center', maxWidth: '95%', marginTop: '10px'}}>
-              <SearchBar />
-            </div>
-          </Hidden>
       </div>
     </Container>
   );
