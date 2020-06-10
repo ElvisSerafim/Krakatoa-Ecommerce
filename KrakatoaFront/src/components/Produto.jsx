@@ -15,6 +15,9 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 const useStyles = makeStyles({
   root: {
     maxWidth: 250,
+    '@media (max-width: 640px)': {
+      width: 270,
+    },
   },
   media: {
     maxHeight: 290,
