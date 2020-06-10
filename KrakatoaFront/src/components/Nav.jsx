@@ -173,7 +173,7 @@ const NavBar = () => {
                       <a
                         href={`/cangas/${text}`}
                         onClick={() => {
-                          dispatch(currentPage(2));
+                          dispatch(currentPage(1));
                         }}
                         style={styles.a}
                       >
