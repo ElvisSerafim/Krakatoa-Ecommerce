@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import Table from '@material-ui/core/Table';
-import { Grid, Button, Box } from '@material-ui/core/';
+import { Box } from '@material-ui/core/';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -59,11 +59,12 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
     setProducts(allProducts);
     const quantidades = [];
     const totais = [];
-    allProducts.map((item, i) => {
+    allProducts.map((item) => {
       quantidades.push(item.quantidade);
       totais.push(item.preco * item.quantidade);
       setTotal(totais);
       setQuantity(quantidades);
+      return null;
     });
     actualTotal(totais);
   }, [allProducts]);

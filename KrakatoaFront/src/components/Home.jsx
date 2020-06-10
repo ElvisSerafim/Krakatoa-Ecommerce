@@ -10,15 +10,15 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 const photos = [
   {
     name: 'Photo1',
-    url: 'http://64.227.106.165/api/static/imgs/r_card1.jpg',
+    url: 'http://64.227.106.165/api/static/imgs/carroceu/r_card1.jpg',
   },
   {
     name: 'Photo2',
-    url: 'http://64.227.106.165/api/static/imgs/r_card2.jpg',
+    url: 'http://64.227.106.165/api/static/imgs/carroceu/r_card2.jpg',
   },
   {
     name: 'Photo3',
-    url: 'http://64.227.106.165/api/static/imgs/r_card3.jpg',
+    url: 'http://64.227.106.165/api/static/imgs/carroceu/r_card3.jpg',
   },
 ];
 

@@ -21,17 +21,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Estilo from '../Estilos';
 import ListItem from '../components/ListItem';
-import useScript from '../components/useScript';
 import Footer from '../components/Footer';
 import Topo from '../components/Topo';
 import Navbar from '../components/Nav';
 import ProdutoMobile from '../components/ProdutoMobile';
 
-
 const TesteGabriel = ({ theme }) => {
-  useScript('https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js');
-  useScript('https://ecommerce.int.granito.xyz/js/paymentmethodnonce.min.js');
-
   const [mec, setSearch] = useState('');
 
   return (
@@ -39,7 +34,7 @@ const TesteGabriel = ({ theme }) => {
       <Container maxWidth="lg">
         <Topo />
         <Navbar />
-        <div style={{marginBottom: '64px', marginTop: '30px'}}>
+        <div style={{ marginBottom: '64px', marginTop: '30px' }}>
           <ProdutoMobile />
         </div>
       </Container>

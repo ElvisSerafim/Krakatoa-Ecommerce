@@ -81,14 +81,14 @@ const Topo = () => {
               <SearchBar />
             </div>
           </Hidden>
-          <Hidden smDown="true">
+          <Hidden smDown>
             <a href="/conta/">
               <IconButton aria-label="conta">
                 <Conta color="primary" fontSize="large" />
               </IconButton>
             </a>
           </Hidden>
-          <Hidden smDown="true">
+          <Hidden smDown>
             <a href="/carrinho">
               <IconButton aria-label="carrinho">
                 <StyledBadge

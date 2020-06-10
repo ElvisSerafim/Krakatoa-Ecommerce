@@ -16,10 +16,6 @@ import {
 import { currentPage } from '../reducers/page';
 
 const styles = {
-  typography: {
-    color: 'red',
-    fontSize: '1.5em',
-  },
   a: {
     textDecoration: 'none',
     color: 'white',
@@ -89,7 +85,7 @@ const NavBar = () => {
   const classes = useStyles();
   return (
     <>
-      <Hidden smDown="true">
+      <Hidden smDown>
         <div className={classes.navBar}>
           <Box
             display="flex"
@@ -124,7 +120,7 @@ const NavBar = () => {
                 <StyledTab
                   style={{ fontSize: '1.25em' }}
                   label="Confecções"
-                  href="/vestidos"
+                  href="/confeccoes"
                   {...bindHover(popupState)}
                 />
                 <StyledTab
@@ -146,33 +142,21 @@ const NavBar = () => {
                     paper: classes.paper,
                   }}
                 >
-                  <a
-                    href="/vestidos"
-                    onClick={() => {
-                      dispatch(currentPage(2));
-                    }}
-                    style={styles.a}
-                  >
-                    <MenuItem style={{ fontSize: '1.25em' }}>Vestidos</MenuItem>
-                  </a>
-                  <a
-                    href="/shorts"
-                    onClick={() => {
-                      dispatch(currentPage(2));
-                    }}
-                    style={styles.a}
-                  >
-                    <MenuItem style={{ fontSize: '1.25em' }}>Shorts</MenuItem>
-                  </a>
-                  <a
-                    href="/batas"
-                    onClick={() => {
-                      dispatch(currentPage(2));
-                    }}
-                    style={styles.a}
-                  >
-                    <MenuItem style={{ fontSize: '1.25em' }}>Batas</MenuItem>
-                  </a>
+                  {['Vestidos', 'Batas', 'Shorts', 'Macaquinhos'].map(
+                    (text) => (
+                      <a
+                        href={`/${text}`}
+                        onClick={() => {
+                          dispatch(currentPage(2));
+                        }}
+                        style={styles.a}
+                      >
+                        <MenuItem
+                          style={{ fontSize: '1.25em' }}
+                        >{`${text}`}</MenuItem>
+                      </a>
+                    ),
+                  )}
                 </Menu>
 
                 <Menu
@@ -184,47 +168,21 @@ const NavBar = () => {
                     paper: classes.paper,
                   }}
                 >
-                  <a
-                    href="/vestidos"
-                    onClick={() => {
-                      dispatch(currentPage(1));
-                    }}
-                    style={styles.a}
-                  >
-                    <MenuItem style={{ fontSize: '1.25em' }}>Mandalas</MenuItem>
-                  </a>
-                  <a
-                    href="/shorts"
-                    onClick={() => {
-                      dispatch(currentPage(1));
-                    }}
-                    style={styles.a}
-                  >
-                    <MenuItem style={{ fontSize: '1.25em' }}>
-                      Turística
-                    </MenuItem>
-                  </a>
-                  <a
-                    href="/batas"
-                    onClick={() => {
-                      dispatch(currentPage(1));
-                    }}
-                    style={styles.a}
-                  >
-                    <MenuItem style={{ fontSize: '1.25em' }}>Pompom</MenuItem>
-                  </a>
-
-                  <a
-                    href="/batas"
-                    onClick={() => {
-                      dispatch(currentPage(1));
-                    }}
-                    style={styles.a}
-                  >
-                    <MenuItem style={{ fontSize: '1.25em' }}>
-                      Estampada
-                    </MenuItem>
-                  </a>
+                  {['Mandalas', 'Turisticas', 'Pompom', 'Estampada'].map(
+                    (text) => (
+                      <a
+                        href={`/cangas/${text}`}
+                        onClick={() => {
+                          dispatch(currentPage(2));
+                        }}
+                        style={styles.a}
+                      >
+                        <MenuItem
+                          style={{ fontSize: '1.25em' }}
+                        >{`${text}`}</MenuItem>
+                      </a>
+                    ),
+                  )}
                 </Menu>
               </StyledTabs>
             </Container>
