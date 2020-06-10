@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, Button } from '@material-ui/core/';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
 import Hidden from '@material-ui/core/Hidden';
@@ -58,6 +58,10 @@ const styles = {
     height: 70,
     borderRadius: 10,
   },
+  scrollbarMobile:
+  {
+    display: 'flex', overflowX: 'scroll', width: '100%'
+  }
 };
 
 const Home = () => {
@@ -93,14 +97,14 @@ const Home = () => {
   const dispatch = useDispatch();
   return (
     <>
-             <Alerta
-            message="Produto adicionado"
-            vertical="top"
-            horizontal="right"
-            status="success"
-            handleClose={fechar}
-            openAlert={open}
-          />
+      <Alerta
+        message="Produto adicionado"
+        vertical="top"
+        horizontal="right"
+        status="success"
+        handleClose={fechar}
+        openAlert={open}
+      />
       <Topo />
       <Navbar />
       <Container maxWidth="lg">
@@ -120,16 +124,34 @@ const Home = () => {
             </Typography>
           </Grid>
 
-          {products.map((item, i) => (
-            <Grid item lg={3} md={3} sm={3}>
-              <Produto
-                produto={item}
-                update={() => {}}
-                title={item.tipo}
-                addItem={addItemCart}
-              />
-            </Grid>
-          ))}
+          <Hidden smDown>
+            {products.map((item, i) => (
+              <Grid item lg={3} md={3} sm={3}>
+                <Produto
+                  produto={item}
+                  update={() => { }}
+                  title={item.tipo}
+                  addItem={addItemCart}
+                />
+              </Grid>
+            ))}
+          </Hidden>
+
+          <Hidden lgUp>
+            <div style={styles.scrollbarMobile}>
+              {products.map((item, i) => (
+                <Grid item lg={12} md={12} sm={12} style={{ marginLeft: 10 }}>
+                  <Produto
+                    produto={item}
+                    update={() => { }}
+                    title={item.tipo}
+                    addItem={addItemCart}
+                  />
+                </Grid>
+              ))}
+            </div>
+          </Hidden>
+
           <Grid
             item
             container
@@ -239,16 +261,33 @@ const Home = () => {
             </Typography>
           </Grid>
 
-          {products.map((item, i) => (
-            <Grid item lg={3} md={3} sm={3}>
-              <Produto
-                produto={item}
-                update={() => {}}
-                title={item.tipo}
-                addItem={addItemCart}
-              />
-            </Grid>
-          ))}
+          <Hidden smDown>
+            {products.map((item, i) => (
+              <Grid item lg={3} md={3} sm={3}>
+                <Produto
+                  produto={item}
+                  update={() => { }}
+                  title={item.tipo}
+                  addItem={addItemCart}
+                />
+              </Grid>
+            ))}
+          </Hidden>
+
+          <Hidden lgUp>
+            <div style={styles.scrollbarMobile}>
+              {products.map((item, i) => (
+                <Grid item lg={12} md={12} sm={12} style={{ marginLeft: 10 }}>
+                  <Produto
+                    produto={item}
+                    update={() => { }}
+                    title={item.tipo}
+                    addItem={addItemCart}
+                  />
+                </Grid>
+              ))}
+            </div>
+          </Hidden>
           <Grid item container lg={12} md={12} sm={12}>
             <Grid
               item

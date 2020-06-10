@@ -60,6 +60,10 @@ const styles = {
   promoText: {
     color: 'white',
   },
+  scrollbarMobile:
+  {
+    display: 'flex', overflowX: 'scroll', width: '100%'
+  },
 
   img: {
     height: '100%',
@@ -502,21 +506,44 @@ const ProdutoPage = ({ match }) => {
             spacing={2}
             className={classes.GridContainer}
           >
-            {allProducts.map((value) => (
-              <Grid key={value.id} item lg={3} md={4} sm={6}>
-                <Produto
-                  produto={value}
-                  title={type}
-                  update={() => {
-                    atualiza();
-                  }}
-                  addItem={(product) => {
-                    setOpen(true);
-                    addItemCart(product, 1);
-                  }}
-                />
-              </Grid>
-            ))}
+            <Hidden smDown>
+              {allProducts.map((value) => (
+                <Grid key={value.id} item lg={3} md={4} sm={6}>
+                  <Produto
+                    produto={value}
+                    title={type}
+                    update={() => {
+                      atualiza();
+                    }}
+                    addItem={(product) => {
+                      setOpen(true);
+                      addItemCart(product, 1);
+                    }}
+                  />
+                </Grid>
+              ))}
+            </Hidden>
+
+            <Hidden lgUp>
+              <div style={styles.scrollbarMobile}>
+                {allProducts.map((value) => (
+                  <Grid key={value.id} item lg={3} md={4} sm={6} style={{marginLeft: 10}}>
+                    <Produto
+                      produto={value}
+                      title={type}
+                      update={() => {
+                        atualiza();
+                      }}
+                      addItem={(product) => {
+                        setOpen(true);
+                        addItemCart(product, 1);
+                      }}
+                    />
+                  </Grid>
+                ))}
+              </div>
+            </Hidden>
+
           </Grid>
         </div>
       </Container>
