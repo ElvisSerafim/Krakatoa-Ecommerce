@@ -6,7 +6,6 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import api from '../Services/ApiService';
 import Estilos from '../Estilos';
 import Quantity from './Quantity';
-import vestido from '../img/teste.jpeg';
 
 const useStyles = makeStyles((theme) => ({
   DivItem: {

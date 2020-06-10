@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { Typography, Box, Container } from '@material-ui/core/';
+import { Box, Container } from '@material-ui/core/';
 import Hidden from '@material-ui/core/Hidden';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
@@ -8,7 +8,6 @@ import Tab from '@material-ui/core/Tab';
 import Menu from 'material-ui-popup-state/HoverMenu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, Link } from 'react-router-dom';
 import {
   usePopupState,
   bindHover,
@@ -43,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
     color: '#fff',
     borderStyle: 'none',
   },
-
 }));
 
 const StyledTabs = withStyles({
@@ -112,7 +110,11 @@ const NavBar = () => {
                 onChange={handleChange}
                 aria-label="styled tabs example"
               >
-                <StyledTab style={{ fontSize: '1.25em' }} label="Inicio" href="/" />
+                <StyledTab
+                  style={{ fontSize: '1.25em' }}
+                  label="Inicio"
+                  href="/"
+                />
                 <StyledTab
                   style={{ fontSize: '1.25em' }}
                   label="Cangas"
@@ -125,9 +127,16 @@ const NavBar = () => {
                   href="/vestidos"
                   {...bindHover(popupState)}
                 />
-                <StyledTab style={{ fontSize: '1.25em' }} label="Sobre" href="/sobre" />
-                <StyledTab style={{ fontSize: '1.25em' }} label="Contato" href="/contato" />
-                <StyledTab style={{ fontSize: '1.25em' }} label="Políticas" href="/politicasdaloja" />
+                <StyledTab
+                  style={{ fontSize: '1.25em' }}
+                  label="Sobre"
+                  href="/sobre"
+                />
+                <StyledTab
+                  style={{ fontSize: '1.25em' }}
+                  label="Contato"
+                  href="/contato"
+                />
                 <Menu
                   {...bindMenu(popupState)}
                   getContentAnchorEl={null}
@@ -191,7 +200,9 @@ const NavBar = () => {
                     }}
                     style={styles.a}
                   >
-                    <MenuItem style={{ fontSize: '1.25em' }}>Turística</MenuItem>
+                    <MenuItem style={{ fontSize: '1.25em' }}>
+                      Turística
+                    </MenuItem>
                   </a>
                   <a
                     href="/batas"
@@ -210,10 +221,11 @@ const NavBar = () => {
                     }}
                     style={styles.a}
                   >
-                    <MenuItem style={{ fontSize: '1.25em' }}>Estampada</MenuItem>
+                    <MenuItem style={{ fontSize: '1.25em' }}>
+                      Estampada
+                    </MenuItem>
                   </a>
                 </Menu>
-               
               </StyledTabs>
             </Container>
           </Box>
