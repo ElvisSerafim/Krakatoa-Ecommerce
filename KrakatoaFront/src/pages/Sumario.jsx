@@ -163,13 +163,6 @@ const Sumario = ({ location }) => {
     dispatch(removerCart(produto));
   };
 
-  const value = {
-    tam: ['Grande'],
-    price: [7.25],
-    amount: [1],
-    total: [],
-  };
-
   return (
     <>
       <Topo />

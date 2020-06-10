@@ -93,7 +93,7 @@ const Topo = () => {
           container
           spacing={2}
           direction="row"
-          justify="space-around"
+          justify="space-between"
           className={classes.GridContainer}
           width="100%"
         >

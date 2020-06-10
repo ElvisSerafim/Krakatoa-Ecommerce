@@ -2,10 +2,17 @@
  */
 import React, { useState, useEffect } from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Estilo from '../Estilos';
-import { Table, TableBody, TableRow, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Typography } from '@material-ui/core';
+import {
+  Table,
+  TableBody,
+  TableRow,
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  ExpansionPanelDetails,
+  Typography,
+} from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-
+import Estilo from '../Estilos';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,29 +35,25 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Poppins',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
 }));
 
-
 const StyledTableRow = withStyles((theme) => ({
   root: {
-    '&:nth-of-type(odd)': {
-    },
-    color: theme.palette.background.color
+    '&:nth-of-type(odd)': {},
+    color: theme.palette.background.color,
   },
 }))(TableRow);
 
 const setData = (data) => {
-  if(data != undefined){
+  if (data !== undefined) {
     const stringData = data.toString();
     const arrayString = stringData.split('T');
     return arrayString[0];
   }
   return '';
-}
-
-
+};
 
 const PedidosMobile = ({ theme, pedidos }) => {
   const classes = useStyles();
@@ -67,10 +70,13 @@ const PedidosMobile = ({ theme, pedidos }) => {
                 id="panel1a-header"
               >
                 <div style={Estilo.flexRowSPACEBTW}>
-                  <Typography className={classes.heading}>Pedido {i + 1}</Typography>
-                  <Typography className={classes.heading}>Data: {setData(item.pedido.data)}</Typography>
+                  <Typography className={classes.heading}>
+                    Pedido {i + 1}
+                  </Typography>
+                  <Typography className={classes.heading}>
+                    Data: {setData(item.pedido.data)}
+                  </Typography>
                 </div>
-
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
                 <div style={Estilo.flexColumnStandard}>
@@ -81,35 +87,76 @@ const PedidosMobile = ({ theme, pedidos }) => {
                   <div style={{ color: 'white' }}>
                     <ExpansionPanel className={classes.cor}>
                       <ExpansionPanelSummary
-                        expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
+                        expandIcon={
+                          <ExpandMoreIcon style={{ color: 'white' }} />
+                        }
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                       >
                         <div style={Estilo.flexColumnCENTER}>
-                          <Typography className={classes.heading}>Produtos</Typography>
+                          <Typography className={classes.heading}>
+                            Produtos
+                          </Typography>
                         </div>
                       </ExpansionPanelSummary>
                       <ExpansionPanelDetails>
-                        <Table className={classes.table} aria-label="customized table">
+                        <Table
+                          className={classes.table}
+                          aria-label="customized table"
+                        >
                           <TableBody>
                             {item.produtosPedido.map((row, i) => (
-                              <StyledTableRow >
-                                <div style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'column', marginBottom: '10px', border: 'solid', borderRadius: 10, padding: '5px' }}>
-                                  <div style={{ fontFamily: 'Poppins', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <p style={{ margin: 0 }}>{row.produto.nome}</p>
-                                    <p style={{ margin: 0 }}>Qnt: {row.quantidade}</p>
+                              <StyledTableRow>
+                                <div
+                                  style={{
+                                    backgroundColor: 'white',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    marginBottom: '10px',
+                                    border: 'solid',
+                                    borderRadius: 10,
+                                    padding: '5px',
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      fontFamily: 'Poppins',
+                                      display: 'flex',
+                                      flexDirection: 'row',
+                                      justifyContent: 'space-between',
+                                    }}
+                                  >
+                                    <p style={{ margin: 0 }}>
+                                      {row.produto.nome}
+                                    </p>
+                                    <p style={{ margin: 0 }}>
+                                      Qnt: {row.quantidade}
+                                    </p>
                                   </div>
-                                  <div style={{ fontFamily: 'Poppins', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                                  <div
+                                    style={{
+                                      fontFamily: 'Poppins',
+                                      display: 'flex',
+                                      flexDirection: 'row',
+                                      justifyContent: 'space-between',
+                                    }}
+                                  >
                                     <p>Tam: {row.tamanhoEscolhida}</p>
                                     <p>Cor: {row.corEscolhida}</p>
                                   </div>
                                   <div style={Estilo.flexColumnCENTER}>
-                                    <p style={{ margin: 0, fontFamily: 'Poppins' }}>Preço: R${row.produto.preco * row.quantidade}</p>
+                                    <p
+                                      style={{
+                                        margin: 0,
+                                        fontFamily: 'Poppins',
+                                      }}
+                                    >
+                                      Preço: R$
+                                      {row.produto.preco * row.quantidade}
+                                    </p>
                                   </div>
                                 </div>
                               </StyledTableRow>
-
-
                             ))}
                           </TableBody>
                         </Table>
