@@ -82,7 +82,7 @@ export default function Datalhes() {
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('error');
   const [passCurrent, setPassCurrent] = useState('');
-  const [token, setToken] = useState(sessionStorage.getItem('token'));
+  const [token, setToken] = useState();
   const [openAlert, setOpenAlert] = useState(false);
   const [values, setValues] = React.useState({
     default: '71999362212',
@@ -108,13 +108,20 @@ export default function Datalhes() {
       if (nome === '') throw new Error('Nome Vazio');
       if (newPass === '') throw new Error('Nova Senha Vazio');
       if (tel === '') throw new Error('Telefone Vazio');
-
+      let tokenUser;
+      if(sessionStorage.getItem('token') != undefined){
+        tokenUser = sessionStorage.getItem('token');
+        setToken(tokenUser);
+      }else {
+        tokenUser = localStorage.getItem('token');
+        setToken(tokenUser);
+      }
       const data = {
         nome,
         password: pass,
         newPassword: newPass,
         telefone: tel,
-        token,
+        token: tokenUser,
       };
       const request = await api.AtualizaUsuario(data);
       if (request) {

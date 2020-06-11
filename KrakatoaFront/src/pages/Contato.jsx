@@ -8,6 +8,8 @@ import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import ContatoComp from '../components/Contato';
 import FooterComp from '../components/Footer';
+import { useSelector, useDispatch } from 'react-redux';
+import { currentPage } from '../reducers/page';
 import './Contato.css';
 import fb from '../img/fb.png';
 import insta from '../img/insta@2x.png';
@@ -39,6 +41,8 @@ const useStyles = makeStyles({
 
 const Contato = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  dispatch(currentPage(4));
   return (
     <>
       <Topo />
