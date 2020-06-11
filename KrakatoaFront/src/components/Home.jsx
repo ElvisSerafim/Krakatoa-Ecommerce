@@ -38,6 +38,8 @@ const Home = () => {
     infinite: true,
     speed: 500,
     slidesToShow: 3,
+    autoplay: true,
+    autoplaySpeed: 2000,
     arrows: true,
     slidesToScrow: 1,
     className: 'slides',
