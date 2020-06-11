@@ -42,8 +42,9 @@ const Login = () => {
     try {
       if (email === '') throw new Error('Email Vazio');
       if (password === '') throw new Error('Senha Vazia');
+      const lower = email.toLowerCase();
       const data = {
-        email,
+        email: lower,
         password,
         sessao,
       };

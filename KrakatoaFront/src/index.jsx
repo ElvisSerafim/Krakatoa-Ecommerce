@@ -44,6 +44,34 @@ ReactDOM.render(
               )}
             />
             <Route
+              path="/cangas/mandalas"
+              exact
+              render={(props) => (
+                <Produtos {...props} name="mandalas" title="Mandalas" />
+              )}
+            />
+            <Route
+              path="/cangas/turisticas"
+              exact
+              render={(props) => (
+                <Produtos {...props} name="turisticas" title="Turisticas" />
+              )}
+            />
+            <Route
+              path="/cangas/pompom"
+              exact
+              render={(props) => (
+                <Produtos {...props} name="pompom" title="Pompom" />
+              )}
+            />
+            <Route
+              path="/cangas/estampada"
+              exact
+              render={(props) => (
+                <Produtos {...props} name="estampada" title="Estampada" />
+              )}
+            />
+            <Route
               path="/vestidos"
               exact
               render={(props) => (
@@ -62,6 +90,20 @@ ReactDOM.render(
               exact
               render={(props) => (
                 <Produtos {...props} name="shorts" title="Shorts" />
+              )}
+            />
+            <Route
+              path="/macaquinhos"
+              exact
+              render={(props) => (
+                <Produtos {...props} name="macaquinhos" title="Macaquinhos" />
+              )}
+            />
+            <Route
+              path="/confeccoes"
+              exact
+              render={(props) => (
+                <Produtos {...props} name="confeccoes" title="Confeccões" />
               )}
             />
             <Route

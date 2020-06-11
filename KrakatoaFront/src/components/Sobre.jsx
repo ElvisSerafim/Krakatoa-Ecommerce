@@ -29,24 +29,21 @@ const data = [
   {
     quarter: 'card',
     title: 'Frente da Loja',
-    size: 3,
   },
   {
     quarter: 'card2',
     title: 'Parte interna',
-    size: 3,
   },
   {
     quarter: 'card3',
     title: 'Display de Produtos',
-    size: 3,
   },
   {
     quarter: 'card4',
     title: 'Venha conhecer!',
-    size: 3,
   },
 ];
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
