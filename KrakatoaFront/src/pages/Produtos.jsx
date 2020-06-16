@@ -69,7 +69,21 @@ const Produtos = ({ title, name }) => {
           setProduct([arrayAux]);
         }
       } else {
-        setProduct(a);
+
+        if (title.toUpperCase() !== name.toUpperCase()) {
+          let aux = request;
+          let category;
+          request.forEach((item, index) => {
+            category = aux.filter((iten, index)=> {
+              if( iten.categoria != undefined){
+                return iten.categoria.toUpperCase() === title.toUpperCase();
+              }
+            })
+          })
+          setProduct([category]);
+        } else {
+          setProduct(a);
+        }
       }
     };
 
@@ -78,7 +92,7 @@ const Produtos = ({ title, name }) => {
   const dispatch = useDispatch();
   dispatch(updateProducts(product));
 
-  const abrir = () => {};
+  const abrir = () => { };
   const fechar = (event, reason) => {
     if (reason === 'clickaway') {
       return;

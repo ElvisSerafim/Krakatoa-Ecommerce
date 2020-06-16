@@ -38,11 +38,17 @@ const Produto = ({ produto, title, addItem, update }) => {
   const [type, setType] = useState(title);
   const classes = useStyles();
   useEffect(() => {
-    console.log(produto.imagens);
+    console.log(produto);
     if (produto.imagens.length !== 0) {
-      setImageurl(
-        `http://localhost:4000/static/imgs/${produto.imagens[0]}.jpg`,
-      );
+      if(produto.categoria == 'mandalas'){
+        setImageurl(
+          `http://localhost:4000/static/imgs/${produto.imagens[0]}.jpg`,
+        );
+      }else {
+        setImageurl(
+          `http://64.227.106.165/api/static/imgs/${produto.imagens[0]}.jpeg`,
+        );
+      }
     } else {
       setImageurl(`http://64.227.106.165/api/static/imgs/${id}.jpeg`);
     }
