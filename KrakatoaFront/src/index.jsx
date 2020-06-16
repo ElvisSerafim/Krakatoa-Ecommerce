@@ -47,7 +47,7 @@ ReactDOM.render(
               path="/cangas/mandalas"
               exact
               render={(props) => (
-                <Produtos {...props} name="mandalas" title="Mandalas" />
+                <Produtos {...props} name="cangas" title="Mandalas" />
               )}
             />
             <Route

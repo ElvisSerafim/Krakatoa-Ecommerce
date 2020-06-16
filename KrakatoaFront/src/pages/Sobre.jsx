@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Typography } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import SobreCompomente from '../components/Sobre';
 import Footer from '../components/Footer';
+import { useSelector, useDispatch } from 'react-redux';
+import { currentPage } from '../reducers/page';
 
 const styles = {
   showmap: {
@@ -26,6 +28,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Sobre = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  dispatch(currentPage(3));
   return (
     <>
       <Topo />
