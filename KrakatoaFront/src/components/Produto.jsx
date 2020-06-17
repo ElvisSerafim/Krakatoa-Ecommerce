@@ -40,9 +40,9 @@ const Produto = ({ produto, title, addItem, update }) => {
   useEffect(() => {
     console.log(produto);
     if (produto.imagens.length !== 0) {
-      if(produto.categoria == 'mandalas'){
+      if(produto.categoria != undefined){
         setImageurl(
-          `http://localhost:4000/static/imgs/${produto.imagens[0]}.jpg`,
+          `http://localhost:4000/static/imgs/${title}/${produto.imagens[0]}.jpg`,
         );
       }else {
         setImageurl(

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const tipos = ['cangas', 'vestidos', 'batas', 'shorts'];
+const tipos = ['cangas', 'vestidos', 'batas', 'shorts', 'confeccões'];
 
 const produtoSchema = new mongoose.Schema(
   {
