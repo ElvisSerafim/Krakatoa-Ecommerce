@@ -33,7 +33,7 @@ const Produtos = ({ title, name }) => {
       };
 
       const request = await api.GetProdutos(data);
-
+      
       const a = [request];
       console.log(a);
       if (name === 'pesquisa') {
