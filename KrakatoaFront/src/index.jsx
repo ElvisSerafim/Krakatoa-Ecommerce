@@ -82,7 +82,7 @@ ReactDOM.render(
               path="/batas"
               exact
               render={(props) => (
-                <Produtos {...props} name="batas" title="Batas" />
+                <Produtos {...props} name="confeccões" title="Batas" />
               )}
             />
             <Route
