@@ -1,10 +1,32 @@
-import { Controller, Post } from '@nestjs/common';
+import { Controller, Post, Put, Delete } from '@nestjs/common';
 import { UserService } from './user.service';
-import { User } from './user.model';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService) {}
+  /*   constructor(private userService: UserService) {}
   @Post()
-  createUser(): User {}
+  createUser(createUserdto: CreateUserDto) {
+    this.userService.CreateUser(createUserdto);
+  }
+  @Post()
+  Login(createUserdto: CreateUserDto): User {
+    this.userService.Login(createUserdto);
+  }
+  @Post()
+  Logout(createUserdto: CreateUserDto) {
+    this.userService.Logout();
+  }
+  @Put()
+  updateUser() {
+    this.userService.UpdateUser();
+  }
+  @Put()
+  updateUserEnde() {
+    this.userService.UpdateUserEnde();
+  }
+  @Delete()
+  deleteUser() {
+    this.userService.DeleteUser();
+  } */
 }

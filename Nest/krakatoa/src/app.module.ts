@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserController } from './user/user.controller';
@@ -21,7 +22,22 @@ import { ProdutoModule } from './produto/produto.module';
 import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [ContatoModule, CorreiosModule, PagamentoModule, PedidoModule, ProdutoModule, UserModule],
+  imports: [
+    MongooseModule.forRoot(
+      'mongodb+srv://krakatoaprod:TAsR8gLOsEZF9TOY@cluster0-ivnk7.gcp.mongodb.net/KrakatoaProd?retryWrites=true&w=majority',
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+      },
+    ),
+    ContatoModule,
+    CorreiosModule,
+    PagamentoModule,
+    PedidoModule,
+    ProdutoModule,
+    UserModule,
+  ],
   controllers: [
     AppController,
     UserController,
@@ -31,6 +47,14 @@ import { UserModule } from './user/user.module';
     PedidoController,
     ContatoController,
   ],
-  providers: [AppService, UserService, ProdutoService, PedidoService, PagamentoService, CorreiosService, ContatoService],
+  providers: [
+    AppService,
+    UserService,
+    ProdutoService,
+    PedidoService,
+    PagamentoService,
+    CorreiosService,
+    ContatoService,
+  ],
 })
 export class AppModule {}
