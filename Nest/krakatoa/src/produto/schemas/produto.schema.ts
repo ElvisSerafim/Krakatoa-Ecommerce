@@ -1,39 +1,39 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-@Schema()
+@Schema({ timestamps: true, toJSON: { virtuals: true } })
 export class Produto extends Document {
-  @Prop()
+  @Prop({ required: true })
   nome: string;
 
-  @Prop()
+  @Prop({ required: true })
   preco: number;
-
-  @Prop()
+  /* Fazer um enum */
+  @Prop({ required: true })
   tipo: string;
-
-  @Prop()
+  /* Fazer um enum */
+  @Prop({ required: true })
   tamanho: string[];
 
-  @Prop()
+  @Prop({ required: true })
   promocao: boolean;
 
   @Prop()
-  precoPromo: boolean;
-
-  @Prop()
+  precoPromo: number;
+  /* Fazer um enum */
+  @Prop({ required: true })
   categoria: string;
 
-  @Prop()
+  @Prop({ required: true, minlength: 1 })
   cores: string[];
 
-  @Prop()
+  @Prop({ required: true, min: 10 })
   descricao: string;
 
-  @Prop()
+  @Prop({ required: true })
   vendas: number;
 
-  @Prop()
+  @Prop({ required: true, min: 1 })
   quantidade: number;
 }
 

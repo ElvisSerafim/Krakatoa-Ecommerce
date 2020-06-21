@@ -1,25 +1,35 @@
-import { Controller, Post, Put, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Put,
+  Delete,
+  UsePipes,
+  ValidationPipe,
+  Body,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { User } from './schemas/user.schema';
 
 @Controller('user')
 export class UserController {
-  /*   constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {}
   @Post()
-  createUser(createUserdto: CreateUserDto) {
-    this.userService.CreateUser(createUserdto);
+  @UsePipes(ValidationPipe)
+  async createUser(@Body() createUserdto: CreateUserDto): Promise<User> {
+    return await this.userService.CreateUser(createUserdto);
   }
-  @Post()
+  /*  @Put()
+  updateUser() {
+    this.userService.UpdateUser();
+  } */
+  /* @Post()
   Login(createUserdto: CreateUserDto): User {
     this.userService.Login(createUserdto);
   }
   @Post()
   Logout(createUserdto: CreateUserDto) {
     this.userService.Logout();
-  }
-  @Put()
-  updateUser() {
-    this.userService.UpdateUser();
   }
   @Put()
   updateUserEnde() {
