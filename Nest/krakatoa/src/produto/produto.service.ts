@@ -23,7 +23,6 @@ export class ProdutoService {
     }
     throw new Error('Produto com esse nome já existe');
   }
-  /* TODO */
   async UpdateProduto(
     updateProdutoDto: UpdateProdutoDto,
     id: string,
@@ -32,6 +31,83 @@ export class ProdutoService {
     if (!produto) {
       throw new Error('Não foi possivel achar o produto');
     }
+    const {
+      nome,
+      categoria,
+      cores,
+      descricao,
+      preco,
+      precoPromo,
+      promocao,
+      quantidade,
+      tamanho,
+      tipo,
+      vendas,
+    } = updateProdutoDto;
+    produto.nome =
+      typeof nome === 'string' && nome.length > 0 && produto.nome !== nome
+        ? nome
+        : produto.nome;
+
+    produto.categoria =
+      typeof categoria !== 'undefined' &&
+      categoria.length > 0 &&
+      produto.categoria !== categoria
+        ? categoria
+        : produto.categoria;
+
+    produto.cores =
+      typeof cores !== 'undefined' &&
+      cores.length > 0 &&
+      produto.cores !== cores
+        ? cores
+        : produto.cores;
+
+    produto.descricao =
+      typeof descricao !== 'undefined' &&
+      descricao.length > 0 &&
+      produto.descricao !== descricao
+        ? descricao
+        : produto.descricao;
+
+    produto.preco =
+      typeof preco === 'number' && preco > 0 && produto.preco !== preco
+        ? preco
+        : produto.preco;
+
+    produto.vendas =
+      typeof preco === 'number' && preco > 0 && produto.vendas !== vendas
+        ? vendas
+        : produto.vendas;
+
+    produto.promocao = typeof promocao === 'boolean' && promocao === true;
+
+    produto.precoPromo =
+      typeof quantidade === 'number' &&
+      precoPromo > 0 &&
+      produto.precoPromo !== precoPromo
+        ? precoPromo
+        : produto.precoPromo;
+
+    produto.quantidade =
+      typeof quantidade === 'number' &&
+      quantidade > 0 &&
+      produto.quantidade !== quantidade
+        ? quantidade
+        : produto.quantidade;
+
+    produto.tamanho =
+      typeof tamanho !== 'undefined' &&
+      tamanho.length > 0 &&
+      produto.tamanho !== tamanho
+        ? tamanho
+        : produto.tamanho;
+
+    produto.tipo =
+      typeof tipo === 'string' && tipo.length > 0 && produto.tipo !== tipo
+        ? tipo
+        : produto.tipo;
+
     return produto.save();
   }
   async DeleteProduto(id: string): Promise<void> {

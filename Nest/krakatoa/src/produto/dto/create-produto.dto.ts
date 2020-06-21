@@ -1,34 +1,32 @@
-import { isNotEmpty, Length } from 'class-validator';
+import { IsNotEmpty, Length } from 'class-validator';
 
 export class CreateProdutoDto {
-  @isNotEmpty()
+  @IsNotEmpty()
   nome: string;
-  @isNotEmpty()
+  @IsNotEmpty()
   preco: number;
-  @Length(10, 20)
+
   tipo: string;
 
-  @isNotEmpty()
+  @IsNotEmpty()
   tamanho: string[];
 
-  @isNotEmpty()
   promocao: boolean;
 
-  @isNotEmpty()
-  precoPromo: boolean;
+  precoPromo: number;
 
-  @isNotEmpty()
+  @IsNotEmpty()
   categoria: string;
 
-  @isNotEmpty()
+  @IsNotEmpty()
   cores: string[];
 
-  @isNotEmpty()
+  @IsNotEmpty()
   descricao: string;
 
-  @isNotEmpty()
+  @IsNotEmpty()
   vendas: number;
 
-  @isNotEmpty()
+  @IsNotEmpty()
   quantidade: number;
 }

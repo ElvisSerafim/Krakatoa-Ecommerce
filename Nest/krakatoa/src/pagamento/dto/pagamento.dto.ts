@@ -1,9 +1,13 @@
-import { ProdutoEntity } from '../../pedido/pedido.entity';
-
+interface produto {
+  quantidadePedido: number;
+  tamanhoEscolhido: string;
+  corEscolhida: string;
+  id: string;
+}
 export class PagamentoDto {
   data: Date;
   valor: number;
-  produto: ProdutoEntity[];
+  produto: produto[];
   metodo: string;
-  user: UserEntity[];
+  userId: string;
 }
