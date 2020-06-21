@@ -38,19 +38,19 @@ const Produto = ({ produto, title, addItem, update }) => {
   const [type, setType] = useState(title);
   const classes = useStyles();
   useEffect(() => {
-    console.log(produto);
+    console.log(produto.categoria);
     if (produto.imagens.length !== 0) {
-      if(produto.categoria != undefined){
+      if(produto.categoria != undefined && title !== 'pesquisa'){
         setImageurl(
-          `http://localhost:4000/static/imgs/${title}/${produto.imagens[0]}.jpg`,
+          `http://64.227.106.165/api/static/imgs/${title}/${produto.imagens[0]}.jpg`,
         );
       }else {
         setImageurl(
-          `http://64.227.106.165/api/static/imgs/${produto.imagens[0]}.jpeg`,
+          `http://64.227.106.165/api/static/imgs/${produto.categoria}/${produto.imagens[0]}.jpg`,
         );
       }
     } else {
-      setImageurl(`http://64.227.106.165/api/static/imgs/${id}.jpeg`);
+      setImageurl(`http://64.227.106.165/api/static/imgs/${id}.jpg`);
     }
   }, []);
   const FuncCapitalize = (str) => {
@@ -72,7 +72,7 @@ const Produto = ({ produto, title, addItem, update }) => {
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <a href={`/${title}/${id}`}>
+        <a href={`/${produto.categoria}/${id}`}>
           <CardMedia
             className={classes.media}
             image={Imageurl}
@@ -84,7 +84,7 @@ const Produto = ({ produto, title, addItem, update }) => {
           <CardContent
             style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
           >
-            <div>
+            <div style={{height: 52}}>
               <Typography
                 gutterBottom
                 variant="h5"
