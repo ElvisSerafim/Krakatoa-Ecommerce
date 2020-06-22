@@ -41,6 +41,7 @@ export class ProdutoService {
       promocao,
       quantidade,
       tamanho,
+      imagens,
       tipo,
       vendas,
     } = updateProdutoDto;
@@ -102,6 +103,13 @@ export class ProdutoService {
       produto.tamanho !== tamanho
         ? tamanho
         : produto.tamanho;
+
+    produto.imagens =
+      typeof imagens !== 'undefined' &&
+      imagens.length > 0 &&
+      produto.imagens !== imagens
+        ? imagens
+        : produto.imagens;
 
     produto.tipo =
       typeof tipo === 'string' && tipo.length > 0 && produto.tipo !== tipo

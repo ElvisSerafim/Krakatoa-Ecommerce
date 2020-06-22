@@ -11,6 +11,10 @@ export class CreateProdutoDto {
   @IsNotEmpty()
   tamanho: string[];
 
+  @IsNotEmpty()
+  imagens: string[];
+
+  @IsNotEmpty()
   promocao: boolean;
 
   precoPromo: number;

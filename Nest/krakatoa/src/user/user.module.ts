@@ -1,12 +1,22 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { User, UserSchema } from './schemas/user.schema';
 import { genSalt, hash } from 'bcrypt';
+import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   imports: [
+    PassportModule.register({ defaultStrategy: 'jwt' }),
+    JwtModule.register({
+      secret: 'testando12',
+      signOptions: {
+        expiresIn: 3600,
+      },
+    }),
     MongooseModule.forFeatureAsync([
       {
         name: User.name,
@@ -29,6 +39,7 @@ import { genSalt, hash } from 'bcrypt';
     ]),
   ],
   controllers: [UserController],
-  providers: [UserService],
+  providers: [UserService, JwtStrategy],
+  exports: [JwtStrategy, PassportModule],
 })
 export class UserModule {}

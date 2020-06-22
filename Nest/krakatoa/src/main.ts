@@ -1,12 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, Logger } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import * as helmet from 'helmet';
 /* import * as csurf from 'csurf'; */
 import * as rateLimit from 'express-rate-limit';
 
 async function bootstrap() {
+  const port = 3000;
+  const logger = new Logger('bootstrap');
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.set('trust proxy', 1);
   app.use(helmet());
@@ -19,6 +21,7 @@ async function bootstrap() {
     }),
   );
   app.useGlobalPipes(new ValidationPipe());
-  await app.listen(3000);
+  await app.listen(port);
+  logger.log(`Application listening on port ${port}`);
 }
 bootstrap();

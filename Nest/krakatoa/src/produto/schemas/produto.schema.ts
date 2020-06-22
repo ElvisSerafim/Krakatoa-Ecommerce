@@ -18,6 +18,9 @@ export class Produto extends Document {
   @Prop({ required: true })
   promocao: boolean;
 
+  @Prop({ required: true })
+  imagens: string[];
+
   @Prop()
   precoPromo: number;
   /* Fazer um enum */

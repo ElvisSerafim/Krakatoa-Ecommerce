@@ -38,15 +38,10 @@ const Produto = ({ produto, title, addItem, update }) => {
   const [type, setType] = useState(title);
   const classes = useStyles();
   useEffect(() => {
-    console.log(produto.categoria);
     if (produto.imagens.length !== 0) {
       if(produto.categoria != undefined && title !== 'pesquisa'){
         setImageurl(
           `http://64.227.106.165/api/static/imgs/${title}/${produto.imagens[0]}.jpg`,
-        );
-      }else {
-        setImageurl(
-          `http://64.227.106.165/api/static/imgs/${produto.categoria}/${produto.imagens[0]}.jpg`,
         );
       }
     } else {
@@ -82,7 +77,11 @@ const Produto = ({ produto, title, addItem, update }) => {
         </a>
         <div>
           <CardContent
-            style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}
           >
             <div style={{height: 52}}>
               <Typography
@@ -94,18 +93,24 @@ const Produto = ({ produto, title, addItem, update }) => {
                 {FuncCapitalize(nome)}
               </Typography>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  R$ {preco}
-                </Typography>
-                <AddShoppingCartIcon
-                  color="primary"
-                  style={{paddingTop: 5}}
-                  onClick={() => {
-                    addItem(product);
-                  }}
-                />
-              </div>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Typography variant="body2" color="textSecondary" component="p">
+                R$ {preco}
+              </Typography>
+              <AddShoppingCartIcon
+                color="primary"
+                style={{ paddingTop: 5 }}
+                onClick={() => {
+                  addItem(product);
+                }}
+              />
+            </div>
           </CardContent>
         </div>
       </CardActionArea>

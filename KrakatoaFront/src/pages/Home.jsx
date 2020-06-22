@@ -10,7 +10,6 @@ import TextField from '../components/TextField';
 import Produto from '../components/Produto';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
-import Promos from '../components/promos';
 import HomeComp from '../components/Home';
 import Footer from '../components/Footer';
 import { sendAllProducts } from '../reducers/allProducts';
@@ -23,6 +22,7 @@ import Estilos from '../Estilos';
 import api from '../Services/ApiService';
 import Alerta from '../components/Alerta';
 import { addCart } from '../reducers/productsCart';
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -58,10 +58,11 @@ const styles = {
     height: 70,
     borderRadius: 10,
   },
-  scrollbarMobile:
-  {
-    display: 'flex', overflowX: 'scroll', width: '100%'
-  }
+  scrollbarMobile: {
+    display: 'flex',
+    overflowX: 'scroll',
+    width: '100%',
+  },
 };
 
 const Home = () => {
@@ -115,9 +116,6 @@ const Home = () => {
       </Grid>
       <Container maxWidth="lg">
         <Grid container spacing={2} justify="space-evenly">
-          <Grid item lg={12} md={12} sm={12} xs={12}>
-            <Promos />
-          </Grid>
           <Grid item lg={12} md={12} sm={12}>
             <Typography style={styles.Titulo} color="primary">
               Mais Procurados
@@ -129,7 +127,7 @@ const Home = () => {
               <Grid item lg={3} md={3} sm={3}>
                 <Produto
                   produto={item}
-                  update={() => { }}
+                  update={() => {}}
                   title={item.tipo}
                   addItem={addItemCart}
                 />
@@ -143,7 +141,7 @@ const Home = () => {
                 <Grid item lg={12} md={12} sm={12} style={{ marginLeft: 10 }}>
                   <Produto
                     produto={item}
-                    update={() => { }}
+                    update={() => {}}
                     title={item.tipo}
                     addItem={addItemCart}
                   />
@@ -266,7 +264,7 @@ const Home = () => {
               <Grid item lg={3} md={3} sm={3}>
                 <Produto
                   produto={item}
-                  update={() => { }}
+                  update={() => {}}
                   title={item.tipo}
                   addItem={addItemCart}
                 />
@@ -280,7 +278,7 @@ const Home = () => {
                 <Grid item lg={12} md={12} sm={12} style={{ marginLeft: 10 }}>
                   <Produto
                     produto={item}
-                    update={() => { }}
+                    update={() => {}}
                     title={item.tipo}
                     addItem={addItemCart}
                   />

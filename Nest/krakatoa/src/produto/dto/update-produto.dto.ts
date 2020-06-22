@@ -3,6 +3,7 @@ export class UpdateProdutoDto {
   preco: number;
   tipo: string;
   tamanho: string[];
+  imagens: string[];
   promocao: boolean;
   precoPromo: number;
   categoria: string;

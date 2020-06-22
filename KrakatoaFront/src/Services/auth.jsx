@@ -2,16 +2,19 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import { decode } from 'jsonwebtoken';
 
-const isAuth = () => {
-  if (sessionStorage.getItem('token') !== null) return true;
-  if (localStorage.getItem('token') !== null) return true;
+const isAuth = async () => {
+  const token = sessionStorage.getItem('token');
+  if (token) {
+    const { exp } = decode(token);
+    if (Date.now() >= exp * 1000) {
+      return false;
+    }
+    return true;
+  }
   return false;
 };
-
-const isProduct = () => {
-  
-}
 
 export const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -48,5 +51,3 @@ export const PrivateRouteBuy = ({ component: Component, ...rest }) => (
     }
   />
 );
-
-

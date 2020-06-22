@@ -8,10 +8,6 @@ import {
   CardActions,
   Button,
 } from '@material-ui/core/';
-import './bgCard.css';
-import card1 from '../img/card1.jpg';
-import card2 from '../img/card2.jpg';
-import card3 from '../img/card3.jpg';
 
 const styles = {
   root: {
