@@ -39,15 +39,11 @@ const Produto = ({ produto, title, addItem, update }) => {
   const classes = useStyles();
   useEffect(() => {
     if (produto.imagens.length !== 0) {
-      if (produto.categoria !== undefined) {
+      if(produto.categoria != undefined && title !== 'pesquisa'){
         setImageurl(
           `http://64.227.106.165/api/static/imgs/${title}/${produto.imagens[0]}.jpg`,
         );
-      } /*  else {
-        setImageurl(
-          `http://localhost:4000/static/imgs/${title}/${produto.imagens[0]}.jpg`,
-        );
-      } */
+      }
     } else {
       setImageurl(`http://64.227.106.165/api/static/imgs/${id}.jpg`);
     }
@@ -71,7 +67,7 @@ const Produto = ({ produto, title, addItem, update }) => {
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <a href={`/${title}/${id}`}>
+        <a href={`/${produto.categoria}/${id}`}>
           <CardMedia
             className={classes.media}
             image={Imageurl}
@@ -87,7 +83,7 @@ const Produto = ({ produto, title, addItem, update }) => {
               justifyContent: 'space-between',
             }}
           >
-            <div>
+            <div style={{height: 52}}>
               <Typography
                 gutterBottom
                 variant="h5"
