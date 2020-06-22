@@ -1,6 +1,7 @@
 import { Schema, Prop, SchemaFactory, raw } from '@nestjs/mongoose';
-import { Document, SchemaTypes } from 'mongoose';
+import { Document, SchemaTypes, Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
+import { UnauthorizedException } from '@nestjs/common';
 
 @Schema({ timestamps: true, toJSON: { virtuals: true } })
 export class User extends Document {
@@ -19,12 +20,12 @@ export class User extends Document {
   password: string;
   @Prop()
   endereco: {
-    cep: number;
+    cep: string;
     estado: string;
     cidade: string;
     bairro: string;
     rua: string;
-    numero: number;
+    numero: string;
     complemento: string;
   };
   @Prop(
@@ -38,35 +39,25 @@ export class User extends Document {
     }),
   )
   pedidos: Record<string, any>;
-  @Prop(
-    raw({
-      tokens: [
-        {
-          token: {
-            type: String,
-            required: true,
-          },
-        },
-      ],
-    }),
-  )
-  tokens: Record<string, any>;
-  static findByCredentials = async (
+
+  static findByCredentials = async function(
+    model: Model<User>,
     email: string,
     password: string,
-  ): Promise<User> => {
-    const user = await User.prototype.collection.findOne({ email });
-    if (!user) {
-      throw new Error('Usuario não encontrado');
+  ): Promise<User> {
+    try {
+      const user = await model.collection.findOne({ email });
+      if (!user) {
+        throw new Error('Usuario não encontrado');
+      }
+      const passwordMatch = await bcrypt.compare(password, user.password);
+      if (!passwordMatch) {
+        throw new Error('Senha Invalida');
+      }
+      return user;
+    } catch (error) {
+      throw new UnauthorizedException('Senha Invalida');
     }
-    const passwordMatch = await bcrypt.compare(
-      password,
-      User.prototype.password,
-    );
-    if (!passwordMatch) {
-      throw new Error('Senha Invalida');
-    }
-    return user;
   };
 }
 export const UserSchema = SchemaFactory.createForClass(User);

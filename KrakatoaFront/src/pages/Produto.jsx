@@ -2,7 +2,7 @@
 /* Produto em Si */
 
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography } from '@material-ui/core/';
+import { Container, Grid, Typography, Button } from '@material-ui/core/';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
@@ -16,11 +16,10 @@ import { addCart, sendAllProducts } from '../reducers/productsCart';
 import api from '../Services/ApiService';
 import Estilos from '../Estilos';
 import fav from '../img/favorite.svg';
-import { Button } from '@material-ui/core/';
+
 import ProdutoMobile from '../components/ProdutoMobile';
 import Quantity from '../components/Quantity';
 import Alerta from '../components/Alerta';
-
 
 const styles = {
   foto: {
@@ -60,9 +59,10 @@ const styles = {
   promoText: {
     color: 'white',
   },
-  scrollbarMobile:
-  {
-    display: 'flex', overflowX: 'scroll', width: '100%'
+  scrollbarMobile: {
+    display: 'flex',
+    overflowX: 'scroll',
+    width: '100%',
   },
 
   img: {
@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 40,
   },
   backgroundC: {
-    backgroundColor: theme.palette.background.color
+    backgroundColor: theme.palette.background.color,
   },
   GridContainer: {
     '@media (min-width: 954px)': {
@@ -142,14 +142,14 @@ const ProdutoPage = ({ match }) => {
         setColors(item.cores);
         setPosicao(i);
         if (item.imagens.length != 0) {
-          item.Imageurl = `http://64.227.106.165/api/static/imgs/${item.imagens[0]}.jpeg`;
+          item.Imageurl = `http://64.227.106.165/api/static/imgs/${item.imagens[0]}.jpg`;
           setFotoAtual(
-            `http://64.227.106.165/api/static/imgs/${item.imagens[0]}.jpeg`,
+            `http://64.227.106.165/api/static/imgs/${item.imagens[0]}.jpg`,
           );
           setFotos(item.imagens);
           setFotosMobile(item.imagens);
         } else {
-          item.Imageurl = `http://64.227.106.165/api/static/imgs/${item.id}.jpeg`;
+          item.Imageurl = `http://64.227.106.165/api/static/imgs/${item.id}.jpg`;
           setFotoAtual(item.Imageurl);
         }
         setProduct(item);
@@ -217,10 +217,10 @@ const ProdutoPage = ({ match }) => {
                 {fotos.map((item) => (
                   <div style={styles.foto}>
                     <img
-                      src={`http://64.227.106.165/api/static/imgs/${item}.jpeg`}
+                      src={`http://64.227.106.165/api/static/imgs/${item}.jpg`}
                       onClick={(event) => {
                         setFotoAtual(
-                          `http://64.227.106.165/api/static/imgs/${item}.jpeg`,
+                          `http://64.227.106.165/api/static/imgs/${item}.jpg`,
                         );
                       }}
                       style={styles.img}
@@ -243,7 +243,6 @@ const ProdutoPage = ({ match }) => {
           </Hidden>
           <Grid item lg={1} md={1} />
           <Hidden smDown>
-
             <Grid item lg={6} md={6}>
               <div className={classes.quadradao2}>
                 <div
@@ -257,7 +256,7 @@ const ProdutoPage = ({ match }) => {
                   <div style={styles.promo}>
                     <Typography style={styles.promoText} variant="body1">
                       Promoção
-                  </Typography>
+                    </Typography>
                   </div>
                   <div>
                     <Typography style={styles.product} variant="body1">
@@ -343,14 +342,18 @@ const ProdutoPage = ({ match }) => {
                           <Button
                             variant="contained"
                             color="primary"
-                            style={{ marginLeft: 70, width: '100%', maxHeight: '100%' }}
+                            style={{
+                              marginLeft: 70,
+                              width: '100%',
+                              maxHeight: '100%',
+                            }}
                             onClick={() => {
                               setOpen(true);
                               addItemCart(product, quantity);
                             }}
                           >
                             ADICIONAR AO CARRINHO
-                           </Button>
+                          </Button>
                         </div>
                         <a style={{ marginLeft: 120, height: 10 }} href="##">
                           <img src={fav} alt="Favorite" />
@@ -358,7 +361,6 @@ const ProdutoPage = ({ match }) => {
                       </div>
                     </div>
                   </div>
-
                 </div>
               </div>
             </Grid>
@@ -373,8 +375,22 @@ const ProdutoPage = ({ match }) => {
               status="success"
               openAlert={open}
             />
-            <div style={{ marginTop: 50, width: '100%', backgroundColor: '#44323D', padding: 10 }}>
-              <div style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'space-around' }}>
+            <div
+              style={{
+                marginTop: 50,
+                width: '100%',
+                backgroundColor: '#44323D',
+                padding: 10,
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  flex: 1,
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                }}
+              >
                 <ComboBox
                   onChange={(event) => {
                     setSize(event.target.value);
@@ -408,7 +424,6 @@ const ProdutoPage = ({ match }) => {
                 <div style={{ marginTop: 20 }}>
                   <Quantity
                     quantidade={quantity}
-
                     onClickPlus={() => {
                       let aux = quantity;
                       aux++;
@@ -441,8 +456,6 @@ const ProdutoPage = ({ match }) => {
                 ADICIONAR AO CARRINHO
               </Button>
             </div>
-
-
           </Hidden>
 
           <Grid item lg={12} md={12}>
@@ -478,11 +491,10 @@ const ProdutoPage = ({ match }) => {
                   width: '100%',
                   fontSize: 'clamp(16px, 4vw, 22px)',
                   marginLeft: 5,
-
                 }}
               >
                 {product.descricao}
-                <br></br>
+                <br />
               </Typography>
             </div>
           </Grid>
@@ -527,7 +539,14 @@ const ProdutoPage = ({ match }) => {
             <Hidden lgUp>
               <div style={styles.scrollbarMobile}>
                 {allProducts.map((value) => (
-                  <Grid key={value.id} item lg={3} md={4} sm={6} style={{marginLeft: 10}}>
+                  <Grid
+                    key={value.id}
+                    item
+                    lg={3}
+                    md={4}
+                    sm={6}
+                    style={{ marginLeft: 10 }}
+                  >
                     <Produto
                       produto={value}
                       title={type}
@@ -543,7 +562,6 @@ const ProdutoPage = ({ match }) => {
                 ))}
               </div>
             </Hidden>
-
           </Grid>
         </div>
       </Container>

@@ -38,19 +38,18 @@ const Produto = ({ produto, title, addItem, update }) => {
   const [type, setType] = useState(title);
   const classes = useStyles();
   useEffect(() => {
-    console.log(produto);
     if (produto.imagens.length !== 0) {
-      if(produto.categoria != undefined){
+      if (produto.categoria !== undefined) {
+        setImageurl(
+          `http://64.227.106.165/api/static/imgs/${title}/${produto.imagens[0]}.jpg`,
+        );
+      } /*  else {
         setImageurl(
           `http://localhost:4000/static/imgs/${title}/${produto.imagens[0]}.jpg`,
         );
-      }else {
-        setImageurl(
-          `http://64.227.106.165/api/static/imgs/${produto.imagens[0]}.jpeg`,
-        );
-      }
+      } */
     } else {
-      setImageurl(`http://64.227.106.165/api/static/imgs/${id}.jpeg`);
+      setImageurl(`http://64.227.106.165/api/static/imgs/${id}.jpg`);
     }
   }, []);
   const FuncCapitalize = (str) => {
@@ -82,7 +81,11 @@ const Produto = ({ produto, title, addItem, update }) => {
         </a>
         <div>
           <CardContent
-            style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}
           >
             <div>
               <Typography
@@ -94,18 +97,24 @@ const Produto = ({ produto, title, addItem, update }) => {
                 {FuncCapitalize(nome)}
               </Typography>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  R$ {preco}
-                </Typography>
-                <AddShoppingCartIcon
-                  color="primary"
-                  style={{paddingTop: 5}}
-                  onClick={() => {
-                    addItem(product);
-                  }}
-                />
-              </div>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Typography variant="body2" color="textSecondary" component="p">
+                R$ {preco}
+              </Typography>
+              <AddShoppingCartIcon
+                color="primary"
+                style={{ paddingTop: 5 }}
+                onClick={() => {
+                  addItem(product);
+                }}
+              />
+            </div>
           </CardContent>
         </div>
       </CardActionArea>
