@@ -38,7 +38,7 @@ export class ProdutoController {
   async GetAllProdutos(): Promise<Produto[]> {
     return await this.produtoService.GetAllProdutos();
   }
-  @Post('id:')
+  @Post(':id')
   async GetQueryProdutos(
     @Body() queryProdutoDto: QueryProdutoDto,
   ): Promise<Produto[]> {

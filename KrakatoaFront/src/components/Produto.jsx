@@ -39,13 +39,13 @@ const Produto = ({ produto, title, addItem, update }) => {
   const classes = useStyles();
   useEffect(() => {
     if (produto.imagens.length !== 0) {
-      if(produto.categoria != undefined && title !== 'pesquisa'){
+      if (produto.categoria !== undefined && title !== 'pesquisa') {
         setImageurl(
-          `http://64.227.106.165/api/static/imgs/${title}/${produto.imagens[0]}.jpg`,
+          `http://64.227.106.165/imgs/${title}/${produto.imagens[0]}.jpg`,
         );
       }
     } else {
-      setImageurl(`http://64.227.106.165/api/static/imgs/${id}.jpg`);
+      setImageurl(`http://64.227.106.165/imgs/${id}.jpg`);
     }
   }, []);
   const FuncCapitalize = (str) => {
@@ -83,7 +83,7 @@ const Produto = ({ produto, title, addItem, update }) => {
               justifyContent: 'space-between',
             }}
           >
-            <div style={{height: 52}}>
+            <div style={{ height: 52 }}>
               <Typography
                 gutterBottom
                 variant="h5"

@@ -9,12 +9,9 @@ import { Produto } from '../produto/schemas/produto.schema';
 @Injectable()
 export class PedidoService {
   constructor(
-    @InjectModel(Pedido.name)
-    @InjectModel(User.name)
-    @InjectModel(Produto.name)
-    private pedidoModel: Model<Pedido>,
-    private userModel: Model<User>,
-    private produtoModel: Model<Produto>,
+    @InjectModel(Pedido.name) private pedidoModel: Model<Pedido>,
+    @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(Produto.name) private produtoModel: Model<Produto>,
   ) {}
   async getPedidos(userId: string): Promise<any> {
     const User = await this.userModel.findById(userId);
@@ -25,8 +22,16 @@ export class PedidoService {
       }
     }
     throw new Error('Usuario não encontrado');
+  } /*
+  updatePedido(PedidoDto: PedidoDto, id: string): PedidoEntity {
+    return PedidoEntity;
   }
-  async createPedido(pedidoDto: PedidoDto, userId: string): Promise<Pedido> {
+  (PedidoDto: PedidoDto, id: string): PedidoEntity {
+    return PedidoEntity;
+  }  */
+  /* async createPedido(pedidoDto: PedidoDto, userId: string): Promise<Pedido> {
+    console.log(pedidoDto);
+
     const Pedido = await new this.pedidoModel(pedidoDto);
     const { produtos } = pedidoDto;
     while (produtos.length > 0) {
@@ -35,17 +40,17 @@ export class PedidoService {
         quantidadePedido,
         tamanhoEscolhido,
         corEscolhida,
-        id,
+                id,
       } = produtoArray;
-      const produto = await this.produtoModel.findById(id);
+            const produto = await this.produtoModel.findById(id);
       const produto_id = <typeof SchemaTypes.ObjectId>produto.id;
       const produtoFinal = {
-        produto: produto_id,
+                produto: produto_id
         quantidadePedido,
         tamanhoEscolhido,
         corEscolhida,
       };
-      Pedido.produtos.push(produtoFinal);
+       Pedido.produtos.push(produtoFinal);
     }
     const user = await this.userModel.findById(userId);
     user.pedidos.push(Pedido);
@@ -55,11 +60,5 @@ export class PedidoService {
       return Pedido;
     }
     throw new Error('Não foi possivel realizar pedido');
-  } /*
-  updatePedido(PedidoDto: PedidoDto, id: string): PedidoEntity {
-    return PedidoEntity;
-  }
-  (PedidoDto: PedidoDto, id: string): PedidoEntity {
-    return PedidoEntity;
-  }  */
+  } */
 }

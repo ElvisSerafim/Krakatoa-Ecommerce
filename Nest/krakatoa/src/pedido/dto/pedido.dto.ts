@@ -2,11 +2,11 @@ interface produto {
   quantidadePedido: number;
   tamanhoEscolhido: string;
   corEscolhida: string;
-  id: string;
+  /*   id: string; */
 }
 export class PedidoDto {
   precoTotal: number;
   frete: number;
-  data: Date;
+  data: string;
   produtos: produto[];
 }

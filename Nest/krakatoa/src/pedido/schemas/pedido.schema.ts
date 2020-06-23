@@ -30,11 +30,11 @@ export class Pedido extends Document {
     }),
   )
   pagamento: Record<string, any>;
-  @Prop(
+  /*   @Prop(
     raw({
       produtos: [
         {
-          produto: {
+          produto_id: {
             type: SchemaTypes.ObjectId,
             ref: 'Produtos',
           },
@@ -51,7 +51,16 @@ export class Pedido extends Document {
       ],
     }),
   )
-  produtos: Record<string, any>;
+  produtos: Record<string, any> */
+
+  @Prop()
+  produtos: [
+    {
+      precoTotal: number;
+      frete: number;
+      data: Date;
+    },
+  ];
 }
 
 export const PedidoSchema = SchemaFactory.createForClass(Pedido);
