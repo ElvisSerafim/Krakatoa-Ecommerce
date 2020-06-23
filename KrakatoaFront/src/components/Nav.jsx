@@ -73,7 +73,14 @@ const StyledTab = withStyles((theme) => ({
 const NavBar = () => {
   const dispatch = useDispatch();
   const page = useSelector((state) => state.page);
-  const popupState = usePopupState({ variant: 'popover', popupId: 'demoMenu' });
+  const popupStateConfec = usePopupState({
+    variant: 'popover',
+    popupId: 'demoMenu',
+  });
+  const popupStateAcess = usePopupState({
+    variant: 'popover',
+    popupId: 'demoMenu',
+  });
   const popupStateCangas = usePopupState({
     variant: 'popover',
     popupId: 'demoMenu',
@@ -108,11 +115,6 @@ const NavBar = () => {
               >
                 <StyledTab
                   style={{ fontSize: '1.25em' }}
-                  label="Inicio"
-                  href="/"
-                />
-                <StyledTab
-                  style={{ fontSize: '1.25em' }}
                   label="Cangas"
                   href="/cangas"
                   {...bindHover(popupStateCangas)}
@@ -121,7 +123,13 @@ const NavBar = () => {
                   style={{ fontSize: '1.25em' }}
                   label="Confecções"
                   href="/confeccoes"
-                  {...bindHover(popupState)}
+                  {...bindHover(popupStateConfec)}
+                />
+                <StyledTab
+                  style={{ fontSize: '1.25em' }}
+                  label="Acessórios"
+                  href="/acessorios"
+                  {...bindHover(popupStateAcess)}
                 />
                 <StyledTab
                   style={{ fontSize: '1.25em' }}
@@ -134,7 +142,7 @@ const NavBar = () => {
                   href="/contato"
                 />
                 <Menu
-                  {...bindMenu(popupState)}
+                  {...bindMenu(popupStateConfec)}
                   getContentAnchorEl={null}
                   anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
                   transformOrigin={{ vertical: 'top', horizontal: 'center' }}
@@ -151,12 +159,35 @@ const NavBar = () => {
                         }}
                         style={styles.a}
                       >
-                        <MenuItem
-                          style={{ fontSize: '1.25em' }}
-                        >{`${text}`}</MenuItem>
+                        <MenuItem style={{ fontSize: '1.25em' }}>
+                          {`${text}`}
+                        </MenuItem>
                       </a>
                     ),
                   )}
+                </Menu>
+                <Menu
+                  {...bindMenu(popupStateAcess)}
+                  getContentAnchorEl={null}
+                  anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                  transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+                  classes={{
+                    paper: classes.paper,
+                  }}
+                >
+                  {['Bolsas', 'Chapeus'].map((text) => (
+                    <a
+                      href={`/${text}`}
+                      onClick={() => {
+                        dispatch(currentPage(2));
+                      }}
+                      style={styles.a}
+                    >
+                      <MenuItem style={{ fontSize: '1.25em' }}>
+                        {`${text}`}
+                      </MenuItem>
+                    </a>
+                  ))}
                 </Menu>
 
                 <Menu
@@ -177,9 +208,9 @@ const NavBar = () => {
                         }}
                         style={styles.a}
                       >
-                        <MenuItem
-                          style={{ fontSize: '1.25em' }}
-                        >{`${text}`}</MenuItem>
+                        <MenuItem style={{ fontSize: '1.25em' }}>
+                          {`${text}`}
+                        </MenuItem>
                       </a>
                     ),
                   )}

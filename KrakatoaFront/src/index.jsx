@@ -107,6 +107,27 @@ ReactDOM.render(
               )}
             />
             <Route
+              path="/bolsas"
+              exact
+              render={(props) => (
+                <Produtos {...props} name="bolsas" title="Bolsas" />
+              )}
+            />
+            <Route
+              path="/chapeus"
+              exact
+              render={(props) => (
+                <Produtos {...props} name="chapeus" title="Chapeus" />
+              )}
+            />
+            <Route
+              path="/acessorios"
+              exact
+              render={(props) => (
+                <Produtos {...props} name="acessorios" title="Acessórios" />
+              )}
+            />
+            <Route
               path="/pesquisa"
               exact
               render={(props) => (
