@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ContatoModule } from './contato/contato.module';
-import { PagamentoModule } from './pagamento/pagamento.module';
 import { PedidoModule } from './pedido/pedido.module';
 import { ProdutoModule } from './produto/produto.module';
 import { UserModule } from './user/user.module';
@@ -18,7 +17,6 @@ import { UserModule } from './user/user.module';
       }),
     }),
     ContatoModule,
-    PagamentoModule,
     PedidoModule,
     ProdutoModule,
     UserModule,

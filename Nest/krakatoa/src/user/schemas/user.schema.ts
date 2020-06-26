@@ -1,4 +1,4 @@
-import { Schema, Prop, SchemaFactory, raw } from '@nestjs/mongoose';
+import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document, SchemaTypes, Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { UnauthorizedException } from '@nestjs/common';
@@ -28,18 +28,8 @@ export class User extends Document {
     numero: string;
     complemento: string;
   };
-  @Prop(
-    raw({
-      pedidos: [
-        {
-          type: SchemaTypes.ObjectId,
-          ref: 'Pedidos',
-        },
-      ],
-    }),
-  )
-  pedidos: Record<string, any>;
-
+  @Prop()
+  pedidos: [typeof SchemaTypes.ObjectId];
   static findByCredentials = async function(
     model: Model<User>,
     email: string,
