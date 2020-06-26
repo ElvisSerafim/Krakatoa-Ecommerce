@@ -1,10 +1,11 @@
-import { Model, SchemaTypes } from 'mongoose';
+import { Model, mongo } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { PedidoDto } from './dto/pedido.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Pedido } from '../pedido/schemas/pedido.schema';
 import { User } from '../user/schemas/user.schema';
 import { Produto } from '../produto/schemas/produto.schema';
+import { Pedido } from './schemas/pedido.schema';
+import { exception } from 'console';
 
 @Injectable()
 export class PedidoService {
@@ -13,13 +14,18 @@ export class PedidoService {
     @InjectModel(User.name) private userModel: Model<User>,
     @InjectModel(Produto.name) private produtoModel: Model<Produto>,
   ) {}
-  async getPedidos(userId: string): Promise<any> {
+  async getPedidos(userId: string): Promise<Pedido[]> {
     const User = await this.userModel.findById(userId);
     if (User) {
       const Pedidos = User.pedidos;
       if (Pedidos) {
-        return Pedidos;
+        const ResultadosPedidos = Pedidos.map(
+          async pedido => await this.pedidoModel.findById(pedido),
+        );
+        console.log(ResultadosPedidos);
+        /* return ResultadosPedidos; */
       }
+      throw new Error('Não há Pedidos');
     }
     throw new Error('Usuario não encontrado');
   } /*
@@ -29,36 +35,26 @@ export class PedidoService {
   (PedidoDto: PedidoDto, id: string): PedidoEntity {
     return PedidoEntity;
   }  */
-  /* async createPedido(pedidoDto: PedidoDto, userId: string): Promise<Pedido> {
-    console.log(pedidoDto);
+  /* Create Pagamento */
+  async createPedido(pedidoDto: PedidoDto, userId: string): Promise<Pedido> {
+    pedidoDto.produtos.forEach(produto => {
+      produto.Produto_id = mongo.ObjectID.createFromHexString(
+        produto.produto_id,
+      );
+      produto.produto_id = undefined;
+    });
 
-    const Pedido = await new this.pedidoModel(pedidoDto);
-    const { produtos } = pedidoDto;
-    while (produtos.length > 0) {
-      const produtoArray = produtos.pop();
-      const {
-        quantidadePedido,
-        tamanhoEscolhido,
-        corEscolhida,
-                id,
-      } = produtoArray;
-            const produto = await this.produtoModel.findById(id);
-      const produto_id = <typeof SchemaTypes.ObjectId>produto.id;
-      const produtoFinal = {
-                produto: produto_id
-        quantidadePedido,
-        tamanhoEscolhido,
-        corEscolhida,
-      };
-       Pedido.produtos.push(produtoFinal);
-    }
+    const Pedido = new this.pedidoModel(pedidoDto);
+
     const user = await this.userModel.findById(userId);
-    user.pedidos.push(Pedido);
-    const UserSalvo = await user.save();
-    const PedidoSalvo = await Pedido.save();
-    if (UserSalvo && PedidoSalvo) {
-      return Pedido;
+    if (user) {
+      user.pedidos.push(Pedido._id);
+      const UserSalvo = await user.save();
+      const PedidoSalvo = await Pedido.save();
+      if (UserSalvo && PedidoSalvo) {
+        return Pedido;
+      }
     }
     throw new Error('Não foi possivel realizar pedido');
-  } */
+  }
 }

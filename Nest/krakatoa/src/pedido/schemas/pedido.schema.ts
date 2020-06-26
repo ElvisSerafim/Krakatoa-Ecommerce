@@ -1,5 +1,5 @@
-import { Schema, Prop, SchemaFactory, raw } from '@nestjs/mongoose';
-import { Document, SchemaTypes } from 'mongoose';
+import mongoose, { SchemaTypes, Document } from 'mongoose';
+import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({ timestamps: true, toJSON: { virtuals: true } })
 export class Pedido extends Document {
@@ -9,58 +9,21 @@ export class Pedido extends Document {
   @Prop({ required: true })
   frete: number;
 
-  @Prop({ required: true })
-  data: Date;
-
-  @Prop(
-    raw({
-      User: {
-        type: SchemaTypes.ObjectId,
-        ref: 'Users',
-      },
-    }),
-  )
-  user: Record<string, any>;
-  @Prop(
-    raw({
-      pagamento: {
-        type: SchemaTypes.ObjectId,
-        ref: 'Pagamentos',
-      },
-    }),
-  )
-  pagamento: Record<string, any>;
-  /*   @Prop(
-    raw({
-      produtos: [
-        {
-          produto_id: {
-            type: SchemaTypes.ObjectId,
-            ref: 'Produtos',
-          },
-          quantidadePedido: {
-            type: Number,
-          },
-          tamanhoEscolhido: {
-            type: String,
-          },
-          corEscolhida: {
-            type: String,
-          },
-        },
-      ],
-    }),
-  )
-  produtos: Record<string, any> */
+  @Prop()
+  user: typeof SchemaTypes.ObjectId;
 
   @Prop()
   produtos: [
     {
-      precoTotal: number;
-      frete: number;
-      data: Date;
+      Produto_id: mongoose.Types.ObjectId;
+      quantidadePedido: number;
+      tamanhoEscolhido: string;
+      corEscolhida: string;
     },
   ];
+
+  @Prop()
+  metodo: string;
 }
 
 export const PedidoSchema = SchemaFactory.createForClass(Pedido);

@@ -1,19 +1,20 @@
 import { Controller, Post, Get, Put, Body, Param } from '@nestjs/common';
 import { PedidoService } from './pedido.service';
 import { PedidoDto } from './dto/pedido.dto';
-import { Pedido } from '../pedido/schemas/pedido.schema';
+import { Pedido } from './schemas/pedido.schema';
+
 @Controller('pedido')
 export class PedidoController {
   constructor(private pedidoService: PedidoService) {}
-  /*   @Post(':id')
+  @Post(':id')
   async CreatePedido(
     @Body() pedidoDto: PedidoDto,
     @Param('id') userId: string,
-  ): Promise<Pedido> {
+  ): Promise<any> {
     return await this.pedidoService.createPedido(pedidoDto, userId);
-  } */
+  }
   @Get(':id')
-  async GetPedidos(@Param() userId: string): Promise<Pedido[]> {
+  async GetPedidos(@Param('id') userId: string): Promise<Pedido[]> {
     return await this.pedidoService.getPedidos(userId);
   } /*
   @Put()
