@@ -35,9 +35,7 @@ const Sobre = () => {
       <Topo />
       <Navbar />
       <Container maxWidth="lg">
-        <Typography variant="h2" color="primary">
-          Sobre
-        </Typography>
+       
         <section>
           <Typography variant="h3" color="primary">
             KRAKATOA

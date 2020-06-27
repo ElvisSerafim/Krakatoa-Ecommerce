@@ -125,14 +125,14 @@ export default function PersistentDrawerLeft() {
             <ExpansionPanelDetails>
               <div>
                 {[
-                  'Todas',
+                  'Cangas',
                   'Mandalas',
                   'Turisticas',
                   'Estampadas',
                   'Pompom',
                 ].map((text) => (
                   <a
-                    href={`/${text}`}
+                    href={`/cangas/${text}`}
                     style={{ textDecoration: 'none', color: 'white' }}
                   >
                     <ListItem button key={text}>

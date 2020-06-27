@@ -8,6 +8,7 @@ import Produto from './Produto';
 import { addCart } from '../reducers/productsCart';
 import ComboBox from './ComboBox';
 import api from '../Services/ApiService';
+import Hidden from '@material-ui/core/Hidden';
 import { updateProducts } from '../reducers/products';
 
 const useStyles = makeStyles({
@@ -15,6 +16,7 @@ const useStyles = makeStyles({
     '@media (min-width: 1024px)': {
       justifyContent: 'flex-start',
     },
+    marginTop: '60px'
   },
 });
 
@@ -36,69 +38,98 @@ const Produtos = ({ title, alert, name }) => {
   }, [products]);
 
   const ordenar = async (value) => {
-    let chave = '';
-    if (value === '') return;
-    if (value === 'Mais vendidos') chave = 'maiorV';
-    if (value === 'Menor Preço') chave = 'menorP';
-    if (value === 'Maior Preço') chave = 'maiorP';
+    const arrayAux = products[0];
 
-    const data = {
-      tipo: name,
-      chave,
-    };
-    const request = await api.GetProdutos(data);
-    const b = [request];
-    setProduct(b);
-    dispatch(updateProducts(b));
+    if (value === '') return;
+    if (value === 'Mais vendidos'){
+       arrayAux.sort((a, b) => {
+        if(a.vendas < b.vendas){
+           return -1;
+        }
+        if (a.vendas > b.vendas){
+          return 1;
+        }
+        return 0;
+      });
+    } 
+    if (value === 'Menor Preço'){
+      arrayAux.sort((a, b) => {
+        if(a.preco < b.preco){
+           return -1;
+        }
+        if (a.preco > b.preco){
+          return 1;
+        }
+        return 0;
+      });
+    }
+    if (value === 'Maior Preço'){
+      arrayAux.sort((a, b) => {
+        if(a.preco > b.preco){
+           return -1;
+        }
+        if (a.preco < b.preco){
+          return 1;
+        }
+        return 0;
+      });
+    }
+
+    setProduct([arrayAux]);
+    dispatch(updateProducts([arrayAux]));
   };
   const [state, setState] = React.useState({ open: false, defer: false });
   return products.map((item) => (
-    <Grid
-      container
-      justify="space-evenly"
-      spacing={2}
-      className={classes.GridContainer}
-    >
-      {name == 'pesquisa' ? (
-        <Grid container lg={12} style={{ flexDirection: 'row-reverse' }}>
 
-        </Grid>
-      ) : <Grid container lg={12} style={{ flexDirection: 'row-reverse' }}>
-          <ComboBox
-            onChange={(event) => {
-              setOrderBy(event.target.value);
-              ordenar(event.target.value);
-            }}
-            style={{ maxWidth: 300 }}
-            value={orderBy}
-            items={['Mais vendidos', 'Menor Preço', 'Maior Preço']}
-            label="Ordenar por: "
-          />
-        </Grid>}
+      <Grid
+        container
+        justify="space-evenly"
+        spacing={2}
+        className={classes.GridContainer}
+      >
+        {name == 'pesquisa' ? (
+          <Grid container lg={12} style={{ flexDirection: 'row-reverse' }}>
 
-      <NoSsr defer>
-        {item.map((value) => (
-          <Grid
-            key={value.id}
-            item
-            lg={3}
-            md={4}
-            sm={6}
-            xm={6}
-            className={classes.product}
-          >
-            <NoSsr defer>
-              <Produto
-                produto={value}
-                update={() => { }}
-                title={lower}
-                addItem={addItemCart}
-              />
-            </NoSsr>
           </Grid>
-        ))}
-      </NoSsr>
-    </Grid>
+        ) : <Grid container lg={12} style={{ flexDirection: 'row-reverse' }}>
+            <ComboBox
+              onChange={(event) => {
+                setOrderBy(event.target.value);
+                ordenar(event.target.value);
+              }}
+              style={{ maxWidth: 300 }}
+              value={orderBy}
+              items={['Mais vendidos', 'Menor Preço', 'Maior Preço']}
+              label="Ordenar por: "
+            />
+          </Grid>}
+
+
+        <NoSsr defer>
+          {item.map((value) => (
+            <Grid
+              key={value.id}
+              item
+              lg={3}
+              md={4}
+              sm={6}
+              xs={6}
+              className={classes.product}
+            >
+              <NoSsr defer>
+                <Produto
+                  produto={value}
+                  update={() => { }}
+                  title={lower}
+                  addItem={addItemCart}
+                />
+              </NoSsr>
+            </Grid>
+          ))}
+        </NoSsr>
+      </Grid>
+
+   
   ));
 };
 

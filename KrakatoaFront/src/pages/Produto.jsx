@@ -36,7 +36,7 @@ const styles = {
   quadradao2: {
     backgroundColor: 'black',
     borderRadius: 10,
-    height: 700,
+    height: 600,
     marginTop: 40,
   },
   quad2inside: {
@@ -86,8 +86,10 @@ const styles = {
 const useStyles = makeStyles((theme) => ({
   quadradao2: {
     backgroundColor: theme.palette.background.color,
+    display: 'flex',
+    flexDirection: 'column',
     borderRadius: 10,
-    height: 700,
+    minHeight: 700,
     marginTop: 40,
   },
   backgroundC: {
@@ -294,22 +296,7 @@ const ProdutoPage = ({ match }) => {
                       label="Tamanhos"
                     />
                   </div>
-                  <div style={{ marginTop: 50 }}>
-                    <ComboBox
-                      onChange={(event) => {
-                        setColor(event.target.value);
-                      }}
-                      style={{
-                        backgroundColor: 'white',
-                        width: '150px',
-                        borderRadius: 7,
-                        marginTop: 20,
-                      }}
-                      value={color}
-                      items={colors}
-                      label="Cores"
-                    />
-                  </div>
+
 
                   <Alerta
                     message="Produto adicionado!"
@@ -383,42 +370,19 @@ const ProdutoPage = ({ match }) => {
                 padding: 10,
               }}
             >
-              <div
-                style={{
-                  display: 'flex',
-                  flex: 1,
-                  flexDirection: 'row',
-                  justifyContent: 'space-around',
-                }}
-              >
                 <ComboBox
-                  onChange={(event) => {
+                  onChange={(event) => {  
                     setSize(event.target.value);
                   }}
                   style={{
                     backgroundColor: 'white',
-                    width: '150px',
+                    width: '100%',
                     borderRadius: 7,
                   }}
                   value={size}
                   items={sizes}
                   label="Tamanhos"
                 />
-
-                <ComboBox
-                  onChange={(event) => {
-                    setColor(event.target.value);
-                  }}
-                  style={{
-                    backgroundColor: 'white',
-                    width: '150px',
-                    borderRadius: 7,
-                  }}
-                  value={color}
-                  items={colors}
-                  label="Cores"
-                />
-              </div>
 
               <div style={Estilos.flexRowCENTER}>
                 <div style={{ marginTop: 20 }}>

@@ -120,9 +120,6 @@ const Produtos = ({ title, name }) => {
             handleClose={fechar}
             openAlert={open}
           />
-          <Typography variant="h2" color="primary">
-            {title}
-          </Typography>
           <div className={classes.margin}>
             <ProductList
               alert={() => {
