@@ -4,6 +4,7 @@ const ProdutoController = require('./controllers/ProdutoController');
 const ContatoController = require('./controllers/ContatoController');
 const CorreioController = require('./controllers/CorreiosController');
 const PedidoController = require('./controllers/PedidoController');
+const PagamentoController = require('./controllers/PagamentoController');
 const auth = require('./middleware/auth');
 
 const routes = Router();
@@ -34,5 +35,6 @@ routes.post('/api/calcPrazoPreco', CorreioController.calcularPrazoPreco);
 
 routes.post('/api/enviarPedido', PedidoController.Store);
 routes.post('/api/pedidos', PedidoController.getPedidos);
+
 
 module.exports = routes;

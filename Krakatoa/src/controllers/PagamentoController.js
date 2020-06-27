@@ -1,5 +1,4 @@
 const Pagamento = require('../models/Pagamento');
-
 module.exports = {
   async Store(req, res) {
     const { produto, preco, metodo, pessoa, data } = req.body;

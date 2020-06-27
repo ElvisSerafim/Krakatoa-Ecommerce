@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   header: {
     display: 'flex',
     alignItems: 'center',
-    height: 50,
+    height: 80,
     backgroundColor: theme.palette.background.color,
     color: 'white',
     paddingTop: 10,
@@ -122,7 +122,7 @@ const ProdutoMobile = ({ imagens, produto }) => {
         backButton={
           <Button
             size="small"
-            classes={{
+            clas  ses={{
               root: classes.button,
             }}
             onClick={handleBack}

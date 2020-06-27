@@ -48,9 +48,6 @@ const Contato = () => {
       <Topo />
       <Navbar />
       <Container maxWidth="lg">
-        <Typography variant="h2" color="primary">
-          Contato
-        </Typography>
         <Grid
           container
           spacing={4}
@@ -58,7 +55,7 @@ const Contato = () => {
           justify="space-between"
           className={classes.GridContainer}
         >
-          <Grid item lg={8} md={12} sm={12}>
+          <Grid item lg={8} md={12} sm={12} style={{marginTop: '30px'}}>
             <Typography variant="h4" color="primary">
               FALE CONOSCO
             </Typography>
@@ -69,7 +66,7 @@ const Contato = () => {
           </Grid>
           <Grid item lg={4} md={12} sm={12} style={{ width: '100%' }}>
             <Typography variant="h4" color="primary">
-              KRAKATOA KANGAS
+              KRAKATOA CANGAS
             </Typography>
             <div>
               <Typography variant="h5" color="primary">

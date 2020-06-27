@@ -34,8 +34,7 @@ const TesteGabriel = ({ theme }) => {
       <Container maxWidth="lg">
         <Topo />
         <Navbar />
-        <div style={{ marginBottom: '64px', marginTop: '30px' }}>
-          <ProdutoMobile />
+        <div style={{marginBottom: '60px', marginTop: '60px'}}>
         </div>
       </Container>
       <Footer />

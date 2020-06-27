@@ -10,11 +10,12 @@ import Quantity from './Quantity';
 const useStyles = makeStyles((theme) => ({
   DivItem: {
     backgroundColor: theme.palette.background.color,
+    display: 'flex',
     borderRadius: '4.8px',
     position: 'relative',
     marginBottom: '15px',
     width: '100%',
-    height: '520px',
+    minHeight: '520px',
     padding: 0,
   },
 
