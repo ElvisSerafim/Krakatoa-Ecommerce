@@ -155,7 +155,7 @@ const NavBar = () => {
                       <a
                         href={`/${text}`}
                         onClick={() => {
-                          dispatch(currentPage(2));
+                          dispatch(currentPage(1));
                         }}
                         style={styles.a}
                       >
@@ -204,7 +204,7 @@ const NavBar = () => {
                       <a
                         href={`/cangas/${text}`}
                         onClick={() => {
-                          dispatch(currentPage(1));
+                          dispatch(currentPage(0));
                         }}
                         style={styles.a}
                       >

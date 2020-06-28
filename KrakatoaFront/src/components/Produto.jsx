@@ -18,6 +18,10 @@ const useStyles = makeStyles({
     '@media (max-width: 640px)': {
       width: 270,
     },
+    '@media (max-width: 360px)': {
+      width: 155,
+    },
+    
   },
   media: {
     maxHeight: 290,
@@ -43,9 +47,11 @@ const Produto = ({ produto, title, addItem, update }) => {
         setImageurl(
           `http://64.227.106.165/imgs/${title}/${produto.imagens[0]}.jpg`,
         );
+      } else if (title == 'pesquisa') {
+        setImageurl(
+          `http://64.227.106.165/imgs/${produto.categoria}/${produto.imagens[0]}.jpg`,
+        );
       }
-    } else {
-      setImageurl(`http://64.227.106.165/imgs/${id}.jpg`);
     }
   }, []);
   const FuncCapitalize = (str) => {
