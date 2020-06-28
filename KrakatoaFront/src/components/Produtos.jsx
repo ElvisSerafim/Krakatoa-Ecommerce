@@ -59,11 +59,10 @@ const Produtos = ({ title, alert, name }) => {
       spacing={2}
       className={classes.GridContainer}
     >
-      {name == 'pesquisa' ? (
+      {name === 'pesquisa' ? (
+        <Grid container lg={12} style={{ flexDirection: 'row-reverse' }} />
+      ) : (
         <Grid container lg={12} style={{ flexDirection: 'row-reverse' }}>
-
-        </Grid>
-      ) : <Grid container lg={12} style={{ flexDirection: 'row-reverse' }}>
           <ComboBox
             onChange={(event) => {
               setOrderBy(event.target.value);
@@ -74,7 +73,8 @@ const Produtos = ({ title, alert, name }) => {
             items={['Mais vendidos', 'Menor Preço', 'Maior Preço']}
             label="Ordenar por: "
           />
-        </Grid>}
+        </Grid>
+      )}
 
       <NoSsr defer>
         {item.map((value) => (
@@ -90,7 +90,7 @@ const Produtos = ({ title, alert, name }) => {
             <NoSsr defer>
               <Produto
                 produto={value}
-                update={() => { }}
+                update={() => {}}
                 title={lower}
                 addItem={addItemCart}
               />

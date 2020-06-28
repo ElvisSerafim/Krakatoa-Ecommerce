@@ -79,6 +79,8 @@ class Endereco extends PureComponent {
       message: '',
       open: false,
     };
+    console.log(props);
+    
   }
 
   enviar = async () => {

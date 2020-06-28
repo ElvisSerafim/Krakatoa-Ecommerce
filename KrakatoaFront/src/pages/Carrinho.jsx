@@ -97,6 +97,8 @@ const Carrinho = () => {
   const [cep, setCep] = useState('');
 
   const products = useSelector((state) => state.productsCart);
+  console.log(products);
+
   const dispatch = useDispatch();
   const length = useSelector((state) => state.productsCart.length);
 

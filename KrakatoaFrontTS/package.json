@@ -1,0 +1,75 @@
+{
+  "name": "krakatoa_front_ts",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.10.2",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "cleave.js": "^1.6.0",
+    "history": "^5.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "material-ui-popup-state": "^1.6.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "react-slick": "^0.26.1",
+    "react-swipeable-views": "^0.13.9",
+    "react-swipeable-views-utils": "^0.13.9",
+    "react-text-mask": "^5.4.3",
+    "react-window": "^1.8.5",
+    "redux": "^4.0.5",
+    "slick-carousel": "^1.8.1",
+    "typescript": "~3.7.2",
+    "ya": "^0.2.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/history": "^4.7.6",
+    "@types/jsonwebtoken": "^8.5.0",
+    "@types/material-ui": "^0.21.7",
+    "@types/react-redux": "^7.1.9",
+    "@types/react-router": "^5.1.8",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/react-slick": "^0.23.4",
+    "@types/react-swipeable-views": "^0.13.0",
+    "@types/react-swipeable-views-utils": "^0.13.2",
+    "@typescript-eslint/eslint-plugin": "^3.4.0",
+    "@typescript-eslint/parser": "^3.4.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.0",
+    "prettier": "^2.0.5",
+    "redux-devtools-extension": "^2.13.8"
+  }
+}

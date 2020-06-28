@@ -5,6 +5,7 @@ import { Button, Grid, Typography } from '@material-ui/core';
 import TextFielde from './TextField';
 import api from '../Services/ApiService';
 import Alerta from './Alerta';
+import theme from '../themes';
 
 const styles = {
   row: {
@@ -71,7 +72,7 @@ const Cadastro = () => {
       />
       <Grid container spacing={2} diretion="row" justify="flex-start">
         <Grid item lg={12} md={7} sm={7} xs={7}>
-          <Typography style={styles.topico} variant="h5" color="secondary">
+          <Typography style={styles.topico} variant="h5" color={theme.palette.common.white}>
             Registrar
           </Typography>
         </Grid>

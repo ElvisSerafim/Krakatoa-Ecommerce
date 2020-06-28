@@ -29,7 +29,8 @@ export class User extends Document {
     complemento: string;
   };
   @Prop()
-  pedidos: [typeof SchemaTypes.ObjectId];
+  pedidos: [{ type: typeof SchemaTypes.ObjectId; ref: 'Produto' }];
+
   static findByCredentials = async function(
     model: Model<User>,
     email: string,

@@ -15,7 +15,7 @@ export class Pedido extends Document {
   @Prop()
   produtos: [
     {
-      Produto_id: mongoose.Types.ObjectId;
+      Produto_id: { type: mongoose.Types.ObjectId; ref: 'Produto' };
       quantidadePedido: number;
       tamanhoEscolhido: string;
       corEscolhida: string;
