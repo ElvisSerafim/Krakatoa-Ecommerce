@@ -16,5 +16,5 @@ export interface ProdutoTipo {
   vendas: number;
   __v: number;
   _id: string;
-  Imageurl?:string;
+  Imageurl:string;
 }

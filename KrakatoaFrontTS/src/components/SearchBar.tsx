@@ -4,8 +4,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { useDispatch } from 'react-redux';
 import { sendSearch } from '../reducers/search';
-import { withRouter, useHistory } from 'react-router-dom';
-import IconButton from '@material-ui/core/IconButton';
+import { useHistory } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -14,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     borderRadius: 8,
     borderStyle: 'solid',
-    borderColor: theme.palette.background.color,
+    borderColor: theme.palette.secondary.main,
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -30,15 +29,15 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     color: 'white',
-    backgroundColor: theme.palette.background.color,
+    backgroundColor: theme.palette.secondary.main,
   },
   inputRoot: {
-    color: theme.palette.background.color,
+    color: theme.palette.secondary.main,
     paddingLeft: `calc(1em + ${theme.spacing(6)}px)`,
   },
   inputInput: {
     fontFamily: 'Poppins',
-    color: theme.palette.background.color,
+    color: theme.palette.secondary.main,
     padding: theme.spacing(1, 1, 1, 0),
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -59,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchBar = ({ redrec }) => {
+const SearchBar:React.FunctionComponent = () => {
   const classes = useStyles();
   const [search, setSearch] = useState('');
   const dispatch = useDispatch();
@@ -67,7 +66,7 @@ const SearchBar = ({ redrec }) => {
 
   return (
     <div className={classes.search}>
-      <div className={classes.searchIcon} onClick={(event) => {
+      <div className={classes.searchIcon} onClick={() => {
         if (search.length === 0) return 0;
 
         history.push('/pesquisa');

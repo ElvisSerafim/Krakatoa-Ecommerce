@@ -17,6 +17,7 @@ import Topo from '../components/Topo';
 import Navbar from '../components/Nav';
 import Alerta from '../components/Alerta';
 import api from '../Services/ApiService';
+import { Color } from '@material-ui/lab/Alert';
 
 const styles = {
   background: {
@@ -44,7 +45,7 @@ const styles = {
 
 function TextMaskCustom(props) {
   const { inputRef, ...other } = props;
-
+  
   return (
     <MaskedInput
       {...other}
@@ -80,7 +81,7 @@ export default function Datalhes() {
   const [tel, setTel] = useState('&366&');
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
-  const [status, setStatus] = useState('error');
+  const [status, setStatus] = useState<Color>('error');
   const [passCurrent, setPassCurrent] = useState('');
   const [token, setToken] = useState();
   const [openAlert, setOpenAlert] = useState(false);

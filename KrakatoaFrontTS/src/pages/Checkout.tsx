@@ -1,9 +1,15 @@
 import React from 'react';
-import { Container, Grid, Typography, Button } from '@material-ui/core/';
+import {
+  Container,
+  Grid,
+  Typography,
+  Button,
+  Box,
+  TextField,
+} from '@material-ui/core/';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import Footer from '../components/Footer';
-import TextField from '../components/TextField';
 import cartBlank from '../img/cartBlank.svg';
 import nodeli from '../img/noDelivery.svg';
 import payment from '../img/payment.svg';
@@ -44,8 +50,10 @@ const Checkout = () => {
       <Navbar />
       <Container maxWidth="lg">
         <Grid container spacing={2} style={{ marginTop: 64, marginBottom: 64 }}>
-          <Typography style={styles.title}>Pagamento</Typography>
-          <div style={Estilos.flexRowCENTER2}>
+          <Typography color="primary" variant="h3">
+            Pagamento
+          </Typography>
+          <Box justifyContent="center" alignItems="center">
             <a href="/carinho">
               <img src={cartBlank} alt="Carinho" />
             </a>
@@ -59,36 +67,65 @@ const Checkout = () => {
                 <img src={payment} alt="Pagamento" />
               </a>
             </div>
-          </div>
-          <div style={{ ...Estilos.flexRowStandard2, paddingTop: '50px' }}>
-            <div style={{ ...Estilos.flexColumnStandard2, width: '60%' }}>
-              <div style={Estilos.flexRowSPACEBTW2}>
-                <div style={styles.width40}>
-                  <TextField label="Nome do Titular do cartão" />
+          </Box>
+          <Box style={{ paddingTop: '50px' }}>
+            <Box flexDirection="column" style={{ width: '60%' }}>
+              <Box justifyContent="space-between">
+                <div style={{ width: 40 }}>
+                  <TextField
+                    id="filled-required"
+                    label="Nome do Titular do cartão"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="filled"
+                  />
                 </div>
-                <div style={styles.width40}>
-                  <TextField label="Número do cartão" numberOnly />
+                <div style={{ width: 40 }}>
+                  <TextField
+                    id="filled-number"
+                    label="Numero do Cartão"
+                    type="number"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="filled"
+                  />
                 </div>
-              </div>
-              <div style={{ ...Estilos.flexRowSPACEBTW2, paddingTop: '20px' }}>
-                <div style={styles.width40}>
-                  <TextField label="Código de segurança" numberOnly />
+              </Box>
+              <Box
+                justifyContent="space-between"
+                style={{ paddingTop: '20px' }}
+              >
+                <div style={{ width: 40 }}>
+                  <TextField
+                    id="filled-number"
+                    label="Código de segurança"
+                    type="number"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="filled"
+                  />
                 </div>
-                <div style={styles.width40}>
-                  <TextField label="Data de validade" date />
+                <div style={{ width: 40 }}>
+                  <TextField label="Data de validade" />
                 </div>
-              </div>
-            </div>
+              </Box>
+            </Box>
 
-            <div style={Estilos.flexColumnStandard}>
-              <div
+            <Box>
+              <Box
+                justifyContent="space-around"
                 style={{
-                  ...Estilos.flexRowStandard,
-                  justifyContent: 'space-around',
                   paddingLeft: '20px',
                 }}
               />
-              <div style={{ ...Estilos.flexColumnEND, paddingTop: '20px' }}>
+              <Box
+                flexDirection="column"
+                justifyContent="flex-end"
+                alignItems="flex-end"
+              >
                 <a href="/sumario" style={{ textDecoration: 'none' }}>
                   <Button
                     style={{ height: 50, width: '100%' }}
@@ -98,9 +135,9 @@ const Checkout = () => {
                     Continuar
                   </Button>
                 </a>
-              </div>
-            </div>
-          </div>
+              </Box>
+            </Box>
+          </Box>
         </Grid>
       </Container>
       <Footer />

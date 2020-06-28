@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
   txt: {
     padding: 5,
-    color: theme.palette.background.color,
+    color: theme.palette.secondary.main,
   },
   GridContainer: {
     '@media (min-width: 1024px)': {
@@ -73,7 +73,7 @@ const url = 'http://64.227.106.165/imgs/sobre';
 const Sobre = () => {
   const classes = useStyles();
   return (
-    <div style={styles.sobre}>
+    <div>
       <Grid
         container
         spacing={2}
@@ -82,10 +82,9 @@ const Sobre = () => {
         className={classes.GridContainer}
       >
         {data.map((elem) => (
-          <Grid item lg={3} md={6} sm={6} xm={12} key={data.indexOf(elem)}>
+          <Grid item lg={3} md={6} sm={6} xs={12} key={data.indexOf(elem)}>
             <Card
               className={classes.root}
-              backgroundColor={`url(${url}/${elem.quarter})`}
             >
               <CardActionArea>
                 <CardMedia className={classes.media}>

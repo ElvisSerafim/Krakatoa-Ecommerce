@@ -10,12 +10,13 @@ import { ProdutoTipo } from '../Services/dto/produto.dto';
 
 const useStyles = makeStyles((theme) => ({
   DivItem: {
-    backgroundColor: theme.palette.common.white,
+    backgroundColor: theme.palette.secondary.main,
+    display:"flex",
     borderRadius: '4.8px',
     position: 'relative',
     marginBottom: '15px',
     width: '100%',
-    height: '520px',
+    minHeight: '520px',
     padding: 0,
   },
   typography: {
@@ -35,6 +36,10 @@ const useStyles = makeStyles((theme) => ({
 
 type ItemMobileProps = {
   produto: ProdutoTipo;
+  removerItem:any;
+  posicao:number;
+  diminuirQuantia:any;
+  aumentarQuantia:any;
 };
 
 const ItemMobile: React.FunctionComponent<ItemMobileProps> = ({

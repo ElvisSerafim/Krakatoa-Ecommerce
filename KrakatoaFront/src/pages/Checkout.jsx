@@ -89,49 +89,52 @@ const Checkout = () => {
                 }}
               />
               <div style={{ ...Estilos.flexColumnEND, paddingTop: '20px' }}>
-                  <Button
-                    style={{ height: 50, width: '100%' }}
-                    variant="contained"
-                    color="primary"
-                    onClick={async()=>{
-                      
-                      var myInit = {
-                        method:'POST',
-                        headers: new Headers({
-                          'Content-Type': 'application/json',
-                          'Access-Control-Allow-Origin': "http://localhost:3000",
-                          'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, POST, DELETE, OPTIONS',
-                          'Access-Control-Allow-Headers': 'Content-Type',
-                          'Access-Control-Max-Age': 86400,
-                          'Access-Control-Expose-Headers' : 'Request-Context',
-                          'MerchantId': '7a8b7c9c-4bb7-4caf-b967-f7192ab0cf72',
-                          'MerchantKey': 'WTXTZZSTBSBGCKSYAJBIOZJXJDRBNMAEHQEGTKNJ'
-                        }),
-                        body: {
-                          
-                            "MerchantOrderId":"2014111703",
-                            "Payment":{
-                              "Provider":"Simulado",
-                              "Type":"CreditCard",
-                              "Amount":15700,
-                              "Installments":1,
-                              "SoftDescriptor":"123456789ABCD",
-                              "CreditCard":{
-                                  "CardNumber":"4551870000000181",
-                                  "Holder":"Teste Holder",
-                                  "ExpirationDate":"12/2021",
-                                  "SecurityCode":"123",
-                                  "Brand":"Visa"
-                            }
-                         }
-                        } 
-                      
-                      }
-                       await fetch("https://apisandbox.cieloecommerce.cielo.com.br/1/sales/").then(data=>console.log(data)) .catch(error => console.log('parsing faled',error));
-                      }}
-                  >
-                    Continuar!
-                  </Button>
+                <Button
+                  style={{ height: 50, width: '100%' }}
+                  variant="contained"
+                  color="primary"
+                  onClick={async () => {
+                    const url = 'https://apisandbox.cieloecommerce.cielo.com.br/1/sales/1f196018-9e28-4bfc-ac24-4d730d8700d1';
+                    const myInit = {
+                      method: 'POST',
+                      headers: new Headers({
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': 'http://64.227.106.165',
+                        'Access-Control-Allow-Methods':
+                          'GET, POST, PUT, PATCH, POST, DELETE, OPTIONS',
+                        'Access-Control-Allow-Headers': 'Content-Type',
+                        'Access-Control-Max-Age': 86400,
+                        'Access-Control-Expose-Headers': 'Request-Context',
+                        MerchantId: '7a8b7c9c-4bb7-4caf-b967-f7192ab0cf72',
+                        MerchantKey: 'WTXTZZSTBSBGCKSYAJBIOZJXJDRBNMAEHQEGTKNJ',
+                      }),
+                      body: {
+                        MerchantOrderId: '2014111703',
+                        Payment: {
+                          Provider: 'Simulado',
+                          Type: 'CreditCard',
+                          Amount: 15700,
+                          Installments: 1,
+                          SoftDescriptor: '123456789ABCD',
+                          CreditCard: {
+                            CardNumber: '4551870000000181',
+                            Holder: 'Teste Holder',
+                            ExpirationDate: '12/2021',
+                            SecurityCode: '123',
+                            Brand: 'Visa',
+                          },
+                        },
+                      },
+                    };
+                    await fetch(
+                      url, myInit,
+                    )
+                      .then((data) => console.log(data))
+                      .catch((error) => console.log('parsing faled', error));
+                  }}
+                >
+                  Continuar!
+                </Button>
               </div>
             </div>
           </div>

@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   header: {
     display: 'flex',
     alignItems: 'center',
-    height: 50,
+    height: 80,
     backgroundColor: theme.palette.common.white,
     color: 'white',
     paddingTop: 10,
@@ -70,7 +70,7 @@ const ProdutoMobile:React.FunctionComponent<ComponentProp> = ({ imagens, produto
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleStepChange = (step) => {
+  const handleStepChange = (step: React.SetStateAction<number>) => {
     setActiveStep(step);
   };
 

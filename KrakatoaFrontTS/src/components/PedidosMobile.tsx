@@ -10,6 +10,7 @@ import {
   ExpansionPanelSummary,
   ExpansionPanelDetails,
   Typography,
+  Box,
 } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Estilo from '../Estilos';
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: theme.typography.fontWeightRegular,
   },
   cor: {
-    backgroundColor: theme.palette.background.color,
+    backgroundColor: theme.palette.secondary.main,
     color: 'white',
   },
   table: {
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   divProduto: {
     backgroundColor: 'white',
-    color: theme.palette.background.color,
+    color: theme.palette.secondary.main,
     fontFamily: 'Poppins',
     display: 'flex',
     flexDirection: 'row',
@@ -42,11 +43,11 @@ const useStyles = makeStyles((theme) => ({
 const StyledTableRow = withStyles((theme) => ({
   root: {
     '&:nth-of-type(odd)': {},
-    color: theme.palette.background.color,
+    color: theme.palette.secondary.main,
   },
 }))(TableRow);
 
-const setData = (data) => {
+const setData = (data:any) => {
   if (data !== undefined) {
     const stringData = data.toString();
     const arrayString = stringData.split('T');
@@ -55,7 +56,7 @@ const setData = (data) => {
   return '';
 };
 
-const PedidosMobile = ({ theme, pedidos }) => {
+const PedidosMobile:React.FunctionComponent = ({ pedidos }) => {
   const classes = useStyles();
 
   return (
@@ -69,21 +70,21 @@ const PedidosMobile = ({ theme, pedidos }) => {
                 aria-controls="panel1a-content"
                 id="panel1a-header"
               >
-                <div style={Estilo.flexRowSPACEBTW}>
+                <Box justifyContent="space-between">
                   <Typography className={classes.heading}>
                     Pedido {i + 1}
                   </Typography>
                   <Typography className={classes.heading}>
                     Data: {setData(item.pedido.data)}
                   </Typography>
-                </div>
+                </Box>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
-                <div style={Estilo.flexColumnStandard}>
-                  <div style={Estilo.flexRowSPACEBTW}>
+                <Box>
+                  <Box justifyContent="space-between">
                     <Typography>Frete: {item.pedido.frete}</Typography>
                     <Typography>Total: R$ {item.pedido.precoTotal}</Typography>
-                  </div>
+                  </Box>
                   <div style={{ color: 'white' }}>
                     <ExpansionPanel className={classes.cor}>
                       <ExpansionPanelSummary
@@ -105,7 +106,7 @@ const PedidosMobile = ({ theme, pedidos }) => {
                           aria-label="customized table"
                         >
                           <TableBody>
-                            {item.produtosPedido.map((row, i) => (
+                            {item.produtosPedido.map((row:any, i:number) => (
                               <StyledTableRow>
                                 <div
                                   style={{
@@ -163,7 +164,7 @@ const PedidosMobile = ({ theme, pedidos }) => {
                       </ExpansionPanelDetails>
                     </ExpansionPanel>
                   </div>
-                </div>
+                </Box>
               </ExpansionPanelDetails>
             </ExpansionPanel>
           </div>

@@ -49,20 +49,42 @@ const Produtos: React.FunctionComponent<ProdutosProps> = ({
   }, [products]);
 
   const ordenar = async (value: Order) => {
-    let chave = '';
-    if (value === undefined) return;
-    if (value === 'Mais vendidos') chave = 'maiorV';
-    if (value === 'Menor Preço') chave = 'menorP';
-    if (value === 'Maior Preço') chave = 'maiorP';
-
-    const data = {
-      tipo: name,
-      chave,
-    };
-    const request = await api.GetProdutos(data);
-    const b = [request];
-    setProduct(b);
-    dispatch(updateProducts(b));
+    const arrayAux = products[0];
+    if (value === 'Mais vendidos') {
+      arrayAux.sort((a, b) => {
+        if (a.vendas < b.vendas) {
+          return -1;
+        }
+        if (a.vendas > b.vendas) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+    if (value === 'Menor Preço') {
+      arrayAux.sort((a, b) => {
+        if (a.preco < b.preco) {
+          return -1;
+        }
+        if (a.preco > b.preco) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+    if (value === 'Maior Preço') {
+      arrayAux.sort((a, b) => {
+        if (a.preco > b.preco) {
+          return -1;
+        }
+        if (a.preco < b.preco) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+    setProduct([arrayAux]);
+    dispatch(updateProducts([arrayAux]));
   };
   const [state, setState] = React.useState({ open: false, defer: false });
   return products.map((item) => (
@@ -77,7 +99,7 @@ const Produtos: React.FunctionComponent<ProdutosProps> = ({
       ) : (
         <Grid container lg={12} style={{ flexDirection: 'row-reverse' }}>
           <ComboBox
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
               setOrderBy(event.target.value);
               ordenar(event.target.value as Order);
             }}
@@ -92,12 +114,12 @@ const Produtos: React.FunctionComponent<ProdutosProps> = ({
       <NoSsr defer>
         {item.map((value) => (
           <Grid
-            /* id={value.id} */
+            key={value.id}
             item
             lg={3}
             md={4}
             sm={6}
-            xm={6}
+            xs={6}
             className={classes.product}
           >
             <NoSsr defer>

@@ -1,7 +1,14 @@
 /* eslint-disable consistent-return */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import { Checkbox, Typography, Button, Grid } from '@material-ui/core';
+import {
+  Checkbox,
+  Typography,
+  Button,
+  Grid,
+  TextField,
+  Box,
+} from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import TextFielde from './TextField';
@@ -9,6 +16,7 @@ import api from '../Services/ApiService';
 import { setUser } from '../reducers/user';
 import Alerta from './Alerta';
 import Estilos from '../Estilos';
+import { Color } from '@material-ui/lab/Alert';
 
 const styles = {
   row: {
@@ -34,7 +42,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [openAlert, setOpenAlert] = useState(false);
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState<Color>();
   const [sessao, setSessao] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -73,7 +81,7 @@ const Login = () => {
     }
   };
 
-  const handleClose = (event, reason) => {
+  const handleClose = (event: React.SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }
@@ -90,7 +98,7 @@ const Login = () => {
         vertical="top"
         horizontal="right"
       />
-      <Grid container spacing={2} diretion="row" justify="flex-start">
+      <Grid container spacing={2} justify="flex-start">
         <Grid item lg={12} md={12} sm={12} xs={12}>
           <Typography variant="h5" color="secondary">
             Entrar
@@ -98,8 +106,8 @@ const Login = () => {
         </Grid>
         <Grid item lg={12} md={7} sm={7} xs={7}>
           <div style={styles.senha}>
-            <TextFielde
-              login
+            <TextField
+              autoComplete="email"
               id="email-login"
               label="Email"
               fullWidth
@@ -111,10 +119,12 @@ const Login = () => {
         </Grid>
         <Grid item lg={12} md={7} sm={7} xs={7}>
           <div style={styles.senha}>
-            <TextFielde
+            <TextField
+              id="filled-password-input"
               label="Senha"
-              id="password"
-              password
+              type="password"
+              autoComplete="current-password"
+              variant="filled"
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
@@ -149,21 +159,19 @@ const Login = () => {
               Lembre-me
             </Typography>
           </Grid>
-          <div
+          <Box
             style={{
-              ...Estilos.flexRowStandard,
               flexWrap: 'nowrap',
               alignSelf: 'center',
             }}
           >
-            <div
+            <Box
               style={{
-                ...Estilos.flexRowStandard,
                 flexWrap: 'nowrap',
                 alignSelf: 'center',
               }}
             />
-          </div>
+          </Box>
         </Grid>
         <Grid item lg={12} md={12} sm={12} xs={12}>
           <Typography

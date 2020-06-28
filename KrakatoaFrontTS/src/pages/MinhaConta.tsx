@@ -55,7 +55,7 @@ const styles = {
 
 const useStyles = makeStyles((theme) => ({
   Cor: {
-    backgroundColor: theme.palette.background.color,
+    backgroundColor: theme.palette.secondary.main,
     borderRadius: 10,
   },
 }));
@@ -82,7 +82,6 @@ function MinhaConta() {
         <Grid
           container
           spacing={2}
-          diretion="row"
           justify="space-around"
           style={{ marginBottom: 64 }}
         >

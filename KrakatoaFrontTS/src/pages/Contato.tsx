@@ -81,7 +81,7 @@ const Contato = () => {
           </Grid>
           <Grid item lg={4} md={12} sm={12} style={{ width: '100%' }}>
             <Typography variant="h4" color="primary">
-              KRAKATOA KANGAS
+              KRAKATOA CANGAS
             </Typography>
             <div>
               <Typography variant="h5" color="primary">

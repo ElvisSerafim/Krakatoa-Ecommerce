@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Sobre = (theme) => {
+const Sobre = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   dispatch(currentPage(3));
@@ -35,26 +35,26 @@ const Sobre = (theme) => {
       <Topo />
       <Navbar />
       <Container maxWidth="lg">
-       
+
         <section>
           <Typography variant="h3" color="primary">
             KRAKATOA
           </Typography>
-          <Typography variant="h5" color="primary">
+          <Typography variant="h5" style={{ marginBottom: 32 }} color="primary">
             Conheça um pouco da nossa história
           </Typography>
         </section>
-        <section className={classes.Fundo}>
-          <Typography variant="body1" color="textPrimary">
-            Estabelecida em Salvador na Bahia desde 2004, a Krakatoa trabalha
-            com produtos originais do Sudoeste Asiático. Nossas peças são
-            exclusivas e produzidas cuidadosamente a mão, uma a uma, utilizando
-            técnicas milenares de pintura e tingimento. A qualidade e o bom
-            gosto de nossos produtos conquistou não somente o mercado
-            atacadista/varejista bahiano como também o nacional. Venha nos
-            conhecer e conferir !
-          </Typography>
-        </section>
+
+        <Typography variant="body1" style={{ fontWeight: 'bold' }} color="secondary">
+          Estabelecida em Salvador na Bahia desde 2004, a Krakatoa trabalha
+          com produtos originais do Sudoeste Asiático. Nossas peças são
+          exclusivas e produzidas cuidadosamente a mão, uma a uma, utilizando
+          técnicas milenares de pintura e tingimento. A qualidade e o bom
+          gosto de nossos produtos conquistou não somente o mercado
+          atacadista/varejista bahiano como também o nacional. Venha nos
+          conhecer e conferir !
+        </Typography>
+
         <Typography variant="h3" color="primary">
           LOJA FÍSICA
         </Typography>
