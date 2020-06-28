@@ -99,7 +99,7 @@ const Checkout = () => {
                         method:'POST',
                         headers: new Headers({
                           'Content-Type': 'application/json',
-                          'Access-Control-Allow-Origin': "http://localhost:3000",
+                          'Access-Control-Allow-Origin': "http://localhost:3000/checkout",
                           'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, POST, DELETE, OPTIONS',
                           'Access-Control-Allow-Headers': 'Content-Type',
                           'Access-Control-Max-Age': 86400,
@@ -127,10 +127,10 @@ const Checkout = () => {
                         } 
                       
                       }
-                       await fetch("https://apisandbox.cieloecommerce.cielo.com.br/1/sales/").then(data=>console.log(data)) .catch(error => console.log('parsing faled',error));
+                       await fetch("https://apisandbox.cieloecommerce.cielo.com.br/1/sales",myInit).then(data=>console.log(data)) .catch(error => console.log('parsing faled',error));
                       }}
                   >
-                    Continuar!
+                    Continuar
                   </Button>
               </div>
             </div>
