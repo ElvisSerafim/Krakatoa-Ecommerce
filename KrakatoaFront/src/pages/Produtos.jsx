@@ -33,7 +33,7 @@ const Produtos = ({ title, name }) => {
       };
 
       const request = await api.GetProdutos(data);
-      
+
       const a = [request];
       console.log(a);
       if (name === 'pesquisa') {
@@ -68,22 +68,19 @@ const Produtos = ({ title, name }) => {
 
           setProduct([arrayAux]);
         }
+      } else if (title.toUpperCase() !== name.toUpperCase()) {
+        const aux = request;
+        let category;
+        request.forEach((item, index) => {
+          category = aux.filter((iten, index) => {
+            if (iten.categoria != undefined) {
+              return iten.categoria.toUpperCase() === title.toUpperCase();
+            }
+          });
+        });
+        setProduct([category]);
       } else {
-
-        if (title.toUpperCase() !== name.toUpperCase()) {
-          let aux = request;
-          let category;
-          request.forEach((item, index) => {
-            category = aux.filter((iten, index)=> {
-              if( iten.categoria != undefined){
-                return iten.categoria.toUpperCase() === title.toUpperCase();
-              }
-            })
-          })
-          setProduct([category]);
-        } else {
-          setProduct(a);
-        }
+        setProduct(a);
       }
     };
 

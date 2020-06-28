@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { Container, Typography } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
+import { useSelector, useDispatch } from 'react-redux';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import SobreCompomente from '../components/Sobre';
 import Footer from '../components/Footer';
-import { useSelector, useDispatch } from 'react-redux';
 import { currentPage } from '../reducers/page';
 
 const styles = {
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Sobre = () => {
+const Sobre = (theme) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   dispatch(currentPage(3));
@@ -45,7 +45,7 @@ const Sobre = () => {
           </Typography>
         </section>
         <section className={classes.Fundo}>
-          <Typography variant="body1" color="secondary">
+          <Typography variant="body1" color="textPrimary">
             Estabelecida em Salvador na Bahia desde 2004, a Krakatoa trabalha
             com produtos originais do Sudoeste Asiático. Nossas peças são
             exclusivas e produzidas cuidadosamente a mão, uma a uma, utilizando

@@ -1,0 +1,15 @@
+
+    ::-webkit-input-placeholder {
+        color: rgb(78, 71, 71);
+        font: 20px verdana, poppins, sans-serif;
+     }
+
+     ::-moz-placeholder { 
+        color:rgb(78, 71, 71);;
+      }
+      :-ms-input-placeholder { 
+        color: rgb(78, 71, 71);;
+      }
+      :-moz-placeholder { 
+        color: rgb(78, 71, 71);;
+      }

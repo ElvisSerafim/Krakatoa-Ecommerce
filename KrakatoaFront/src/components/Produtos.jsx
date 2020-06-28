@@ -80,7 +80,6 @@ const Produtos = ({ title, alert, name }) => {
   };
   const [state, setState] = React.useState({ open: false, defer: false });
   return products.map((item) => (
-
       <Grid
         container
         justify="space-evenly"
@@ -89,7 +88,6 @@ const Produtos = ({ title, alert, name }) => {
       >
         {name == 'pesquisa' ? (
           <Grid container lg={12} style={{ flexDirection: 'row-reverse' }}>
-
           </Grid>
         ) : <Grid container lg={12} style={{ flexDirection: 'row-reverse' }}>
             <ComboBox

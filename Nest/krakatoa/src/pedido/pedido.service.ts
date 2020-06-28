@@ -5,7 +5,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../user/schemas/user.schema';
 import { Produto } from '../produto/schemas/produto.schema';
 import { Pedido } from './schemas/pedido.schema';
-import { exception } from 'console';
 
 @Injectable()
 export class PedidoService {
@@ -16,17 +15,29 @@ export class PedidoService {
   ) {}
   async getPedidos(userId: string): Promise<Pedido[]> {
     const User = await this.userModel.findById(userId);
-    if (User) {
+    const Pedidos = await this.pedidoModel
+      .findById(User._id)
+      .populate('produtos')
+      .exec(e => {
+        console.log(e);
+      });
+
+    console.log(User);
+
+    /* if (User) {
       const Pedidos = User.pedidos;
       if (Pedidos) {
-        const ResultadosPedidos = Pedidos.map(
-          async pedido => await this.pedidoModel.findById(pedido),
-        );
-        console.log(ResultadosPedidos);
-        /* return ResultadosPedidos; */
+        const ResultadoPedidos: Pedido[] = [];
+        Pedidos.forEach(async pedido => {
+          const teste = await this.pedidoModel.findById(pedido).populate;
+          console.log(teste);
+          return ResultadoPedidos.push(teste);
+        });
+        console.log(ResultadoPedidos);
+        return ResultadoPedidos;
       }
       throw new Error('Não há Pedidos');
-    }
+    } */
     throw new Error('Usuario não encontrado');
   } /*
   updatePedido(PedidoDto: PedidoDto, id: string): PedidoEntity {
