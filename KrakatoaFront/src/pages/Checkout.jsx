@@ -135,6 +135,7 @@ const Checkout = () => {
                 >
                   Continuar!
                 </Button>
+
               </div>
             </div>
           </div>

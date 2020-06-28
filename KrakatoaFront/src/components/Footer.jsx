@@ -96,6 +96,7 @@ const Topo = () => {
           justify="space-between"
           className={classes.GridContainer}
           width="100%"
+          style={{marginTop: 60}}
         >
           <Grid item lg={6} md={6} sm={6} xs={12}>
             <div style={styles.nomeElogo}>
