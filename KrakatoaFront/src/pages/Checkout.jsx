@@ -127,10 +127,10 @@ const Checkout = () => {
                         } 
                       
                       }
-                       await fetch("https://apiquerysandbox.cieloecommerce.cielo.com.br/1/sales/").then(data=>console.log(data)) .catch(error => console.log('parsing faled',error));
+                       await fetch("https://apisandbox.cieloecommerce.cielo.com.br/1/sales/").then(data=>console.log(data)) .catch(error => console.log('parsing faled',error));
                       }}
                   >
-                    Continuar
+                    Continuar!
                   </Button>
               </div>
             </div>
