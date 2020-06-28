@@ -3,9 +3,9 @@ import { makeStyles } from '@material-ui/core/';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { useDispatch } from 'react-redux';
-import { sendSearch } from '../reducers/search';
 import { withRouter, useHistory } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
+import { sendSearch } from '../reducers/search';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     [theme.breakpoints.up('md')]: {
       width: '20ch',
-    }, 
+    },
     '&::placeholder': {
       fontFamily: 'Poppins',
       color: 'black',
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchBar = ({ redrec }) => {
+const SearchBar = () => {
   const classes = useStyles();
   const [search, setSearch] = useState('');
   const dispatch = useDispatch();
@@ -67,15 +67,18 @@ const SearchBar = ({ redrec }) => {
 
   return (
     <div className={classes.search}>
-      <div className={classes.searchIcon} onClick={(event) => {
-        if (search.length === 0) return 0;
+      <div
+        className={classes.searchIcon}
+        onClick={() => {
+          if (search.length === 0) return 0;
 
-        history.push('/pesquisa');
-        dispatch(sendSearch(search));
+          history.push('/pesquisa');
+          dispatch(sendSearch(search));
 
-        setSearch('');
-      }}>
-        <SearchIcon  />
+          setSearch('');
+        }}
+      >
+        <SearchIcon />
       </div>
       <InputBase
         onKeyPress={(event) => {

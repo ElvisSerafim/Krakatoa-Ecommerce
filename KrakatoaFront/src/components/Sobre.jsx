@@ -85,7 +85,6 @@ const Sobre = () => {
           <Grid item lg={3} md={6} sm={6} xm={12} key={data.indexOf(elem)}>
             <Card
               className={classes.root}
-              backgroundColor={`url(${url}/${elem.quarter})`}
             >
               <CardActionArea>
                 <CardMedia className={classes.media}>

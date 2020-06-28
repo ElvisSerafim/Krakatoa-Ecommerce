@@ -15,16 +15,14 @@ import {
 } from 'material-ui-popup-state/hooks';
 import { currentPage } from '../reducers/page';
 
-const styles = {
-  a: {
-    textDecoration: 'none',
-    color: 'white',
-  },
-};
 
 const useStyles = makeStyles((theme) => ({
+  a: {
+    textDecoration: 'none',
+    color: theme.palette.background.color,
+  },
   navBar: {
-    backgroundColor: theme.palette.background.color,
+    /* backgroundColor: theme.palette.background.color, */
     width: '100%',
     margin: 0,
     padding: 0,
@@ -34,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(1),
-    backgroundColor: theme.palette.background.color,
-    color: '#fff',
+    /* backgroundColor: theme.palette.background.color, */
+    color: 'red',
     borderStyle: 'none',
   },
 }));
@@ -48,7 +46,7 @@ const StyledTabs = withStyles({
     '& > span': {
       maxWidth: 40,
       width: '100%',
-      backgroundColor: '#fff',
+      backgroundColor: 'red',
     },
   },
 })((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
@@ -56,18 +54,16 @@ const StyledTabs = withStyles({
 const StyledTab = withStyles((theme) => ({
   root: {
     textTransform: 'none',
-    color: '#fff',
-    fontWeight: theme.typography.fontWeightRegular,
-    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.background.color,
+    fontWeight: theme.typography.body2.fontWeight,
+    fontSize: theme.typography.body2.fontSize,
     marginRight: theme.spacing(1),
     '&:focus': {
       opacity: 1,
     },
   },
 }))((props) => (
-  <div>
-    <Tab disableRipple {...props} component="a" />
-  </div>
+  <Tab disableRipple {...props} component="a" />
 ));
 
 const NavBar = () => {
@@ -75,15 +71,15 @@ const NavBar = () => {
   const page = useSelector((state) => state.page);
   const popupStateConfec = usePopupState({
     variant: 'popover',
-    popupId: 'demoMenu',
+    popupId: 'teste',
   });
   const popupStateAcess = usePopupState({
     variant: 'popover',
-    popupId: 'demoMenu',
+    popupId: 'test2',
   });
   const popupStateCangas = usePopupState({
     variant: 'popover',
-    popupId: 'demoMenu',
+    popupId: 'test3',
   });
   const handleChange = (event, newValue) => {
     dispatch(currentPage(newValue));
@@ -109,8 +105,8 @@ const NavBar = () => {
               }}
             >
               <StyledTabs
-                value={page}
-                onChange={handleChange}
+
+
                 aria-label="styled tabs example"
               >
                 <StyledTab
@@ -157,7 +153,8 @@ const NavBar = () => {
                         onClick={() => {
                           dispatch(currentPage(1));
                         }}
-                        style={styles.a}
+                        className={classes.a}
+
                       >
                         <MenuItem style={{ fontSize: '1.25em' }}>
                           {`${text}`}
@@ -181,7 +178,8 @@ const NavBar = () => {
                       onClick={() => {
                         dispatch(currentPage(2));
                       }}
-                      style={styles.a}
+                      className={classes.a}
+
                     >
                       <MenuItem style={{ fontSize: '1.25em' }}>
                         {`${text}`}
@@ -206,7 +204,8 @@ const NavBar = () => {
                         onClick={() => {
                           dispatch(currentPage(0));
                         }}
-                        style={styles.a}
+
+                        className={classes.a}
                       >
                         <MenuItem style={{ fontSize: '1.25em' }}>
                           {`${text}`}

@@ -4,7 +4,8 @@ import { Box, Container } from '@material-ui/core/';
 import Hidden from '@material-ui/core/Hidden';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import {Link} from 'react-router-dom'
+import Tab, { TabProps } from '@material-ui/core/Tab';
 import Menu from 'material-ui-popup-state/HoverMenu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,9 +23,15 @@ const styles = {
   },
 };
 
+/* type PropsTabs = {
+  onChange(event: React.ChangeEvent, value: number):any;
+  value:number;
+  event:React.ChangeEvent;
+} */
+
 const useStyles = makeStyles((theme) => ({
   navBar: {
-    backgroundColor: theme.palette.background.color,
+    backgroundColor: theme.palette.secondary.main,
     width: '100%',
     margin: 0,
     padding: 0,
@@ -34,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(1),
-    backgroundColor: theme.palette.background.color,
+    backgroundColor: theme.palette.secondary.main,
     color: '#fff',
     borderStyle: 'none',
   },
@@ -53,39 +60,43 @@ const StyledTabs = withStyles({
   },
 })((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
 
+interface TabProp extends TabProps {
+  href: string
+};
+
 const StyledTab = withStyles((theme) => ({
   root: {
     textTransform: 'none',
     color: '#fff',
-    fontWeight: theme.typography.fontWeightRegular,
-    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.body2.fontWeight,
+    fontSize: theme.typography.body2.fontSize,
     marginRight: theme.spacing(1),
     '&:focus': {
       opacity: 1,
     },
   },
-}))((props) => (
-  <div>
-    <Tab disableRipple {...props} component="a" />
-  </div>
+}))((props:TabProp) => (
+  <a href={props.href}>
+    <Tab disableRipple {...props}/>
+  </a>
 ));
 
 const NavBar = () => {
   const dispatch = useDispatch();
-  const page = useSelector((state) => state.page);
+  const page = useSelector((state: any) => state.page);
   const popupStateConfec = usePopupState({
     variant: 'popover',
-    popupId: 'demoMenu',
+    popupId: 'Confec',
   });
   const popupStateAcess = usePopupState({
     variant: 'popover',
-    popupId: 'demoMenu',
+    popupId: 'Acess',
   });
   const popupStateCangas = usePopupState({
     variant: 'popover',
-    popupId: 'demoMenu',
+    popupId: 'Cangas',
   });
-  const handleChange = (event, newValue) => {
+  const handleChange = (event: React.ChangeEvent, newValue: number) => {
     dispatch(currentPage(newValue));
   };
 
@@ -108,39 +119,25 @@ const NavBar = () => {
                 justifyContent: 'space-evenly',
               }}
             >
-              <StyledTabs
-                value={page}
-                onChange={handleChange}
-                aria-label="styled tabs example"
-              >
+              <StyledTabs aria-label="Navbar">
+              <Tab component={Link} to="/teste"></Tab>
                 <StyledTab
-                  style={{ fontSize: '1.25em' }}
                   label="Cangas"
                   href="/cangas"
                   {...bindHover(popupStateCangas)}
                 />
                 <StyledTab
-                  style={{ fontSize: '1.25em' }}
                   label="Confecções"
                   href="/confeccoes"
                   {...bindHover(popupStateConfec)}
                 />
                 <StyledTab
-                  style={{ fontSize: '1.25em' }}
                   label="Acessórios"
                   href="/acessorios"
                   {...bindHover(popupStateAcess)}
                 />
-                <StyledTab
-                  style={{ fontSize: '1.25em' }}
-                  label="Sobre"
-                  href="/sobre"
-                />
-                <StyledTab
-                  style={{ fontSize: '1.25em' }}
-                  label="Contato"
-                  href="/contato"
-                />
+                <StyledTab label="Sobre" href="/sobre" />
+                <StyledTab label="Contato" href="/contato" />
                 <Menu
                   {...bindMenu(popupStateConfec)}
                   getContentAnchorEl={null}
@@ -155,7 +152,7 @@ const NavBar = () => {
                       <a
                         href={`/${text}`}
                         onClick={() => {
-                          dispatch(currentPage(2));
+                          dispatch(currentPage(1));
                         }}
                         style={styles.a}
                       >
@@ -163,7 +160,7 @@ const NavBar = () => {
                           {`${text}`}
                         </MenuItem>
                       </a>
-                    ),
+                    )
                   )}
                 </Menu>
                 <Menu
@@ -189,7 +186,6 @@ const NavBar = () => {
                     </a>
                   ))}
                 </Menu>
-
                 <Menu
                   {...bindMenu(popupStateCangas)}
                   getContentAnchorEl={null}
@@ -204,7 +200,7 @@ const NavBar = () => {
                       <a
                         href={`/cangas/${text}`}
                         onClick={() => {
-                          dispatch(currentPage(1));
+                          dispatch(currentPage(0));
                         }}
                         style={styles.a}
                       >
@@ -212,7 +208,7 @@ const NavBar = () => {
                           {`${text}`}
                         </MenuItem>
                       </a>
-                    ),
+                    )
                   )}
                 </Menu>
               </StyledTabs>

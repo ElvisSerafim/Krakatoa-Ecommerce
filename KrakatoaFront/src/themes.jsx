@@ -6,12 +6,12 @@ const theme = createMuiTheme({
       main: '#8C0705',
     },
     secondary: {
-      main: '#fff',
+      main: '#44323D',
     },
     background: {
       color: '#44323D',
     },
-    text: { primary: '#fff' },
+    text: { secondary: '#fff' },
   },
   typography: {
     fontFamily: "'Poppins', sans-serif",

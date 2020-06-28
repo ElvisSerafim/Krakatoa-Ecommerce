@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Button } from '@material-ui/core/';
 import TextField from '@material-ui/core/TextField';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import api from '../Services/ApiService';
 import './Contato.css';
 import Alerta from './Alerta';
+import { Color } from '@material-ui/lab/Alert';
 
 export default function MyAddress() {
   const [nome, setNome] = useState('');
@@ -17,11 +18,11 @@ export default function MyAddress() {
   const [complemento, setComplemento] = useState('');
   const [token] = useState(sessionStorage.getItem('token'));
   const [message, setMessage] = useState('');
-  const [status, setStatus] = useState('error');
+  const [status, setStatus] = useState<Color>('error');
   const [open, setOpen] = useState(false);
-  const [openAlert, setOpenAlert] = useState(false);
+  const [, setOpenAlert] = useState(false);
 
-  const usuario = useSelector((state) => state.user);
+  const usuario = useSelector((state:any) => state.user);
 
   useEffect(() => {
     const getUser = async () => {
@@ -73,7 +74,7 @@ export default function MyAddress() {
     }
   };
 
-  const handleClose = (event, reason) => {
+  const handleClose = (event:React.SyntheticEvent, reason?:string) => {
     if (reason === 'clickaway') {
       return;
     }

@@ -2,14 +2,11 @@
 import React from 'react';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
-import { Typography } from '@material-ui/core/';
+import { Typography, Box } from '@material-ui/core/';
 import Estilos from '../Estilos';
 
 const styles = {
   quantity: {
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    ...Estilos.flexRowStandard2,
     height: 50,
     width: 130,
     backgroundColor: 'white',
@@ -19,22 +16,22 @@ const styles = {
 };
 
 const Quantity = ({ onClickPlus, onClickMinus, quantidade = 0 }) => (
-  <div style={styles.quantity}>
-    <div style={{ ...Estilos.flexRowCenter2, paddingLeft: 10 }}>
+  <Box justifyContent="space-between" alignItems="center" style={styles.quantity}>
+    <Box justifyContent="center" alignItems="center" style={{ paddingLeft: 10 }}>
       <RemoveOutlinedIcon
         style={{ cursor: 'pointer' }}
         onClick={onClickMinus}
       />
-    </div>
+    </Box>
 
     <div>
       <Typography style={{ color: 'black' }}>{quantidade}</Typography>
     </div>
 
-    <div style={{ ...Estilos.flexRowCenter2, paddingRight: 10 }}>
+    <Box justifyContent="center" alignItems="center" style={{ paddingRight: 10 }}>
       <AddOutlinedIcon style={{ cursor: 'pointer' }} onClick={onClickPlus} />
-    </div>
-  </div>
+    </Box>
+  </Box>
 );
 
 export default Quantity;

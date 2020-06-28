@@ -10,7 +10,7 @@ import './Contato.css';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ContaComp from '../components/ContaComp';
 import FooterComp from '../components/Footer';
 import Topo from '../components/Topo';
@@ -44,6 +44,8 @@ const styles = {
 
 function TextMaskCustom(props) {
   const { inputRef, ...other } = props;
+  console.log(props);
+  console.log(inputRef);
 
   return (
     <MaskedInput
@@ -81,9 +83,9 @@ export default function Datalhes() {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('error');
-  const [passCurrent, setPassCurrent] = useState('');
-  const [token, setToken] = useState();
-  const [openAlert, setOpenAlert] = useState(false);
+  const [, setPassCurrent] = useState('');
+  const [, setToken] = useState();
+  const [, setOpenAlert] = useState(false);
   const [values, setValues] = React.useState({
     default: '71999362212',
     numberformat: '1320',
@@ -109,10 +111,10 @@ export default function Datalhes() {
       if (newPass === '') throw new Error('Nova Senha Vazio');
       if (tel === '') throw new Error('Telefone Vazio');
       let tokenUser;
-      if(sessionStorage.getItem('token') != undefined){
+      if (sessionStorage.getItem('token') != undefined) {
         tokenUser = sessionStorage.getItem('token');
         setToken(tokenUser);
-      }else {
+      } else {
         tokenUser = localStorage.getItem('token');
         setToken(tokenUser);
       }
@@ -199,6 +201,9 @@ export default function Datalhes() {
           >
             <Grid item lg={6} md={6} sm={12} xs={12}>
               <TextField
+                variant="filled"
+                id="outlined-name"
+                style={{ width: '100%', backgroundColor: 'white' }}
                 type="password"
                 label="Senha Atual"
                 value={pass}
@@ -210,6 +215,9 @@ export default function Datalhes() {
             </Grid>
             <Grid item lg={6} md={6} sm={12} xs={12}>
               <TextField
+                variant="filled"
+                id="outlined-name"
+                style={{ width: '100%', backgroundColor: 'white', color: 'black' }}
                 color="primary"
                 label="Nome"
                 fullWidth
@@ -221,6 +229,9 @@ export default function Datalhes() {
             </Grid>
             <Grid item lg={6} md={6} sm={12} xs={12}>
               <TextField
+                variant="filled"
+                id="outlined-name"
+                style={{ width: '100%', backgroundColor: 'white', color: 'black' }}
                 type="password"
                 fullWidth
                 label="Nova Senha"
@@ -278,8 +289,8 @@ export default function Datalhes() {
                       setStatus('error');
                       setMessage('Você deve botar seu nome!');
                       break;
-                    case tel.replace(/[^0-9]/g, '').length !== 11 &&
-                      tel !== '&366&':
+                    case tel.replace(/[^0-9]/g, '').length !== 11
+                      && tel !== '&366&':
                       setStatus('error');
                       setMessage(
                         'Você deve inserir um número de telefone válido com DDD',

@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
   quadradao2: {
     backgroundColor: theme.palette.common.white,
     borderRadius: 10,
-    height: 700,
+    height: 600,
     marginTop: 40,
   },
   backgroundC: {

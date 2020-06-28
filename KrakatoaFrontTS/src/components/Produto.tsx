@@ -18,6 +18,9 @@ const useStyles = makeStyles({
     '@media (max-width: 640px)': {
       width: 270,
     },
+    '@media (max-width: 360px)': {
+      width: 155,
+    },
   },
   media: {
     maxHeight: 290,
@@ -44,15 +47,15 @@ const Produto = ({ produto, title, addItem, update }) => {
           `http://64.227.106.165/imgs/${title}/${produto.imagens[0]}.jpg`,
         );
       }
-    } else {
-      setImageurl(`http://64.227.106.165/imgs/${id}.jpg`);
+    } else if(title ==="pesquisa") {
+      setImageurl(`http://64.227.106.165/imgs//${produto.categoria}/${produto.imagens[0]}.jpg`);
     }
   }, []);
-  const FuncCapitalize = (str) => {
-    str = str.split(' ');
+  const FuncCapitalize = (str:string) => {
+    let strA = str.split(' ');
     for (let i = 0, x = str.length; i < x; i++) {
-      if (str[i] != '') {
-        str[i] = str[i][0].toUpperCase() + str[i].substr(1);
+      if (strA[i] != '') {
+        strA[i] = strA[i][0].toUpperCase() + strA[i].substr(1);
       }
     }
     return str.join(' ');

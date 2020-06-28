@@ -13,10 +13,11 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Estilo from '../Estilos';
+import Box from '@material-ui/core/Box';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.background.color,
+    backgroundColor: theme.palette.secondary.main,
     color: 'white',
   },
   body: {
@@ -45,11 +46,11 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CustomizedTables({ pedidos }) {
+export default function CustomizedTables({ pedidos }:{pedidos:any}) {
   const classes = useStyles();
   const [pedidosUsuario, setPedidos] = useState(pedidos.produtosPedido);
 
-  const setData = (data) => {
+  const setData = (data:any) => {
     if (data !== undefined) {
       const stringData = data.toString();
       const arrayString = stringData.split('T');
@@ -68,7 +69,7 @@ export default function CustomizedTables({ pedidos }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {pedidos.map((row, i) => (
+          {pedidos.map((row:any, i:number) => (
             <StyledTableRow>
               <ExpansionPanel>
                 <ExpansionPanelSummary
@@ -76,20 +77,20 @@ export default function CustomizedTables({ pedidos }) {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <div style={Estilo.flexRowSPACEBTW}>
-                    <Typography className={classes.heading}>
+                  <Box justifyContent="space-between">
+                    <Typography >
                       Pedido {i + 1}
                     </Typography>
-                    <Typography className={classes.heading}>
+                    <Typography >
                       Frete: R$ {row.pedido.frete}
                     </Typography>
-                    <Typography className={classes.heading}>
+                    <Typography >
                       Preço Total: R$ {row.pedido.precoTotal}
                     </Typography>
-                    <Typography className={classes.heading}>
+                    <Typography >
                       Data: {setData(row.pedido.data)}
                     </Typography>
-                  </div>
+                  </Box>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
                   <Table
@@ -97,7 +98,7 @@ export default function CustomizedTables({ pedidos }) {
                     aria-label="customized table"
                   >
                     <TableBody>
-                      {row.produtosPedido.map((item, i) => (
+                      {row.produtosPedido.map((item:any, i:number) => (
                         <StyledTableRow key={i}>
                           <StyledTableCell component="th" scope="row">
                             <p>{item.produto.nome}</p>

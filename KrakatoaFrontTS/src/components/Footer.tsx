@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   Fundo: {
-    backgroundColor: theme.palette.common.white,
+    backgroundColor: theme.palette.secondary.main,
   },
 }));
 

@@ -7,27 +7,32 @@ import {
 } from '../reducers/productsCart';
 
 import ItemMobile from './ItemMobile';
+import { ProdutoTipo } from '../Services/dto/produto.dto';
 
-const ListItem = ({ atualizarTotal }) => {
+type ListItemProp = {
+  atualizarTotal:Function 
+}
+
+const ListItem:React.FunctionComponent<ListItemProp> = ({ atualizarTotal }) => {
   const [products, setProducts] = useState([1, 1]);
   const [total, setTotal] = useState(0);
-  const allProducts = useSelector((state) => state.productsCart);
+  const allProducts = useSelector((state:any) => state.productsCart);
   const dispatch = useDispatch();
 
   useEffect(() => {
     let aux = 0;
-    allProducts.map((item, i) => {
+    allProducts.map((item:ProdutoTipo, i:number) => {
       aux += item.preco * item.quantidade;
     });
     setTotal(aux);
     atualizarTotal(aux);
   }, []);
 
-  const removerProduct = (produto) => {
+  const removerProduct = (produto: ProdutoTipo) => {
     dispatch(removerCart(produto));
   };
 
-  const updateTotal = (index) => {
+  const updateTotal = (index:number) => {
     const aux = total + allProducts[index].preco;
     setTotal(aux);
     atualizarTotal(aux);
@@ -35,7 +40,7 @@ const ListItem = ({ atualizarTotal }) => {
     dispatch(productsUpdate(allProducts));
   };
 
-  const updateSubTotal = (index) => {
+  const updateSubTotal = (index:number) => {
     const aux = total - allProducts[index].preco;
     setTotal(aux);
     atualizarTotal(aux);
@@ -46,7 +51,7 @@ const ListItem = ({ atualizarTotal }) => {
   return (
     <>
       <div style={{ marginBottom: '64px', marginTop: '64px' }}>
-        {allProducts.map((item, i) => (
+        {allProducts.map((item:ProdutoTipo, i:number) => (
           <ItemMobile
             produto={item}
             posicao={i}
