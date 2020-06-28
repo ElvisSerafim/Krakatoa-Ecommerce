@@ -46,7 +46,7 @@ const Sobre = () => {
         </section>
 
         <Typography variant="body1" style={{ fontWeight: 'bold' }} color="secondary">
-          Estabelecida em Salvador na Bahia desde 2004, a Krakatoa trabalha
+          Estabelecida em Salvador na Bahia desde 2004,  a Krakatoa trabalha
           com produtos originais do Sudoeste Asiático. Nossas peças são
           exclusivas e produzidas cuidadosamente a mão, uma a uma, utilizando
           técnicas milenares de pintura e tingimento. A qualidade e o bom
