@@ -17,6 +17,7 @@ import Footer from '../components/Footer';
 import TextField from '../components/TextField';
 import cartBlank from '../img/cartBlank.svg';
 import delivery from '../img/delivery.svg';
+import TextFieldM from '@material-ui/core/TextField';
 import payment from '../img/payment.svg';
 import Sedex from '../img/Sedex.svg';
 import Pac from '../img/Pac.svg';
@@ -253,18 +254,22 @@ class Endereco extends PureComponent {
               </Grid>
               <Grid item lg={12} container direction="row" justify="center">
                 <Grid item lg={3} md={12} sm={12}>
-                  <TextField
-                    label="Nome"
-                    style={{ width: '100%' }}
-                    onChange={(e) => {
-                      this.setState({ nome: e.target.value });
-                    }}
-                  />
+                <TextFieldM
+                  variant="filled"
+                  label="Nome"
+                  style={{ width: '100%', backgroundColor:'white', marginTop:10}}
+                  onChange={(e) => {
+                  this.setState({ nome: e.target.value });
+          }}
+          
+        />
                 </Grid>
                 <Grid item lg={1}></Grid>
                 <Grid item lg={3} md={12} sm={12}>
-                  <TextField
-                    label="Sobrenome"
+                  <TextFieldM
+                   variant="filled"
+                   style={{ width: '100%',backgroundColor:'white',marginTop:10}}
+                   label="Sobrenome"
                     onChange={(e) => {
                       this.setState({ sobrenome: e.target.value });
                     }}
@@ -273,7 +278,9 @@ class Endereco extends PureComponent {
                 <Grid item lg={1}></Grid>
 
                 <Grid item lg={3} md={12} sm={12}>
-                  <TextField
+                <TextFieldM
+                   variant="filled"
+                   style={{ width: '100%',backgroundColor:'white', marginTop:10}}
                     label="Celular"
                     onChange={(e) => {
                       this.setState({ telefone: e.target.value });
@@ -284,17 +291,21 @@ class Endereco extends PureComponent {
               </Grid>
               <Grid item lg={12} container direction="row" justify="center">
                 <Grid item lg={3} md={12} sm={12}>
-                  <TextField
+                <TextFieldM
+                   variant="filled"
+                   style={{ width: '100%',backgroundColor:'white', marginTop:10}}
                     label="CPF"
                     onChange={(e) => {
                       this.setState({ cpf: e.target.value });
                     }}
-                    numberOnly
+                    type='number'
                   />
                 </Grid>
                 <Grid item lg={1}></Grid>
                 <Grid item lg={3} md={12} sm={12}>
-                  <TextField
+                <TextFieldM
+                   variant="filled"
+                   style={{ width: '100%',backgroundColor:'white', marginTop:10}}
                     label="CEP"
                     onChange={(e) => {
                       this.setState({ cep: e.target.value });
@@ -304,7 +315,9 @@ class Endereco extends PureComponent {
                 </Grid>
                 <Grid item lg={1}></Grid>
                 <Grid item lg={3} md={12} sm={12}>
-                  <TextField
+                <TextFieldM
+                   variant="filled"
+                   style={{ width: '100%',backgroundColor:'white', marginTop:10}}
                     label="Bairro"
                     onChange={(e) => {
                       this.setState({ bairro: e.target.value });
@@ -314,7 +327,9 @@ class Endereco extends PureComponent {
               </Grid>
               <Grid item lg={12} container direction="row" justify="center">
                 <Grid item lg={3} md={12} sm={12}>
-                  <TextField
+                <TextFieldM
+                   variant="filled"
+                   style={{ width: '100%',backgroundColor:'white', marginTop:10}}
                     label="Cidade"
                     onChange={(e) => {
                       this.setState({ cidade: e.target.value });
@@ -323,7 +338,9 @@ class Endereco extends PureComponent {
                 </Grid>
                 <Grid item lg={1}></Grid>
                 <Grid item lg={3} md={12} sm={12}>
-                  <TextField
+                <TextFieldM
+                   variant="filled"
+                   style={{ width: '100%',backgroundColor:'white', marginTop:10}}
                     label="Rua"
                     onChange={(e) => {
                       this.setState({ rua: e.target.value });
@@ -332,7 +349,9 @@ class Endereco extends PureComponent {
                 </Grid>
                 <Grid item lg={1}></Grid>
                 <Grid item lg={3} md={12} sm={12}>
-                  <TextField
+                <TextFieldM
+                   variant="filled"
+                   style={{ width: '100%',backgroundColor:'white', marginTop:10}}
                     label="Numero"
                     onChange={(e) => {
                       this.setState({ numero: e.target.value });
@@ -345,7 +364,9 @@ class Endereco extends PureComponent {
               <Grid item lg={4} justify="space-between" container>
                 <Grid item lg={1}></Grid>
                 <Grid item lg={9} md={12} sm={12}>
-                  <TextField
+                <TextFieldM
+                   variant="filled"
+                   style={{ width: '100%',backgroundColor:'white', marginTop:10}}
                     label="Complemento"
                     onChange={(e) => {
                       this.setState({ complemento: e.target.value });
