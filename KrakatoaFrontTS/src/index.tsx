@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider, useDispatch } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, RouteProps } from 'react-router-dom';
 import './index.css';
 import store from './store';
 import theme from './themes';
@@ -158,7 +158,7 @@ ReactDOM.render(
             <Route
               path="/login"
               component={Login}
-              render={(props) => <Login {...props} />}
+              render={(props: RouteProps) => <Login {...props} />}
             />
             <Route path="/inicio" component={Home} />
             <Route path="/politicasdaloja" component={Politicas} />
@@ -180,5 +180,5 @@ ReactDOM.render(
       </BrowserRouter>
     </Provider>
   </MuiThemeProvider>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );

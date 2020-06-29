@@ -1,12 +1,11 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Container, Grid, Typography, Button, Box } from '@material-ui/core/';
+import { Container, Grid, Typography, Button, Box, TextField } from '@material-ui/core/';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Hidden from '@material-ui/core/Hidden';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '../components/TextField';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import Footer from '../components/Footer';
@@ -97,9 +96,9 @@ const Carrinho = () => {
   const [total, setTotal] = useState(0);
   const [cep, setCep] = useState('');
 
-  const products = useSelector((state) => state.productsCart);
+  const products = useSelector((state:any) => state.productsCart);
   const dispatch = useDispatch();
-  const length = useSelector((state) => state.productsCart.length);
+  const length = useSelector((state:any) => state.productsCart.length);
 
   const atualizarTotal = (totalMap:number[]) => {
     let auxTotal = 0;
@@ -191,7 +190,7 @@ const Carrinho = () => {
                   style={{ marginTop: 64 }}
                 >
                   <Table
-                    estilo={tentativa}
+                    
                     actualTotal={atualizarTotal}
                     removerItem={removerProduct}
                   />

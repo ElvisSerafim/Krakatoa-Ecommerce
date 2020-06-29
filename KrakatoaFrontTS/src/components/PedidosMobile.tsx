@@ -47,7 +47,7 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-const setData = (data:any) => {
+const setData = (data: any) => {
   if (data !== undefined) {
     const stringData = data.toString();
     const arrayString = stringData.split('T');
@@ -56,13 +56,13 @@ const setData = (data:any) => {
   return '';
 };
 
-const PedidosMobile:React.FunctionComponent = ({ pedidos }) => {
+const PedidosMobile: React.FunctionComponent<any> = ({ pedidos }) => {
   const classes = useStyles();
 
   return (
     <>
       <div className={classes.root}>
-        {pedidos.map((item, i) => (
+        {pedidos.map((item: any, i: number) => (
           <div style={{ marginTop: '10px' }}>
             <ExpansionPanel className={classes.cor}>
               <ExpansionPanelSummary
@@ -94,11 +94,15 @@ const PedidosMobile:React.FunctionComponent = ({ pedidos }) => {
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                       >
-                        <div style={Estilo.flexColumnCENTER}>
+                        <Box
+                          flexDirection="column"
+                          justifyContent="center"
+                          alignItems="center"
+                        >
                           <Typography className={classes.heading}>
                             Produtos
                           </Typography>
-                        </div>
+                        </Box>
                       </ExpansionPanelSummary>
                       <ExpansionPanelDetails>
                         <Table
@@ -106,7 +110,7 @@ const PedidosMobile:React.FunctionComponent = ({ pedidos }) => {
                           aria-label="customized table"
                         >
                           <TableBody>
-                            {item.produtosPedido.map((row:any, i:number) => (
+                            {item.produtosPedido.map((row: any, i: number) => (
                               <StyledTableRow>
                                 <div
                                   style={{
@@ -119,12 +123,10 @@ const PedidosMobile:React.FunctionComponent = ({ pedidos }) => {
                                     padding: '5px',
                                   }}
                                 >
-                                  <div
+                                  <Box
+                                    justifyContent="space-between"
                                     style={{
                                       fontFamily: 'Poppins',
-                                      display: 'flex',
-                                      flexDirection: 'row',
-                                      justifyContent: 'space-between',
                                     }}
                                   >
                                     <p style={{ margin: 0 }}>
@@ -133,19 +135,21 @@ const PedidosMobile:React.FunctionComponent = ({ pedidos }) => {
                                     <p style={{ margin: 0 }}>
                                       Qnt: {row.quantidade}
                                     </p>
-                                  </div>
-                                  <div
+                                  </Box>
+                                  <Box
+                                    justifyContent="space-between"
                                     style={{
                                       fontFamily: 'Poppins',
-                                      display: 'flex',
-                                      flexDirection: 'row',
-                                      justifyContent: 'space-between',
                                     }}
                                   >
                                     <p>Tam: {row.tamanhoEscolhida}</p>
                                     <p>Cor: {row.corEscolhida}</p>
-                                  </div>
-                                  <div style={Estilo.flexColumnCENTER}>
+                                  </Box>
+                                  <Box
+                                    flexDirection="column"
+                                    justifyContent="center"
+                                    alignItems="center"
+                                  >
                                     <p
                                       style={{
                                         margin: 0,
@@ -155,7 +159,7 @@ const PedidosMobile:React.FunctionComponent = ({ pedidos }) => {
                                       Preço: R$
                                       {row.produto.preco * row.quantidade}
                                     </p>
-                                  </div>
+                                  </Box>
                                 </div>
                               </StyledTableRow>
                             ))}

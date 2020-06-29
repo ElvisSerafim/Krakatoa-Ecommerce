@@ -1,6 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import {
   Typography,
@@ -11,6 +8,7 @@ import {
 } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import { ProdutoTipo } from '../Services/dto/produto.dto';
 
 const useStyles = makeStyles({
   root: {
@@ -34,8 +32,15 @@ const useStyles = makeStyles({
   },
 });
 
-const Produto = ({ produto, title, addItem, update }) => {
-  const { id, nome, preco, colecao } = produto;
+type ProdutoProps={
+  produto:ProdutoTipo,
+  title:string,
+  addItem:Function,
+  update:Function,
+}
+
+const Produto:React.FunctionComponent<ProdutoProps> = ({ produto, title, addItem, update }) => {
+  const { id, nome, preco } = produto;
   const [promoPrice, setpromoPrice] = useState('');
   const [Imageurl, setImageurl] = useState('');
   const [type, setType] = useState(title);
@@ -58,11 +63,10 @@ const Produto = ({ produto, title, addItem, update }) => {
         strA[i] = strA[i][0].toUpperCase() + strA[i].substr(1);
       }
     }
-    return str.join(' ');
+    return strA.join(' ');
   };
   const product = {
     nome,
-    colecao,
     preco,
     promoPrice,
     Imageurl,

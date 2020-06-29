@@ -7,7 +7,11 @@ import Quantity from './Quantity';
 import Alerta from './Alerta';
 import Estilos from '../Estilos';
 
-const ProdutoEmSi = ({ addItem }) => {
+type PropsProduto={
+  addItem:Function;
+}
+
+const ProdutoEmSi:React.FunctionComponent<PropsProduto> = ({ addItem }) => {
   const [quantity, setQuantity] = useState(1);
   const [open, setOpen] = useState(false);
   const handleClose = (event:React.SyntheticEvent, reason?:string) => {

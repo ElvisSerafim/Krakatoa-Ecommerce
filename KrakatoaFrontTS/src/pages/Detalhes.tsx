@@ -43,7 +43,7 @@ const styles = {
   },
 };
 
-function TextMaskCustom(props) {
+function TextMaskCustom(props: { [x: string]: any; inputRef: any; }) {
   const { inputRef, ...other } = props;
   
   return (
@@ -83,14 +83,14 @@ export default function Datalhes() {
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<Color>('error');
   const [passCurrent, setPassCurrent] = useState('');
-  const [token, setToken] = useState();
+  const [token, setToken] = useState<string>('');
   const [openAlert, setOpenAlert] = useState(false);
   const [values, setValues] = React.useState({
     default: '71999362212',
     numberformat: '1320',
   });
 
-  const usuario = useSelector((state) => state.user);
+  const usuario = useSelector((state:any) => state.user);
 
   useEffect(() => {
     const getUser = async () => {
@@ -112,10 +112,11 @@ export default function Datalhes() {
       let tokenUser;
       if(sessionStorage.getItem('token') != undefined){
         tokenUser = sessionStorage.getItem('token');
-        setToken(tokenUser);
+        if(tokenUser) setToken(tokenUser);
+        
       }else {
         tokenUser = localStorage.getItem('token');
-        setToken(tokenUser);
+        if(tokenUser) setToken(tokenUser);
       }
       const data = {
         nome,

@@ -10,7 +10,7 @@ import './Contato.css';
 import ContaComp from '../components/ContaComp';
 import MyAddressComp from '../components/MyAddress';
 
-const MinhaConta = () => (
+const MinhaConta: React.FunctionComponent = () => (
   <>
     <Topo />
     <Navbar />
@@ -18,7 +18,6 @@ const MinhaConta = () => (
       <Grid
         container
         spacing={2}
-        diretion="row"
         justify="space-around"
         style={{ marginTop: 64 }}
       >

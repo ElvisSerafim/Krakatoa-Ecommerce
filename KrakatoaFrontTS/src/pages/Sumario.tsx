@@ -5,9 +5,15 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 
-import { Container, Typography, Box, Button } from '@material-ui/core/';
+import {
+  Container,
+  Typography,
+  Box,
+  Button,
+  makeStyles,
+} from '@material-ui/core/';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, Route, Redirect } from 'react-router-dom';
+import { Link, Route, Redirect, RouteProps } from 'react-router-dom';
 import { removerCart, removeProducts } from '../reducers/productsCart';
 
 import api from '../Services/ApiService';
@@ -20,13 +26,14 @@ import cartBlank from '../img/cartBlank.svg';
 import nodeli from '../img/noDelivery.svg';
 import payment from '../img/payment.svg';
 import TableSumario from '../components/TableSumario';
+import { ProdutoTipo } from '../Services/dto/produto.dto';
 
-const styles = {
+const useStyles = makeStyles({
   title: {
     padding: '64px 0px 40px 0px',
     fontSize: '2.5em',
     color: '#FF5757',
-    fontWeight: '700',
+    fontWeight: 700,
   },
   boxStyle: {
     border: 2,
@@ -129,16 +136,16 @@ const styles = {
   adress: {
     paddingLeft: 600,
   },
-};
+});
 
-const Sumario = ({ location }) => {
+const Sumario: React.FunctionComponent<RouteProps> = ({ location }) => {
   const [totalFinal, setFinalTotal] = useState(0);
   const [totalFrete, setTotalFrete] = useState(0);
   const [total, setTotal] = useState(0);
   const [cep, setCep] = useState('');
   const [urlDelivery, setUrl] = useState('');
-
-  const products = useSelector((state) => state.productsCart);
+  const classes = useStyles();
+  const products = useSelector((state: any) => state.productsCart);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -151,7 +158,7 @@ const Sumario = ({ location }) => {
     }
   });
 
-  const atualizarTotal = (total) => {
+  const atualizarTotal = (total: number[]) => {
     let auxTotal = 0;
     total.map((item) => {
       auxTotal += item;
@@ -159,7 +166,7 @@ const Sumario = ({ location }) => {
     setFinalTotal(auxTotal);
   };
 
-  const removerProduct = (produto) => {
+  const removerProduct = (produto: ProdutoTipo) => {
     dispatch(removerCart(produto));
   };
 
@@ -176,34 +183,30 @@ const Sumario = ({ location }) => {
           />
         ) : (
           <>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}
-            >
-              <Typography style={styles.title}>Sumário</Typography>
+            <Box justifyContent="space-between">
+              <Typography variant="h3" style={{ marginTop: 0 }}>
+                Sumário
+              </Typography>
 
-              <div style={styles.process}>
+              <div className={classes.process}>
                 <a href="/">
-                  <img src={cartBlank} alt="React Logo" />
+                  <img src={cartBlank} alt="Carrinho" />
                 </a>
 
-                <hr style={styles.hrstyle} />
+                <hr className={classes.hrstyle} />
                 <a href="/">
-                  <img src={nodeli} alt="React Logo" />
+                  <img src={nodeli} alt="Envio" />
                 </a>
-                <hr style={styles.hrstyle} />
-                <div style={styles.payment}>
+                <hr className={classes.hrstyle} />
+                <div className={classes.payment}>
                   <a href="/">
-                    <img src={payment} alt="React Logo" />
+                    <img src={payment} alt="Pagamento" />
                   </a>
                 </div>
               </div>
-            </div>
-            <div style={styles.flexColumn}>
-              <div style={styles.flexRow}>
+            </Box>
+            <Box flexDirection="column">
+              <Box>
                 <TableSumario
                   actualTotal={atualizarTotal}
                   totalSumario={totalFinal}
@@ -258,7 +261,7 @@ const Sumario = ({ location }) => {
                       borderRadius={16}
                       flexDirection="column"
                       alignItems="center"
-                      {...styles.btn}
+                      className={classes.btn}
                     >
                       <Link
                         to={{
@@ -281,22 +284,22 @@ const Sumario = ({ location }) => {
                     borderRadius={16}
                     flexDirection="column"
                     alignItems="center"
-                    {...styles.boxStyle}
+                    className={classes.boxStyle}
                   >
                     <img
                       src={urlDelivery}
                       id="entregaImg"
-                      style={styles.img}
+                      className={classes.img}
                       alt="imagem da entrega"
                     />
-                    <Typography style={styles.price} id="price">
+                    <Typography className={classes.price} id="price">
                       {location.state.totalFrete}
                     </Typography>
-                    <Typography style={styles.entrega} id="entregaTipo">
+                    <Typography className={classes.entrega} id="entregaTipo">
                       {location.state.entregaSelecionada}
                     </Typography>
-                    <div style={styles.escolhido}>
-                      <Typography style={styles.escolhidoTypo}>
+                    <div className={classes.escolhido}>
+                      <Typography className={classes.escolhidoTypo}>
                         ESCOLHIDO
                       </Typography>
                     </div>
@@ -310,8 +313,8 @@ const Sumario = ({ location }) => {
                     </Link>
                   </div>
                 </div>
-              </div>
-            </div>
+              </Box>
+            </Box>
           </>
         )}
       </Container>

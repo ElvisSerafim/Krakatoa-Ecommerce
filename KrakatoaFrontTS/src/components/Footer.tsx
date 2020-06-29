@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Topo = () => {
+const Topo:React.FunctionComponent = () => {
   const classes = useStyles();
   return (
     <div className={classes.Fundo}>

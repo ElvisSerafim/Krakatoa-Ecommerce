@@ -31,7 +31,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Home = () => {
+const Home:React.FunctionComponent = () => {
   const settings = {
     dots: true,
     fade: true,

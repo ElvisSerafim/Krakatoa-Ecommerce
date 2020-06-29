@@ -1,8 +1,7 @@
 /* eslint-disable consistent-return */
 import React, { useState, SyntheticEvent } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, Grid, Typography } from '@material-ui/core';
-import TextFielde from './TextField';
+import { Button, Grid, Typography, TextField } from '@material-ui/core';
 import api from '../Services/ApiService';
 import Alerta from './Alerta';
 import { Color } from '@material-ui/lab/Alert';
@@ -26,7 +25,7 @@ const styles = {
   },
 };
 
-const Cadastro = () => {
+const Cadastro:React.FunctionComponent = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
@@ -34,7 +33,7 @@ const Cadastro = () => {
   const [status, setStatus] = useState<Color>();
   const [message, setMessage] = useState('');
 
-  const handleClose = (event:React.SyntheticEvent, reason?:string) => {
+  const handleClose = (event: React.SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }
@@ -78,11 +77,11 @@ const Cadastro = () => {
         </Grid>
         <Grid item lg={12} md={7} sm={7} xs={7}>
           <div style={styles.senha}>
-            <TextFielde
+            <TextField
               id="email-login"
               label="Email"
               fullWidth
-              onChange={(e:React.ChangeEvent<HTMLInputElement>) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setEmail(e.target.value);
               }}
             />
@@ -90,11 +89,10 @@ const Cadastro = () => {
         </Grid>
         <Grid item lg={12} md={7} sm={7} xs={7}>
           <div style={styles.senha}>
-            <TextFielde
+            <TextField
               label="Senha"
               id="password"
-              password
-              onChange={(e:React.ChangeEvent<HTMLInputElement>) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setPassword(e.target.value);
               }}
             />

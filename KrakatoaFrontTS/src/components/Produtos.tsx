@@ -24,6 +24,7 @@ const useStyles = makeStyles({
     '@media (min-width: 1024px)': {
       justifyContent: 'flex-start',
     },
+    marginTop: '60px',
   },
 });
 
@@ -32,109 +33,113 @@ const Produtos: React.FunctionComponent<ProdutosProps> = ({
   alert,
   name,
 }) => {
-  const [produtos, setProdutos] = useState<ProdutoTipo[]>();
-  const [product, setProduct] = useState<ProdutoTipo>();
-  const [orderBy, setOrderBy] = useState('');
+  const [produtos, setProdutos] = useState<ProdutoTipo[][]>();
+  const [product, setProduct] = useState<ProdutoTipo[][]>();
+  const [orderBy, setOrderBy] = useState<Order>();
   const dispatch = useDispatch();
   const classes = useStyles();
-  const addItemCart = (productCart) => {
+  const addItemCart = (productCart: ProdutoTipo) => {
     productCart.quantidade = 1;
     dispatch(addCart(productCart));
     alert();
   };
   const lower = title.toLowerCase();
-  const products: ProdutoTipo[] = useSelector((state) => state.products);
+  const products: ProdutoTipo[][] = useSelector((state: any) => state.products);
   useEffect(() => {
     setProdutos(products);
   }, [products]);
 
-  const ordenar = async (value: Order) => {
+  const ordenar = async (value: Order): Promise<void> => {
     const arrayAux = products[0];
+
+    if (value === undefined) return;
     if (value === 'Mais vendidos') {
-      arrayAux.sort((a, b) => {
-        if (a.vendas < b.vendas) {
+      arrayAux.sort((ProdA: ProdutoTipo, ProdB: ProdutoTipo) => {
+        if (ProdA.vendas < ProdB.vendas) {
           return -1;
         }
-        if (a.vendas > b.vendas) {
+        if (ProdA.vendas > ProdB.vendas) {
           return 1;
         }
         return 0;
       });
     }
     if (value === 'Menor Preço') {
-      arrayAux.sort((a, b) => {
-        if (a.preco < b.preco) {
+      arrayAux.sort((ProdA: ProdutoTipo, ProdB: ProdutoTipo) => {
+        if (ProdA.preco < ProdB.preco) {
           return -1;
         }
-        if (a.preco > b.preco) {
+        if (ProdA.preco > ProdB.preco) {
           return 1;
         }
         return 0;
       });
     }
     if (value === 'Maior Preço') {
-      arrayAux.sort((a, b) => {
-        if (a.preco > b.preco) {
+      arrayAux.sort((ProdA: ProdutoTipo, ProdB: ProdutoTipo) => {
+        if (ProdA.preco > ProdB.preco) {
           return -1;
         }
-        if (a.preco < b.preco) {
+        if (ProdA.preco < ProdB.preco) {
           return 1;
         }
         return 0;
       });
     }
+
     setProduct([arrayAux]);
     dispatch(updateProducts([arrayAux]));
   };
   const [state, setState] = React.useState({ open: false, defer: false });
-  return products.map((item) => (
-    <Grid
-      container
-      justify="space-evenly"
-      spacing={2}
-      className={classes.GridContainer}
-    >
-      {name == 'pesquisa' ? (
-        <Grid container lg={12} style={{ flexDirection: 'row-reverse' }}></Grid>
-      ) : (
-        <Grid container lg={12} style={{ flexDirection: 'row-reverse' }}>
-          <ComboBox
-            onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
-              setOrderBy(event.target.value);
-              ordenar(event.target.value as Order);
-            }}
-            style={{ maxWidth: 300 }}
-            value={orderBy}
-            items={['Mais vendidos', 'Menor Preço', 'Maior Preço']}
-            label="Ordenar por: "
-          />
-        </Grid>
-      )}
 
-      <NoSsr defer>
-        {item.map((value) => (
-          <Grid
-            key={value.id}
-            item
-            lg={3}
-            md={4}
-            sm={6}
-            xs={6}
-            className={classes.product}
-          >
-            <NoSsr defer>
-              <Produto
-                produto={value}
-                update={() => {}}
-                title={lower}
-                addItem={addItemCart}
+  return (
+    <>
+      {products.map((item: ProdutoTipo[]) => (
+        <Grid
+          container
+          justify="space-evenly"
+          spacing={2}
+          className={classes.GridContainer}
+        >
+          {name == 'pesquisa' ? (
+            <Grid
+              container
+              lg={12}
+              style={{ flexDirection: 'row-reverse' }}
+            ></Grid>
+          ) : (
+            <Grid container lg={12} style={{ flexDirection: 'row-reverse' }}>
+              <ComboBox
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setOrderBy(event.target.value as Order);
+                  ordenar(event.target.value as Order);
+                }}
+                style={{ maxWidth: 300 }}
+                value={orderBy}
+                items={['Mais vendidos', 'Menor Preço', 'Maior Preço']}
+                label="Ordenar por: "
               />
-            </NoSsr>
-          </Grid>
-        ))}
-      </NoSsr>
-    </Grid>
-  ));
+            </Grid>
+          )}
+
+          <NoSsr defer>
+            {item.map((value) => (
+              <Grid key={value.id} item lg={3} md={4} sm={6} xs={6}>
+                <NoSsr defer>
+                  <Produto
+                    produto={value}
+                    update={() => {}}
+                    title={lower}
+                    addItem={addItemCart}
+                  />
+                </NoSsr>
+              </Grid>
+            ))}
+          </NoSsr>
+        </Grid>
+      ))}
+    </>
+  );
 };
 
 export default Produtos;

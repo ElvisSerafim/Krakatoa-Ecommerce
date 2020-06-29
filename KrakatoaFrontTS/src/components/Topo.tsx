@@ -32,11 +32,11 @@ const StyledBadge = withStyles((theme) => ({}))(Badge);
 
 const Topo = () => {
   const classes = useStyles();
-  const allProducts = useSelector((state) => state.productsCart);
+  const allProducts = useSelector((state:any) => state.productsCart);
 
   return (
     <Container maxWidth="lg">
-      <div className={classes.Top}>
+      <div>
         <Box className={classes.box}>
           <Hidden mdUp>
             <Drawer />
@@ -53,7 +53,6 @@ const Topo = () => {
                 <img
                   src={logo}
                   alt="Logo Krakatoa"
-                  margintop="50px"
                   style={{
                     borderRadius: 5,
                     height: '8vw',
