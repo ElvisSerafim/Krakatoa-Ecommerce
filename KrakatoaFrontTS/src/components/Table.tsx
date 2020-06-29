@@ -14,6 +14,7 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Quantity from './Quantity';
 import { productsUpdate } from '../reducers/productsCart';
 import Estilos from '../Estilos';
+import { ProdutoTipo } from '../Services/dto/produto.dto';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -47,19 +48,27 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CustomizedTables({ actualTotal, removerItem }) {
+type PropsComponent = {
+  actualTotal: Function;
+  removerItem: Function;
+};
+
+const CustomizedTables: React.FunctionComponent<PropsComponent> = ({
+  actualTotal,
+  removerItem,
+}) => {
   const classes = useStyles();
-  const [quantity, setQuantity] = useState([]);
-  const [total, setTotal] = useState([]);
-  const [products, setProducts] = useState([]);
+  const [quantity, setQuantity] = useState<number[]>([]);
+  const [total, setTotal] = useState<number[]>([]);
+  const [products, setProducts] = useState<ProdutoTipo>();
   const dispatch = useDispatch();
-  const allProducts = useSelector((state) => state.productsCart);
+  const allProducts = useSelector((state: any) => state.productsCart);
 
   useEffect(() => {
     setProducts(allProducts);
-    const quantidades = [];
-    const totais = [];
-    allProducts.map((item) => {
+    const quantidades: React.SetStateAction<number[]> = [];
+    const totais: React.SetStateAction<number[]> = [];
+    allProducts.map((item: ProdutoTipo) => {
       quantidades.push(item.quantidade);
       totais.push(item.preco * item.quantidade);
       setTotal(totais);
@@ -69,16 +78,16 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
     actualTotal(totais);
   }, [allProducts]);
 
-  const updateTotal = (index) => {
+  const updateTotal = (index: number) => {
     allProducts[index].quantidade++;
     dispatch(productsUpdate(allProducts));
   };
 
-  const updateSubTotal = (index) => {
+  const updateSubTotal = (index: number) => {
     allProducts[index].quantidade--;
     dispatch(productsUpdate(allProducts));
   };
-  const updateRemoveTotal = (i) => {
+  const updateRemoveTotal = (i: number) => {
     const auxiliar = [...total];
     auxiliar.splice(i, 1);
     setTotal(auxiliar);
@@ -98,10 +107,10 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {allProducts.map((row, i) => (
+          {allProducts.map((row: ProdutoTipo, i: number) => (
             <StyledTableRow key={row.id}>
               <StyledTableCell component="th" scope="row">
-                <div style={Estilos.flexRowStandard2}>
+                <Box>
                   <div style={{ width: '100px', height: '150px' }}>
                     <img
                       src={row.Imageurl}
@@ -109,23 +118,25 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
                       alt="Imagem produto"
                     />
                   </div>
-                  <div
-                    style={{ ...Estilos.flexRowCENTER2, paddingLeft: '40px' }}
+                  <Box
+                    justifyContent="center"
+                    alignItems="center"
+                    style={{ paddingLeft: '40px' }}
                   >
                     {row.nome}
-                  </div>
-                </div>
+                  </Box>
+                </Box>
               </StyledTableCell>
 
               <StyledTableCell align="right">
-                <div style={Estilos.flexRowCENTER2}>
+                <Box justifyContent="center" alignItems="center">
                   <p>R$</p>
                   <p>{row.preco}</p>
-                </div>
+                </Box>
               </StyledTableCell>
 
               <StyledTableCell align="center">
-                <div style={Estilos.flexRowCENTER2}>
+                <Box justifyContent="center" alignItems="center">
                   <Quantity
                     onClickPlus={() => {
                       const aux = [...quantity];
@@ -153,16 +164,16 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
                     }}
                     quantidade={quantity[i]}
                   />
-                </div>
+                </Box>
               </StyledTableCell>
 
               <StyledTableCell align="center">
-                <div style={Estilos.flexRowCENTER2}>
+                <Box justifyContent="center" alignItems="center">
                   <p>R$</p>
                   <div style={{ width: 20 }}>
                     <p>{total[i]}</p>
                   </div>
-                </div>
+                </Box>
               </StyledTableCell>
 
               <StyledTableCell align="right">
@@ -182,4 +193,5 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
       </Table>
     </TableContainer>
   );
-}
+};
+export default CustomizedTables;

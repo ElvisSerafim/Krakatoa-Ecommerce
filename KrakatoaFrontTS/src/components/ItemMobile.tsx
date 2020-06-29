@@ -36,10 +36,10 @@ const useStyles = makeStyles((theme) => ({
 
 type ItemMobileProps = {
   produto: ProdutoTipo;
-  removerItem:any;
+  removerItem:Function;
   posicao:number;
-  diminuirQuantia:any;
-  aumentarQuantia:any;
+  diminuirQuantia:Function;
+  aumentarQuantia:Function;
 };
 
 const ItemMobile: React.FunctionComponent<ItemMobileProps> = ({

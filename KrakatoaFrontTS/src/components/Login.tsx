@@ -1,5 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import {
   Checkbox,
@@ -11,7 +9,6 @@ import {
 } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import TextFielde from './TextField';
 import api from '../Services/ApiService';
 import { setUser } from '../reducers/user';
 import Alerta from './Alerta';
@@ -37,7 +34,7 @@ const styles = {
   },
 };
 
-const Login = () => {
+const Login:React.FunctionComponent = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');

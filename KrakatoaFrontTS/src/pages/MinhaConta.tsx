@@ -61,8 +61,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function MinhaConta() {
-  const [user, setUser] = useState('');
-  const usuario = useSelector((state) => state.user);
+  const [user, setUser] = useState<any>();
+  const usuario = useSelector((state:any) => state.user);
   const classes = useStyles();
   useEffect(() => {
     const Get = async () => {

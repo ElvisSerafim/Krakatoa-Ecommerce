@@ -9,6 +9,7 @@ import {
   withStyles,
 } from '@material-ui/core/styles';
 import { red } from '@material-ui/core/colors';
+import { Order } from './Produtos';
 
 const styles = {
   root: {
@@ -37,7 +38,7 @@ interface PropsType {
   onChange: any;
   label: string;
   style: object;
-  value: string;
+  value: Order;
 }
 
 class ComboBox extends Component<PropsType> {

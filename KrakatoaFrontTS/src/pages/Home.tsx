@@ -1,12 +1,17 @@
 /* Pagina de Inicio */
 
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography, Button } from '@material-ui/core/';
+import {
+  Container,
+  Grid,
+  Typography,
+  Button,
+  TextField,
+  Box,
+} from '@material-ui/core/';
+import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import red from '@material-ui/core/colors/red';
 import Hidden from '@material-ui/core/Hidden';
-import TextField from '../components/TextField';
 import Produto from '../components/Produto';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
@@ -22,15 +27,9 @@ import Estilos from '../Estilos';
 import api from '../Services/ApiService';
 import Alerta from '../components/Alerta';
 import { addCart } from '../reducers/productsCart';
+import { ProdutoTipo } from '../Services/dto/produto.dto';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: red[600],
-    },
-  },
-});
-const styles = {
+const useStyles = makeStyles({
   Promos: { width: 'auto', height: '373px', backgroundColor: '#B1B1B1' },
   container: {
     display: 'grid',
@@ -43,7 +42,7 @@ const styles = {
     backgroundColor: '#B1B1B1',
     marginTop: '2em',
   },
-  Titulo: { fontSize: '3em', fontWeight: '300' },
+  Titulo: { fontSize: '3em', fontWeight: 300 },
   deli: { backgroundColor: '#E8E8E8', width: 70, height: 70, borderRadius: 10 },
   pag: { backgroundColor: '#FFF3DF', width: 70, height: 70, borderRadius: 10 },
   pqKraka: {
@@ -63,13 +62,13 @@ const styles = {
     overflowX: 'scroll',
     width: '100%',
   },
-};
+});
 
-const Home = () => {
-  const [products, setProducts] = useState([]);
+const Home:React.FunctionComponent = () => {
+  const [products, setProducts] = useState<ProdutoTipo[]>([]);
   const [open, setOpen] = useState(false);
-
-  const fechar = (event, reason) => {
+  const classes = useStyles();
+  const fechar = (event: React.SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }
@@ -79,8 +78,8 @@ const Home = () => {
     let request = [];
     const getProducts = async () => {
       request = await api.ListaProdutos();
-      const arrayAux = [];
-      request.map((item, i) => {
+      const arrayAux: ProdutoTipo[] = [];
+      request.map((item: ProdutoTipo, i: number) => {
         if (i > 1 && arrayAux.length <= 3) {
           arrayAux.push(item);
         }
@@ -90,7 +89,7 @@ const Home = () => {
     getProducts();
   }, []);
 
-  const addItemCart = (productCart) => {
+  const addItemCart = (productCart: ProdutoTipo) => {
     productCart.quantidade = 1;
     dispatch(addCart(productCart));
     setOpen(true);
@@ -117,13 +116,13 @@ const Home = () => {
       <Container maxWidth="lg">
         <Grid container spacing={2} justify="space-evenly">
           <Grid item lg={12} md={12} sm={12}>
-            <Typography style={styles.Titulo} color="primary">
+            <Typography className={classes.Titulo} color="primary">
               Mais Procurados
             </Typography>
           </Grid>
 
           <Hidden smDown>
-            {products.map((item, i) => (
+            {products.map((item: ProdutoTipo, i: number) => (
               <Grid item lg={3} md={3} sm={3}>
                 <Produto
                   produto={item}
@@ -136,8 +135,8 @@ const Home = () => {
           </Hidden>
 
           <Hidden lgUp>
-            <div style={styles.scrollbarMobile}>
-              {products.map((item, i) => (
+            <div className={classes.scrollbarMobile}>
+              {products.map((item: ProdutoTipo) => (
                 <Grid item lg={12} md={12} sm={12} style={{ marginLeft: 10 }}>
                   <Produto
                     produto={item}
@@ -159,11 +158,7 @@ const Home = () => {
             md={12}
             sm={12}
           >
-            <Button
-              variant="contained"
-              color="primary"
-              style={Themes.palette.accent}
-            >
+            <Button variant="contained" color="primary">
               VEJA TODOS
             </Button>
           </Grid>
@@ -178,7 +173,7 @@ const Home = () => {
           </Grid>
 
           <Grid item lg={3} md={3} sm={3} xs={12}>
-            <div style={styles.deli}>
+            <div className={classes.deli}>
               <img
                 style={{ padding: '25px 0px 0px 15px' }}
                 alt="Entrega"
@@ -197,7 +192,7 @@ const Home = () => {
             </Typography>
           </Grid>
           <Grid item lg={3} md={3} sm={3} xs={12}>
-            <div style={styles.pag}>
+            <div className={classes.pag}>
               <img
                 style={{ padding: '17px 0px 0px 16px' }}
                 alt="Pagamento"
@@ -216,7 +211,7 @@ const Home = () => {
             </Typography>
           </Grid>
           <Grid item lg={3} md={3} sm={3} xs={12}>
-            <div style={styles.money}>
+            <div className={classes.money}>
               <img
                 style={{ padding: '22px 0px 0px 20px' }}
                 alt="Segurança"
@@ -235,7 +230,7 @@ const Home = () => {
             </Typography>
           </Grid>
           <Grid item lg={3} md={3} sm={3} xs={12}>
-            <div style={styles.pqKraka}>
+            <div className={classes.pqKraka}>
               <img
                 style={{ padding: '20px 0px 0px 17px' }}
                 alt="Produtos"
@@ -254,13 +249,13 @@ const Home = () => {
             </Typography>
           </Grid>
           <Grid item lg={12} md={12} sm={12}>
-            <Typography color="primary" style={styles.Titulo}>
+            <Typography color="primary" variant="h3" style={{ marginTop: 0 }}>
               Novidades
             </Typography>
           </Grid>
 
           <Hidden smDown>
-            {products.map((item, i) => (
+            {products.map((item: ProdutoTipo, i: number) => (
               <Grid item lg={3} md={3} sm={3}>
                 <Produto
                   produto={item}
@@ -273,8 +268,8 @@ const Home = () => {
           </Hidden>
 
           <Hidden lgUp>
-            <div style={styles.scrollbarMobile}>
-              {products.map((item, i) => (
+            <div className={classes.scrollbarMobile}>
+              {products.map((item: ProdutoTipo, i: number) => (
                 <Grid item lg={12} md={12} sm={12} style={{ marginLeft: 10 }}>
                   <Produto
                     produto={item}
@@ -323,7 +318,7 @@ const Home = () => {
           sm={12}
         >
           <Grid item container xl={3} lg={3} md={4} sm={5}>
-            <div style={Estilos.flexColumnStandard}>
+            <Box flexDirection="column">
               <Typography
                 color="secondary"
                 style={{ textAlign: 'center', fontSize: '1.2em' }}
@@ -339,15 +334,11 @@ const Home = () => {
                 {' '}
                 e receba ofertas exclusivas!
               </Typography>
-            </div>
+            </Box>
           </Grid>
 
           <div style={{ width: 215 }}>
-            <TextField
-              fullWidth
-              styleslabel={{ color: 'white' }}
-              label="Escreva seu melhor email"
-            />
+            <TextField fullWidth label="Escreva seu melhor email" />
           </div>
           <Grid justify="center" item container lg={3} md={3} sm={5}>
             <div style={{ borderRadius: 100, width: 200, paddingTop: 35 }}>

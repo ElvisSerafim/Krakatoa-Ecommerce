@@ -24,11 +24,11 @@ type ProdutosProps = {
 };
 
 const Produtos: React.FunctionComponent<ProdutosProps> = ({ title, name }) => {
-  const [product, setProduct] = useState<ProdutoTipo>();
+  const [product, setProduct] = useState<ProdutoTipo[][]>();
   const [orderBy, setOrderBy] = useState('');
   const [open, setOpen] = useState(false);
   const [nome, setNome] = useState('');
-  const search = useSelector((state) => state.pesquisaBarra);
+  const search = useSelector((state:any) => state.pesquisaBarra);
 
   useEffect(() => {
     setNome(name);
@@ -45,10 +45,10 @@ const Produtos: React.FunctionComponent<ProdutosProps> = ({ title, name }) => {
       if (name === 'pesquisa') {
         setProduct([[]]);
         const arrayPesquisa = search.split(' ');
-        const arrayAux = [];
+        const arrayAux: any[] = [];
 
         if (arrayPesquisa.length === 1) {
-          request.forEach((itemI, i:number) => {
+          request.forEach((itemI:ProdutoTipo, i:number) => {
             if (
               itemI.nome.toUpperCase().includes(arrayPesquisa[0].toUpperCase())
             ) {
@@ -58,10 +58,10 @@ const Produtos: React.FunctionComponent<ProdutosProps> = ({ title, name }) => {
           });
           setProduct([arrayAux]);
         } else {
-          request.forEach((itemI, i:number) => {
+          request.forEach((itemI:ProdutoTipo, i:number) => {
             let verifica = true;
-            arrayPesquisa.forEach((item, index) => {
-              if (itemI.nome.toUpperCase().includes(item.toUpperCase())) {
+            arrayPesquisa.forEach((item:ProdutoTipo, index:number) => {
+              if (itemI.nome.toUpperCase().includes(item.nome.toUpperCase())) {
               } else {
                 verifica = false;
               }
@@ -77,9 +77,9 @@ const Produtos: React.FunctionComponent<ProdutosProps> = ({ title, name }) => {
       } else {
         if (title.toUpperCase() !== name.toUpperCase()) {
           let aux = request;
-          let category;
-          request.forEach((item, index) => {
-            category = aux.filter((iten, index) => {
+          let category:ProdutoTipo[]=[];
+          request.forEach((item:ProdutoTipo, index:number) => {
+            category = aux.filter((iten:ProdutoTipo, index:number) => {
               if (iten.categoria != undefined) {
                 return iten.categoria.toUpperCase() === title.toUpperCase();
               }
