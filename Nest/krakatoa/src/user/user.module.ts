@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, Logger } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
@@ -7,6 +7,8 @@ import { UserService } from './user.service';
 import { User, UserSchema } from './schemas/user.schema';
 import { genSalt, hash } from 'bcrypt';
 import { JwtStrategy } from './jwt.strategy';
+
+const logger = new Logger('User Module');
 
 @Module({
   imports: [
@@ -28,8 +30,10 @@ import { JwtStrategy } from './jwt.strategy';
               const salt = await genSalt(10);
               const Hash = await hash(this.password, salt);
               this.password = Hash;
+              logger.log('Ok!');
               return next();
             } catch (error) {
+              logger.error(error);
               return next(error);
             }
           });

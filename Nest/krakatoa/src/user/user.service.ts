@@ -1,5 +1,10 @@
 import { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  ConflictException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schemas/user.schema';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -29,22 +34,27 @@ export interface userResponse {
 
 @Injectable()
 export class UserService {
+  private logger = new Logger('User Service');
   constructor(
     @InjectModel(User.name)
     private userModel: Model<User>,
     private jwtService: JwtService,
   ) {}
+
   async CreateUser(createUserDto: CreateUserDto): Promise<User> {
-    const { email } = createUserDto;
-    let createdUser = await this.userModel.findOne({ email });
-    if (!createdUser) {
-      createdUser = await new this.userModel(createUserDto);
+    try {
+      const createdUser = new this.userModel(createUserDto);
       if (createdUser) {
-        return createdUser.save();
+        return await createdUser.save();
       }
-      throw new Error('Erro ao salvar o usuario');
+    } catch (error) {
+      this.logger.log(error);
+      if (error.name) {
+        throw new ConflictException('Usuario já existe');
+      }
+
+      throw new InternalServerErrorException('Erro no Salvar');
     }
-    throw new Error('Usuario já existe');
   }
 
   async Login(loginUserDto: LoginUserDto): Promise<{ acessToken: string }> {

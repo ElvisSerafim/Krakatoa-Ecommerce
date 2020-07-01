@@ -1,5 +1,10 @@
 import { Model, mongo } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  BadRequestException,
+  Logger,
+} from '@nestjs/common';
 import { PedidoDto } from './dto/pedido.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../user/schemas/user.schema';
@@ -8,36 +13,20 @@ import { Pedido } from './schemas/pedido.schema';
 
 @Injectable()
 export class PedidoService {
+  private logger = new Logger();
   constructor(
     @InjectModel(Pedido.name) private pedidoModel: Model<Pedido>,
     @InjectModel(User.name) private userModel: Model<User>,
     @InjectModel(Produto.name) private produtoModel: Model<Produto>,
   ) {}
+
   async getPedidos(userId: string): Promise<Pedido[]> {
     const User = await this.userModel.findById(userId);
-    const Pedidos = await this.pedidoModel
-      .findById(User._id)
-      .populate('produtos')
-      .exec(e => {
-        console.log(e);
-      });
+    if (User) {
+      const Pedidos = await this.pedidoModel.find({ user: User._id });
 
-    console.log(User);
-
-    /* if (User) {
-      const Pedidos = User.pedidos;
-      if (Pedidos) {
-        const ResultadoPedidos: Pedido[] = [];
-        Pedidos.forEach(async pedido => {
-          const teste = await this.pedidoModel.findById(pedido).populate;
-          console.log(teste);
-          return ResultadoPedidos.push(teste);
-        });
-        console.log(ResultadoPedidos);
-        return ResultadoPedidos;
-      }
-      throw new Error('Não há Pedidos');
-    } */
+      return Pedidos;
+    }
     throw new Error('Usuario não encontrado');
   } /*
   updatePedido(PedidoDto: PedidoDto, id: string): PedidoEntity {
@@ -47,25 +36,41 @@ export class PedidoService {
     return PedidoEntity;
   }  */
   /* Create Pagamento */
+
   async createPedido(pedidoDto: PedidoDto, userId: string): Promise<Pedido> {
-    pedidoDto.produtos.forEach(produto => {
-      produto.Produto_id = mongo.ObjectID.createFromHexString(
-        produto.produto_id,
-      );
-      produto.produto_id = undefined;
-    });
+    try {
+      pedidoDto.produtos.forEach(produto => {
+        produto.Produto_id = mongo.ObjectID.createFromHexString(
+          produto.produto_id,
+        );
+        produto.produto_id = undefined;
+      });
 
-    const Pedido = new this.pedidoModel(pedidoDto);
+      const Pedido = new this.pedidoModel(pedidoDto);
 
-    const user = await this.userModel.findById(userId);
-    if (user) {
-      user.pedidos.push(Pedido._id);
-      const UserSalvo = await user.save();
-      const PedidoSalvo = await Pedido.save();
-      if (UserSalvo && PedidoSalvo) {
-        return Pedido;
+      if (!Pedido) {
+        throw new InternalServerErrorException(
+          'Não foi possivel Criar um Pedido',
+        );
       }
+
+      const user = await this.userModel.findById(userId);
+
+      if (user) {
+        user.pedidos.push(Pedido._id);
+        Pedido.user = user._id;
+        const UserSalvo = await user.save();
+        const PedidoSalvo = await Pedido.save();
+        if (UserSalvo && PedidoSalvo) {
+          return Pedido;
+        }
+      }
+    } catch (error) {
+      this.logger.log(error);
+      if (error.kind === 'ObjectId') {
+        throw new BadRequestException('Não foi possivel achar o Usuario');
+      }
+      throw new Error('Não foi possivel criar um pedido');
     }
-    throw new Error('Não foi possivel realizar pedido');
   }
 }

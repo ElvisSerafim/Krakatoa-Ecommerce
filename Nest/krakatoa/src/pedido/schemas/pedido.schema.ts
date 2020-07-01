@@ -10,7 +10,7 @@ export class Pedido extends Document {
   frete: number;
 
   @Prop()
-  user: typeof SchemaTypes.ObjectId;
+  user: { type: mongoose.Types.ObjectId; ref: 'User' };
 
   @Prop()
   produtos: [

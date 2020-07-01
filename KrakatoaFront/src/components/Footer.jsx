@@ -96,7 +96,7 @@ const Topo = () => {
           justify="space-between"
           className={classes.GridContainer}
           width="100%"
-          style={{marginTop: 60}}
+          style={{ marginTop: 60 }}
         >
           <Grid item lg={6} md={6} sm={6} xs={12}>
             <div style={styles.nomeElogo}>
@@ -111,16 +111,16 @@ const Topo = () => {
             </div>
             <div style={styles.loreKrak}>
               <div>
-                <Typography style={styles.lore} variant="body1">
+                <Typography color="textSecondary" variant="body1">
                   Rua do Palame, nº 43 – Itapõa
                 </Typography>
-                <Typography style={styles.lore} variant="body1">
+                <Typography color="textSecondary" variant="body1">
                   CEP.: 41610-200 – Salvador/BA
                 </Typography>
-                <Typography style={styles.lore} variant="body1">
+                <Typography color="textSecondary" variant="body1">
                   Email: contato@krakotoacangas.com.br
                 </Typography>
-                <Typography style={styles.lore} variant="body1">
+                <Typography color="textSecondary" variant="body1">
                   Telefone: (71) 3375-3856
                 </Typography>
               </div>

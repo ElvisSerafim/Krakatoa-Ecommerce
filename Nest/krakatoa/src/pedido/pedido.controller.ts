@@ -13,6 +13,7 @@ export class PedidoController {
   ): Promise<any> {
     return await this.pedidoService.createPedido(pedidoDto, userId);
   }
+
   @Get(':id')
   async GetPedidos(@Param('id') userId: string): Promise<Pedido[]> {
     return await this.pedidoService.getPedidos(userId);
