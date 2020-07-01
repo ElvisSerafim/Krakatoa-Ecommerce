@@ -7,6 +7,7 @@ import {
   UseGuards,
   Get,
   Logger,
+  Param,
 } from '@nestjs/common';
 import { UserService, userResponse } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -23,7 +24,9 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   @Post()
-  async createUser(@Body() createUserdto: CreateUserDto): Promise<User> {
+  async createUser(
+    @Body() createUserdto: CreateUserDto,
+  ): Promise<{ acessToken: string }> {
     return await this.userService.CreateUser(createUserdto);
   }
 
@@ -33,6 +36,25 @@ export class UserController {
   ): Promise<{ acessToken: string }> {
     return await this.userService.Login(loginUserDto);
   }
+
+  @Post('/forgot')
+  async Forgot(@Body('email') email: string): Promise<void> {
+    await this.userService.Forgot(email);
+  }
+
+  @Post('/recover/:id')
+  async Recover(
+    @Param('id') id: string,
+    @Body('newPassword') newPassword: string,
+  ): Promise<{ acessToken: string }> {
+    return this.userService.Recover(id, newPassword);
+  }
+  /*   @Post('/confirm/:id')
+  async Confirmar(
+    @Param('id') jwt: string,
+  ): Promise<void> {
+    await this.userService.Confirm(jwt);
+  } */
 
   @UseGuards(AuthGuard())
   @Put('/detalhes')

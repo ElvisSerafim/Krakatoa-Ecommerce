@@ -23,13 +23,7 @@ import api from '../Services/ApiService';
 import Alerta from '../components/Alerta';
 import { addCart } from '../reducers/productsCart';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: red[600],
-    },
-  },
-});
+
 const styles = {
   Promos: { width: 'auto', height: '373px', backgroundColor: '#B1B1B1' },
   container: {

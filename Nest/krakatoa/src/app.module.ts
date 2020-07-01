@@ -19,7 +19,7 @@ import { ProdutoModule } from './produto/produto.module';
     UserModule,
     ContatoModule,
     ProdutoModule,
-         PedidoModule,
+    PedidoModule,
   ],
 })
 export class AppModule {}

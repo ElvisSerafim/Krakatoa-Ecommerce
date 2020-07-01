@@ -3,6 +3,7 @@ import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider, useDispatch } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
+import { CssBaseline } from '@material-ui/core/';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './index.css';
 import store from './store';
@@ -28,6 +29,7 @@ const MinhaConta = lazy(() => import('./pages/MinhaConta'));
 const Carrinho = lazy(() => import('./pages/Carrinho'));
 
 ReactDOM.render(
+
   <MuiThemeProvider theme={theme}>
     <Provider store={store}>
       <BrowserRouter>
