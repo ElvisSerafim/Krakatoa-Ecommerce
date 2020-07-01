@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UserModule } from './user/user.module';
 import { ContatoModule } from './contato/contato.module';
 import { PedidoModule } from './pedido/pedido.module';
 import { ProdutoModule } from './produto/produto.module';
-import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -16,10 +16,10 @@ import { UserModule } from './user/user.module';
         useCreateIndex: true,
       }),
     }),
-    ContatoModule,
-    PedidoModule,
-    ProdutoModule,
     UserModule,
+    ContatoModule,
+    ProdutoModule,
+         PedidoModule,
   ],
 })
 export class AppModule {}
