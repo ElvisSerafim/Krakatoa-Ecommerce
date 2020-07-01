@@ -39,11 +39,13 @@
     "helmet": "^3.23.1",
     "mongo": "^0.1.0",
     "mongoose": "^5.9.19",
+    "nodemailer": "^6.4.10",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.5.4"
+    "rxjs": "^6.5.4",
+    "uuidv4": "^6.1.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.0.0",

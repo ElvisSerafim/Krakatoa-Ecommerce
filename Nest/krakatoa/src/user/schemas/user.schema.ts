@@ -7,6 +7,7 @@ import { UnauthorizedException } from '@nestjs/common';
 export class User extends Document {
   @Prop({ trim: true })
   nome: string;
+  
   @Prop({ unique: true, require: true })
   email: string;
 
@@ -15,6 +16,9 @@ export class User extends Document {
 
   @Prop()
   telefone: string;
+  
+  @Prop()
+  resetId: string;
 
   @Prop({ require: true })
   password: string;
