@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import {
-  Container,
   Typography,
   Box,
   Button,
@@ -215,7 +214,6 @@ class Endereco extends PureComponent {
     const { location } = this.props;
     return (
       <>
-        <Container maxWidth="lg">
           {location.state == undefined ? (
             <Redirect
               to={{
@@ -512,7 +510,6 @@ class Endereco extends PureComponent {
               </Grid>
             </>
           )}
-        </Container>
       </>
     );
   }

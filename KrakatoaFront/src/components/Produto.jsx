@@ -50,7 +50,7 @@ const Produto = ({ produto, title, addItem, update }) => {
         setImageurl(
           `http://64.227.106.165/imgs/${title}/${produto.imagens[0]}.jpg`,
         );
-      } else if (title == 'pesquisa') {
+      } else if (title === 'pesquisa') {
         setImageurl(
           `http://64.227.106.165/imgs/${produto.categoria}/${produto.imagens[0]}.jpg`,
         );

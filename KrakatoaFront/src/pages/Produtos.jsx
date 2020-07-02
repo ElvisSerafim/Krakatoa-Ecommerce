@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Box } from '@material-ui/core/';
+import { Box } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSpring, animated } from 'react-spring';
 import { updateProducts } from '../reducers/products';
@@ -108,32 +108,30 @@ const Produtos = ({ title, name }) => {
         marginBottom="64px"
         style={{ minHeight: 500 }}
       >
-        <Container maxWidth="lg">
-          <Alerta
-            message="Produto adicionado"
-            vertical="top"
-            horizontal="right"
-            status="success"
-            handleClose={fechar}
-            openAlert={open}
-          />
+        <Alerta
+          message="Produto adicionado"
+          vertical="top"
+          horizontal="right"
+          status="success"
+          handleClose={fechar}
+          openAlert={open}
+        />
 
-          <animated.div
-            style={{
-              opacity: o.interpolate([0.1, 0.2, 0.6, 1], [1, 0.1, 0.5, 1]),
+        <animated.div
+          style={{
+            opacity: o.interpolate([0.1, 0.2, 0.6, 1], [1, 0.1, 0.5, 1]),
+          }}
+          className={classes.margin}
+        >
+          <ProductList
+            alert={() => {
+              setOpen(true);
             }}
-            className={classes.margin}
-          >
-            <ProductList
-              alert={() => {
-                setOpen(true);
-              }}
-              products={product}
-              name={name}
-              title={title}
-            />
-          </animated.div>
-        </Container>
+            products={product}
+            name={name}
+            title={title}
+          />
+        </animated.div>
       </Box>
     </>
   );

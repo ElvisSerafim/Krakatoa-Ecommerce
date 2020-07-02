@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import { useSpring, animated } from 'react-spring';
 import { Provider, useDispatch } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -9,6 +8,7 @@ import './index.css';
 import store from './store';
 import theme from './themes';
 import { PrivateRoute } from './Services/auth';
+import withNav from './higherComponents/withNav';
 
 import Endereco from './pages/Endereco';
 import Sumario from './pages/Sumario';
@@ -28,13 +28,16 @@ const Login = lazy(() => import('./pages/Login'));
 const MinhaConta = lazy(() => import('./pages/MinhaConta'));
 const Carrinho = lazy(() => import('./pages/Carrinho'));
 
+const Suspended = () => (
+  <div>Carregando...</div>
+);
 
 ReactDOM.render(
 
   <MuiThemeProvider theme={theme}>
     <Provider store={store}>
       <BrowserRouter>
-        <Suspense fallback={<div>Carregando...</div>}>
+        <Suspense fallback={withNav(Suspended)}>
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/sobre" component={Sobre} />

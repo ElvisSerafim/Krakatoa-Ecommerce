@@ -1,4 +1,5 @@
 import React from 'react';
+import { Container } from '@material-ui/core/';
 import Topo from '../components/Topo';
 import Navbar from '../components/Nav';
 import Footer from '../components/Footer';
@@ -8,7 +9,9 @@ const withNav = (Component) => {
     <>
       <Topo />
       <Navbar />
-      <Component {...props} />
+      <Container maxWidth="lg" style={{ minHeight: 700 }}>
+        <Component {...props} />
+      </Container>
       <Footer />
     </>
   );

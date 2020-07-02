@@ -3,7 +3,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography } from '@material-ui/core/';
+import { Grid, Typography } from '@material-ui/core/';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
@@ -72,67 +72,65 @@ function MinhaConta() {
 
   return (
     <>
-      <Container maxWidth="lg">
-        <Typography variant="h2" color="primary" />
+      <Typography variant="h2" color="primary" />
+      <Grid
+        container
+        spacing={2}
+        
+        justify="space-around"
+        style={{ marginBottom: 64 }}
+      >
+        <Grid item lg={12} md={12} sm={12} xs={12}>
+          <Typography variant="h4" color="primary">
+            Minha Conta
+          </Typography>
+        </Grid>
+        <Grid item lg={4} md={3} sm={5} style={{ marginBottom: 64 }}>
+          <ContaComp />
+        </Grid>
+        <Hidden smUp>
+          <Grid item sm={1} />
+        </Hidden>
+        <Hidden mdUp>
+          <Grid item md={1} />
+        </Hidden>
         <Grid
           container
-          spacing={2}
-        
+          item
+          lg={4}
+          md={6}
+          sm={6}
           justify="space-around"
-          style={{ marginBottom: 64 }}
+          className={classes.Cor}
         >
-          <Grid item lg={12} md={12} sm={12} xs={12}>
-            <Typography variant="h4" color="primary">
-              Minha Conta
-            </Typography>
-          </Grid>
-          <Grid item lg={4} md={3} sm={5} style={{ marginBottom: 64 }}>
-            <ContaComp />
-          </Grid>
-          <Hidden smUp>
-            <Grid item sm={1} />
-          </Hidden>
-          <Hidden mdUp>
-            <Grid item md={1} />
-          </Hidden>
-          <Grid
-            container
-            item
-            lg={4}
-            md={6}
-            sm={6}
-            justify="space-around"
-            className={classes.Cor}
-          >
-            <Typography style={styles.txt2} color="secondary">
-              Olá, {user.nome}
-            </Typography>
-            <Typography style={styles.txt3} color="secondary">
-              A partir do painel de controle da sua conta, você pode ver suas{' '}
-              <a
-                href="pedidos"
-                style={{ textDecoration: 'none', color: 'red' }}
-              >
-                Compras recentes{' '}
-              </a>
-              gerenciar seus{' '}
-              <a
-                href="meuendereco"
-                style={{ textDecoration: 'none', color: 'red' }}
-              >
-                Endereços de entrega{' '}
-              </a>
-              e editar suas{' '}
-              <a
-                href="detalhes"
-                style={{ textDecoration: 'none', color: 'red' }}
-              >
-                Senhas e detalhes da conta
-              </a>
-            </Typography>
-          </Grid>
+          <Typography style={styles.txt2} color="secondary">
+            Olá, {user.nome}
+          </Typography>
+          <Typography style={styles.txt3} color="secondary">
+            A partir do painel de controle da sua conta, você pode ver suas{' '}
+            <a
+              href="pedidos"
+              style={{ textDecoration: 'none', color: 'red' }}
+            >
+              Compras recentes{' '}
+            </a>
+            gerenciar seus{' '}
+            <a
+              href="meuendereco"
+              style={{ textDecoration: 'none', color: 'red' }}
+            >
+              Endereços de entrega{' '}
+            </a>
+            e editar suas{' '}
+            <a
+              href="detalhes"
+              style={{ textDecoration: 'none', color: 'red' }}
+            >
+              Senhas e detalhes da conta
+            </a>
+          </Typography>
         </Grid>
-      </Container>
+      </Grid>
     </>
   );
 }

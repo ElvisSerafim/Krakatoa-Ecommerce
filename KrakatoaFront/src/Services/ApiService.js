@@ -3,7 +3,7 @@
 const ApiService = {
   ListaProdutos: async () => {
     try {
-      const url = 'http://64.227.106.165/api/produtos/';
+      const url = 'http://64.227.106.165/api2/produto/';
       const requestInfo = {
         method: 'GET',
         headers: new Headers({

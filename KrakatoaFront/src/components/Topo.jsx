@@ -27,7 +27,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const StyledBadge = withStyles((theme) => ({}))(Badge);
+const StyledBadge = withStyles(() => ({}))(Badge);
 
 const Topo = () => {
   const classes = useStyles();

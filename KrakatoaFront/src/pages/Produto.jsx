@@ -4,7 +4,7 @@
 /* Produto em Si */
 
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography, Button, Paper } from '@material-ui/core/';
+import { Grid, Typography, Button, Paper } from '@material-ui/core/';
 import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
@@ -138,6 +138,8 @@ const ProdutoPage = ({ match }) => {
     produtos.map((item, i) => {
       if (item.id === match.params.id) {
         tipo = item.tipo;
+        console.log(item);
+
         setSizes(item.tamanho);
         setColors(item.cores);
         setPosicao(i);
@@ -206,278 +208,303 @@ const ProdutoPage = ({ match }) => {
 
   return (
     <>
-      <Container maxWidth="lg" style={{ marginBottom: 64 }}>
-        <Grid container spacing={2} justify="flex-start">
-          <Hidden smDown>
-            <Grid item lg={1} md={1}>
-              <div style={styles.marginDiv}>
-                {fotos.map((item) => (
-                  <div style={styles.foto}>
-                    <img
-                      src={`http://64.227.106.165/imgs/${product.tipo}/${item}.jpg`}
-                      onClick={() => {
-                        setFotoAtual(
-                          `http://64.227.106.165/imgs/${product.tipo}/${item}.jpg`,
-                        );
-                      }}
-                      style={styles.img}
-                      alt="produto"
-                    />
-                  </div>
-                ))}
-              </div>
-            </Grid>
-            <Grid item lg={4} md={4}>
-              <div className={classes.backgroundC} style={styles.quadradao1}>
-                <img src={fotoAtual} style={styles.img} alt="produto" />
-              </div>
-            </Grid>
-          </Hidden>
-          <Hidden lgUp>
-            <div style={{ marginTop: 30 }}>
-              <ProdutoMobile produto={product} imagens={fotosMobile} />
+      <Grid container spacing={2} justify="flex-start" style={{ marginBottom: 64 }}>
+        <Hidden smDown>
+          <Grid item lg={1} md={1}>
+            <div style={styles.marginDiv}>
+              {fotos.map((item) => (
+                <div style={styles.foto}>
+                  <img
+                    src={`http://64.227.106.165/imgs/${product.tipo}/${item}.jpg`}
+                    onClick={() => {
+                      setFotoAtual(
+                        `http://64.227.106.165/imgs/${product.tipo}/${item}.jpg`,
+                      );
+                    }}
+                    style={styles.img}
+                    alt="produto"
+                  />
+                </div>
+              ))}
             </div>
-          </Hidden>
-          <Grid item lg={1} md={1} />
-          <Hidden smDown>
-            <Grid item lg={6} md={6}>
-              <Paper elevation={4} style={{ backgroundColor: '#D2C9C7', minHeight: 700, marginTop: 40 }}>
-                <div
-                  style={{
-                    ...Estilos.flexRowStandard,
-                    flexDirection: 'row',
-                    paddingBottom: '50',
-                    justifyContent: 'space-between',
-                  }}
-                >
+          </Grid>
+          <Grid item lg={4} md={4}>
+            <div className={classes.backgroundC} style={styles.quadradao1}>
+              <img src={fotoAtual} style={styles.img} alt="produto" />
+            </div>
+          </Grid>
+        </Hidden>
+        <Hidden lgUp>
+          <div style={{ marginTop: 30 }}>
+            <ProdutoMobile produto={product} imagens={fotosMobile} />
+          </div>
+        </Hidden>
+        <Grid item lg={1} md={1} />
+        <Hidden smDown>
+          <Grid item lg={6} md={6}>
+            <Paper elevation={4} style={{ backgroundColor: '#D2C9C7', minHeight: 700, marginTop: 40 }}>
+              <div
+                style={{
+                  ...Estilos.flexRowStandard,
+                  flexDirection: 'row',
+                  paddingBottom: '50',
+                  justifyContent: 'space-between',
+                }}
+              >
 
-                  {/*   <div style={styles.promo}>
+                {/*   <div style={styles.promo}>
                     <Typography style={styles.promoText} variant="body1">
                       Promoção
                     </Typography>
                   </div> */}
-                  <div>
-                    <Typography style={styles.product} variant="body1">
-                      ID do Produto: {match.params.id}
-                    </Typography>
-                  </div>
+                <div>
+                  <Typography style={styles.product} variant="body1">
+                    ID do Produto: {match.params.id}
+                  </Typography>
                 </div>
-                <div style={styles.quad2inside}>
-                  <Typography
-                    style={{ fontStyle: 'normal', margin: 0 }}
-                    variant="h3"
-                    color="secondary"
-                  >
-                    {product.nome}
-                  </Typography>
-                  <Typography
-                    style={{ paddingTop: 30, color: 'red' }}
-                    variant="h4"
-                    id="price"
-                  >
-                    R$ {product.preco}
-                  </Typography>
-                  <div style={{ marginTop: 50 }}>
-                    <ComboBox
-                      onChange={(event) => {
-                        setSize(event.target.value);
-                      }}
-                      style={{
-                        backgroundColor: 'white',
-                        width: '150px',
-                        borderRadius: 7,
-                      }}
-                      value={size}
-                      items={sizes}
-                      label="Tamanhos"
-                    />
-                  </div>
-
-
-                  <Alerta
-                    message="Produto adicionado!"
-                    vertical="top"
-                    horizontal="right"
-                    handleClose={handleClose}
-                    status="success"
-                    openAlert={open}
+              </div>
+              <div style={styles.quad2inside}>
+                <Typography
+                  style={{ fontStyle: 'normal', margin: 0 }}
+                  variant="h3"
+                  color="secondary"
+                >
+                  {product.nome}
+                </Typography>
+                <Typography
+                  style={{ paddingTop: 30, color: 'red' }}
+                  variant="h4"
+                  id="price"
+                >
+                  R$ {product.preco}
+                </Typography>
+                <div style={{ marginTop: 50 }}>
+                  <ComboBox
+                    onChange={(event) => {
+                      setSize(event.target.value);
+                    }}
+                    style={{
+                      backgroundColor: 'white',
+                      width: '150px',
+                      borderRadius: 7,
+                    }}
+                    value={size}
+                    items={sizes}
+                    label="Tamanhos"
                   />
-                  <div style={{ ...Estilos.flexColumnStandard, marginTop: 40 }}>
-                    <div style={{ paddingTop: 150 }}>
-                      <div style={Estilos.flexRowStandard}>
-                        <Quantity
-                          onClickPlus={() => {
-                            let aux = quantity;
-                            aux++;
+                </div>
+
+
+                <Alerta
+                  message="Produto adicionado!"
+                  vertical="top"
+                  horizontal="right"
+                  handleClose={handleClose}
+                  status="success"
+                  openAlert={open}
+                />
+                <div style={{ ...Estilos.flexColumnStandard, marginTop: 40 }}>
+                  <div style={{ paddingTop: 150 }}>
+                    <div style={Estilos.flexRowStandard}>
+                      <Quantity
+                        onClickPlus={() => {
+                          let aux = quantity;
+                          aux++;
+                          setQuantity(aux);
+                        }}
+                        quantidade={quantity}
+                        onClickMinus={() => {
+                          let aux = quantity;
+                          aux--;
+                          const comparator = aux;
+                          if (comparator >= 1) {
                             setQuantity(aux);
+                          }
+                        }}
+                      />
+                      <div style={{ ...Estilos.flexColumnCENTER }}>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          style={{
+                            marginLeft: 70,
+                            width: '100%',
+                            maxHeight: '100%',
                           }}
-                          quantidade={quantity}
-                          onClickMinus={() => {
-                            let aux = quantity;
-                            aux--;
-                            const comparator = aux;
-                            if (comparator >= 1) {
-                              setQuantity(aux);
-                            }
+                          onClick={() => {
+                            setOpen(true);
+                            addItemCart(product, quantity);
                           }}
-                        />
-                        <div style={{ ...Estilos.flexColumnCENTER }}>
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            style={{
-                              marginLeft: 70,
-                              width: '100%',
-                              maxHeight: '100%',
-                            }}
-                            onClick={() => {
-                              setOpen(true);
-                              addItemCart(product, quantity);
-                            }}
-                          >
-                            ADICIONAR AO CARRINHO
-                          </Button>
-                        </div>
+                        >
+                          ADICIONAR AO CARRINHO
+                        </Button>
                       </div>
                     </div>
                   </div>
                 </div>
-              </Paper>
-            </Grid>
+              </div>
+            </Paper>
+          </Grid>
+        </Hidden>
+
+        <Hidden lgUp>
+          <Alerta
+            message="Produto adicionado!"
+            vertical="top"
+            horizontal="right"
+            handleClose={handleClose}
+            status="success"
+            openAlert={open}
+          />
+          <div
+            style={{
+              marginTop: 50,
+              width: '100%',
+              backgroundColor: '#44323D',
+              padding: 10,
+            }}
+          >
+            <ComboBox
+              onChange={(event) => {
+                setSize(event.target.value);
+              }}
+              style={{
+                backgroundColor: 'white',
+                width: '100%',
+                borderRadius: 7,
+              }}
+              value={size}
+              items={sizes}
+              label="Tamanhos"
+            />
+
+            <div style={Estilos.flexRowCENTER}>
+              <div style={{ marginTop: 20 }}>
+                <Quantity
+                  quantidade={quantity}
+                  onClickPlus={() => {
+                    let aux = quantity;
+                    aux++;
+                    setQuantity(aux);
+                  }}
+                  quantidade={quantity}
+                  onClickMinus={() => {
+                    let aux = quantity;
+                    aux--;
+                    const comparator = aux;
+                    if (comparator >= 1) {
+                      setQuantity(aux);
+                    }
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div style={Estilos.flexRowCENTER}>
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ width: '100%', maxHeight: '100%' }}
+              onClick={() => {
+                setOpen(true);
+                addItemCart(product, quantity);
+              }}
+            >
+              ADICIONAR AO CARRINHO
+            </Button>
+          </div>
+        </Hidden>
+
+        <Grid item lg={12} md={12}>
+          <div
+            className={classes.backgroundC}
+            style={{
+              width: 200,
+              height: 35,
+              marginTop: 100,
+            }}
+          >
+            <Typography
+              variant="body2"
+              color="secondary"
+              style={{ marginLeft: '50px', paddingTop: '10px' }}
+            >
+              Descrição
+            </Typography>
+          </div>
+          <div
+            className={classes.backgroundC}
+            style={{
+              width: '100%',
+              maxWidth: 1240,
+              height: 350,
+            }}
+          >
+            <Typography
+              variant="h6"
+              color="textSecondary"
+              style={{
+                paddingTop: '64px',
+                width: '100%',
+                fontSize: 'clamp(16px, 4vw, 22px)',
+                marginLeft: 5,
+              }}
+            >
+              {product.descricao}
+              <br />
+            </Typography>
+          </div>
+        </Grid>
+      </Grid>
+      <div
+        style={{
+          ...Estilos.flexRowStandard,
+          paddingBottom: '40x',
+          justifyContent: 'flex-start',
+        }}
+      >
+        <Typography variant="h4" color="primary" style={{ marginTop: 64 }}>
+          Produtos Relacionados
+        </Typography>
+      </div>
+
+      <div style={{ paddingTop: '40px' }}>
+        <Grid
+          container
+          justify="space-around"
+          spacing={2}
+          className={classes.GridContainer}
+        >
+          <Hidden smDown>
+            {allProducts.map((value) => (
+              <Grid key={value.id} item lg={3} md={4} sm={6}>
+                <Produto
+                  produto={value}
+                  title={type}
+                  update={() => {
+                    atualiza();
+                  }}
+                  addItem={(product) => {
+                    setOpen(true);
+                    addItemCart(product, 1);
+                  }}
+                />
+              </Grid>
+            ))}
           </Hidden>
 
           <Hidden lgUp>
-            <Alerta
-              message="Produto adicionado!"
-              vertical="top"
-              horizontal="right"
-              handleClose={handleClose}
-              status="success"
-              openAlert={open}
-            />
-            <div
-              style={{
-                marginTop: 50,
-                width: '100%',
-                backgroundColor: '#44323D',
-                padding: 10,
-              }}
-            >
-              <ComboBox
-                onChange={(event) => {
-                  setSize(event.target.value);
-                }}
-                style={{
-                  backgroundColor: 'white',
-                  width: '100%',
-                  borderRadius: 7,
-                }}
-                value={size}
-                items={sizes}
-                label="Tamanhos"
-              />
-
-              <div style={Estilos.flexRowCENTER}>
-                <div style={{ marginTop: 20 }}>
-                  <Quantity
-                    quantidade={quantity}
-                    onClickPlus={() => {
-                      let aux = quantity;
-                      aux++;
-                      setQuantity(aux);
-                    }}
-                    quantidade={quantity}
-                    onClickMinus={() => {
-                      let aux = quantity;
-                      aux--;
-                      const comparator = aux;
-                      if (comparator >= 1) {
-                        setQuantity(aux);
-                      }
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div style={Estilos.flexRowCENTER}>
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ width: '100%', maxHeight: '100%' }}
-                onClick={() => {
-                  setOpen(true);
-                  addItemCart(product, quantity);
-                }}
-              >
-                ADICIONAR AO CARRINHO
-              </Button>
-            </div>
-          </Hidden>
-
-          <Grid item lg={12} md={12}>
-            <div
-              className={classes.backgroundC}
-              style={{
-                width: 200,
-                height: 35,
-                marginTop: 100,
-              }}
-            >
-              <Typography
-                variant="body2"
-                color="secondary"
-                style={{ marginLeft: '50px', paddingTop: '10px' }}
-              >
-                Descrição
-              </Typography>
-            </div>
-            <div
-              className={classes.backgroundC}
-              style={{
-                width: '100%',
-                maxWidth: 1240,
-                height: 350,
-              }}
-            >
-              <Typography
-                variant="h6"
-                color="textSecondary"
-                style={{
-                  paddingTop: '64px',
-                  width: '100%',
-                  fontSize: 'clamp(16px, 4vw, 22px)',
-                  marginLeft: 5,
-                }}
-              >
-                {product.descricao}
-                <br />
-              </Typography>
-            </div>
-          </Grid>
-        </Grid>
-        <div
-          style={{
-            ...Estilos.flexRowStandard,
-            paddingBottom: '40x',
-            justifyContent: 'flex-start',
-          }}
-        >
-          <Typography variant="h4" color="primary" style={{ marginTop: 64 }}>
-            Produtos Relacionados
-          </Typography>
-        </div>
-
-        <div style={{ paddingTop: '40px' }}>
-          <Grid
-            container
-            justify="space-around"
-            spacing={2}
-            className={classes.GridContainer}
-          >
-            <Hidden smDown>
+            <div style={styles.scrollbarMobile}>
               {allProducts.map((value) => (
-                <Grid key={value.id} item lg={3} md={4} sm={6}>
+                <Grid
+                  key={value.id}
+                  item
+                  lg={3}
+                  md={4}
+                  sm={6}
+                  style={{ marginLeft: 10 }}
+                >
                   <Produto
                     produto={value}
                     title={type}
@@ -491,37 +518,10 @@ const ProdutoPage = ({ match }) => {
                   />
                 </Grid>
               ))}
-            </Hidden>
-
-            <Hidden lgUp>
-              <div style={styles.scrollbarMobile}>
-                {allProducts.map((value) => (
-                  <Grid
-                    key={value.id}
-                    item
-                    lg={3}
-                    md={4}
-                    sm={6}
-                    style={{ marginLeft: 10 }}
-                  >
-                    <Produto
-                      produto={value}
-                      title={type}
-                      update={() => {
-                        atualiza();
-                      }}
-                      addItem={(product) => {
-                        setOpen(true);
-                        addItemCart(product, 1);
-                      }}
-                    />
-                  </Grid>
-                ))}
-              </div>
-            </Hidden>
-          </Grid>
-        </div>
-      </Container>
+            </div>
+          </Hidden>
+        </Grid>
+      </div>
     </>
   );
 };
