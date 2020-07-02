@@ -7,8 +7,8 @@ import {
   CardContent,
   CardActionArea,
 } from '@material-ui/core/';
-import '../pages/Sobre.css';
 import { makeStyles } from '@material-ui/core/styles';
+import withAnimation from '../higherComponents/withAnimation';
 
 const styles = {
   root: {
@@ -70,6 +70,8 @@ const useStyles = makeStyles((theme) => ({
 
 const url = 'http://64.227.106.165/imgs/sobre';
 
+const CardMediaMod = withAnimation(CardMedia);
+
 const Sobre = () => {
   const classes = useStyles();
   return (
@@ -87,13 +89,13 @@ const Sobre = () => {
               className={classes.root}
             >
               <CardActionArea>
-                <CardMedia className={classes.media}>
+                <CardMediaMod className={classes.media}>
                   <img
                     src={`${url}/${elem.quarter}.jpg`}
                     alt="Fotos da loja"
                     className={classes.img}
                   />
-                </CardMedia>
+                </CardMediaMod>
                 <CardContent>
                   <div>
                     <Typography

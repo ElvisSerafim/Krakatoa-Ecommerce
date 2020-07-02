@@ -11,10 +11,6 @@ import {
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
 import { Link } from 'react-router-dom';
-import Navbar from '../components/Nav';
-import Topo from '../components/Topo';
-import Footer from '../components/Footer';
-import TextField from '../components/TextField';
 import cartBlank from '../img/cartBlank.svg';
 import delivery from '../img/delivery.svg';
 import TextFieldM from '@material-ui/core/TextField';
@@ -24,6 +20,9 @@ import Pac from '../img/Pac.svg';
 import api from '../Services/ApiService';
 import Alerta from '../components/Alerta';
 import Estilos from '../Estilos';
+import withAnimation from '../higherComponents/withAnimation';
+import withNav from '../higherComponents/withNav';
+
 const styles = {
   title: {
     fontSize: '2.5em',
@@ -216,8 +215,6 @@ class Endereco extends PureComponent {
     const { location } = this.props;
     return (
       <>
-        <Topo />
-        <Navbar />
         <Container maxWidth="lg">
           {location.state == undefined ? (
             <Redirect
@@ -516,9 +513,8 @@ class Endereco extends PureComponent {
             </>
           )}
         </Container>
-        <Footer />
       </>
     );
   }
 }
-export default Endereco;
+export default withNav(withAnimation(Endereco));

@@ -10,7 +10,6 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Estilo from '../Estilos';
 
@@ -26,7 +25,7 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-const StyledTableRow = withStyles((theme) => ({
+const StyledTableRow = withStyles(() => ({
   root: {
     '&:nth-of-type(odd)': {
       backgroundColor: '#9e9e9e',
@@ -47,7 +46,7 @@ const useStyles = makeStyles({
 
 export default function CustomizedTables({ pedidos }) {
   const classes = useStyles();
-  const [pedidosUsuario, setPedidos] = useState(pedidos.produtosPedido);
+  const [] = useState(pedidos.produtosPedido);
 
   const setData = (data) => {
     if (data !== undefined) {

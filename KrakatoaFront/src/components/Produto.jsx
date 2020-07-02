@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import withAnimation from '../higherComponents/withAnimation';
 
 const useStyles = makeStyles({
   root: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles({
     '@media (max-width: 360px)': {
       width: 155,
     },
-    
+
   },
   media: {
     maxHeight: 290,
@@ -34,6 +35,8 @@ const useStyles = makeStyles({
     },
   },
 });
+
+const CardMediaMod = withAnimation(CardMedia);
 
 const Produto = ({ produto, title, addItem, update }) => {
   const { id, nome, preco, colecao } = produto;
@@ -70,11 +73,13 @@ const Produto = ({ produto, title, addItem, update }) => {
     promoPrice,
     Imageurl,
   };
+
+
   return (
     <Card className={classes.root}>
       <CardActionArea>
         <a href={`/${produto.categoria}/${id}`}>
-          <CardMedia
+          <CardMediaMod
             className={classes.media}
             image={Imageurl}
             title={nome}
@@ -124,4 +129,4 @@ const Produto = ({ produto, title, addItem, update }) => {
   );
 };
 
-export default Produto;
+export default withAnimation(Produto);

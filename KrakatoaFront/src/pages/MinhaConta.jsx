@@ -7,11 +7,10 @@ import { Container, Grid, Typography } from '@material-ui/core/';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
-import Topo from '../components/Topo';
-import FooterComp from '../components/Footer';
 import './Contato.css';
-import Navbar from '../components/Nav';
 import ContaComp from '../components/ContaComp';
+import withAnimation from '../higherComponents/withAnimation';
+import withNav from '../higherComponents/withNav';
 
 const styles = {
   background: {
@@ -73,8 +72,6 @@ function MinhaConta() {
 
   return (
     <>
-      <Topo />
-      <Navbar />
       <Container maxWidth="lg">
         <Typography variant="h2" color="primary" />
         <Grid
@@ -136,9 +133,8 @@ function MinhaConta() {
           </Grid>
         </Grid>
       </Container>
-      <FooterComp />
     </>
   );
 }
 
-export default MinhaConta;
+export default withNav(withAnimation(MinhaConta));

@@ -1,11 +1,10 @@
 import React from 'react';
 import { Container, Typography } from '@material-ui/core/';
 import { useDispatch } from 'react-redux';
-import Navbar from '../components/Nav';
-import Topo from '../components/Topo';
 import SobreCompomente from '../components/Sobre';
-import Footer from '../components/Footer';
 import { currentPage } from '../reducers/page';
+import withAnimation from '../higherComponents/withAnimation';
+import withNav from '../higherComponents/withNav';
 
 const styles = {
   showmap: {
@@ -22,10 +21,7 @@ const Sobre = () => {
   dispatch(currentPage(3));
   return (
     <>
-      <Topo />
-      <Navbar />
       <Container maxWidth="lg">
-
         <section>
           <Typography variant="h3" color="primary">
             KRAKATOA
@@ -63,8 +59,7 @@ const Sobre = () => {
           />
         </section>
       </Container>
-      <Footer />
     </>
   );
 };
-export default Sobre;
+export default withNav(withAnimation(Sobre));

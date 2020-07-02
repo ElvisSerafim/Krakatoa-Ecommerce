@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     '@media (min-width: 1024px)': {
       justifyContent: 'flex-start',
     },
-    marginTop: '60px',
+    marginTop: 60,
   },
 });
 
@@ -86,60 +86,65 @@ const Produtos = ({ title, alert, name }) => {
       spacing={2}
       className={classes.GridContainer}
     >
-      {products[0].length == 0  ? (
+      {products[0].length === 0 ? (
+        <Grid container lg={12} style={{ flexDirection: 'row-reverse' }} />
+      ) : (
         <Grid container lg={12} style={{ flexDirection: 'row-reverse' }}>
-        </Grid>
-      ) : <Grid container lg={12} style={{ flexDirection: 'row-reverse' }}>
           <ComboBox
             onChange={(event) => {
               setOrderBy(event.target.value);
               ordenar(event.target.value);
             }}
-            style={{ maxWidth: 300 }}
+            style={{ maxWidth: 300, marginBottom: 36 }}
             value={orderBy}
             items={['Mais vendidos', 'Menor Preço', 'Maior Preço']}
             label="Ordenar por: "
           />
-        </Grid>}
+        </Grid>
+      )}
 
-      {products[0].length == 0 ? (
-        <div style={{ ...Estilos.flexRowCENTER, paddingTop: 64, paddingBottom: 64 }}>
+      {products[0].length === 0 ? (
+        <div
+          style={{
+            ...Estilos.flexRowCENTER,
+            paddingTop: 64,
+            paddingBottom: 64,
+            minHeight: 700,
+          }}
+        >
           <Typography
             color="primary"
             variant="h5"
             style={{ fontSize: '3.0em', fontWeight: 'Bold' }}
           >
             Sem produtos na categoria
-            </Typography>
+          </Typography>
         </div>
       ) : (
-          <NoSsr defer>
-            {item.map((value) => (
-              <Grid
-                key={value.id}
-                item
-                lg={3}
-                md={4}
-                sm={6}
-                xs={6}
-                className={classes.product}
-              >
-                <NoSsr defer>
-                  <Produto
-                    produto={value}
-                    update={() => { }}
-                    title={lower}
-                    addItem={addItemCart}
-                  />
-                </NoSsr>
-              </Grid>
-            ))}
-          </NoSsr>
-        )}
-
+        <NoSsr defer>
+          {item.map((value) => (
+            <Grid
+              key={value.id}
+              item
+              lg={3}
+              md={4}
+              sm={6}
+              xs={6}
+              className={classes.product}
+            >
+              <NoSsr defer>
+                <Produto
+                  produto={value}
+                  update={() => {}}
+                  title={lower}
+                  addItem={addItemCart}
+                />
+              </NoSsr>
+            </Grid>
+          ))}
+        </NoSsr>
+      )}
     </Grid>
-
-
   ));
 };
 

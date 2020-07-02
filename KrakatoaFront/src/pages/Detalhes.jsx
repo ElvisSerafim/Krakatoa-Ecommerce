@@ -12,11 +12,10 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import { useSelector } from 'react-redux';
 import ContaComp from '../components/ContaComp';
-import FooterComp from '../components/Footer';
-import Topo from '../components/Topo';
-import Navbar from '../components/Nav';
 import Alerta from '../components/Alerta';
 import api from '../Services/ApiService';
+import withAnimation from '../higherComponents/withAnimation';
+import withNav from '../higherComponents/withNav';
 
 const styles = {
   background: {
@@ -73,7 +72,7 @@ function TextMaskCustom(props) {
     />
   );
 }
-export default function Datalhes() {
+function Detalhes() {
   const [pass, setPass] = useState('');
   const [newPass, setNewPass] = useState('');
   const [nome, setNome] = useState('');
@@ -151,8 +150,6 @@ export default function Datalhes() {
   };
   return (
     <>
-      <Topo />
-      <Navbar />
       <Container maxWidth="lg" style={{ marginBottom: 64 }}>
         <Alerta
           openAlert={open}
@@ -311,7 +308,7 @@ export default function Datalhes() {
           </Grid>
         </Grid>
       </Container>
-      <FooterComp />
     </>
   );
 }
+export default withNav(withAnimation(Detalhes));

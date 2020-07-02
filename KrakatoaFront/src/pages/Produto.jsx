@@ -8,19 +8,17 @@ import { Container, Grid, Typography, Button, Paper } from '@material-ui/core/';
 import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
-import Navbar from '../components/Nav';
 import ComboBox from '../components/ComboBox';
-import Topo from '../components/Topo';
 import Produto from '../components/Produto';
-import Footer from '../components/Footer';
 import { addCart } from '../reducers/productsCart';
 import api from '../Services/ApiService';
 import Estilos from '../Estilos';
-import fav from '../img/favorite.svg';
 
 import ProdutoMobile from '../components/ProdutoMobile';
 import Quantity from '../components/Quantity';
 import Alerta from '../components/Alerta';
+import withAnimation from '../higherComponents/withAnimation';
+import withNav from '../higherComponents/withNav';
 
 const styles = {
   foto: {
@@ -208,8 +206,6 @@ const ProdutoPage = ({ match }) => {
 
   return (
     <>
-      <Topo />
-      <Navbar />
       <Container maxWidth="lg" style={{ marginBottom: 64 }}>
         <Grid container spacing={2} justify="flex-start">
           <Hidden smDown>
@@ -245,7 +241,7 @@ const ProdutoPage = ({ match }) => {
           <Grid item lg={1} md={1} />
           <Hidden smDown>
             <Grid item lg={6} md={6}>
-              <Paper elevation={4} style={{backgroundColor: '#D2C9C7', minHeight: 700, marginTop: 40}}>
+              <Paper elevation={4} style={{ backgroundColor: '#D2C9C7', minHeight: 700, marginTop: 40 }}>
                 <div
                   style={{
                     ...Estilos.flexRowStandard,
@@ -254,8 +250,8 @@ const ProdutoPage = ({ match }) => {
                     justifyContent: 'space-between',
                   }}
                 >
-              
-                {/*   <div style={styles.promo}>
+
+                  {/*   <div style={styles.promo}>
                     <Typography style={styles.promoText} variant="body1">
                       Promoção
                     </Typography>
@@ -325,7 +321,7 @@ const ProdutoPage = ({ match }) => {
                             }
                           }}
                         />
-                        <div style={{...Estilos.flexColumnCENTER}}>
+                        <div style={{ ...Estilos.flexColumnCENTER }}>
                           <Button
                             variant="contained"
                             color="primary"
@@ -526,9 +522,8 @@ const ProdutoPage = ({ match }) => {
           </Grid>
         </div>
       </Container>
-      <Footer />
     </>
   );
 };
 
-export default ProdutoPage;
+export default withNav(withAnimation(ProdutoPage));

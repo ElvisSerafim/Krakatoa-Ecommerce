@@ -5,14 +5,13 @@ import React from 'react';
 import { Container, Grid, Typography } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
-import Navbar from '../components/Nav';
-import Topo from '../components/Topo';
 import ContatoComp from '../components/Contato';
-import FooterComp from '../components/Footer';
 import { currentPage } from '../reducers/page';
 import './Contato.css';
 import fb from '../img/fb.png';
 import insta from '../img/insta@2x.png';
+import withAnimation from '../higherComponents/withAnimation';
+import withNav from '../higherComponents/withNav';
 
 const styles = {
   social: {
@@ -45,8 +44,6 @@ const Contato = () => {
   dispatch(currentPage(4));
   return (
     <>
-      <Topo />
-      <Navbar />
       <Container maxWidth="lg" style={{ marginTop: 64 }}>
         <Grid
           container
@@ -99,8 +96,7 @@ const Contato = () => {
           </Grid>
         </Grid>
       </Container>
-      <FooterComp />
     </>
   );
 };
-export default Contato;
+export default withNav(withAnimation(Contato));

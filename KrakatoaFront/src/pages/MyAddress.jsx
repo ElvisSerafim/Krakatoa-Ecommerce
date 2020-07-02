@@ -3,17 +3,14 @@
 import React from 'react';
 import { Container, Grid, Typography } from '@material-ui/core/';
 import Hidden from '@material-ui/core/Hidden';
-import Navbar from '../components/Nav';
-import Topo from '../components/Topo';
-import FooterComp from '../components/Footer';
 import './Contato.css';
 import ContaComp from '../components/ContaComp';
 import MyAddressComp from '../components/MyAddress';
+import withAnimation from '../higherComponents/withAnimation';
+import withNav from '../higherComponents/withNav';
 
 const MinhaConta = () => (
   <>
-    <Topo />
-    <Navbar />
     <Container maxWidth="lg" style={{ marginBottom: 64 }}>
       <Grid
         container
@@ -89,8 +86,7 @@ const MinhaConta = () => (
         </Hidden>
       </Grid>
     </Container>
-    <FooterComp />
   </>
 );
 
-export default MinhaConta;
+export default withNav(withAnimation(MinhaConta));

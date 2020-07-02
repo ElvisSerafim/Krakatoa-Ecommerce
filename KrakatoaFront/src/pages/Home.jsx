@@ -6,10 +6,7 @@ import { useDispatch } from 'react-redux';
 import Hidden from '@material-ui/core/Hidden';
 import TextField from '../components/TextField';
 import Produto from '../components/Produto';
-import Navbar from '../components/Nav';
-import Topo from '../components/Topo';
 import HomeComp from '../components/Home';
-import Footer from '../components/Footer';
 import Themes from '../themes';
 import deli from '../img/deli.png';
 import pqKraka from '../img/pqKraka.png';
@@ -19,7 +16,8 @@ import Estilos from '../Estilos';
 import api from '../Services/ApiService';
 import Alerta from '../components/Alerta';
 import { addCart } from '../reducers/productsCart';
-
+import withAnimation from '../higherComponents/withAnimation';
+import withNav from '../higherComponents/withNav';
 
 const styles = {
   Promos: { width: 'auto', height: '373px', backgroundColor: '#B1B1B1' },
@@ -97,11 +95,6 @@ const Home = () => {
         handleClose={fechar}
         openAlert={open}
       />
-      <Topo />
-      <Navbar />
-      <Container maxWidth="lg">
-        <div style={{ marginBottom: 64 }} />
-      </Container>
       <Grid item lg={12} md={12}>
         <HomeComp />
       </Grid>
@@ -349,8 +342,7 @@ const Home = () => {
           </Grid>
         </Grid>
       </div>
-      <Footer />
     </>
   );
 };
-export default Home;
+export default withNav(withAnimation(Home));

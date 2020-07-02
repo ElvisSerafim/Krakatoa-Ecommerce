@@ -3,14 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, Hidden } from '@material-ui/core/';
 import { useSelector, useDispatch } from 'react-redux';
-import Navbar from '../components/Nav';
-import Topo from '../components/Topo';
-import FooterComp from '../components/Footer';
 import './Contato.css';
 import Lista from '../components/ListaPedidos';
 import ContaComp from '../components/ContaComp';
 import api from '../Services/ApiService';
 import PedidosMobile from '../components/PedidosMobile';
+import withAnimation from '../higherComponents/withAnimation';
+import withNav from '../higherComponents/withNav';
 
 const Pedidos = () => {
   const [pedidosUsuario, setPedidos] = useState([]);
@@ -40,8 +39,6 @@ const Pedidos = () => {
 
   return (
     <>
-      <Topo />
-      <Navbar />
       <Container maxWidth="lg" style={{ marginBottom: 64 }}>
         <Grid container spacing={2} justify="flex-start">
           <Grid item lg={12}>
@@ -74,9 +71,8 @@ const Pedidos = () => {
           </Hidden>
         </Grid>
       </Container>
-      <FooterComp />
     </>
   );
 };
 
-export default Pedidos;
+export default withNav(withAnimation(Pedidos));

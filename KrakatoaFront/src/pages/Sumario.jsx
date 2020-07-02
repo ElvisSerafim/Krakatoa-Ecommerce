@@ -11,15 +11,15 @@ import { Link, Route, Redirect } from 'react-router-dom';
 import { removerCart, removeProducts } from '../reducers/productsCart';
 
 import api from '../Services/ApiService';
-import Navbar from '../components/Nav';
-import Topo from '../components/Topo';
-import Footer from '../components/Footer';
 import Pac from '../img/Pac.svg';
 import Sedex from '../img/Sedex.svg';
 import cartBlank from '../img/cartBlank.svg';
 import nodeli from '../img/noDelivery.svg';
 import payment from '../img/payment.svg';
 import TableSumario from '../components/TableSumario';
+
+import withAnimation from '../higherComponents/withAnimation';
+import withNav from '../higherComponents/withNav';
 
 const styles = {
   title: {
@@ -165,8 +165,6 @@ const Sumario = ({ location }) => {
 
   return (
     <>
-      <Topo />
-      <Navbar />
       <Container maxWidth="lg">
         {location.state === undefined ? (
           <Redirect
@@ -315,9 +313,8 @@ const Sumario = ({ location }) => {
           </>
         )}
       </Container>
-      <Footer />
     </>
   );
 };
 
-export default Sumario;
+export default withNav(withAnimation(Sumario));

@@ -7,9 +7,6 @@ import Hidden from '@material-ui/core/Hidden';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '../components/TextField';
-import Navbar from '../components/Nav';
-import Topo from '../components/Topo';
-import Footer from '../components/Footer';
 import delivery from '../img/noDelivery.svg';
 import payment from '../img/payment.svg';
 import Table from '../components/Table';
@@ -17,6 +14,8 @@ import ListItem from '../components/ListItem';
 import { removerCart, removeProducts } from '../reducers/productsCart';
 import api from '../Services/ApiService';
 import Estilos from '../Estilos';
+import withAnimation from '../higherComponents/withAnimation';
+import withNav from '../higherComponents/withNav';
 
 const useStyles = makeStyles((theme) => ({
   Cor: {
@@ -141,11 +140,9 @@ const Carrinho = () => {
   const classes = useStyles();
   return (
     <>
-      <Topo />
-      <Navbar />
       <Container maxWidth="lg">
         {length === 0 ? (
-          <div style={{ ...Estilos.flexRowCENTER2, padding: 64 }}>
+          <div style={{ ...Estilos.flexRowCENTER2, minHeight: 500, padding: 64 }}>
             <Typography
               color="primary"
               variant="h5"
@@ -368,8 +365,7 @@ const Carrinho = () => {
           </>
         )}
       </Container>
-      <Footer />
     </>
   );
 };
-export default Carrinho;
+export default withNav(withAnimation(Carrinho));
