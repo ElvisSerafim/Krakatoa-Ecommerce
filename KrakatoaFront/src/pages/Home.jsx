@@ -1,12 +1,15 @@
 /* Pagina de Inicio */
 
 import React, { useEffect, useState } from 'react';
-import { Grid, Typography, Button, Box } from '@material-ui/core/';
+import { Container, Grid, Typography, Button, Box } from '@material-ui/core/';
 import { useDispatch } from 'react-redux';
 import Hidden from '@material-ui/core/Hidden';
 import TextField from '../components/TextField';
 import Produto from '../components/Produto';
+import Navbar from '../components/Nav';
+import Topo from '../components/Topo';
 import HomeComp from '../components/Home';
+import Footer from '../components/Footer';
 import Themes from '../themes';
 import deli from '../img/deli.png';
 import pqKraka from '../img/pqKraka.png';
@@ -95,33 +98,22 @@ const Home = () => {
         handleClose={fechar}
         openAlert={open}
       />
+      <Topo />
+      <Navbar />
       <Grid item lg={12} md={12}>
         <HomeComp />
       </Grid>
-      <Grid container spacing={2} justify="space-evenly">
-        <Grid item lg={12} md={12} sm={12}>
-          <Typography style={styles.Titulo} color="primary">
-            Mais Procurados
-          </Typography>
-        </Grid>
+      <Container maxWidth="lg">
+        <Grid container spacing={2} justify="space-evenly">
+          <Grid item lg={12} md={12} sm={12}>
+            <Typography style={styles.Titulo} color="primary">
+              Mais Procurados
+            </Typography>
+          </Grid>
 
-        <Hidden smDown>
-          {products.map((item) => (
-            <Grid item lg={3} md={3} sm={3}>
-              <Produto
-                produto={item}
-                update={() => {}}
-                title={item.tipo}
-                addItem={addItemCart}
-              />
-            </Grid>
-          ))}
-        </Hidden>
-
-        <Hidden lgUp>
-          <div style={styles.scrollbarMobile}>
+          <Hidden smDown>
             {products.map((item) => (
-              <Grid item lg={12} md={12} sm={12} style={{ marginLeft: 10 }}>
+              <Grid item lg={3} md={3} sm={3}>
                 <Produto
                   produto={item}
                   update={() => {}}
@@ -130,161 +122,176 @@ const Home = () => {
                 />
               </Grid>
             ))}
-          </div>
-        </Hidden>
+          </Hidden>
 
-        <Grid
-          item
-          container
-          style={{ paddingBottom: '20px' }}
-          justify="center"
-          lg={12}
-          md={12}
-          sm={12}
-        >
-          <Button
-            variant="contained"
-            color="primary"
-            style={Themes.palette.accent}
-          >
-            VEJA TODOS
-          </Button>
-        </Grid>
-        <Grid item lg={12} md={12} sm={12}>
-          <Typography
-            color="primary"
-            style={{ textAlign: 'center', paddingBottom: '40px' }}
-            variant="h5"
-          >
-            Por que Krakatoa?
-          </Typography>
-        </Grid>
+          <Hidden lgUp>
+            <div style={styles.scrollbarMobile}>
+              {products.map((item) => (
+                <Grid item lg={12} md={12} sm={12} style={{ marginLeft: 10 }}>
+                  <Produto
+                    produto={item}
+                    update={() => {}}
+                    title={item.tipo}
+                    addItem={addItemCart}
+                  />
+                </Grid>
+              ))}
+            </div>
+          </Hidden>
 
-        <Grid item lg={3} md={3} sm={3} xs={12}>
-          <div style={styles.deli}>
-            <img
-              style={{ padding: '25px 0px 0px 15px' }}
-              alt="Entrega"
-              src={deli}
-            />
-          </div>
-          <Typography color="primary" variant="h1" style={{ paddingTop: 30 }}>
-            Lorem Ipsum
-          </Typography>
-          <Typography color="primary">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </Typography>
-          <Typography color="primary" style={{ paddingBottom: 10 }}>
-            {' '}
-            nec augueegestas ullamcorper
-          </Typography>
-        </Grid>
-        <Grid item lg={3} md={3} sm={3} xs={12}>
-          <div style={styles.pag}>
-            <img
-              style={{ padding: '17px 0px 0px 16px' }}
-              alt="Pagamento"
-              src={pag}
-            />
-          </div>
-          <Typography color="primary" variant="h1" style={{ paddingTop: 30 }}>
-            Lorem Ipsum
-          </Typography>
-          <Typography color="primary">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </Typography>
-          <Typography color="primary" style={{ paddingBottom: 10 }}>
-            {' '}
-            nec augueegestas ullamcorper
-          </Typography>
-        </Grid>
-        <Grid item lg={3} md={3} sm={3} xs={12}>
-          <div style={styles.money}>
-            <img
-              style={{ padding: '22px 0px 0px 20px' }}
-              alt="Segurança"
-              src={money}
-            />
-          </div>
-          <Typography color="primary" variant="h1" style={{ paddingTop: 30 }}>
-            Lorem Ipsum
-          </Typography>
-          <Typography color="primary">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </Typography>
-          <Typography color="primary">
-            {' '}
-            nec augueegestas ullamcorper
-          </Typography>
-        </Grid>
-        <Grid item lg={3} md={3} sm={3} xs={12}>
-          <div style={styles.pqKraka}>
-            <img
-              style={{ padding: '20px 0px 0px 17px' }}
-              alt="Produtos"
-              src={pqKraka}
-            />
-          </div>
-          <Typography color="primary" variant="h1" style={{ paddingTop: 30 }}>
-            Lorem Ipsum
-          </Typography>
-          <Typography color="primary">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </Typography>
-          <Typography color="primary">
-            {' '}
-            nec augueegestas ullamcorper
-          </Typography>
-        </Grid>
-        <Grid item lg={12} md={12} sm={12}>
-          <Typography color="primary" style={styles.Titulo}>
-            Novidades
-          </Typography>
-        </Grid>
-
-        <Hidden smDown>
-          {products.map((item) => (
-            <Grid item lg={3} md={3} sm={3}>
-              <Produto
-                produto={item}
-                update={() => {}}
-                title={item.tipo}
-                addItem={addItemCart}
-              />
-            </Grid>
-          ))}
-        </Hidden>
-
-        <Hidden lgUp>
-          <div style={styles.scrollbarMobile}>
-            {products.map((item) => (
-              <Grid item lg={12} md={12} sm={12} style={{ marginLeft: 10 }}>
-                <Produto
-                  produto={item}
-                  update={() => {}}
-                  title={item.tipo}
-                  addItem={addItemCart}
-                />
-              </Grid>
-            ))}
-          </div>
-        </Hidden>
-        <Grid item container lg={12} md={12} sm={12}>
           <Grid
             item
             container
+            style={{ paddingBottom: '20px' }}
             justify="center"
-            style={{ padding: '64px 0px 20px 0px' }}
             lg={12}
             md={12}
             sm={12}
           >
-            <Button variant="contained" color="primary">
+            <Button
+              variant="contained"
+              color="primary"
+              style={Themes.palette.accent}
+            >
               VEJA TODOS
             </Button>
           </Grid>
+          <Grid item lg={12} md={12} sm={12}>
+            <Typography
+              color="primary"
+              style={{ textAlign: 'center', paddingBottom: '40px' }}
+              variant="h5"
+            >
+              Por que Krakatoa?
+            </Typography>
+          </Grid>
+
+          <Grid item lg={3} md={3} sm={3} xs={12}>
+            <div style={styles.deli}>
+              <img
+                style={{ padding: '25px 0px 0px 15px' }}
+                alt="Entrega"
+                src={deli}
+              />
+            </div>
+            <Typography color="primary" variant="h1" style={{ paddingTop: 30 }}>
+              Lorem Ipsum
+            </Typography>
+            <Typography color="primary">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </Typography>
+            <Typography color="primary" style={{ paddingBottom: 10 }}>
+              {' '}
+              nec augueegestas ullamcorper
+            </Typography>
+          </Grid>
+          <Grid item lg={3} md={3} sm={3} xs={12}>
+            <div style={styles.pag}>
+              <img
+                style={{ padding: '17px 0px 0px 16px' }}
+                alt="Pagamento"
+                src={pag}
+              />
+            </div>
+            <Typography color="primary" variant="h1" style={{ paddingTop: 30 }}>
+              Lorem Ipsum
+            </Typography>
+            <Typography color="primary">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </Typography>
+            <Typography color="primary" style={{ paddingBottom: 10 }}>
+              {' '}
+              nec augueegestas ullamcorper
+            </Typography>
+          </Grid>
+          <Grid item lg={3} md={3} sm={3} xs={12}>
+            <div style={styles.money}>
+              <img
+                style={{ padding: '22px 0px 0px 20px' }}
+                alt="Segurança"
+                src={money}
+              />
+            </div>
+            <Typography color="primary" variant="h1" style={{ paddingTop: 30 }}>
+              Lorem Ipsum
+            </Typography>
+            <Typography color="primary">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </Typography>
+            <Typography color="primary">
+              {' '}
+              nec augueegestas ullamcorper
+            </Typography>
+          </Grid>
+          <Grid item lg={3} md={3} sm={3} xs={12}>
+            <div style={styles.pqKraka}>
+              <img
+                style={{ padding: '20px 0px 0px 17px' }}
+                alt="Produtos"
+                src={pqKraka}
+              />
+            </div>
+            <Typography color="primary" variant="h1" style={{ paddingTop: 30 }}>
+              Lorem Ipsum
+            </Typography>
+            <Typography color="primary">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </Typography>
+            <Typography color="primary">
+              {' '}
+              nec augueegestas ullamcorper
+            </Typography>
+          </Grid>
+          <Grid item lg={12} md={12} sm={12}>
+            <Typography color="primary" style={styles.Titulo}>
+              Novidades
+            </Typography>
+          </Grid>
+
+          <Hidden smDown>
+            {products.map((item) => (
+              <Grid item lg={3} md={3} sm={3}>
+                <Produto
+                  produto={item}
+                  update={() => {}}
+                  title={item.tipo}
+                  addItem={addItemCart}
+                />
+              </Grid>
+            ))}
+          </Hidden>
+
+          <Hidden lgUp>
+            <div style={styles.scrollbarMobile}>
+              {products.map((item) => (
+                <Grid item lg={12} md={12} sm={12} style={{ marginLeft: 10 }}>
+                  <Produto
+                    produto={item}
+                    update={() => {}}
+                    title={item.tipo}
+                    addItem={addItemCart}
+                  />
+                </Grid>
+              ))}
+            </div>
+          </Hidden>
+          <Grid item container lg={12} md={12} sm={12}>
+            <Grid
+              item
+              container
+              justify="center"
+              style={{ padding: '64px 0px 20px 0px' }}
+              lg={12}
+              md={12}
+              sm={12}
+            >
+              <Button variant="contained" color="primary">
+                VEJA TODOS
+              </Button>
+            </Grid>
+          </Grid>
         </Grid>
-      </Grid>
+      </Container>
       <div
         style={{
           backgroundColor: '#44323D',
@@ -340,7 +347,8 @@ const Home = () => {
           </Grid>
         </Grid>
       </div>
+      <Footer />
     </>
   );
 };
-export default withNav(withAnimation(Home));
+export default withAnimation(Home);
