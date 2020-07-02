@@ -106,7 +106,7 @@ const Produto = ({ produto, title, addItem, update }) => {
                 justifyContent: 'space-between',
               }}
             >
-              <Typography variant="body2" color="textSecondary" component="p">
+              <Typography variant="body2" color="secondary" component="p">
                 R$ {preco}
               </Typography>
               <AddShoppingCartIcon
