@@ -5,7 +5,6 @@ import Hidden from '@material-ui/core/Hidden';
 import logo from '../img/logoBranca.png';
 import fbBranco from '../img/fbBranco.png';
 import instaBranco from '../img/instaBranco.png';
-
 import visa from '../img/visa.png';
 import elo from '../img/elo.png';
 import mastercard from '../img/mastercard.png';
@@ -84,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Topo = () => {
+const Footer = () => {
   const classes = useStyles();
   return (
     <div className={classes.Fundo}>
@@ -216,4 +215,4 @@ const Topo = () => {
     </div>
   );
 };
-export default Topo;
+export default React.memo(Footer);

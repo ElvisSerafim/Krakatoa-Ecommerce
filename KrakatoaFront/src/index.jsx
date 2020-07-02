@@ -3,12 +3,12 @@ import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider, useDispatch } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import { CssBaseline } from '@material-ui/core/';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './index.css';
 import store from './store';
 import theme from './themes';
 import { PrivateRoute } from './Services/auth';
+import withNav from './higherComponents/withNav';
 
 import Endereco from './pages/Endereco';
 import Sumario from './pages/Sumario';
@@ -28,16 +28,21 @@ const Login = lazy(() => import('./pages/Login'));
 const MinhaConta = lazy(() => import('./pages/MinhaConta'));
 const Carrinho = lazy(() => import('./pages/Carrinho'));
 
+const Suspended = () => (
+  <div>Carregando...</div>
+);
+
 ReactDOM.render(
 
   <MuiThemeProvider theme={theme}>
     <Provider store={store}>
       <BrowserRouter>
-        <Suspense fallback={<div>Carregando...</div>}>
+        <Suspense fallback={withNav(Suspended)}>
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/sobre" component={Sobre} />
             <Route path="/contato" component={Contato} />
+
             <Route
               path="/cangas"
               exact
@@ -45,90 +50,37 @@ ReactDOM.render(
                 <Produtos {...props} name="cangas" title="Cangas" />
               )}
             />
-            <Route
-              path="/cangas/mandalas"
-              exact
-              render={(props) => (
-                <Produtos {...props} name="cangas" title="Mandalas" />
-              )}
-            />
-            <Route
-              path="/cangas/turisticas"
-              exact
-              render={(props) => (
-                <Produtos {...props} name="turisticas" title="Turisticas" />
-              )}
-            />
-            <Route
-              path="/cangas/pompom"
-              exact
-              render={(props) => (
-                <Produtos {...props} name="pompom" title="Pompom" />
-              )}
-            />
-            <Route
-              path="/cangas/estampada"
-              exact
-              render={(props) => (
-                <Produtos {...props} name="estampada" title="Estampada" />
-              )}
-            />
-            <Route
-              path="/vestidos"
-              exact
-              render={(props) => (
-                <Produtos {...props} name="confeccões" title="Vestidos" />
-              )}
-            />
-            <Route
-              path="/batas"
-              exact
-              render={(props) => (
-                <Produtos {...props} name="confeccões" title="Batas" />
-              )}
-            />
-            <Route
-              path="/shorts"
-              exact
-              render={(props) => (
-                <Produtos {...props} name="shorts" title="Shorts" />
-              )}
-            />
-            <Route
-              path="/macaquinhos"
-              exact
-              render={(props) => (
-                <Produtos {...props} name="macaquinhos" title="Macaquinhos" />
-              )}
-            />
-            <Route
-              path="/confeccoes"
-              exact
-              render={(props) => (
-                <Produtos {...props} name="confeccões" title="Confeccões" />
-              )}
-            />
-            <Route
-              path="/bolsas"
-              exact
-              render={(props) => (
-                <Produtos {...props} name="bolsas" title="Bolsas" />
-              )}
-            />
-            <Route
-              path="/chapeus"
-              exact
-              render={(props) => (
-                <Produtos {...props} name="chapeus" title="Chapeus" />
-              )}
-            />
-            <Route
-              path="/acessorios"
-              exact
-              render={(props) => (
-                <Produtos {...props} name="acessorios" title="Acessórios" />
-              )}
-            />
+
+            {['Mandalas', 'turisticas', 'pompom', 'estampada'].map((item) => (
+              <Route
+                path={`/cangas/${item}`}
+                exact
+                render={(props) => (
+                  <Produtos {...props} name="cangas" title={item} />
+                )}
+              />
+            ))}
+
+            {['Vestidos', 'Batas', 'Shorts', 'Macaquinhos', 'confeccoes'].map((item) => (
+              <Route
+                path={`/${item}`}
+                exact
+                render={(props) => (
+                  <Produtos {...props} name="confeccões" title={item} />
+                )}
+              />
+            ))}
+
+            {['bolsas', 'acessorios', 'chapeus'].map((item) => (
+              <Route
+                path={`/${item}`}
+                exact
+                render={(props) => (
+                  <Produtos {...props} name="acessorios" title={item} />
+                )}
+              />
+            ))}
+
             <Route
               path="/pesquisa"
               exact
@@ -136,6 +88,13 @@ ReactDOM.render(
                 <Produtos {...props} name="pesquisa" title="Pesquisa" />
               )}
             />
+
+
+            <Route
+              path="/vestidos/:id"
+              render={(props) => <Produto {...props} />}
+            />
+
             <Route
               path="/cangas/:id"
               render={(props) => <Produto {...props} />}
@@ -148,10 +107,7 @@ ReactDOM.render(
               path="/shorts/:id"
               render={(props) => <Produto {...props} />}
             />
-            <Route
-              path="/vestidos/:id"
-              render={(props) => <Produto {...props} />}
-            />
+
             <Route
               path="/pesquisa/:id"
               render={(props) => <Produto {...props} />}

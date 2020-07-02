@@ -6,6 +6,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import withAnimation from '../higherComponents/withAnimation';
 
 const photos = [
   {
@@ -25,9 +26,15 @@ const photos = [
 const useStyles = makeStyles({
   image: {
     height: '50%',
-    maxHeight: '700px',
+    maxHeight: 500,
+    minHeight: 500,
     width: '100%',
     objectFit: 'cover',
+    '@media (max-width: 360px)': {
+      marginTop: 32,
+      maxHeight: 200,
+      minHeight: 200,
+    },
   },
 });
 
@@ -43,8 +50,8 @@ const Home = () => {
     arrows: true,
     slidesToScrow: 1,
     className: 'slides',
-    height: '50%',
-    maxHeight: '700px',
+    height: '40%',
+    maxHeight: 400,
     width: '100%',
     adaptiveHeight: true,
   };
@@ -53,12 +60,11 @@ const Home = () => {
     <div className="Home">
       <Slider {...settings}>
         {photos.map((photo) => (
-          <div styles={{ marginTop: 64 }}>
-            <img className={classes.image} src={photo.url} alt={photo.name} />
-          </div>
+
+          <img className={classes.image} src={photo.url} alt={photo.name} />
         ))}
       </Slider>
     </div>
   );
 };
-export default Home;
+export default withAnimation(Home);

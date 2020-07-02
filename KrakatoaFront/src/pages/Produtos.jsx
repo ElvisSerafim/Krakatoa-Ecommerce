@@ -3,15 +3,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Typography, Box } from '@material-ui/core/';
+import { Box } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
+import { useSpring, animated } from 'react-spring';
 import { updateProducts } from '../reducers/products';
-import Navbar from '../components/Nav';
-import Topo from '../components/Topo';
 import ProductList from '../components/Produtos';
-import Footer from '../components/Footer';
 import api from '../Services/ApiService';
 import Alerta from '../components/Alerta';
+import withAnimation from '../higherComponents/withAnimation';
+import withNav from '../higherComponents/withNav';
 
 const useStyles = makeStyles((theme) => ({
   margin: theme.spacing(2),
@@ -19,9 +19,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Produtos = ({ title, name }) => {
   const [product, setProduct] = useState([]);
-  const [orderBy, setOrderBy] = useState('');
+  const [] = useState('');
   const [open, setOpen] = useState(false);
-  const [nome, setNome] = useState('');
+  const [, setNome] = useState('');
   const search = useSelector((state) => state.pesquisaBarra);
 
   useEffect(() => {
@@ -35,14 +35,14 @@ const Produtos = ({ title, name }) => {
       const request = await api.GetProdutos(data);
 
       const a = [request];
-      console.log(a);
+
       if (name === 'pesquisa') {
         setProduct([[]]);
         const arrayPesquisa = search.split(' ');
         const arrayAux = [];
 
         if (arrayPesquisa.length === 1) {
-          request.forEach((itemI, i) => {
+          request.forEach((itemI) => {
             if (
               itemI.nome.toUpperCase().includes(arrayPesquisa[0].toUpperCase())
             ) {
@@ -52,11 +52,10 @@ const Produtos = ({ title, name }) => {
           });
           setProduct([arrayAux]);
         } else {
-          request.forEach((itemI, i) => {
+          request.forEach((itemI) => {
             let verifica = true;
-            arrayPesquisa.forEach((item, index) => {
-              if (itemI.nome.toUpperCase().includes(item.toUpperCase())) {
-              } else {
+            arrayPesquisa.forEach((item) => {
+              if (!itemI.nome.toUpperCase().includes(item.toUpperCase())) {
                 verifica = false;
               }
             });
@@ -71,9 +70,9 @@ const Produtos = ({ title, name }) => {
       } else if (title.toUpperCase() !== name.toUpperCase()) {
         const aux = request;
         let category;
-        request.forEach((item, index) => {
-          category = aux.filter((iten, index) => {
-            if (iten.categoria != undefined) {
+        request.forEach(() => {
+          category = aux.filter((iten) => {
+            if (iten.categoria !== undefined) {
               return iten.categoria.toUpperCase() === title.toUpperCase();
             }
           });
@@ -89,7 +88,6 @@ const Produtos = ({ title, name }) => {
   const dispatch = useDispatch();
   dispatch(updateProducts(product));
 
-  const abrir = () => { };
   const fechar = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -97,40 +95,45 @@ const Produtos = ({ title, name }) => {
     setOpen(false);
   };
   const classes = useStyles();
+  const { o } = useSpring({
+    from: { o: 0 },
+  });
   return (
     <>
-      <Topo />
-      <Navbar />
       <Box
         display="flex"
         justifyContent="center"
         flexDirection="column"
         alignItems="center"
         marginBottom="64px"
+        style={{ minHeight: 500 }}
       >
-        <Container maxWidth="lg">
-          <Alerta
-            message="Produto adicionado"
-            vertical="top"
-            horizontal="right"
-            status="success"
-            handleClose={fechar}
-            openAlert={open}
+        <Alerta
+          message="Produto adicionado"
+          vertical="top"
+          horizontal="right"
+          status="success"
+          handleClose={fechar}
+          openAlert={open}
+        />
+
+        <animated.div
+          style={{
+            opacity: o.interpolate([0.1, 0.2, 0.6, 1], [1, 0.1, 0.5, 1]),
+          }}
+          className={classes.margin}
+        >
+          <ProductList
+            alert={() => {
+              setOpen(true);
+            }}
+            products={product}
+            name={name}
+            title={title}
           />
-          <div className={classes.margin}>
-            <ProductList
-              alert={() => {
-                setOpen(true);
-              }}
-              products={product}
-              name={name}
-              title={title}
-            />
-          </div>
-        </Container>
+        </animated.div>
       </Box>
-      <Footer />
     </>
   );
 };
-export default Produtos;
+export default withNav(withAnimation(Produtos));

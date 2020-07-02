@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Box, Container } from '@material-ui/core/';
+import { Box, Container } from '@material-ui/core/';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Carrinho from '@material-ui/icons/ShoppingCart';
@@ -9,14 +9,13 @@ import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import SearchBar from './SearchBar';
-import logo from '../img/logo192.png';
+import Logo from './Logo';
+
 import Drawer from './Drawer';
 
 const useStyles = makeStyles(() => ({
   box: {
     display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'nowrap',
     justifyContent: 'space-around',
     alignItems: 'center',
     marginTop: '2%',
@@ -28,7 +27,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const StyledBadge = withStyles((theme) => ({}))(Badge);
+const StyledBadge = withStyles(() => ({}))(Badge);
 
 const Topo = () => {
   const classes = useStyles();
@@ -36,50 +35,18 @@ const Topo = () => {
 
   return (
     <Container maxWidth="lg">
-      <div className={classes.Top}>
+      <Box className={classes.Top}>
         <Box className={classes.box}>
           <Hidden mdUp>
             <Drawer />
           </Hidden>
           <Link to="/" style={{ textDecoration: 'none' }}>
-            <Box
-              display="flex"
-              flexDirection="row"
-              alignItems="center"
-              flexWrap="nowrap"
-              justifyContent="flex-start"
-            >
-              <div style={{ borderRadius: 20 }}>
-                <img
-                  src={logo}
-                  alt="Logo Krakatoa"
-                  margintop="50px"
-                  style={{
-                    borderRadius: 5,
-                    height: '8vw',
-                    maxHeight: '60px',
-                    width: 'auto',
-                  }}
-                />
-              </div>
-              <Typography
-                variant="h3"
-                style={{
-                  fontStyle: 'normal',
-                  fontSize: 'max(3vw, 40px)',
-                  marginTop: 0,
-                  marginLeft: 10,
-                }}
-                color="primary"
-              >
-                KRAKATOA
-              </Typography>
-            </Box>
+            <Logo />
           </Link>
           <Hidden smDown>
-            <div style={{ minWidth: '200px', maxWidth: '100%' }}>
+            <Box style={{ minWidth: '200px', maxWidth: '100%' }}>
               <SearchBar />
-            </div>
+            </Box>
           </Hidden>
           <Hidden smDown>
             <a href="/conta/">
@@ -109,8 +76,8 @@ const Topo = () => {
             </a>
           </Hidden>
         </Box>
-      </div>
+      </Box>
     </Container>
   );
 };
-export default Topo;
+export default React.memo(Topo);

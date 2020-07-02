@@ -15,7 +15,6 @@ import {
 } from 'material-ui-popup-state/hooks';
 import { currentPage } from '../reducers/page';
 
-
 const useStyles = makeStyles((theme) => ({
   a: {
     textDecoration: 'none',
@@ -221,4 +220,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default React.memo(NavBar);

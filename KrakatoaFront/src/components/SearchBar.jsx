@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { withRouter, useHistory } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import { sendSearch } from '../reducers/search';
-
+import withAnimation from '../higherComponents/withAnimation';
 
 const useStyles = makeStyles((theme) => ({
   search: {
