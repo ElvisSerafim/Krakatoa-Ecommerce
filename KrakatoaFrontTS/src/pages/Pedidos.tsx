@@ -19,7 +19,7 @@ interface Data {
 
 const Pedidos = () => {
   const [pedidosUsuario, setPedidos] = useState([]);
-  const usuario = useSelector((state) => state.user);
+  const usuario = useSelector((state:any) => state.user);
 
   useEffect(() => {
     let pedidos;

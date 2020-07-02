@@ -90,7 +90,7 @@ const Login = () => {
         vertical="top"
         horizontal="right"
       />
-      <Grid container spacing={2} diretion="row" justify="flex-start">
+      <Grid container spacing={2} justify="flex-start">
         <Grid item lg={12} md={12} sm={12} xs={12}>
           <Typography variant="h5" color="secondary">
             Entrar

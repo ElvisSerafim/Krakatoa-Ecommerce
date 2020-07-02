@@ -44,8 +44,6 @@ const styles = {
 
 function TextMaskCustom(props) {
   const { inputRef, ...other } = props;
-  console.log(props);
-  console.log(inputRef);
 
   return (
     <MaskedInput
@@ -111,7 +109,7 @@ export default function Datalhes() {
       if (newPass === '') throw new Error('Nova Senha Vazio');
       if (tel === '') throw new Error('Telefone Vazio');
       let tokenUser;
-      if (sessionStorage.getItem('token') != undefined) {
+      if (sessionStorage.getItem('token') !== undefined) {
         tokenUser = sessionStorage.getItem('token');
         setToken(tokenUser);
       } else {
@@ -269,7 +267,7 @@ export default function Datalhes() {
                   setToken(sessionStorage.getItem('token'));
                   enviar();
                   setOpen(true);
-                  setStatus('sucess');
+                  setStatus('success');
                   switch (true) {
                     case newPass.length > 0:
                       if (pass === '') setMessage('Senha vazio');
@@ -277,7 +275,7 @@ export default function Datalhes() {
                         VERIFICAR SE A SENHA ATUAL ESTÁ CERTA
                       */
 
-                      setStatus('sucess');
+                      setStatus('success');
                       setMessage('Alterações salvas!');
 
                       /*

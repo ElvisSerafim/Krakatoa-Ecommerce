@@ -2,6 +2,7 @@
  */
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, Hidden } from '@material-ui/core/';
+import { useSelector, useDispatch } from 'react-redux';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import FooterComp from '../components/Footer';
@@ -9,7 +10,6 @@ import './Contato.css';
 import Lista from '../components/ListaPedidos';
 import ContaComp from '../components/ContaComp';
 import api from '../Services/ApiService';
-import { useSelector, useDispatch } from 'react-redux';
 import PedidosMobile from '../components/PedidosMobile';
 
 const Pedidos = () => {
@@ -43,7 +43,7 @@ const Pedidos = () => {
       <Topo />
       <Navbar />
       <Container maxWidth="lg" style={{ marginBottom: 64 }}>
-        <Grid container spacing={2} diretion="row" justify="flex-start">
+        <Grid container spacing={2} justify="flex-start">
           <Grid item lg={12}>
             <Typography variant="h4" color="primary" style={{ marginTop: 60 }}>
               Minha Conta

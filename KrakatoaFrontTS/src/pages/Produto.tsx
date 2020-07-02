@@ -1,25 +1,27 @@
-/* eslint-disable react/prop-types */
+//@ts-nocheck
 /* Produto em Si */
 
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography, Button } from '@material-ui/core/';
-import { useSelector, useDispatch } from 'react-redux';
+import { Container, Grid, Typography, Button, Box } from '@material-ui/core/';
+import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
 import Navbar from '../components/Nav';
 import ComboBox from '../components/ComboBox';
 import Topo from '../components/Topo';
-import ProdutoEmSi from '../components/ProdutoEmSi';
 import Produto from '../components/Produto';
 import Footer from '../components/Footer';
-import { addCart, sendAllProducts } from '../reducers/productsCart';
+import { addCart } from '../reducers/productsCart';
+//@ts-ignore
 import api from '../Services/ApiService';
 import Estilos from '../Estilos';
+//@ts-ignore
 import fav from '../img/favorite.svg';
-import { ProdutoTipo } from "../Services/dto/produto.dto";
+import { ProdutoTipo } from '../Services/dto/produto.dto';
 import ProdutoMobile from '../components/ProdutoMobile';
 import Quantity from '../components/Quantity';
 import Alerta from '../components/Alerta';
+import { RouteComponentProps, match } from 'react-router';
 
 const styles = {
   foto: {
@@ -43,35 +45,15 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    padding: '2em 4em',
   },
   marginDiv: {
     marginTop: 40,
   },
-  promo: {
-    backgroundColor: 'red',
-    borderRadius: '10px 0px 20px 0px',
-    height: 33,
-    width: '150px',
-    padding: '3px',
-    textAlign: 'center',
-  },
+
   promoText: {
     color: 'white',
   },
-  scrollbarMobile: {
-    display: 'flex',
-    overflowX: 'scroll',
-    width: '100%',
-  },
 
-  img: {
-    height: '100%',
-    width: '100%',
-    borderRadius: '10px',
-    objectFit: 'cover',
-    cursor: 'pointer',
-  },
   product: { color: 'white', fontSize: '0.7em', padding: 10 },
   num: { paddingLeft: 350, color: '#F0F0F0' },
   lore: {
@@ -98,8 +80,31 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: 'flex-start',
     },
   },
+  scrollbarMobile: {
+    display: 'flex',
+    overflowX: 'scroll',
+    width: '100%',
+  },
+  img: {
+    height: '100%',
+    width: '100%',
+    borderRadius: '10px',
+    objectFit: 'cover',
+    cursor: 'pointer',
+  },
+  promo: {
+    backgroundColor: 'red',
+    borderRadius: '10px 0px 20px 0px',
+    height: 33,
+    width: '150px',
+    padding: '3px',
+    textAlign: 'center',
+  },
 }));
-const ProdutoPage = ({ match }) => {
+
+
+
+const ProdutoPage:React.FunctionComponent<RouteComponentProps> = ({ match }) => {
   const [product, setProduct] = useState<ProdutoTipo>();
   const [quantity, setQuantity] = useState(1);
   const [type, setType] = useState('');
@@ -109,7 +114,7 @@ const ProdutoPage = ({ match }) => {
   const [sizes, setSizes] = useState<ProdutoTipo['tamanho']>();
   const [color, setColor] = useState<ProdutoTipo['cores']>();
   const [colors, setColors] = useState<ProdutoTipo['cores']>();
-  const [products, setProducts] = useState([]);
+  const [, setProducts] = useState([]);
   const [fotoAtual, setFotoAtual] = useState('');
   const [fotos, setFotos] = useState<ProdutoTipo['imagens']>();
   const [fotosMobile, setFotosMobile] = useState<ProdutoTipo['imagens']>();
@@ -117,7 +122,7 @@ const ProdutoPage = ({ match }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let request:ProdutoTipo[] = [];
+    let request: ProdutoTipo[] = [];
     const getProducts = async () => {
       request = await api.ListaProdutos();
       setProducts(request);
@@ -126,25 +131,27 @@ const ProdutoPage = ({ match }) => {
     getProducts();
   }, [atualizar]);
 
-  const handleClose = (event:React.SyntheticEvent, reason?:string) => {
+  const handleClose = (event: React.SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }
     setOpen(false);
   };
-  const getProduto = (produtos:ProdutoTipo[]) => {
+  const getProduto = (produtos: ProdutoTipo[]) => {
     const produtosType = [];
-    let tipo:string;
+    let tipo: string;
     produtos.map((item, i) => {
+      //@ts-ignore
       if (item.id === match.params.id) {
         tipo = item.tipo;
         setSizes(item.tamanho);
         setColors(item.cores);
+        //@ts-ignore
         setPosicao(i);
         if (item.imagens.length != 0) {
           item.Imageurl = `http://64.227.106.165/imgs/${tipo}/${item.imagens[0]}.jpg`;
           setFotoAtual(
-            `http://64.227.106.165/imgs/${tipo}/${item.imagens[0]}.jpg`,
+            `http://64.227.106.165/imgs/${tipo}/${item.imagens[0]}.jpg`
           );
           setFotos(item.imagens);
           setFotosMobile(item.imagens);
@@ -158,6 +165,7 @@ const ProdutoPage = ({ match }) => {
     });
 
     produtos.map((item) => {
+      //@ts-ignore
       if (item.tipo === tipo && item.id !== match.params.id) {
         produtosType.push(item);
       }
@@ -166,7 +174,7 @@ const ProdutoPage = ({ match }) => {
     relacionados(produtosType);
   };
 
-  const addItemCart = (productCart, quantity:number) => {
+  const addItemCart = (productCart, quantity: number) => {
     productCart.quantidade = quantity;
     dispatch(addCart(productCart));
   };
@@ -215,14 +223,17 @@ const ProdutoPage = ({ match }) => {
               <div style={styles.marginDiv}>
                 {fotos.map((item) => (
                   <div style={styles.foto}>
+                    {
+                      //@ts-ignore
+                    }
                     <img
                       src={`http://64.227.106.165/imgs/${product.tipo}/${item}.jpg`}
-                      onClick={(event) => {
+                      onClick={() => {
                         setFotoAtual(
-                          `http://64.227.106.165/imgs/${product.tipo}/${item}.jpg`,
+                          `http://64.227.106.165/imgs/${product.tipo}/${item}.jpg`
                         );
                       }}
-                      style={styles.img}
+                      className={classes.img}
                       alt="produto"
                     />
                   </div>
@@ -231,7 +242,10 @@ const ProdutoPage = ({ match }) => {
             </Grid>
             <Grid item lg={4} md={4}>
               <div className={classes.backgroundC} style={styles.quadradao1}>
-                <img src={fotoAtual} style={styles.img} alt="produto" />
+                {
+                  //@ts-ignore
+                }
+                <img src={fotoAtual} className={classes.img} alt="produto" />
               </div>
             </Grid>
           </Hidden>
@@ -244,26 +258,30 @@ const ProdutoPage = ({ match }) => {
           <Hidden smDown>
             <Grid item lg={6} md={6}>
               <div className={classes.quadradao2}>
-                <div
+                <Box
+                  //@ts-ignore
+                  justifyContent="space-between"
                   style={{
-                    ...Estilos.flexRowStandard,
-                    flexDirection: 'row',
                     paddingBottom: '50',
-                    justifyContent: 'space-between',
                   }}
                 >
-                  <div style={styles.promo}>
+                  <div className={classes.promo}>
                     <Typography style={styles.promoText} variant="body1">
                       Promoção
                     </Typography>
                   </div>
-                  <div>
+                  <Box>
                     <Typography style={styles.product} variant="body1">
-                      ID do Produto: {match.params.id}
+                      ID do Produto: {//@ts-ignore 
+                      match.params.id}
                     </Typography>
-                  </div>
-                </div>
-                <div style={styles.quad2inside}>
+                  </Box>
+                </Box>
+                <Box
+                  flexDirection="column"
+                  justifyContent="space-between"
+                  style={{ padding: '2em 4em' }}
+                >
                   <Typography
                     style={{ fontStyle: 'normal', margin: 0 }}
                     color="secondary"
@@ -288,7 +306,7 @@ const ProdutoPage = ({ match }) => {
                         width: '150px',
                         borderRadius: 7,
                       }}
-                      value={size}
+                      value={[size]}
                       items={sizes}
                       label="Tamanhos"
                     />
@@ -318,9 +336,9 @@ const ProdutoPage = ({ match }) => {
                     status="success"
                     openAlert={open}
                   />
-                  <div style={{ ...Estilos.flexColumnStandard, marginTop: 40 }}>
+                  <Box flexDirection="column" style={{ marginTop: 40 }}>
                     <div style={{ paddingTop: 150 }}>
-                      <div style={Estilos.flexRowStandard}>
+                      <Box>
                         <Quantity
                           onClickPlus={() => {
                             let aux = quantity;
@@ -357,10 +375,10 @@ const ProdutoPage = ({ match }) => {
                         <a style={{ marginLeft: 120, height: 10 }} href="##">
                           <img src={fav} alt="Favorite" />
                         </a>
-                      </div>
+                      </Box>
                     </div>
-                  </div>
-                </div>
+                  </Box>
+                </Box>
               </div>
             </Grid>
           </Hidden>
@@ -399,7 +417,7 @@ const ProdutoPage = ({ match }) => {
                     width: '150px',
                     borderRadius: 7,
                   }}
-                  value={size}
+                  value={[size]}
                   items={sizes}
                   label="Tamanhos"
                 />
@@ -419,10 +437,9 @@ const ProdutoPage = ({ match }) => {
                 />
               </div>
 
-              <div style={Estilos.flexRowCENTER}>
+              <Box justifyContent="center" alignItems="center">
                 <div style={{ marginTop: 20 }}>
                   <Quantity
-                    quantidade={quantity}
                     onClickPlus={() => {
                       let aux = quantity;
                       aux++;
@@ -439,10 +456,10 @@ const ProdutoPage = ({ match }) => {
                     }}
                   />
                 </div>
-              </div>
+              </Box>
             </div>
 
-            <div style={Estilos.flexRowCENTER}>
+            <Box justifyContent="center" alignItems="center">
               <Button
                 variant="contained"
                 color="primary"
@@ -454,7 +471,7 @@ const ProdutoPage = ({ match }) => {
               >
                 ADICIONAR AO CARRINHO
               </Button>
-            </div>
+            </Box>
           </Hidden>
 
           <Grid item lg={12} md={12}>
@@ -498,17 +515,16 @@ const ProdutoPage = ({ match }) => {
             </div>
           </Grid>
         </Grid>
-        <div
+        <Box
+          justifyContent="flex-start"
           style={{
-            ...Estilos.flexRowStandard,
             paddingBottom: '40x',
-            justifyContent: 'flex-start',
           }}
         >
           <Typography variant="h4" color="primary" style={{ marginTop: 64 }}>
             Produtos Relacionados
           </Typography>
-        </div>
+        </Box>
 
         <div style={{ paddingTop: '40px' }}>
           <Grid
@@ -536,7 +552,9 @@ const ProdutoPage = ({ match }) => {
             </Hidden>
 
             <Hidden lgUp>
-              <div style={styles.scrollbarMobile}>
+              <div
+                className={classes.scrollbarMobile}
+              >
                 {allProducts.map((value) => (
                   <Grid
                     key={value.id}

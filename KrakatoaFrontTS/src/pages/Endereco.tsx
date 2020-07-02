@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { Component } from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
 import {
@@ -15,10 +16,15 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import Footer from '../components/Footer';
+//@ts-ignore
 import cartBlank from '../img/cartBlank.svg';
+//@ts-ignore
 import delivery from '../img/delivery.svg';
+//@ts-ignore
 import payment from '../img/payment.svg';
+//@ts-ignore
 import Sedex from '../img/Sedex.svg';
+//@ts-ignore
 import Pac from '../img/Pac.svg';
 import api from '../Services/ApiService';
 import Alerta from '../components/Alerta';
@@ -196,12 +202,14 @@ class Endereco extends Component<EnderecoProp,EnderecoState> {
   };
 
   componentDidMount() {
+    //@ts-ignore
     if (this.props.location.state != undefined) {
       this.getInformaçõesCep();
     }
   }
 
   getInformaçõesCep = async () => {
+    //@ts-ignore
     const cep = this.props.location.state.cepEndereco;
     const data = {
       cepOrigem: '41610200',
@@ -246,7 +254,8 @@ class Endereco extends Component<EnderecoProp,EnderecoState> {
         <Topo />
         <Navbar />
         <Container maxWidth="lg">
-          {location.state == undefined ? (
+          
+          {location.state === undefined ? (
             <Redirect
               to={{
                 pathname: '/carrinho',
@@ -481,7 +490,9 @@ class Endereco extends Component<EnderecoProp,EnderecoState> {
                         to={{
                           pathname: path,
                           state: {
+                            //@ts-ignore
                             totalPedido: location.state.totalPedido,
+                            //@ts-ignore
                             cepEndereco: location.state.cepEndereco,
                             entregaSelecionada: this.state.deliverySelected,
                             totalFrete: this.state.priceFrete,

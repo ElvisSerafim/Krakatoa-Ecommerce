@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { createStore, combineReducers } from "redux";
 import productsReducers from "../reducers/products";
 import productsCartsReducers from "../reducers/productsCart";

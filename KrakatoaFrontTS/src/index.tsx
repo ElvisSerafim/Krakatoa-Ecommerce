@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider, useDispatch } from 'react-redux';
@@ -158,22 +159,37 @@ ReactDOM.render(
             <Route
               path="/login"
               component={Login}
+              //@ts-ignore
               render={(props: RouteProps) => <Login {...props} />}
             />
+
             <Route path="/inicio" component={Home} />
+
             <Route path="/politicasdaloja" component={Politicas} />
+            
             <PrivateRoute path="/conta" exact component={MinhaConta} />
+            {//@ts-ignore
+            }
             <PrivateRoute path="/endereco" component={Endereco} />
+            {//@ts-ignore
+            }
             <PrivateRoute path="/sumario" component={Sumario} />
+            {//@ts-ignore
+            }
             <PrivateRoute path="/checkout" component={Checkout} />
+            {//@ts-ignore
+            }
             <PrivateRoute
               path="/conta/meuendereco"
               exact
               component={MyAddress}
             />
+            {//@ts-ignore
+            }
             <PrivateRoute path="/conta/detalhes" exact component={Detalhes} />
+            {//@ts-ignore
+            }
             <PrivateRoute path="/conta/pedidos" exact component={Pedidos} />
-
             {/* <Route component={NotFound} /> */}
           </Switch>
         </Suspense>

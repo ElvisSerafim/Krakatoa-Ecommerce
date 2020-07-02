@@ -19,10 +19,10 @@ import { currentPage } from '../reducers/page';
 const useStyles = makeStyles((theme) => ({
   a: {
     textDecoration: 'none',
-    color: theme.palette.background.color,
+    color: theme.palette.common.white,
   },
   navBar: {
-    /* backgroundColor: theme.palette.background.color, */
+    backgroundColor: theme.palette.background.color,
     width: '100%',
     margin: 0,
     padding: 0,
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(1),
-    /* backgroundColor: theme.palette.background.color, */
+    backgroundColor: theme.palette.background.color,
     color: 'red',
     borderStyle: 'none',
   },
@@ -54,12 +54,12 @@ const StyledTabs = withStyles({
 const StyledTab = withStyles((theme) => ({
   root: {
     textTransform: 'none',
-    color: theme.palette.background.color,
-    fontWeight: theme.typography.body2.fontWeight,
+    color: theme.palette.common.white,
+    fontWeight: theme.typography.body1.fontWeight,
     fontSize: theme.typography.body2.fontSize,
     marginRight: theme.spacing(1),
     '&:focus': {
-      opacity: 1,
+      opacity: 0.5,
     },
   },
 }))((props) => (
@@ -105,9 +105,7 @@ const NavBar = () => {
               }}
             >
               <StyledTabs
-
-
-                aria-label="styled tabs example"
+                aria-label="NavBar"
               >
                 <StyledTab
                   style={{ fontSize: '1.25em' }}

@@ -1,4 +1,4 @@
-/* eslint-disable array-callback-return */
+//@ts-nocheck
 const INITIAL_STATE = [];
 
 export default function reducer(state = INITIAL_STATE, action) {

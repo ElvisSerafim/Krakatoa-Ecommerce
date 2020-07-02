@@ -1,10 +1,8 @@
 /* Pagina de Inicio */
 
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography, Button } from '@material-ui/core/';
-import { useSelector, useDispatch } from 'react-redux';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import red from '@material-ui/core/colors/red';
+import { Container, Grid, Typography, Button, Box } from '@material-ui/core/';
+import { useDispatch } from 'react-redux';
 import Hidden from '@material-ui/core/Hidden';
 import TextField from '../components/TextField';
 import Produto from '../components/Produto';
@@ -12,7 +10,6 @@ import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import HomeComp from '../components/Home';
 import Footer from '../components/Footer';
-import { sendAllProducts } from '../reducers/allProducts';
 import Themes from '../themes';
 import deli from '../img/deli.png';
 import pqKraka from '../img/pqKraka.png';
@@ -117,7 +114,7 @@ const Home = () => {
           </Grid>
 
           <Hidden smDown>
-            {products.map((item, i) => (
+            {products.map((item) => (
               <Grid item lg={3} md={3} sm={3}>
                 <Produto
                   produto={item}
@@ -131,7 +128,7 @@ const Home = () => {
 
           <Hidden lgUp>
             <div style={styles.scrollbarMobile}>
-              {products.map((item, i) => (
+              {products.map((item) => (
                 <Grid item lg={12} md={12} sm={12} style={{ marginLeft: 10 }}>
                   <Produto
                     produto={item}
@@ -254,7 +251,7 @@ const Home = () => {
           </Grid>
 
           <Hidden smDown>
-            {products.map((item, i) => (
+            {products.map((item) => (
               <Grid item lg={3} md={3} sm={3}>
                 <Produto
                   produto={item}
@@ -268,7 +265,7 @@ const Home = () => {
 
           <Hidden lgUp>
             <div style={styles.scrollbarMobile}>
-              {products.map((item, i) => (
+              {products.map((item) => (
                 <Grid item lg={12} md={12} sm={12} style={{ marginLeft: 10 }}>
                   <Produto
                     produto={item}
@@ -317,7 +314,7 @@ const Home = () => {
           sm={12}
         >
           <Grid item container xl={3} lg={3} md={4} sm={5}>
-            <div style={Estilos.flexColumnStandard}>
+            <Box flexDirection="column" style={Estilos.flexColumnStandard}>
               <Typography
                 color="secondary"
                 style={{ textAlign: 'center', fontSize: '1.2em' }}
@@ -333,7 +330,7 @@ const Home = () => {
                 {' '}
                 e receba ofertas exclusivas!
               </Typography>
-            </div>
+            </Box>
           </Grid>
 
           <div style={{ width: 215 }}>

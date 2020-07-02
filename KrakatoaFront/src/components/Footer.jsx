@@ -104,7 +104,7 @@ const Topo = () => {
               <Typography
                 style={{ margin: 0, width: '100%', height: '100%' }}
                 variant="h4"
-                color="secondary"
+                color="textSecondary"
               >
                 KRAKATOA
               </Typography>
@@ -131,27 +131,27 @@ const Topo = () => {
               <div>
                 <div>
                   <a href="/sobre" style={{ textDecoration: 'none' }}>
-                    <Typography variant="h6" color="secondary">
+                    <Typography variant="h6" color="textSecondary">
                       Quem Somos
                     </Typography>
                   </a>
                   <a href="/tipo/entrega" style={{ textDecoration: 'none' }}>
-                    <Typography variant="h6" color="secondary">
+                    <Typography variant="h6" color="textSecondary">
                       Prazo de Entrega
                     </Typography>
                   </a>
                   <a href="/politicasdaloja" style={{ textDecoration: 'none' }}>
-                    <Typography variant="h6" color="secondary">
+                    <Typography variant="h6" color="textSecondary">
                       Nossas Políticas
                     </Typography>
                   </a>
                   <a href="/tipo/pagamento" style={{ textDecoration: 'none' }}>
-                    <Typography variant="h6" color="secondary">
+                    <Typography variant="h6" color="textSecondary">
                       Revenda
                     </Typography>
                   </a>
                   <a href="/contato" style={{ textDecoration: 'none' }}>
-                    <Typography variant="h6" color="secondary">
+                    <Typography variant="h6" color="textSecondary">
                       Fale Conosco
                     </Typography>
                   </a>

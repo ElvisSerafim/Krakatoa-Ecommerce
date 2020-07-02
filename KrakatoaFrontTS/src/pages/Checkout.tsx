@@ -10,8 +10,11 @@ import {
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import Footer from '../components/Footer';
+//@ts-ignore
 import cartBlank from '../img/cartBlank.svg';
+//@ts-ignore
 import nodeli from '../img/noDelivery.svg';
+//@ts-ignore
 import payment from '../img/payment.svg';
 import Estilos from '../Estilos';
 

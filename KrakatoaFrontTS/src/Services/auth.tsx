@@ -1,5 +1,4 @@
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/prop-types */
+//@ts-nocheck
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { decode } from 'jsonwebtoken';
@@ -7,6 +6,7 @@ import { decode } from 'jsonwebtoken';
 const isAuth = async () => {
   const token = sessionStorage.getItem('token');
   if (token) {
+    //@ts-ignore
     const { exp } = decode(token);
     if (Date.now() >= exp * 1000) {
       return false;

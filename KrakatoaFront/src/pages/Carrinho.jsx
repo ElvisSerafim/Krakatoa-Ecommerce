@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Container, Grid, Typography, Button } from '@material-ui/core/';
+import { Container, Grid, Typography, Button, Box } from '@material-ui/core/';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Hidden from '@material-ui/core/Hidden';
 import { Link } from 'react-router-dom';
@@ -97,7 +97,6 @@ const Carrinho = () => {
   const [cep, setCep] = useState('');
 
   const products = useSelector((state) => state.productsCart);
-  console.log(products);
 
   const dispatch = useDispatch();
   const length = useSelector((state) => state.productsCart.length);
@@ -165,7 +164,7 @@ const Carrinho = () => {
               </Grid>
               <Grid item lg={8} />
               <Grid item lg={4} container justify="flex-end">
-                <div style={Estilos.flexRowCENTER2}>
+                <Box style={Estilos.flexRowCENTER2}>
                   <a href="/carrinho">
                     <div style={styles.searchIcon}>
                       <ShoppingCartIcon />
@@ -179,7 +178,7 @@ const Carrinho = () => {
                   <a href="/">
                     <img src={payment} alt="Pagamento" />
                   </a>
-                </div>
+                </Box>
               </Grid>
               <Hidden smDown="true">
                 <Grid
@@ -244,12 +243,12 @@ const Carrinho = () => {
                   spacing={2}
                 >
                   <Grid item lg={6} md={6} sm={6} xs={6}>
-                    <Typography variant="h5" color="secondary">
+                    <Typography variant="h5" color="textSecondary">
                       Frete:
                     </Typography>
                   </Grid>
                   <Grid item lg={6} md={6} sm={6} xs={6}>
-                    <Typography variant="h5" color="secondary">
+                    <Typography variant="h5" color="textSecondary">
                       R$ {totalFrete}
                     </Typography>
                   </Grid>
@@ -300,39 +299,39 @@ const Carrinho = () => {
                   className={classes.Cor}
                 >
                   <Grid item lg={12} md={12} sm={12}>
-                    <Typography variant="h5" color="secondary">
+                    <Typography variant="h5" color="textSecondary">
                       Total no Carrinho:
                     </Typography>
                   </Grid>
                   <Grid item lg={12} container justify="space-around">
                     <Grid item lg={6} md={6} sm={6} xs={6}>
-                      <Typography variant="h5" color="secondary">
+                      <Typography variant="h5" color="textSecondary">
                         SubTotal:
                       </Typography>
                     </Grid>
                     <Grid item lg={6} md={6} sm={6} xs={6}>
-                      <Typography variant="h5" color="secondary">
+                      <Typography variant="h5" color="textSecondary">
                         R$ {totalFinal}
                       </Typography>
                     </Grid>
                   </Grid>
                   <Grid item lg={6} md={6} sm={6} xs={6}>
-                    <Typography variant="h5" color="secondary">
+                    <Typography variant="h5" color="textSecondary">
                       Entrega:
                     </Typography>
                   </Grid>
                   <Grid item lg={6} md={6} sm={6} xs={6}>
-                    <Typography variant="h5" color="secondary">
+                    <Typography variant="h5" color="textSecondary">
                       R${totalFrete}
                     </Typography>
                   </Grid>
                   <Grid item lg={6} md={6} sm={6} xs={6}>
-                    <Typography variant="h5" color="secondary">
+                    <Typography variant="h5" color="textSecondary">
                       Total:
                     </Typography>
                   </Grid>
                   <Grid item lg={6} md={6} sm={6} xs={6}>
-                    <Typography variant="h5" color="secondary">
+                    <Typography variant="h5" color="textSecondary">
                       R${total}
                     </Typography>
                   </Grid>

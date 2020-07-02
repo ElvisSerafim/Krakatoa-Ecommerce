@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
@@ -102,7 +103,7 @@ const ProdutoMobile = ({ imagens, produto }) => {
         position="static"
         variant="text"
         activeStep={activeStep}
-        nextButton={
+        nextButton={(
           <Button
             size="small"
             classes={{
@@ -118,11 +119,11 @@ const ProdutoMobile = ({ imagens, produto }) => {
               <KeyboardArrowRight />
             )}
           </Button>
-        }
-        backButton={
+        )}
+        backButton={(
           <Button
             size="small"
-            clas  ses={{
+            className={{
               root: classes.button,
             }}
             onClick={handleBack}
@@ -135,7 +136,7 @@ const ProdutoMobile = ({ imagens, produto }) => {
             )}
             Back
           </Button>
-        }
+        )}
       />
     </div>
   );

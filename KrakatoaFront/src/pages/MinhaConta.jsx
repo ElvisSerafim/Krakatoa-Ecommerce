@@ -4,16 +4,14 @@
 
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography } from '@material-ui/core/';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
 import Topo from '../components/Topo';
 import FooterComp from '../components/Footer';
 import './Contato.css';
 import Navbar from '../components/Nav';
-import ApiService from '../Services/ApiService';
 import ContaComp from '../components/ContaComp';
-import Estilos from '../Estilos';
 
 const styles = {
   background: {
@@ -82,7 +80,7 @@ function MinhaConta() {
         <Grid
           container
           spacing={2}
-          diretion="row"
+        
           justify="space-around"
           style={{ marginBottom: 64 }}
         >

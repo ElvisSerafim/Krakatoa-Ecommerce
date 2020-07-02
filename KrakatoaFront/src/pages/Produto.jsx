@@ -1,18 +1,19 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/prop-types */
 /* Produto em Si */
 
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, Button } from '@material-ui/core/';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
 import Navbar from '../components/Nav';
 import ComboBox from '../components/ComboBox';
 import Topo from '../components/Topo';
-import ProdutoEmSi from '../components/ProdutoEmSi';
 import Produto from '../components/Produto';
 import Footer from '../components/Footer';
-import { addCart, sendAllProducts } from '../reducers/productsCart';
+import { addCart } from '../reducers/productsCart';
 import api from '../Services/ApiService';
 import Estilos from '../Estilos';
 import fav from '../img/favorite.svg';
@@ -109,9 +110,9 @@ const ProdutoPage = ({ match }) => {
   const [allProducts, setAllProducts] = useState([]);
   const [atualizar, setAtualizar] = useState(false);
   const [sizes, setSizes] = useState([]);
-  const [color, setColor] = useState([]);
-  const [colors, setColors] = useState([]);
-  const [products, setProducts] = useState([]);
+  const [] = useState([]);
+  const [, setColors] = useState([]);
+  const [, setProducts] = useState([]);
   const [fotoAtual, setFotoAtual] = useState('');
   const [fotos, setFotos] = useState([]);
   const [fotosMobile, setFotosMobile] = useState([]);
@@ -143,7 +144,7 @@ const ProdutoPage = ({ match }) => {
         setSizes(item.tamanho);
         setColors(item.cores);
         setPosicao(i);
-        if (item.imagens.length != 0) {
+        if (item.imagens.length !== 0) {
           item.Imageurl = `http://64.227.106.165/imgs/${tipo}/${item.imagens[0]}.jpg`;
           setFotoAtual(
             `http://64.227.106.165/imgs/${tipo}/${item.imagens[0]}.jpg`,
@@ -169,7 +170,6 @@ const ProdutoPage = ({ match }) => {
   };
 
   const addItemCart = (productCart, quantity) => {
-    console.log(quantity);
     productCart.quantidade = quantity;
     dispatch(addCart(productCart));
   };
@@ -190,7 +190,7 @@ const ProdutoPage = ({ match }) => {
           last = randomItem;
           newProdutosRelacionados.push(randomItem);
           aux.push(randomItem);
-          count++;
+          count += 1;
         }
       }
     }
@@ -212,7 +212,7 @@ const ProdutoPage = ({ match }) => {
       <Topo />
       <Navbar />
       <Container maxWidth="lg" style={{ marginBottom: 64 }}>
-        <Grid container spacing={2} diretion="row" justify="flex-start">
+        <Grid container spacing={2} justify="flex-start">
           <Hidden smDown>
             <Grid item lg={1} md={1}>
               <div style={styles.marginDiv}>
@@ -220,7 +220,7 @@ const ProdutoPage = ({ match }) => {
                   <div style={styles.foto}>
                     <img
                       src={`http://64.227.106.165/imgs/${product.tipo}/${item}.jpg`}
-                      onClick={(event) => {
+                      onClick={() => {
                         setFotoAtual(
                           `http://64.227.106.165/imgs/${product.tipo}/${item}.jpg`,
                         );
@@ -370,19 +370,19 @@ const ProdutoPage = ({ match }) => {
                 padding: 10,
               }}
             >
-                <ComboBox
-                  onChange={(event) => {  
-                    setSize(event.target.value);
-                  }}
-                  style={{
-                    backgroundColor: 'white',
-                    width: '100%',
-                    borderRadius: 7,
-                  }}
-                  value={size}
-                  items={sizes}
-                  label="Tamanhos"
-                />
+              <ComboBox
+                onChange={(event) => {
+                  setSize(event.target.value);
+                }}
+                style={{
+                  backgroundColor: 'white',
+                  width: '100%',
+                  borderRadius: 7,
+                }}
+                value={size}
+                items={sizes}
+                label="Tamanhos"
+              />
 
               <div style={Estilos.flexRowCENTER}>
                 <div style={{ marginTop: 20 }}>
