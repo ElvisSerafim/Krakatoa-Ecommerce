@@ -70,7 +70,7 @@ const Cadastro = () => {
         vertical="top"
         horizontal="right"
       />
-      <Grid container spacing={2} diretion="row" justify="flex-start">
+      <Grid container spacing={2} justify="flex-start">
         <Grid item lg={12} md={7} sm={7} xs={7}>
           <Typography style={styles.topico} variant="h5" color={theme.palette.common.white}>
             Registrar

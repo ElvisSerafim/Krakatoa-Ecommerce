@@ -8,8 +8,6 @@ import NoSsr from '@material-ui/core/NoSsr';
 import Produto from './Produto';
 import { addCart } from '../reducers/productsCart';
 import ComboBox from './ComboBox';
-import api from '../Services/ApiService';
-import Hidden from '@material-ui/core/Hidden';
 import { updateProducts } from '../reducers/products';
 import Estilos from '../Estilos';
 
@@ -18,13 +16,13 @@ const useStyles = makeStyles({
     '@media (min-width: 1024px)': {
       justifyContent: 'flex-start',
     },
-    marginTop: '60px'
+    marginTop: '60px',
   },
 });
 
 const Produtos = ({ title, alert, name }) => {
-  const [produtos, setProdutos] = useState([]);
-  const [product, setProduct] = useState([]);
+  const [, setProdutos] = useState([]);
+  const [, setProduct] = useState([]);
   const [orderBy, setOrderBy] = useState('');
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -80,7 +78,7 @@ const Produtos = ({ title, alert, name }) => {
     setProduct([arrayAux]);
     dispatch(updateProducts([arrayAux]));
   };
-  const [state, setState] = React.useState({ open: false, defer: false });
+  const [] = React.useState({ open: false, defer: false });
   return products.map((item) => (
     <Grid
       container

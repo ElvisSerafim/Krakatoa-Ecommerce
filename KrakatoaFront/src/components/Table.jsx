@@ -17,7 +17,7 @@ import Estilos from '../Estilos';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: 'red',
+    backgroundColor: theme.palette.primary.main,
     color: theme.palette.common.white,
   },
   body: {
@@ -101,7 +101,7 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
           {allProducts.map((row, i) => (
             <StyledTableRow key={row.id}>
               <StyledTableCell component="th" scope="row">
-                <div style={Estilos.flexRowStandard2}>
+                <Box display="flex" alignContent="center">
                   <div style={{ width: '100px', height: '150px' }}>
                     <img
                       src={row.Imageurl}
@@ -114,7 +114,7 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
                   >
                     {row.nome}
                   </div>
-                </div>
+                </Box>
               </StyledTableCell>
 
               <StyledTableCell align="right">

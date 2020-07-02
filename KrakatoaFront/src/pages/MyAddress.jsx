@@ -18,7 +18,7 @@ const MinhaConta = () => (
       <Grid
         container
         spacing={2}
-        diretion="row"
+
         justify="space-around"
         style={{ marginTop: 64 }}
       >

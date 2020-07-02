@@ -1,5 +1,4 @@
-/* eslint-disable quote-props */
-/* eslint-disable consistent-return */
+//@ts-nocheck
 const ApiService = {
   ListaProdutos: async () => {
     try {

@@ -35,7 +35,7 @@ const Produtos: React.FunctionComponent<ProdutosProps> = ({
 }) => {
   const [produtos, setProdutos] = useState<ProdutoTipo[][]>();
   const [product, setProduct] = useState<ProdutoTipo[][]>();
-  const [orderBy, setOrderBy] = useState<Order>();
+  const [orderBy, setOrderBy] = useState('');
   const dispatch = useDispatch();
   const classes = useStyles();
   const addItemCart = (productCart: ProdutoTipo) => {
@@ -49,7 +49,7 @@ const Produtos: React.FunctionComponent<ProdutosProps> = ({
     setProdutos(products);
   }, [products]);
 
-  const ordenar = async (value: Order): Promise<void> => {
+  const ordenar = async (value: string): Promise<void> => {
     const arrayAux = products[0];
 
     if (value === undefined) return;
@@ -111,11 +111,11 @@ const Produtos: React.FunctionComponent<ProdutosProps> = ({
             <Grid container lg={12} style={{ flexDirection: 'row-reverse' }}>
               <ComboBox
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  setOrderBy(event.target.value as Order);
-                  ordenar(event.target.value as Order);
+                  setOrderBy(event.target.value);
+                  ordenar(event.target.value);
                 }}
                 style={{ maxWidth: 300 }}
-                value={orderBy}
+                value={[orderBy]}
                 items={['Mais vendidos', 'Menor Preço', 'Maior Preço']}
                 label="Ordenar por: "
               />

@@ -19,9 +19,13 @@ import HomeComp from '../components/Home';
 import Footer from '../components/Footer';
 import { sendAllProducts } from '../reducers/allProducts';
 import Themes from '../themes';
+//@ts-ignore
 import deli from '../img/deli.png';
+//@ts-ignore
 import pqKraka from '../img/pqKraka.png';
+//@ts-ignore
 import money from '../img/money.png';
+//@ts-ignore
 import pag from '../img/pagarIcone.png';
 import Estilos from '../Estilos';
 import api from '../Services/ApiService';

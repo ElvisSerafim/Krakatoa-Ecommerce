@@ -4,11 +4,11 @@
 import React from 'react';
 import { Container, Grid, Typography } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch } from 'react-redux';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import ContatoComp from '../components/Contato';
 import FooterComp from '../components/Footer';
-import { useSelector, useDispatch } from 'react-redux';
 import { currentPage } from '../reducers/page';
 import './Contato.css';
 import fb from '../img/fb.png';
@@ -47,15 +47,15 @@ const Contato = () => {
     <>
       <Topo />
       <Navbar />
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" style={{ marginTop: 64 }}>
         <Grid
           container
           spacing={4}
-          diretion="row"
+
           justify="space-between"
           className={classes.GridContainer}
         >
-          <Grid item lg={8} md={12} sm={12} style={{marginTop: '30px'}}>
+          <Grid item lg={8} md={12} sm={12} style={{ marginTop: '30px' }}>
             <Typography variant="h4" color="primary">
               FALE CONOSCO
             </Typography>

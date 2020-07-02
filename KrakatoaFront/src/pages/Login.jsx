@@ -38,7 +38,7 @@ const LoginPage = () => {
           MINHA CONTA
         </Typography>
         <Box className={classes.Fundo}>
-          <Grid container spacing={2} diretion="row" justify="flex-start">
+          <Grid container spacing={2} justify="flex-start">
             <Grid item lg={6} md={6}>
               <div style={styles.input}>
                 <Login />

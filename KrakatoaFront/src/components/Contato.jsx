@@ -1,40 +1,24 @@
-import React, { Component } from 'react';
-import red from '@material-ui/core/colors/red';
+import React, { useState } from 'react';
 import { Button, TextField, Grid } from '@material-ui/core';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import api from '../Services/ApiService';
 import Alerta from './Alerta';
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: red[600],
-    },
-  },
-});
 
-class ContatoComp extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      nome: '',
-      mensagem: '',
-      email: '',
-      assunto: '',
-      openAlert: false,
-      message: '',
-      status: '',
-    };
-  }
+const ContatoComp = () => {
+  const [nome, setNome] = useState('');
+  const [mensagem, setMensagem] = useState('');
+  const [mensage, setPropMensagem] = useState('');
+  const [email, setEmail] = useState('');
+  const [assunto, setAssunto] = useState('');
+  const [openAlert, setOpenAlert] = useState(false);
+  const [status, setStatus] = useState();
 
-  handleClose = (event, reason) => {
+  const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-    this.setState({ openAlert: false });
+    setOpenAlert(false);
   };
-
-  enviar = async () => {
-    const { nome, mensagem, email, assunto } = this.state;
+  const enviar = async () => {
     try {
       if (nome === '') throw new Error('Nome Vazio');
       if (mensagem === '') throw new Error('Mensagem Vazia');
@@ -49,94 +33,90 @@ class ContatoComp extends Component {
       };
 
       const request = await api.Contato(data);
-      console.log(request);
       if (request) {
-        this.setState({ openAlert: true });
-        this.setState({ message: 'Mensagem enviada com sucesso!' });
-        this.setState({ status: 'success' });
+        setOpenAlert(true);
+        setPropMensagem('Mensagem enviada com sucesso!');
+        setStatus('success');
         return;
       }
       throw new Error('Não foi possível enviar a mensagem!');
     } catch (error) {
-      this.setState({ openAlert: true });
-      this.setState({ message: 'Não foi Possivel enviar Mensagem!' });
-      this.setState({ status: 'error' });
+      setOpenAlert(true);
+      setPropMensagem('Não foi Possivel enviar Mensagem!');
+      setStatus('error');
     }
   };
-
-  render() {
-    const { message, openAlert, status } = this.state;
-    return (
-      <>
-        <Alerta
-          message={message}
-          openAlert={openAlert}
-          status={status}
-          handleClose={this.handleClose}
-          vertical="top"
-          horizontal="right"
-        />
-        <Grid container spacing={1} direction="row" justify="flex-start">
-          <Grid item lg={4} md={4} sm={12} xs={12}>
-            <TextField
-              id="filled-secondary"
-              label="Nome"
-              variant="filled"
-              style={{ width: '100%' }}
-              onChange={(e) => {
-                this.setState({ nome: e.target.value });
-              }}
-            />
-          </Grid>
-          <Grid item lg={8} md={8} sm={12} xs={12}>
-            <TextField
-              label="Assunto"
-              variant="filled"
-              fullWidth
-              onChange={(e) => {
-                this.setState({ assunto: e.target.value });
-              }}
-            />
-          </Grid>
-          <Grid item lg={12} md={12} sm={12} xs={12}>
-            <TextField
-              id="filled-secondary"
-              label="Email"
-              variant="filled"
-              fullWidth
-              onChange={(e) => {
-                this.setState({ email: e.target.value });
-              }}
-            />
-          </Grid>
-          <Grid item lg={12} md={12} sm={12} xs={12}>
-            <form noValidade autoComplete="off">
-              <TextField
-                multiline
-                rows={6}
-                label="Mensagem"
-                variant="filled"
-                fullWidth
-                onChange={(e) => {
-                  this.setState({ mensagem: e.target.value });
-                }}
-              />
-            </form>
-          </Grid>
-          <Grid item lg={9} md={9} sm={8} xs={7} />
-          <Grid item lg={3} md={3} sm={4} xs={5}>
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              onClick={this.enviar}
-            >
-              Enviar Mensagem
-            </Button>
-          </Grid>
+  return (
+    <>
+      <Alerta
+        message={mensage}
+        openAlert={openAlert}
+        status={status}
+        handleClose={handleClose}
+        vertical="top"
+        horizontal="right"
+      />
+      <Grid container spacing={1} direction="row" justify="flex-start">
+        <Grid item lg={4} md={4} sm={12} xs={12}>
+          <TextField
+            id="filled-secondary"
+            label="Nome"
+            variant="filled"
+            style={{ width: '100%' }}
+            onChange={(e) => {
+              setNome(e.target.value);
+            }}
+          />
         </Grid>
-      </>
-    );
-  }
-}
+        <Grid item lg={8} md={8} sm={12} xs={12}>
+          <TextField
+            label="Assunto"
+            variant="filled"
+            fullWidth
+            onChange={(e) => {
+              setAssunto(e.target.value);
+            }}
+          />
+        </Grid>
+        <Grid item lg={12} md={12} sm={12} xs={12}>
+          <TextField
+            id="filled-secondary"
+            label="Email"
+            variant="filled"
+            fullWidth
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
+        </Grid>
+        <Grid item lg={12} md={12} sm={12} xs={12}>
+          <form autoComplete="off">
+            <TextField
+              multiline
+              rows={6}
+              label="Mensagem"
+              variant="filled"
+              fullWidth
+              onChange={(e) => {
+                setMensagem(e.target.value);
+              }}
+            />
+          </form>
+        </Grid>
+        <Grid item lg={9} md={9} sm={8} xs={7} />
+        <Grid item lg={3} md={3} sm={4} xs={5}>
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            onClick={enviar}
+          >
+            Enviar Mensagem
+          </Button>
+        </Grid>
+      </Grid>
+    </>
+  );
+};
+
 export default ContatoComp;

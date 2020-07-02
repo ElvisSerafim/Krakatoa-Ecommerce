@@ -56,10 +56,11 @@ const Produto:React.FunctionComponent<ProdutoProps> = ({ produto, title, addItem
       setImageurl(`http://64.227.106.165/imgs//${produto.categoria}/${produto.imagens[0]}.jpg`);
     }
   }, []);
+  //@ts-ignore
   const FuncCapitalize = (str:string) => {
     let strA = str.split(' ');
     for (let i = 0, x = str.length; i < x; i++) {
-      if (strA[i] != '') {
+      if (strA[i] !== '') {
         strA[i] = strA[i][0].toUpperCase() + strA[i].substr(1);
       }
     }
@@ -97,7 +98,7 @@ const Produto:React.FunctionComponent<ProdutoProps> = ({ produto, title, addItem
                 component="h2"
                 color="primary"
               >
-                {FuncCapitalize(nome)}
+                {nome}
               </Typography>
             </div>
             <div

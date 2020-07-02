@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Container, Typography } from '@material-ui/core/';
-import { makeStyles } from '@material-ui/core/styles';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import SobreCompomente from '../components/Sobre';
@@ -17,17 +16,8 @@ const styles = {
   },
 };
 
-const useStyles = makeStyles((theme) => ({
-  Fundo: {
-    backgroundColor: theme.palette.background.color,
-    marginTop: '20px',
-    padding: '2em 1.75em',
-    borderRadius: 10,
-  },
-}));
 
 const Sobre = () => {
-  const classes = useStyles();
   const dispatch = useDispatch();
   dispatch(currentPage(3));
   return (

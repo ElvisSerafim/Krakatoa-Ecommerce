@@ -37,8 +37,8 @@ interface PropsType {
   items: string[];
   onChange: any;
   label: string;
-  style: object;
-  value: Order;
+  style?: object;
+  value: string[];
 }
 
 class ComboBox extends Component<PropsType> {

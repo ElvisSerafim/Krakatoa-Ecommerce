@@ -8,10 +8,12 @@ import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import ContatoComp from '../components/Contato';
 import FooterComp from '../components/Footer';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { currentPage } from '../reducers/page';
 import './Contato.css';
+//@ts-ignore
 import fb from '../img/fb.png';
+//@ts-ignore
 import insta from '../img/insta@2x.png';
 
 const styles = {

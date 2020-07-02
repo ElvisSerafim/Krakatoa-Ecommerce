@@ -1,3 +1,5 @@
+//@ts-nocheck
+//@ts-ignore
 const INITIAL_STATE = [];
 
 export default function reducer(state = INITIAL_STATE, action) {

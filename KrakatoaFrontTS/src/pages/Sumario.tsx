@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+//@ts-nocheck
 /* Pagina de Sobre
  */
 
@@ -20,10 +20,15 @@ import api from '../Services/ApiService';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import Footer from '../components/Footer';
+//@ts-ignore
 import Pac from '../img/Pac.svg';
+//@ts-ignore
 import Sedex from '../img/Sedex.svg';
+//@ts-ignore
 import cartBlank from '../img/cartBlank.svg';
+//@ts-ignore
 import nodeli from '../img/noDelivery.svg';
+//@ts-ignore
 import payment from '../img/payment.svg';
 import TableSumario from '../components/TableSumario';
 import { ProdutoTipo } from '../Services/dto/produto.dto';
@@ -150,7 +155,8 @@ const Sumario: React.FunctionComponent<RouteProps> = ({ location }) => {
 
   useEffect(() => {
     if (location.state !== undefined) {
-      if (location.state.entregaSelecionada === 'Pac') {
+      //@ts-ignore
+      if ( location.state.entregaSelecionada === 'Pac') {
         setUrl(Pac);
       } else {
         setUrl(Sedex);
@@ -230,29 +236,36 @@ const Sumario: React.FunctionComponent<RouteProps> = ({ location }) => {
                     <Typography
                       style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
                     >
-                      {location.state.endereco.nome}
+                      {//@ts-ignore
+                      location.state.endereco.nome}
                     </Typography>
                     <Typography
                       style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
                     >
-                      {location.state.endereco.rua},{' '}
-                      {location.state.endereco.bairro}, Numero°{' '}
-                      {location.state.endereco.numero}
+                      {//@ts-ignore
+                      location.state.endereco.rua},{' '}
+                      {//@ts-ignore
+                      location.state.endereco.bairro}, Numero°{' '}
+                      {//@ts-ignore
+                      location.state.endereco.numero}
                     </Typography>
                     <Typography
                       style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
                     >
-                      {location.state.endereco.cidade}
+                      {//@ts-ignore
+                      location.state.endereco.cidade}
                     </Typography>
                     <Typography
                       style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
                     >
-                      {location.state.endereco.complemento}
+                      {//@ts-ignore
+                      location.state.endereco.complemento}
                     </Typography>
                     <Typography
                       style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
                     >
-                      {location.state.endereco.telefone}
+                      {//@ts-ignore
+                      location.state.endereco.telefone}
                     </Typography>
                     <Box
                       style={{ cursor: 'pointer' }}
@@ -267,7 +280,9 @@ const Sumario: React.FunctionComponent<RouteProps> = ({ location }) => {
                         to={{
                           pathname: '/endereco',
                           state: {
+                            //@ts-ignore
                             totalPedido: location.state.totalPedido,
+                            //@ts-ignore
                             cepEndereco: location.state.cepEndereco,
                           },
                         }}
@@ -293,10 +308,12 @@ const Sumario: React.FunctionComponent<RouteProps> = ({ location }) => {
                       alt="imagem da entrega"
                     />
                     <Typography className={classes.price} id="price">
-                      {location.state.totalFrete}
+                      {//@ts-ignore
+                      location.state.totalFrete}
                     </Typography>
                     <Typography className={classes.entrega} id="entregaTipo">
-                      {location.state.entregaSelecionada}
+                      {//@ts-ignore
+                      location.state.entregaSelecionada}
                     </Typography>
                     <div className={classes.escolhido}>
                       <Typography className={classes.escolhidoTypo}>

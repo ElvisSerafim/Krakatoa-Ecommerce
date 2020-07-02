@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
-import { Button } from '@material-ui/core/';
+import { Button, Box } from '@material-ui/core/';
 import fav from '../img/favorite.svg';
 import Quantity from './Quantity';
 import Alerta from './Alerta';
@@ -28,7 +28,7 @@ const ProdutoEmSi = ({ addItem }) => {
       />
       <div style={{ ...Estilos.flexColumnStandard, marginTop: 40 }}>
         <div style={{ paddingTop: 150 }}>
-          <div style={Estilos.flexRowStandard}>
+          <Box>
             <Quantity
               onClickPlus={() => {
                 let aux = quantity;
@@ -61,7 +61,7 @@ const ProdutoEmSi = ({ addItem }) => {
             <a style={{ marginLeft: 120, height: 10 }} href="##">
               <img src={fav} alt="Favorite" />
             </a>
-          </div>
+          </Box>
         </div>
       </div>
     </>

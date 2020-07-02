@@ -1,5 +1,4 @@
-/* eslint-disable react/jsx-no-duplicate-props */
-/* eslint-disable react/jsx-props-no-spreading */
+//@ts-nocheck
 /* Pagina de Contato
  */
 import React, { useState, useEffect } from 'react';
@@ -246,6 +245,7 @@ export default function Datalhes() {
                   name="textmask"
                   id="formatted-text-mask-input"
                   value={tel}
+                  //@ts-ignore
                   onChange={(event) => {
                     setTel(event.target.value);
                   }}
@@ -260,7 +260,7 @@ export default function Datalhes() {
                   setToken(sessionStorage.getItem('token'));
                   enviar();
                   setOpen(true);
-                  setStatus('sucess');
+                  setStatus('success');
                   switch (true) {
                     case newPass.length > 0:
                       if (pass === '') setMessage('Senha vazio');
@@ -268,7 +268,7 @@ export default function Datalhes() {
                         VERIFICAR SE A SENHA ATUAL ESTÁ CERTA
                       */
 
-                      setStatus('sucess');
+                      setStatus('success');
                       setMessage('Alterações salvas!');
 
                       /*
