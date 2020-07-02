@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import { Button, TextField, Grid } from '@material-ui/core';
 import api from '../Services/ApiService';
 import Alerta from './Alerta';
-
+const useStyles = makeStyles ((theme) => ({
+  inputLabel: {
+    color: theme.palette.primary.main
+  }
+}));
 const ContatoComp = () => {
   const [nome, setNome] = useState('');
   const [mensagem, setMensagem] = useState('');
@@ -11,7 +16,7 @@ const ContatoComp = () => {
   const [assunto, setAssunto] = useState('');
   const [openAlert, setOpenAlert] = useState(false);
   const [status, setStatus] = useState();
-
+  const classes = useStyles();
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -62,6 +67,11 @@ const ContatoComp = () => {
             id="filled-secondary"
             label="Nome"
             variant="filled"
+            InputLabelProps={{
+              classes: {
+                root: classes.inputLabel,
+              }
+            }}
             style={{ width: '100%' }}
             onChange={(e) => {
               setNome(e.target.value);
@@ -72,6 +82,11 @@ const ContatoComp = () => {
           <TextField
             label="Assunto"
             variant="filled"
+            InputLabelProps={{
+              classes: {
+                root: classes.inputLabel,
+              }
+            }}
             fullWidth
             onChange={(e) => {
               setAssunto(e.target.value);
@@ -83,6 +98,11 @@ const ContatoComp = () => {
             id="filled-secondary"
             label="Email"
             variant="filled"
+            InputLabelProps={{
+              classes: {
+                root: classes.inputLabel,
+              }
+            }}
             fullWidth
             onChange={(e) => {
               setEmail(e.target.value);
@@ -96,6 +116,11 @@ const ContatoComp = () => {
               rows={6}
               label="Mensagem"
               variant="filled"
+              InputLabelProps={{
+                classes: {
+                  root: classes.inputLabel,
+                }
+              }}
               fullWidth
               onChange={(e) => {
                 setMensagem(e.target.value);
@@ -107,7 +132,7 @@ const ContatoComp = () => {
         <Grid item lg={3} md={3} sm={4} xs={5}>
           <Button
             variant="contained"
-            color="primary"
+            color='primary'
             fullWidth
             onClick={enviar}
           >

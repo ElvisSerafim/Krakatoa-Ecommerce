@@ -4,7 +4,7 @@
 /* Produto em Si */
 
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography, Button } from '@material-ui/core/';
+import { Container, Grid, Typography, Button, Paper } from '@material-ui/core/';
 import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
@@ -86,7 +86,6 @@ const styles = {
 
 const useStyles = makeStyles((theme) => ({
   quadradao2: {
-    backgroundColor: theme.palette.background.color,
     display: 'flex',
     flexDirection: 'column',
     borderRadius: 10,
@@ -246,7 +245,7 @@ const ProdutoPage = ({ match }) => {
           <Grid item lg={1} md={1} />
           <Hidden smDown>
             <Grid item lg={6} md={6}>
-              <div className={classes.quadradao2}>
+              <Paper elevation={4} style={{backgroundColor: '#D2C9C7', minHeight: 700, marginTop: 40}}>
                 <div
                   style={{
                     ...Estilos.flexRowStandard,
@@ -255,11 +254,12 @@ const ProdutoPage = ({ match }) => {
                     justifyContent: 'space-between',
                   }}
                 >
-                  <div style={styles.promo}>
+              
+                {/*   <div style={styles.promo}>
                     <Typography style={styles.promoText} variant="body1">
                       Promoção
                     </Typography>
-                  </div>
+                  </div> */}
                   <div>
                     <Typography style={styles.product} variant="body1">
                       ID do Produto: {match.params.id}
@@ -269,8 +269,8 @@ const ProdutoPage = ({ match }) => {
                 <div style={styles.quad2inside}>
                   <Typography
                     style={{ fontStyle: 'normal', margin: 0 }}
-                    color="secondary"
                     variant="h3"
+                    color="secondary"
                   >
                     {product.nome}
                   </Typography>
@@ -325,7 +325,7 @@ const ProdutoPage = ({ match }) => {
                             }
                           }}
                         />
-                        <div>
+                        <div style={{...Estilos.flexColumnCENTER}}>
                           <Button
                             variant="contained"
                             color="primary"
@@ -342,14 +342,11 @@ const ProdutoPage = ({ match }) => {
                             ADICIONAR AO CARRINHO
                           </Button>
                         </div>
-                        <a style={{ marginLeft: 120, height: 10 }} href="##">
-                          <img src={fav} alt="Favorite" />
-                        </a>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </Paper>
             </Grid>
           </Hidden>
 
@@ -449,7 +446,7 @@ const ProdutoPage = ({ match }) => {
             >
               <Typography
                 variant="h6"
-                color="secondary"
+                color="textSecondary"
                 style={{
                   paddingTop: '64px',
                   width: '100%',
