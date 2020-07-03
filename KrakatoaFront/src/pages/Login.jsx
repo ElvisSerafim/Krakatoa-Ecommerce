@@ -9,8 +9,8 @@ import Footer from '../components/Footer';
 
 const styles = {
   input: {
+    display: 'flex',
     width: '100%',
-    marginLeft: '64px',
     marginTop: '32px',
   },
 };
@@ -38,18 +38,7 @@ const LoginPage = () => {
           MINHA CONTA
         </Typography>
         <Box className={classes.Fundo}>
-          <Grid container spacing={2} justify="flex-start">
-            <Grid item lg={6} md={6}>
-              <div style={styles.input}>
-                <Login />
-              </div>
-            </Grid>
-            <Grid item lg={6} md={6}>
-              <div style={styles.input}>
-                <Cadastro />
-              </div>
-            </Grid>
-          </Grid>
+            <Login />          
         </Box>
       </Container>
       <Footer />
