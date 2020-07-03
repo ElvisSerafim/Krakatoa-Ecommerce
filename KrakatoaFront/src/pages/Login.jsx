@@ -6,6 +6,8 @@ import Login from '../components/Login';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
 import Footer from '../components/Footer';
+import withAnimation from '../higherComponents/withAnimation';
+import withNav from '../higherComponents/withNav';
 
 const styles = {
   input: {
@@ -26,8 +28,6 @@ const LoginPage = () => {
   const classes = useStyles();
   return (
     <>
-      <Topo />
-      <Navbar />
       <Container maxWidth="lg" style={{ marginBottom: 64 }}>
         <Typography
           variant="h3"
@@ -38,12 +38,11 @@ const LoginPage = () => {
           MINHA CONTA
         </Typography>
         <Box className={classes.Fundo}>
-            <Login />          
+          <Login />
         </Box>
       </Container>
-      <Footer />
     </>
   );
 };
 
-export default LoginPage;
+export default withNav(withAnimation(LoginPage));
