@@ -1,25 +1,33 @@
 /* eslint-disable consistent-return */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import { Checkbox, Typography, Button, Grid, TextField, FormControl, InputLabel, InputAdornment, FilledInput } from '@material-ui/core';
+import {
+  Checkbox,
+  Typography,
+  Button,
+  Grid,
+  TextField,
+  FormControl,
+  InputLabel,
+  InputAdornment,
+  FilledInput,
+  Backdrop,
+  Fade,
+  Modal,
+} from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import TextFielde from './TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import api from '../Services/ApiService';
 import { setUser } from '../reducers/user';
 import Alerta from './Alerta';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
 import Estilos from '../Estilos';
-import Cadastro from './Cadastro';
 
 const useStyles = makeStyles((theme) => ({
   inputLabel: {
-    color: theme.palette.primary.main
+    color: theme.palette.primary.main,
   },
   modal: {
     display: 'flex',
@@ -62,15 +70,15 @@ const styles = {
     minWidth: 250,
     width: '100%',
     paddingTop: 30,
-    paddingBottom: 30
+    paddingBottom: 30,
   },
   cadastro: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
     paddingTop: 5,
-    width: '50%'
-  }
+    width: '50%',
+  },
 };
 
 const Login = () => {
@@ -140,7 +148,7 @@ const Login = () => {
 
   const handleCloseModal = () => {
     setOpen(false);
-  }
+  };
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -173,116 +181,168 @@ const Login = () => {
         >
           <Fade in={open}>
             <div className={classes.paper}>
-              <h2 style={{ color: 'white', fontFamily: 'Poppins' }} id="transition-modal-title">Cadastro</h2>
-              <FormControl fullwidth variant="filled" style={{ width: '100%', backgroundColor: 'white' }}>
-                <InputLabel style={{ width: '100%', color: 'black' }} htmlFor="filled-adornment-password">Email</InputLabel>
+              <h2
+                style={{ color: 'white', fontFamily: 'Poppins' }}
+                id="transition-modal-title"
+              >
+                Cadastro
+              </h2>
+              <FormControl
+                fullwidth
+                variant="filled"
+                style={{ width: '100%', backgroundColor: 'white' }}
+              >
+                <InputLabel
+                  style={{ width: '100%', color: 'black' }}
+                  htmlFor="filled-adornment-password"
+                >
+                  Email
+                </InputLabel>
                 <FilledInput
                   id="filled-adornment-password"
                   value={email}
                   color="textSecondary"
                   style={{ width: '100%', color: 'black' }}
                   onChange={(event) => {
-                    setEmail(event.target.value)
+                    setEmail(event.target.value);
                   }}
                 />
-                <InputAdornment position="end">
-
-                </InputAdornment>
+                <InputAdornment position="end" />
               </FormControl>
               <div style={{ paddingTop: 10 }}>
-                <FormControl fullwidth variant="filled" style={{ width: '100%', backgroundColor: 'white' }}>
-                  <InputLabel style={{ width: '100%', color: 'black' }} htmlFor="filled-adornment-password">Nome</InputLabel>
-                  <FilledInput
-                    id="filled-adornment-password"
-                    value={email}
-                    color="textSecondary"
-                    style={{ width: '100%', color: 'black' }}
-                    onChange={(event) => {
-                      setEmail(event.target.value)
-                    }}
-                  />
-                  <InputAdornment position="end">
-
-                  </InputAdornment>
-                </FormControl>
-              </div>
-              <div style={{ paddingTop: 10 }}>
-                <FormControl fullwidth variant="filled" style={{ width: '100%', backgroundColor: 'white' }}>
-                  <InputLabel style={{ width: '100%', color: 'black' }} htmlFor="filled-adornment-password">Senha</InputLabel>
-                  <FilledInput
-                    id="filled-adornment-password"
-                    value={email}
-                    color="textSecondary"
-                    style={{ width: '100%', color: 'black' }}
-                    onChange={(event) => {
-                      setEmail(event.target.value)
-                    }}
-                  />
-                  <InputAdornment position="end">
-
-                  </InputAdornment>
-                </FormControl>
-              </div>
-              <div style={{ paddingTop: 10 }}>
-
-                <FormControl fullwidth variant="filled" style={{ width: '100%', backgroundColor: 'white' }}>
-                  <InputLabel style={{ width: '100%', color: 'black' }} htmlFor="filled-adornment-password">Confirmar Senha</InputLabel>
-                  <FilledInput
-                    id="filled-adornment-password"
-                    value={email}
-                    color="textSecondary"
-                    style={{ width: '100%', color: 'black' }}
-                    onChange={(event) => {
-                      setEmail(event.target.value)
-                    }}
-                  />
-                  <InputAdornment position="end">
-
-                  </InputAdornment>
-                </FormControl>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', paddingTop: 10 }}>
-                <Button
-                  variant="contained"
-                  color="primary"
+                <FormControl
+                  fullwidth
+                  variant="filled"
+                  style={{ width: '100%', backgroundColor: 'white' }}
                 >
+                  <InputLabel
+                    style={{ width: '100%', color: 'black' }}
+                    htmlFor="filled-adornment-password"
+                  >
+                    Nome
+                  </InputLabel>
+                  <FilledInput
+                    id="filled-adornment-password"
+                    value={email}
+                    color="textSecondary"
+                    style={{ width: '100%', color: 'black' }}
+                    onChange={(event) => {
+                      setEmail(event.target.value);
+                    }}
+                  />
+                  <InputAdornment position="end" />
+                </FormControl>
+              </div>
+              <div style={{ paddingTop: 10 }}>
+                <FormControl
+                  fullwidth
+                  variant="filled"
+                  style={{ width: '100%', backgroundColor: 'white' }}
+                >
+                  <InputLabel
+                    style={{ width: '100%', color: 'black' }}
+                    htmlFor="filled-adornment-password"
+                  >
+                    Senha
+                  </InputLabel>
+                  <FilledInput
+                    id="filled-adornment-password"
+                    value={email}
+                    color="textSecondary"
+                    style={{ width: '100%', color: 'black' }}
+                    onChange={(event) => {
+                      setEmail(event.target.value);
+                    }}
+                  />
+                  <InputAdornment position="end" />
+                </FormControl>
+              </div>
+              <div style={{ paddingTop: 10 }}>
+                <FormControl
+                  fullwidth
+                  variant="filled"
+                  style={{ width: '100%', backgroundColor: 'white' }}
+                >
+                  <InputLabel
+                    style={{ width: '100%', color: 'black' }}
+                    htmlFor="filled-adornment-password"
+                  >
+                    Confirmar Senha
+                  </InputLabel>
+                  <FilledInput
+                    id="filled-adornment-password"
+                    value={email}
+                    color="textSecondary"
+                    style={{ width: '100%', color: 'black' }}
+                    onChange={(event) => {
+                      setEmail(event.target.value);
+                    }}
+                  />
+                  <InputAdornment position="end" />
+                </FormControl>
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'flex-end',
+                  paddingTop: 10,
+                }}
+              >
+                <Button variant="contained" color="primary">
                   Cadastre-se
-              </Button>
+                </Button>
               </div>
             </div>
           </Fade>
         </Modal>
 
-
-
-        <Typography style={{ paddingTop: 60, color: 'white' }} variant="h5" color="secondary">
+        <Typography
+          style={{ paddingTop: 60, color: 'white' }}
+          variant="h5"
+          color="secondary"
+        >
           Entrar
-          </Typography>
+        </Typography>
       </Grid>
       <Grid container lg={12} md={12} sm={12} xs={12} justify="center">
         <div style={styles.email}>
-          <FormControl fullwidth variant="filled" style={{ width: '100%', backgroundColor: 'white' }}>
-            <InputLabel style={{ width: '100%', color: 'black' }} htmlFor="filled-adornment-password">Email</InputLabel>
+          <FormControl
+            fullwidth
+            variant="filled"
+            style={{ width: '100%', backgroundColor: 'white' }}
+          >
+            <InputLabel
+              style={{ width: '100%', color: 'black' }}
+              htmlFor="filled-adornment-password"
+            >
+              Email
+            </InputLabel>
             <FilledInput
               id="filled-adornment-password"
               value={email}
               color="textSecondary"
               style={{ width: '100%', color: 'black' }}
               onChange={(event) => {
-                setEmail(event.target.value)
+                setEmail(event.target.value);
               }}
             />
-            <InputAdornment position="end">
-
-            </InputAdornment>
+            <InputAdornment position="end" />
           </FormControl>
-
         </div>
       </Grid>
       <Grid container justify="center" lg={12} md={12} sm={12} xs={12}>
         <div style={styles.senha}>
-          <FormControl variant="filled" style={{ width: '100%', backgroundColor: 'white' }}>
-            <InputLabel style={{ width: '100%', color: 'black' }} htmlFor="filled-adornment-password">Password</InputLabel>
+          <FormControl
+            variant="filled"
+            style={{ width: '100%', backgroundColor: 'white' }}
+          >
+            <InputLabel
+              style={{ width: '100%', color: 'black' }}
+              htmlFor="filled-adornment-password"
+            >
+              Password
+            </InputLabel>
             <FilledInput
               id="filled-adornment-password"
               type={values.showPassword ? 'text' : 'password'}
@@ -290,7 +350,7 @@ const Login = () => {
               color="textSecondary"
               style={{ width: '100%', color: 'black' }}
               onChange={handleChange('password')}
-              endAdornment={
+              endAdornment={(
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
@@ -301,10 +361,16 @@ const Login = () => {
                     {values.showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </InputAdornment>
-              }
+              )}
             />
           </FormControl>
-          <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}
+          >
             <a href="/cangas" style={{ decoration: 'none' }}>
               <Typography
                 variant="body2"
@@ -312,31 +378,27 @@ const Login = () => {
                 style={{ fontSize: '1.0em' }}
               >
                 Perdeu a senha?
-            </Typography>
+              </Typography>
             </a>
 
             <Typography
               variant="body2"
               color="textSecondary"
               style={{ fontSize: '1.0em', cursor: 'pointer' }}
-              onClick={(event) => { setOpen(true) }}
+              onClick={() => {
+                setOpen(true);
+              }}
             >
               Cadastrar-se
-              </Typography>
-
+            </Typography>
           </div>
         </div>
       </Grid>
       <Grid container lg={12} md={12} sm={12} xs={12} justify="center">
         <div style={styles.botaoEntrar}>
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            onClick={login}
-          >
+          <Button variant="contained" color="primary" fullWidth onClick={login}>
             Entrar
-              </Button>
+          </Button>
         </div>
       </Grid>
 
