@@ -83,7 +83,10 @@ const styles = {
 
 const Login = () => {
   const [email, setEmail] = useState('');
+  const [emailCadastro, setEmailCadastro] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [nome, setNome] = useState('');
   const [message, setMessage] = useState('');
   const [openAlert, setOpenAlert] = useState(false);
   const [open, setOpen] = useState(false);
@@ -110,12 +113,23 @@ const Login = () => {
 
   const login = async () => {
     try {
-      if (email === '') throw new Error('Email Vazio');
-      if (password === '') throw new Error('Senha Vazia');
+      if (email === '') {
+        setOpenAlert(true);
+        setMessage('Email vazio');
+        setStatus('error');
+        throw new Error('Email Vazio');
+      }
+      if (values.password === '') {
+        setOpenAlert(true);
+        setMessage('Senha Vazia');
+        setStatus('error');
+        throw new Error('Senha Vazia');
+      }
+
       const lower = email.toLowerCase();
       const data = {
         email: lower,
-        password,
+        password: values.password,
         sessao,
       };
       const request = await api.Login(data);
@@ -142,6 +156,66 @@ const Login = () => {
       setStatus('error');
     }
   };
+
+  const cadastro = async () => {
+    if (emailCadastro === '') {
+      setOpenAlert(true);
+      setMessage('Email vazio');
+      setStatus('error');
+      throw new Error('Email Vazio');
+    }
+    if (nome === '') {
+      setOpenAlert(true);
+      setMessage('Nome Vazio');
+      setStatus('error');
+      throw new Error('Nome Vazio');
+    }
+    if (password === '') {
+      setOpenAlert(true);
+      setMessage('Senha vazia');
+      setStatus('error');
+      throw new Error('Senha Vazia');
+    }
+    if (confirmPassword === '') {
+      setOpenAlert(true);
+      setMessage('Confirmar senha !');
+      setStatus('error');
+      throw new Error('Senha não confirmada');
+    }
+
+    if (password !== confirmPassword) {
+      setOpenAlert(true);
+      setMessage('Senhas não coincidem !');
+      setStatus('error');
+      throw new Error('Senhas Diferentes !');
+    }
+
+    const lower = emailCadastro.toLowerCase();
+    const data = {
+      email: emailCadastro,
+      password,
+      nome,
+    }
+
+    const request = await api.Cadastro(data);
+    if (request === 'ok') {
+      let dataToken;
+      if (sessao) {
+        dataToken = {
+          token: localStorage.getItem('token'),
+        };
+      } else {
+        dataToken = {
+          token: sessionStorage.getItem('token'),
+        };
+      }
+      const usuario = await api.getUsuario(dataToken);
+      dispatch(setUser(usuario));
+
+      return history.push('/conta/');
+    }
+
+  }
   const handleOpen = () => {
     setOpen(true);
   };
@@ -200,11 +274,11 @@ const Login = () => {
                 </InputLabel>
                 <FilledInput
                   id="filled-adornment-password"
-                  value={email}
+                  value={emailCadastro}
                   color="textSecondary"
                   style={{ width: '100%', color: 'black' }}
                   onChange={(event) => {
-                    setEmail(event.target.value);
+                    setEmailCadastro(event.target.value);
                   }}
                 />
                 <InputAdornment position="end" />
@@ -223,11 +297,11 @@ const Login = () => {
                   </InputLabel>
                   <FilledInput
                     id="filled-adornment-password"
-                    value={email}
+                    value={nome}
                     color="textSecondary"
                     style={{ width: '100%', color: 'black' }}
                     onChange={(event) => {
-                      setEmail(event.target.value);
+                      setNome(event.target.value);
                     }}
                   />
                   <InputAdornment position="end" />
@@ -247,11 +321,11 @@ const Login = () => {
                   </InputLabel>
                   <FilledInput
                     id="filled-adornment-password"
-                    value={email}
+                    value={password}
                     color="textSecondary"
                     style={{ width: '100%', color: 'black' }}
                     onChange={(event) => {
-                      setEmail(event.target.value);
+                      setPassword(event.target.value);
                     }}
                   />
                   <InputAdornment position="end" />
@@ -271,11 +345,11 @@ const Login = () => {
                   </InputLabel>
                   <FilledInput
                     id="filled-adornment-password"
-                    value={email}
+                    value={confirmPassword}
                     color="textSecondary"
                     style={{ width: '100%', color: 'black' }}
                     onChange={(event) => {
-                      setEmail(event.target.value);
+                      setConfirmPassword(event.target.value);
                     }}
                   />
                   <InputAdornment position="end" />
@@ -289,7 +363,7 @@ const Login = () => {
                   paddingTop: 10,
                 }}
               >
-                <Button variant="contained" color="primary">
+                <Button variant="contained" color="primary" onClick={cadastro}>
                   Cadastre-se
                 </Button>
               </div>
@@ -341,7 +415,7 @@ const Login = () => {
               style={{ width: '100%', color: 'black' }}
               htmlFor="filled-adornment-password"
             >
-              Password
+              Senha
             </InputLabel>
             <FilledInput
               id="filled-adornment-password"

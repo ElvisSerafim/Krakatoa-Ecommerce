@@ -64,6 +64,7 @@ function MinhaConta() {
   useEffect(() => {
     const Get = async () => {
       const tentativa = await usuario;
+      console.log(tentativa);
       setUser(tentativa.user);
     };
 
@@ -103,10 +104,10 @@ function MinhaConta() {
           justify="space-around"
           className={classes.Cor}
         >
-          <Typography style={styles.txt2} color="secondary">
+          <Typography style={styles.txt2} color="textSecondary">
             Olá, {user.nome}
           </Typography>
-          <Typography style={styles.txt3} color="secondary">
+          <Typography style={styles.txt3}  color="textSecondary">
             A partir do painel de controle da sua conta, você pode ver suas{' '}
             <a
               href="pedidos"
