@@ -4,20 +4,20 @@
 
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
-
-import { Typography, Box, Button } from '@material-ui/core/';
+import { Typography, Box, Button,FormControl, InputLabel, Select, MenuItem } from '@material-ui/core/';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, Route, Redirect } from 'react-router-dom';
 import { removerCart, removeProducts } from '../reducers/productsCart';
-
+import { withRouter, useHistory } from 'react-router-dom';
 import api from '../Services/ApiService';
+import Alerta from '../components/Alerta';
 import Pac from '../img/Pac.svg';
 import Sedex from '../img/Sedex.svg';
 import cartBlank from '../img/cartBlank.svg';
 import nodeli from '../img/noDelivery.svg';
 import payment from '../img/payment.svg';
 import TableSumario from '../components/TableSumario';
-
+import { boleto } from '../Services/pagar.js';
 import withAnimation from '../higherComponents/withAnimation';
 import withNav from '../higherComponents/withNav';
 
@@ -133,14 +133,24 @@ const styles = {
 
 const Sumario = ({ location }) => {
   const [totalFinal, setFinalTotal] = useState(0);
+  const[open,setOpen] = useState(false);
+  const[status,Setstatus] = useState('error');
+  const[msg,setMsg]=useState('Erro');
   const [totalFrete, setTotalFrete] = useState(0);
   const [total, setTotal] = useState(0);
   const [cep, setCep] = useState('');
   const [urlDelivery, setUrl] = useState('');
-
+  const [pagamento,setPag] = useState('Nenhum');
   const products = useSelector((state) => state.productsCart);
   const dispatch = useDispatch();
-
+  const history = useHistory();
+  let dado;
+  const boletopag = async ()=>{
+    let frete = parseFloat(location.state.totalFrete.replace(',','.'));
+    let price = (totalFinal + frete)*100
+    dado = await boleto(price, location.state.endereco.nome, location.state.endereco.cpf,location.state.endereco.rua,33,location.state.endereco.complemento,location.state.endereco.cep,location.state.endereco.cidade,'BA','BRA',location.state.endereco.bairro,123)
+    window.open(dado.payment.url)
+  }
   useEffect(() => {
     if (location.state !== undefined) {
       if (location.state.entregaSelecionada === 'Pac') {
@@ -162,7 +172,9 @@ const Sumario = ({ location }) => {
   const removerProduct = (produto) => {
     dispatch(removerCart(produto));
   };
-
+  const handleChangePagamento = (event) => {
+    setPag(event.target.value);
+};
   return (
     <>
       {location.state === undefined ? (
@@ -173,6 +185,19 @@ const Sumario = ({ location }) => {
         />
       ) : (
         <>
+         <Alerta
+                openAlert={open}
+                message={msg}
+                status={status}
+                handleClose={(event, reason) => {
+                  if (reason === 'clickaway') {
+                    return;
+                  }
+                setOpen(false)
+                }}
+                vertical="top"
+                horizontal="right"
+              />
           <div
             style={{
               display: 'flex',
@@ -201,12 +226,31 @@ const Sumario = ({ location }) => {
           </div>
           <div style={styles.flexColumn}>
             <div style={styles.flexRow}>
+              <Grid lg={12} container>
+              <Grid lg={12} container>
               <TableSumario
                 actualTotal={atualizarTotal}
                 totalSumario={totalFinal}
                 removerItem={removerProduct}
               />
-
+              </Grid>
+    <Grid lg={12} container justify='center'>
+    <FormControl  variant="outlined" style={{ width: '77%'}}>
+              <InputLabel style={{ color: '#44323D' }}>
+              Formas de pagamento
+              </InputLabel>
+              <Select
+                onChange={handleChangePagamento}
+                value={pagamento}
+                label="Formas de pagamento"
+              >
+                <MenuItem value={'Nenhum'}></MenuItem>
+                <MenuItem value={'CARTAO'}>Cartão de crédito/débito</MenuItem>
+                <MenuItem value={'BOLETO'}>Boleto</MenuItem>
+              </Select>
+            </FormControl>
+    </Grid>
+              </Grid>
               <div
                 style={{
                   fontWeight: 'bold',
@@ -258,6 +302,7 @@ const Sumario = ({ location }) => {
                     {...styles.btn}
                   >
                     <Link
+                    style={{ textDecoration: 'none' }}
                       to={{
                         pathname: '/endereco',
                         state: {
@@ -266,7 +311,7 @@ const Sumario = ({ location }) => {
                         },
                       }}
                     >
-                      <Typography>MUDAR ENDEREÇO</Typography>
+                      <Typography >MUDAR ENDEREÇO</Typography>
                     </Link>
                   </Box>
                 </div>
@@ -300,11 +345,19 @@ const Sumario = ({ location }) => {
                 </Box>
 
                 <div style={{ width: 200, marginTop: 30 }}>
-                  <Link to="/" style={{ textDecoration: 'none' }}>
-                    <Button variant="contained" color="primary" fullWidth>
+                    <Button variant="contained" color="primary" fullWidth onClick = {()=>{
+                      if(pagamento==='BOLETO'){
+                        boletopag();
+                        history.push('/');
+                      } else if (pagamento ==='CARTAO'){
+                        history.push('/checkout');
+                      }else{
+                        setMsg('Por favor, insira uma forma de pagamento');
+                        setOpen(true)
+                      }
+                    }}>
                       Concluir
                     </Button>
-                  </Link>
                 </div>
               </div>
             </div>
