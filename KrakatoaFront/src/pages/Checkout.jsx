@@ -1,13 +1,24 @@
-import React from 'react';
-import { Grid, Typography, Button } from '@material-ui/core/';
-import TextField from '../components/TextField';
+import React, { useState } from 'react';
+import { useSelector} from 'react-redux';
+import {InputLabel,FormControl,Paper,Select,Container,MenuItem,Hidden,makeStyles,Stepper, Step,StepLabel, Grid, Typography, Button, Box,TextField } from '@material-ui/core/';
+import Navbar from '../components/Nav';
+import Topo from '../components/Topo';
+import {Redirect,withRouter,useHistory } from 'react-router-dom';
+import Footer from '../components/Footer';
 import cartBlank from '../img/cartBlank.svg';
 import nodeli from '../img/noDelivery.svg';
 import payment from '../img/payment.svg';
 import Estilos from '../Estilos';
+import Checkout2 from '../components/Checkout'
+import visa from '../img/visa.png';
+import elo from '../img/elo.png';
+import Alerta from '../components/Alerta';
+import hipercard from '../img/hipercard.png';
+import InputMask from 'react-input-mask';
+import mastercard from '../img/mastercard.png';
+import { credito, debito, boleto } from '../Services/pagar.js';
 import withAnimation from '../higherComponents/withAnimation';
 import withNav from '../higherComponents/withNav';
-
 const styles = {
   title: {
     fontSize: '2.5em',
@@ -34,107 +45,563 @@ const styles = {
   },
   width40: { width: '40%' },
 };
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+  },
+  backButton: {
+    marginRight: theme.spacing(1),
+  },
+  instructions: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+  inputLabel: {
+    color: '#44323D'
+  }
+}));
 
-const Checkout = () => (
-  <>
-    <Grid container spacing={2} style={{ marginTop: 64, marginBottom: 64 }}>
-      <Typography style={styles.title}>Pagamento</Typography>
-      <div style={Estilos.flexRowCENTER2}>
-        <a href="/carinho">
-          <img src={cartBlank} alt="Carinho" />
-        </a>
-        <hr style={styles.hrstyle} />
-        <a href="/entrega">
-          <img src={nodeli} alt="Entrega" />
-        </a>
-        <hr style={styles.hrstyle} />
-        <div style={styles.payment}>
-          <a href="/">
-            <img src={payment} alt="Pagamento" />
-          </a>
-        </div>
-      </div>
-      <div style={{ ...Estilos.flexRowStandard2, paddingTop: '50px' }}>
-        <div style={{ ...Estilos.flexColumnStandard2, width: '60%' }}>
-          <div style={Estilos.flexRowSPACEBTW2}>
-            <div style={styles.width40}>
-              <TextField label="Nome do Titular do cartão" />
-            </div>
-            <div style={styles.width40}>
-              <TextField label="Número do cartão" numberOnly />
-            </div>
-          </div>
-          <div style={{ ...Estilos.flexRowSPACEBTW2, paddingTop: '20px' }}>
-            <div style={styles.width40}>
-              <TextField label="Código de segurança" numberOnly />
-            </div>
-            <div style={styles.width40}>
-              <TextField label="Data de validade" date />
-            </div>
-          </div>
-        </div>
+function getSteps() {
+  return ['Meios de pagamentos', 'Detalhes do pagamento', 'Resumo'];
+}
+function getStepContent(
+  classes,
+  setCode,
+  setTid,
+  total,
+  setOpen,
+  setMsg,
+  setStatus,
+  numero,
+  setNumero,
+  cvv,
+  setCvv,
+  nome,
+  setNome,
+  data,
+  setData,
+  activeStep,
+  steps,
+  handleNext,
+  handleBack,
+  cartao,
+  handleChange,
+  stepIndex,
+  v,
+  m,
+  h,
+  e,
+  flag,
+  setS,
+  setV,
+  setM,
+  setH,
+  setE,
+) {
+  let dado;
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+  };
+    const pagar = async()=>{
+        if(cartao ==='CreditCard'){
+     dado = await credito(nome,total*100,numero,nome,data,cvv,3333,flag);
+    if(dado.payment.returnCode==4||dado.payment.returnCode==6) {
+      setCode('Sucesso, volte sempre!')
+      setTid(dado.payment.paymentId);
+    }else{
+      setCode('Ocorreu um erro na transação');
+      setTid('Transação falha');
+    }
+    }else if (cartao == 'DebitCard'){
+    dado = await debito(nome,total*100,numero,nome,data,cvv,2222,flag);
+    setCode('Você será redirecionado para a pagina da cielo para terminar o pagamento');  
+    window.open(dado.payment.authenticationUrl);
+  }
+  }
 
-        <div style={Estilos.flexColumnStandard}>
-          <div
-            style={{
-              ...Estilos.flexRowStandard,
-              justifyContent: 'space-around',
-              paddingLeft: '20px',
-            }}
-          />
-          <div style={{ ...Estilos.flexColumnEND, paddingTop: '20px' }}>
-            <Button
-              style={{ height: 50, width: '100%' }}
-              variant="contained"
-              color="primary"
-              onClick={async () => {
-                const url = 'https://apisandbox.cieloecommerce.cielo.com.br/1/sales/1f196018-9e28-4bfc-ac24-4d730d8700d1';
-                const myInit = {
-                  method: 'POST',
-                  headers: new Headers({
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': 'http://64.227.106.165',
-                    'Access-Control-Allow-Methods':
-                          'GET, POST, PUT, PATCH, POST, DELETE, OPTIONS',
-                    'Access-Control-Allow-Headers': 'Content-Type',
-                    'Access-Control-Max-Age': 86400,
-                    'Access-Control-Expose-Headers': 'Request-Context',
-                    MerchantId: '7a8b7c9c-4bb7-4caf-b967-f7192ab0cf72',
-                    MerchantKey: 'WTXTZZSTBSBGCKSYAJBIOZJXJDRBNMAEHQEGTKNJ',
-                  }),
-                  body: {
-                    MerchantOrderId: '2014111703',
-                    Payment: {
-                      Provider: 'Simulado',
-                      Type: 'CreditCard',
-                      Amount: 15700,
-                      Installments: 1,
-                      SoftDescriptor: '123456789ABCD',
-                      CreditCard: {
-                        CardNumber: '4551870000000181',
-                        Holder: 'Teste Holder',
-                        ExpirationDate: '12/2021',
-                        SecurityCode: '123',
-                        Brand: 'Visa',
-                      },
-                    },
-                  },
-                };
-                await fetch(
-                  url, myInit,
-                )
-                  .then((data) => console.log(data))
-                  .catch((error) => console.log('parsing faled', error));
-              }}
-            >
-              Continuar!
-            </Button>
-
-          </div>
-        </div>
-      </div>
-    </Grid>
+  switch (stepIndex) {
+    case 0:
+      return (
+        <>
+         
+          <div style={{ height: 20 }} />
+          <Typography
+            variant="h1"
+            style={{ textAlign: 'center', color: '#44323D' }}
+          >
+            SELECIONE UM MEIO DE PAGAMENTO
+          </Typography>
+          <Grid
+            container
+            style={{ paddingTop: 30, paddingBottom: 30 }}
+            lg={12}
+            justify="center"
+            alignItems="center"
+          >
+            <Grid lg={2} item>
+              <Paper
+                elevation={v}
+                style={{
+                  cursor: 'pointer',
+                  backgroundColor: '#D2C9C7',
+                  width: 100,
+                  height: 60,
+                }}
+              >
+                <img
+                  onClick={() => {
+                    setS('VISA');
+                    setV(0);
+                    setM(3);
+                    setH(3);
+                    setE(3);
+                  }}
+                  style={{ padding: 5 }}
+                  src={visa}
+                />
+              </Paper>
+            </Grid>
+            <Grid lg={2} item>
+              <Paper
+                elevation={m}
+                style={{
+                  cursor: 'pointer',
+                  backgroundColor: '#D2C9C7',
+                  width: 100,
+                  height: 60,
+                }}
+              >
+                <img
+                  onClick={() => {
+                    setS('MASTER');
+                    setV(3);
+                    setM(0);
+                    setH(3);
+                    setE(3);
+                  }}
+                  src={mastercard}
+                  style={{ padding: 5 }}
+                />
+              </Paper>
+            </Grid>
+            <Grid lg={2} item>
+              <Paper
+                elevation={h}
+                style={{
+                  cursor: 'pointer',
+                  backgroundColor: '#D2C9C7',
+                  width: 120,
+                  height: 60,
+                }}
+              >
+                <img
+                  onClick={() => {
+                    setS('HIPERCARD');
+                    setV(3);
+                    setM(3);
+                    setH(0);
+                    setE(3);
+                  }}
+                  src={hipercard}
+                  style={{ padding: 5 }}
+                />
+              </Paper>
+            </Grid>
+            <Grid lg={2} item>
+              <Paper
+                elevation={e}
+                style={{
+                  cursor: 'pointer',
+                  backgroundColor: '#D2C9C7',
+                  width: 100,
+                  height: 60,
+                }}
+              >
+                <img
+                  onClick={() => {
+                    setS('ELO');
+                    setV(3);
+                    setM(3);
+                    setH(3);
+                    setE(0);
+                  }}
+                  src={elo}
+                  style={{ padding: 8 }}
+                />
+              </Paper>
+            </Grid>
+          </Grid>
+          <Grid container lg={12} justify="center"></Grid>
+          <Grid
+            container
+            justify="center"
+            lg={12}
+            style={{ paddingRight: 30, paddingTop: 20 }}
+          >
+            <FormControl variant="outlined" style={{ width: 500 }}>
+              <InputLabel style={{ color: '#44323D' }}>
+                Tipo de cartão
+              </InputLabel>
+              <Select
+                onChange={handleChange}
+                value={cartao}
+                label="Tipo de cartão"
+              >
+                <MenuItem value={'CreditCard'}>CRÉDITO</MenuItem>
+                <MenuItem value={'DebitCard'}>DÉBITO</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <div style={{ paddingTop: 20 }} />
+          <Grid lg={12} justify="space-between" container>
+            <Grid lg={1} container item></Grid>
+            <Grid lg={2} container item>
+              <Button
+                style={{ color: '#44323D' }}
+                disabled
+                onClick={handleBack}
+              >
+                Voltar
+              </Button>
+            </Grid>
+            <Grid lg={4} container item>
+              <Button
+                style={{ color: 'white', backgroundColor: '#44323D' }}
+                variant="contained"
+                onClick={()=>{
+                  if(cartao != 'CreditCard' && cartao != 'DebitCard'){
+                    setStatus('error')
+                    setMsg('Por favor, selecione o tipo do seu cartão: crédito ou débito');
+                    setOpen(true);
+                  }else if(flag ==='Nenhum'){
+                    setStatus('error')
+                    setMsg('Por favor, selecione a bandeira do seu cartão');
+                    setOpen(true);
+                  }else{
+                    handleNext();
+                  }
+                }}
+              >
+                Próximo
+              </Button>
+            </Grid>
+          </Grid>
+        
+        </>
+      );
+    case 1:
+      return (
+        <>
+        <Box borderRadius={12} style={{marginLeft:35,height:'45%',width:'90%'}}>
+        <Typography style={{color:'#44323D',paddingTop:20,textAlign:'center'}} variant='h1'>
+          Detalhes do cartão
+        </Typography>
+        <div style={{height:20}}/>
+        <Grid container justify='center' style={{paddingLeft:20}} lg={12}>
+          <Grid lg={5}>
+            <TextField  InputLabelProps={{classes: {root: classes.inputLabel,} }} defaultValue={nome} variant="outlined" label='Nome no cartão *' onChange={(event)=>setNome(event.target.value)} style={{width:250,color:'black'}}/>
+          </Grid>
+          <Grid lg={5}>
+            <TextField InputLabelProps={{classes: {root: classes.inputLabel,} }} defaultValue={numero} onChange={(event)=>setNumero(event.target.value)} variant="outlined" style={{width:266}} type='number' label='Numero do cartão *'/>
+          </Grid>
+          <Grid lg={5}>
+          <InputMask
+            mask="99/9999"
+            onChange={(event)=>setData(event.target.value) }
+          >
+            {() => <TextField
+            style={{width:'89%'}}
+              label='Data de expiração *'
+              margin="normal"
+              InputLabelProps={{classes: {root: classes.inputLabel}}}
+              variant='outlined'
+              type="text"
+              />}
+          </InputMask>
+          </Grid>
+          <Grid lg={5} style={{paddingTop:17}} >
+            <TextField defaultValue={cvv} style={{width:'94%'}}onChange={(event)=>setCvv(event.target.value)} InputLabelProps={{classes: {root: classes.inputLabel,} }} variant="outlined" type='number'  label='Código de segurança *'/>
+          </Grid>
+        </Grid>
+        </Box>
+        <Grid lg={12}  justify="space-between" container>
+            <Grid lg={1} container item></Grid>
+            <Grid lg={2} container item>
+              <Button
+                style={{ fontWeight:'bold',color: '#44323D' }}
+                onClick={handleBack}
+              >
+                Voltar
+              </Button>
+            </Grid>
+            <Grid lg={4} container item>
+              <Button
+                style={{ color: 'white', backgroundColor: '#44323D' }}
+                variant="contained"
+                onClick={()=>{
+                  if(nome.length==0){
+                    setStatus('error');
+                    setMsg('Por favor, insira o nome que está no cartão');
+                    setOpen(true);
+                }else if(numero.toString().length!=16){
+                    setStatus('error');
+                    setMsg('Por favor, insira o número do cartão');
+                    setOpen(true);
+                }else if(data.length!=7){
+                    setStatus('error');
+                    setMsg('Por favor, insira uma data de expiração válida do cartão');
+                    setOpen(true);
+                }else if(data.indexOf('/')==-1){
+                    setStatus('error');
+                    setMsg('Por favor, insira uma barra para separar o mês e o ano');
+                    setOpen(true);              
+                }else if(cvv.toString().length!='3' && cvv.toString().length!='4'){
+                    setStatus('error');       
+                    setMsg('Por favor, insira um código de segurança válido!');
+                    setOpen(true); 
+                }else {
+                handleNext()}}}
+              >
+                Próximo
+              </Button>
+            </Grid>
+          </Grid>
+  <hr style={{width:'70%',marginTop:20}}/>
+        </>
+      );
+    case 2:
+      return (
+<>
+        <Box borderRadius={12} style={{marginLeft:35,height:'45%',width:'90%'}}>
+          
+        <Typography variant = 'h1'  style={{paddingTop:20,color:'#44323D',textAlign:'center'}}>
+          Resumo do cartão
+        </Typography>
+        <div style={{height:20}}/>
+        <Grid container lg ={12}  style={{paddingLeft:60}}>
+        <Grid lg={6} item container>
+        <Typography style={{fontWeight:'bold',paddingTop:20, paddingLeft:20,color:'#44323D'}}>
+          BANDEIRA : {flag}
+        </Typography>
+        </Grid>
+        <Grid lg={6} item container>
+        <Typography style={{fontWeight:'bold',paddingTop:20, paddingLeft:20,color:'#44323D'}}>
+          TIPO DE CARTÃO : {cartao}
+        </Typography>
+        </Grid>
+        <Grid lg={6} item container>
+        <Typography style={{fontWeight:'bold',paddingTop:20, paddingLeft:20,color:'#44323D'}}>
+          NOME NO CARTÃO : {nome}
+        </Typography>
+        </Grid>
+        <Grid lg={6} item container>
+        <Typography style={{fontWeight:'bold',paddingTop:20, paddingLeft:20,color:'#44323D'}}>
+          NÚMERO DO CARTÃO : {numero}
+        </Typography>
+        </Grid>
+        <Grid lg={6} item container>
+        <Typography style={{fontWeight:'bold',paddingTop:20, paddingLeft:20,color:'#44323D'}}>
+          CÓDIGO DE SEGURANÇA : {cvv}
+        </Typography>
+        </Grid>
+        <Grid lg={6} item container>
+        <Typography style={{fontWeight:'bold',paddingTop:20, paddingLeft:20,color:'#44323D'}}>
+          DATA : {data}
+        </Typography>
+        </Grid>
+        </Grid>
+        </Box>
+        <Grid lg={12} style={{paddingTop:20}} justify="space-between" container>
+            <Grid lg={1} container item></Grid>
+            <Grid lg={2} container item>
+              <Button
+                style={{ fontWeight:'bold',color: '#44323D' }}
+                onClick={handleBack}
+              >
+                Voltar
+              </Button>
+            </Grid>
+        <Typography style={{textAlign:'center',paddingTop:15,fontSize:'1.0em'}} >
+            Total: R${total}
+        </Typography>
+            <Grid lg={4} container item>
+              <Button
+                style={{ color: 'white', backgroundColor: '#44323D' }}
+                variant="contained"
+                onClick={()=>{handleNext(); pagar()}}
+              >
+                Finalizar
+              </Button>
+            </Grid>
+          </Grid>
+  <hr style={{width:'70%',marginTop:20}}/>
   </>
-);
-
+      );
+  
+    default:
+      return 'Unknown stepIndex';
+  }
+}
+const Checkout = () => {
+  const [cartao, setCartao] = React.useState('Nenhum');
+  const handleChange = (event) => {
+    setCartao(event.target.value);
+  };
+  const classes=useStyles(); 
+  const[code,setCode] = useState(0);
+  const[tid,setTid] = useState(0);
+  const[open,setOpen] = useState(false);
+  const[status,Setstatus] = useState('error');
+  const[msg,setMsg]=useState('Erro');
+  const [numero,setNumero] = useState(0);
+  const [cvv,setCvv] = useState(0);
+  const [data,setData] = useState('');
+  const [nome,setNome] = useState('');
+  const [selectedFlag, setSelectedFlag] = useState('Nenhum');
+  const [visaElev, setVisaElev] = useState(3);
+  const [hiperElev, setHiperElev] = useState(3);
+  const [eloElev, setEloElev] = useState(3);
+  const [masterElev, setMasterElev] = useState(3);
+  const [activeStep, setActiveStep] = React.useState(0);
+  const total = useSelector((state)=>state.cart);
+  const steps = getSteps();
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+  return (
+    <>
+      <Container maxWidth="lg">
+      <Alerta
+                openAlert={open}
+                message={msg}
+                status={status}
+                handleClose={(event, reason) => {
+                  if (reason === 'clickaway') {
+                    return;
+                  }
+                setOpen(false)
+                }}
+                vertical="top"
+                horizontal="right"
+              />
+        <Grid
+          justify="center"
+          container
+          spacing={2}
+          style={{ marginTop: 64, marginBottom: 64 }}
+        >
+          <Grid lg="12">
+            <Typography style={styles.title}>Pagamento</Typography>
+          </Grid>
+          <Grid lg={12} justify="flex-end" container>
+            <div style={Estilos.flexRowCENTER2}>
+              <a href="/carinho">
+                <img src={cartBlank} alt="Carinho" />
+              </a>
+              <hr style={styles.hrstyle} />
+              <a href="/entrega">
+                <img src={nodeli} alt="Entrega" />
+              </a>
+              <hr style={styles.hrstyle} />
+              <div style={styles.payment}>
+                <a href="/">
+                  <img src={payment} alt="Pagamento" />
+                </a>
+              </div>
+            </div>
+          </Grid>
+          <Hidden mdDown>
+          <Paper
+            elevation={3}
+            style={{ backgroundColor: '#D2C9C7', height: 600, width: '62%' }}
+          >
+            <Grid lg={12}>
+              <div style={{ height: 30 }}></div>
+            </Grid>
+            <Grid lg={12} container justify="center" alignItems="center">
+              <div className={classes.root}>
+                <Stepper
+                  style={{ backgroundColor: '#D2C9C7' }}
+                  activeStep={activeStep}
+                  alternativeLabel
+                >
+                  {steps.map((label) => (
+                    <Step key={label}>
+                      <StepLabel>{label}</StepLabel>
+                    </Step>
+                  ))}
+                </Stepper>
+              </div>
+            </Grid>
+            {activeStep === steps.length ? (
+              <>
+              <Grid lg={12}>
+            <Typography variant = 'h1'  style={{paddingTop:10,color:'#44323D',textAlign:'center'}}>
+                Seu pagamento está sendo autenticado, por favor aguarde!
+              </Typography>
+              </Grid>
+              <Grid lg={12}>
+            <Typography variant = 'h1'  style={{paddingTop:50,color:'#44323D',textAlign:'center'}}>
+              Estatus da transação: {code}
+            </Typography>
+            <Grid lg={12}>
+            <Typography variant = 'h1'  style={{paddingTop:10,color:'#44323D',textAlign:'center'}}>
+              Código do pagamento: {tid}
+            </Typography>
+              </Grid>
+              </Grid>
+              </>
+            ) : (
+              <>
+                {getStepContent(
+                  classes,
+                  setCode,
+                  setTid,
+                  total,
+                  setOpen,
+                  setMsg,
+                  Setstatus,
+                  numero,
+                  setNumero,
+                  cvv,
+                  setCvv,
+                  nome,
+                  setNome,
+                  data,
+                  setData,
+                  activeStep,
+                  steps,
+                  handleNext,
+                  handleBack,
+                  cartao,
+                  handleChange,
+                  activeStep,
+                  visaElev,
+                  masterElev,
+                  hiperElev,
+                  eloElev,
+                  selectedFlag,
+                  setSelectedFlag,
+                  setVisaElev,
+                  setMasterElev,
+                  setHiperElev,
+                  setEloElev,
+                )}
+              </>
+            )}
+          </Paper>
+          </Hidden>
+          <Hidden lgUp>
+                  <Checkout2/>
+          </Hidden> 
+        </Grid>
+      </Container>
+    </>
+  );
+};
 export default withNav(withAnimation(Checkout));

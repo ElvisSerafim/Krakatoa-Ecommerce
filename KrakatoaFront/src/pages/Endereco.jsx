@@ -483,7 +483,7 @@ class Endereco extends PureComponent {
                               cidade: this.state.cidade,
                               numero: this.state.numero,
                               complemento: this.state.complemento,
-                              nome: this.state.nome + '' + this.state.sobrenome,
+                              nome: this.state.nome + ' ' + this.state.sobrenome,
                             },
                           },
                         }}
