@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useSelector} from 'react-redux';
-import {InputLabel,FormControl,Paper,Select,Container,MenuItem,Hidden,makeStyles,Stepper, Step,StepLabel, Grid, Typography, Button, Box,TextField } from '@material-ui/core/';
+import {InputLabel,FormControl,Paper,Select,Container,MenuItem,Hidden,makeStyles,Stepper, Step,StepLabel, Grid, Typography, Button, Box,TextField, unstable_createMuiStrictModeTheme } from '@material-ui/core/';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
-import {Redirect,withRouter,useHistory } from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 import Footer from '../components/Footer';
 import cartBlank from '../img/cartBlank.svg';
 import nodeli from '../img/noDelivery.svg';
@@ -106,7 +106,7 @@ function getStepContent(
   };
     const pagar = async()=>{
         if(cartao ==='CreditCard'){
-     dado = await credito(nome,total*100,numero,nome,data,cvv,3333,flag);
+     dado = await credito(nome,total,numero,nome,data,cvv,3333,flag);
     if(dado.payment.returnCode==4||dado.payment.returnCode==6) {
       setCode('Sucesso, volte sempre!')
       setTid(dado.payment.paymentId);
@@ -115,7 +115,7 @@ function getStepContent(
       setTid('Transação falha');
     }
     }else if (cartao == 'DebitCard'){
-    dado = await debito(nome,total*100,numero,nome,data,cvv,2222,flag);
+    dado = await debito(nome,total,numero,nome,data,cvv,2222,flag);
     setCode('Você será redirecionado para a pagina da cielo para terminar o pagamento');  
     window.open(dado.payment.authenticationUrl);
   }
@@ -312,7 +312,7 @@ function getStepContent(
             onChange={(event)=>setData(event.target.value) }
           >
             {() => <TextField
-            style={{width:'89%'}}
+            style={{width:'92%'}}
               label='Data de expiração *'
               margin="normal"
               InputLabelProps={{classes: {root: classes.inputLabel}}}
@@ -322,7 +322,7 @@ function getStepContent(
           </InputMask>
           </Grid>
           <Grid lg={5} style={{paddingTop:17}} >
-            <TextField defaultValue={cvv} style={{width:'94%'}}onChange={(event)=>setCvv(event.target.value)} InputLabelProps={{classes: {root: classes.inputLabel,} }} variant="outlined" type='number'  label='Código de segurança *'/>
+            <TextField defaultValue={cvv} style={{width:'98%'}}onChange={(event)=>setCvv(event.target.value)} InputLabelProps={{classes: {root: classes.inputLabel,} }} variant="outlined" type='number'  label='Código de segurança *'/>
           </Grid>
         </Grid>
         </Box>
@@ -424,7 +424,7 @@ function getStepContent(
               </Button>
             </Grid>
         <Typography style={{textAlign:'center',paddingTop:15,fontSize:'1.0em'}} >
-            Total: R${total}
+            Total: R${total/100}
         </Typography>
             <Grid lg={4} container item>
               <Button
@@ -445,6 +445,7 @@ function getStepContent(
   }
 }
 const Checkout = () => {
+  const location = useLocation();
   const [cartao, setCartao] = React.useState('Nenhum');
   const handleChange = (event) => {
     setCartao(event.target.value);
@@ -465,14 +466,19 @@ const Checkout = () => {
   const [eloElev, setEloElev] = useState(3);
   const [masterElev, setMasterElev] = useState(3);
   const [activeStep, setActiveStep] = React.useState(0);
-  const total = useSelector((state)=>state.cart);
+  const [total,setTotal] = useState(0);
   const steps = getSteps();
+  useEffect(()=>{
+    let totalAux = location.state.total;
+    setTotal(totalAux);
+  },[]);
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+
   return (
     <>
       <Container maxWidth="lg">
