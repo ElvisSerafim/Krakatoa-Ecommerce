@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import InputMask from 'react-input-mask';
+import {useLocation} from 'react-router-dom';
 import {
   InputLabel,
   FormControl,
@@ -31,6 +32,10 @@ const useStyles = makeStyles ((theme) => ({
   }
 }));
 const Checkout = () => {
+  useEffect(()=>{
+    let totalAux = location.state.total;
+    setTotal(totalAux);
+  },[]);
   const classes=useStyles(); 
   const verificarData = ()=> {
         let cont;
@@ -45,6 +50,7 @@ const Checkout = () => {
     const handleChangeCartao = (event) => {
         setCartao(event.target.value);
     };
+    const location = useLocation();
     const allProducts = useSelector((state) => state.productsCart);
     const [pag,setPag] = useState(0);
     const [code,setCode] = useState(0)
@@ -58,22 +64,22 @@ const Checkout = () => {
     const[open,setOpen] = useState(false);
     const[status,Setstatus] = useState('error');
     const[msg,setMsg]=useState('Erro');
-    const total = useSelector((state)=>state.cart);
+    const [total,setTotal] = useState(0)
     let dado;
     
     const pagar =async()=>{
         if(cartao ==='CreditCard'){
-     dado = await credito(nome,total*100,numero,nome,data,cvv,3333,flag);
+     dado = await credito(nome,total,numero,nome,data,cvv,3333,flag);
      if(dado.payment.returnCode==4||dado.payment.returnCode==6) {
     setPag(1)  
-    setCode('Sucesso, volte sempre!')
+    setCode('Sucesso, volte sempre!')    
       setTid(dado.payment.paymentId);
     }else{
       setCode('Ocorreu um erro na transação');
       setTid('Transação falha');
     }
   }else if (cartao == 'DebitCard'){
-    dado = await debito(nome,total*100,numero,nome,data,cvv,2222,flag);
+    dado = await debito(nome,total,numero,nome,data,cvv,2222,flag);
         setPag(1)
         setCode('Você será redirecionado para a pagina da cielo para terminar o pagamento');
     window.open(dado.payment.authenticationUrl);
@@ -166,7 +172,7 @@ const Checkout = () => {
             <TextField InputLabelProps={{classes: {root: classes.inputLabel,} }} defaultValue={cvv} style={{width:'77%'}} onChange={(event)=>setCvv(event.target.value)} variant="outlined" type='number' label='Código de segurança *'/>
           </Grid>
         <Typography style={{textAlign:'center',paddingTop:15,fontSize:'1.0em'}} >
-            Total: R${total}
+            Total: R${total/100}
         </Typography>
         <Grid xs={12} style={{paddingTop:10}} container justify='center'>
         <Button style={{backgroundColor:'#44323D',width:'40%', color:'white'}} onClick={()=>{

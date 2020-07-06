@@ -145,9 +145,9 @@ const Sumario = ({ location }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   let dado;
-  const boletopag = async ()=>{
     let frete = parseFloat(location.state.totalFrete.replace(',','.'));
     let price = (totalFinal + frete)*100
+  const boletopag = async ()=>{
     dado = await boleto(price, location.state.endereco.nome, location.state.endereco.cpf,location.state.endereco.rua,33,location.state.endereco.complemento,location.state.endereco.cep,location.state.endereco.cidade,'BA','BRA',location.state.endereco.bairro,123)
     window.open(dado.payment.url)
   }
@@ -350,7 +350,10 @@ const Sumario = ({ location }) => {
                         boletopag();
                         history.push('/');
                       } else if (pagamento ==='CARTAO'){
-                        history.push('/checkout');
+                        history.push({
+                          pathname: '/checkout',
+                          state: { total: price}
+                        });
                       }else{
                         setMsg('Por favor, insira uma forma de pagamento');
                         setOpen(true)
