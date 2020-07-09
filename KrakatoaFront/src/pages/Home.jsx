@@ -105,8 +105,13 @@ const Home = () => {
       </Grid>
       <Container maxWidth="lg">
         <Grid container spacing={2} justify="space-evenly">
-
-          <Grid style={{paddingBottom:40,paddingTop:20}}item lg={12} md={12} sm={12}>
+          <Grid
+            style={{ paddingBottom: 40, paddingTop: 20 }}
+            item
+            lg={12}
+            md={12}
+            sm={12}
+          >
             <Typography style={styles.Titulo} color="primary">
               Mais Procurados
             </Typography>
@@ -143,7 +148,7 @@ const Home = () => {
           <Grid
             item
             container
-            style={{paddingTop:50, paddingBottom: '20px' }}
+            style={{ paddingTop: 50, paddingBottom: '20px' }}
             justify="center"
             lg={12}
             md={12}
@@ -191,14 +196,15 @@ const Home = () => {
               />
             </div>
             <Typography color="primary" variant="h1" style={{ paddingTop: 30 }}>
-              PAGAMENTO 
+              PAGAMENTO
             </Typography>
             <Typography color="primary">
               Variados tipos de pagamentos.
             </Typography>
             <Typography color="primary" style={{ paddingBottom: 10 }}>
               {' '}
-              Desde boleto até cartões de crédito e débito das principais bandeiras do país!
+              Desde boleto até cartões de crédito e débito das principais
+              bandeiras do país!
             </Typography>
           </Grid>
           <Grid item lg={3} md={3} sm={3} xs={12}>
@@ -213,7 +219,7 @@ const Home = () => {
               SEGURANÇA
             </Typography>
             <Typography color="primary">
-              Aqui sua compra é garantida! 
+              Aqui sua compra é garantida!
             </Typography>
             <Typography color="primary">
               {' '}
@@ -238,7 +244,7 @@ const Home = () => {
               para todos os gostos da nossa cliente!
             </Typography>
           </Grid>
-          <Grid item lg={12} md={12} sm={12} style={{paddingBottom:12}}>
+          <Grid item lg={12} md={12} sm={12} style={{ paddingBottom: 12 }}>
             <Typography color="primary" style={styles.Titulo}>
               Novidades
             </Typography>
@@ -310,14 +316,22 @@ const Home = () => {
           <Grid item container xl={3} lg={3} md={4} sm={5}>
             <Box flexDirection="column" style={Estilos.flexColumnStandard}>
               <Typography
-                style={{ color: 'white',textAlign: 'center', fontSize: '1.2em' }}
+                style={{
+                  color: 'white',
+                  textAlign: 'center',
+                  fontSize: '1.2em',
+                }}
               >
                 Se inscreva no nosso loja
               </Typography>
 
               <Typography
                 color="secondary"
-                style={{color: 'white', textAlign: 'center', fontSize: '1.2em' }}
+                style={{
+                  color: 'white',
+                  textAlign: 'center',
+                  fontSize: '1.2em',
+                }}
                 variant="h5"
               >
                 {' '}

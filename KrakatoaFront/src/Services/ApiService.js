@@ -32,7 +32,6 @@ const ApiService = {
       };
 
       const request = await fetch(url, requestInfo);
-
       if (request.ok) {
         const response = await request.json();
         const { accessToken } = await response;
@@ -211,20 +210,18 @@ const ApiService = {
     }
   },
 
-  getPedidos: async (data) => {
+  getPedidos: async (token) => {
     try {
-      const { token } = data;
-      const Authorization = `Bearer ${token}`;
       const requestInfo = {
-        method: 'POST',
-        body: JSON.stringify(data),
+        method: 'GET',
         headers: new Headers({
-          Authorization,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         }),
       };
-      const url = `http://64.227.106.165/api2/pedido${data.userId}`;
+      const url = 'http://64.227.106.165/api2/pedidos';
       const request = await fetch(url, requestInfo);
+
       if (request.ok) {
         return request.json();
       }

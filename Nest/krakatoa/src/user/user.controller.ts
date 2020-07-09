@@ -17,7 +17,6 @@ import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from './get-user.decorator';
 import { DetailsUserDto } from './dto/update-details-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Pedido } from '../pedido/schemas/pedido.schema';
 
 @Controller('user')
 export class UserController {
@@ -68,11 +67,6 @@ export class UserController {
     return await UserResponse;
   }
 
-  @UseGuards(AuthGuard())
-  @Get('/pedidos')
-  async GetPedidos(@GetUser() user: User,): Promise<Pedido[]> {
-    return await this.userService.getPedidos(user);
-  }
   
   @UseGuards(AuthGuard())
   @Put()

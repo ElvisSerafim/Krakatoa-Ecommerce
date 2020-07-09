@@ -208,7 +208,12 @@ const ProdutoPage = ({ match }) => {
 
   return (
     <>
-      <Grid container spacing={2} justify="flex-start" style={{ marginBottom: 64 }}>
+      <Grid
+        container
+        spacing={2}
+        justify="flex-start"
+        style={{ marginBottom: 64 }}
+      >
         <Hidden smDown>
           <Grid item lg={1} md={1}>
             <div style={styles.marginDiv}>
@@ -242,27 +247,14 @@ const ProdutoPage = ({ match }) => {
         <Grid item lg={1} md={1} />
         <Hidden smDown>
           <Grid item lg={6} md={6}>
-            <Paper elevation={4} style={{ backgroundColor: '#D2C9C7', minHeight: 700, marginTop: 40 }}>
-              <div
-                style={{
-                  ...Estilos.flexRowStandard,
-                  flexDirection: 'row',
-                  paddingBottom: '50',
-                  justifyContent: 'space-between',
-                }}
-              >
-
-                {/*   <div style={styles.promo}>
-                    <Typography style={styles.promoText} variant="body1">
-                      Promoção
-                    </Typography>
-                  </div> */}
-                <div>
-                  <Typography style={styles.product} variant="body1">
-                    ID do Produto: {match.params.id}
-                  </Typography>
-                </div>
-              </div>
+            <Paper
+              elevation={4}
+              style={{
+                backgroundColor: '#D2C9C7',
+                minHeight: 700,
+                marginTop: 40,
+              }}
+            >
               <div style={styles.quad2inside}>
                 <Typography
                   style={{ fontStyle: 'normal', margin: 0 }}
@@ -293,7 +285,6 @@ const ProdutoPage = ({ match }) => {
                     label="Tamanhos"
                   />
                 </div>
-
 
                 <Alerta
                   message="Produto adicionado!"

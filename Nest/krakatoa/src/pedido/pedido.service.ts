@@ -19,18 +19,15 @@ export class PedidoService {
     @InjectModel(User.name) private userModel: Model<User>,
     @InjectModel(Produto.name) private produtoModel: Model<Produto>,
   ) {}
+  
+  async getPedidos(user: User): Promise<Pedido[]> {
+    
+    const Pedidos = await this.pedidoModel.find({ user: user._id });
 
-  async getPedidos(userId: string): Promise<Pedido[]> {
-    const User = await this.userModel.findById(userId);
-    if (User) {
-      const Pedidos = await this.pedidoModel.find({ user: User._id });
-
-      return Pedidos;
-    }
-    throw new Error('Usuario não encontrado');
+    return Pedidos;
   } 
 
-  async createPedido(pedidoDto: PedidoDto, userId: string): Promise<Pedido> {
+  async createPedido(pedidoDto: PedidoDto, user: User): Promise<Pedido> {
     try {
       pedidoDto.produtos.forEach(produto => {
         produto.Produto_id = mongo.ObjectID.createFromHexString(
@@ -47,22 +44,17 @@ export class PedidoService {
         );
       }
 
-      const user = await this.userModel.findById(userId);
 
-      if (user) {
-        user.pedidos.push(Pedido._id);
-        Pedido.user = user._id;
-        const UserSalvo = await user.save();
-        const PedidoSalvo = await Pedido.save();
-        if (UserSalvo && PedidoSalvo) {
-          return Pedido;
-        }
+      user.pedidos.push(Pedido._id);
+      Pedido.user = user._id;
+      const UserSalvo = await user.save();
+      const PedidoSalvo = await Pedido.save();
+      if (UserSalvo && PedidoSalvo) {
+        return Pedido;
       }
+      
     } catch (error) {
       this.logger.log(error);
-      if (error.kind === 'ObjectId') {
-        throw new BadRequestException('Não foi possivel achar o Usuario');
-      }
       throw new Error('Não foi possivel criar um pedido');
     }
   }
