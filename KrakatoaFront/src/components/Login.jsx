@@ -195,15 +195,15 @@ const Login = () => {
       nome,
     };
 
-      if (password !== confirmPassword) {
-        setOpenAlert(true);
-        setMessage('Senhas não coincidem !');
-        setStatus('error');
-        throw new Error('Senhas Diferentes !');
-      }
-      return history.push('/conta/');
+    if (password !== confirmPassword) {
+      setOpenAlert(true);
+      setMessage('Senhas não coincidem !');
+      setStatus('error');
+      throw new Error('Senhas Diferentes !');
     }
+    return history.push('/conta/');
   };
+
   const handleOpen = () => {
     setOpen(true);
   };

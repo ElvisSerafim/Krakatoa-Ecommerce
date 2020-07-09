@@ -5,10 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { Grid, Typography, Button } from '@material-ui/core/';
-import MaskedInput from 'react-text-mask';
-import Input from '@material-ui/core/Input';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
+import InputMask from 'react-input-mask';
 import { useSelector } from 'react-redux';
 import ContaComp from '../components/ContaComp';
 import Alerta from '../components/Alerta';

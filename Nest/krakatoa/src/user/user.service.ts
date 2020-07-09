@@ -18,6 +18,7 @@ import { compare } from 'bcrypt';
 import * as Jwt from 'jsonwebtoken';
 import { uuid } from 'uuidv4';
 import { Mail } from './mail/nodemailer';
+import { Pedido } from '../pedido/schemas/pedido.schema';
 
 export interface userResponse {
   email: string;
@@ -46,6 +47,7 @@ export interface tokenDecode {
 export class UserService {
   private logger = new Logger('User Service');
   constructor(
+    @InjectModel(Pedido.name) private pedidoModel: Model<Pedido>,
     @InjectModel(User.name)
     private userModel: Model<User>,
     private jwtService: JwtService,
@@ -243,4 +245,11 @@ export class UserService {
     }
     throw new Error('Não foi possivel Salvar');
   }
+
+  async getPedidos(user: User): Promise<Pedido[]> {
+    const Pedidos = await this.pedidoModel.find({ user: user._id });
+
+    return Pedidos;
+  } 
+
 }

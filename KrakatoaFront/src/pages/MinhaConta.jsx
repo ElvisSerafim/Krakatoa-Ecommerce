@@ -3,8 +3,8 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { Grid, Typography,Container } from '@material-ui/core/';
-import { useSelector } from 'react-redux';
+import { Grid, Typography } from '@material-ui/core/';
+import { decode } from 'jsonwebtoken';
 import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
 import ContaComp from '../components/ContaComp';
@@ -67,13 +67,16 @@ function MinhaConta() {
 
   return (
     <>
-      <Grid
-        container
-        spacing={2}
-        justify="space-around"
-      >
-        <Grid item lg={12} md={12} sm={12} xs={12} style={{alignContent:'center'}}>
-          <Typography variant="h4" color="primary">
+      <Grid container spacing={2} justify="space-around">
+        <Grid
+          item
+          lg={12}
+          md={12}
+          sm={12}
+          xs={12}
+          style={{ alignContent: 'center' }}
+        >
+          <Typography variant="h3" style={{ marginTop: 0 }} color="primary">
             Minha Conta
           </Typography>
         </Grid>

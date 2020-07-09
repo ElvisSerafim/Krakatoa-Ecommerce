@@ -28,14 +28,7 @@ export class PedidoService {
       return Pedidos;
     }
     throw new Error('Usuario não encontrado');
-  } /*
-  updatePedido(PedidoDto: PedidoDto, id: string): PedidoEntity {
-    return PedidoEntity;
-  }
-  (PedidoDto: PedidoDto, id: string): PedidoEntity {
-    return PedidoEntity;
-  }  */
-  /* Create Pagamento */
+  } 
 
   async createPedido(pedidoDto: PedidoDto, userId: string): Promise<Pedido> {
     try {

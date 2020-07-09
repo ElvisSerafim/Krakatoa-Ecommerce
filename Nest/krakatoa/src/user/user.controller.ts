@@ -17,6 +17,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from './get-user.decorator';
 import { DetailsUserDto } from './dto/update-details-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Pedido } from '../pedido/schemas/pedido.schema';
 
 @Controller('user')
 export class UserController {
@@ -49,12 +50,6 @@ export class UserController {
   ): Promise<{ accesstoken: string }> {
     return this.userService.Recover(id, newPassword);
   }
-  /*   @Post('/confirm/:id')
-  async Confirmar(
-    @Param('id') jwt: string,
-  ): Promise<void> {
-    await this.userService.Confirm(jwt);
-  } */
 
   @UseGuards(AuthGuard())
   @Put('/detalhes')
@@ -73,6 +68,12 @@ export class UserController {
     return await UserResponse;
   }
 
+  @UseGuards(AuthGuard())
+  @Get('/pedidos')
+  async GetPedidos(@GetUser() user: User,): Promise<Pedido[]> {
+    return await this.userService.getPedidos(user);
+  }
+  
   @UseGuards(AuthGuard())
   @Put()
   async updateEndeUser(
