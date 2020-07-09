@@ -195,21 +195,12 @@ const Login = () => {
       nome,
     };
 
-    const request = await api.Cadastro(data);
-    if (request === 'ok') {
-      let dataToken;
-      if (sessao) {
-        dataToken = {
-          token: localStorage.getItem('token'),
-        };
-      } else {
-        dataToken = {
-          token: sessionStorage.getItem('token'),
-        };
+      if (password !== confirmPassword) {
+        setOpenAlert(true);
+        setMessage('Senhas não coincidem !');
+        setStatus('error');
+        throw new Error('Senhas Diferentes !');
       }
-      const usuario = await api.getUsuario(dataToken);
-      dispatch(setUser(usuario));
-
       return history.push('/conta/');
     }
   };

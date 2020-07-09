@@ -6,7 +6,6 @@ import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import RoomIcon from '@material-ui/icons/Room';
 import PermIdentityTwoToneIcon from '@material-ui/icons/PermIdentityTwoTone';
 import ExitToAppTwoToneIcon from '@material-ui/icons/ExitToAppTwoTone';
-import api from '../Services/ApiService';
 import Estilos from '../Estilos';
 
 const useStyles = makeStyles((theme) => ({
@@ -62,9 +61,10 @@ const ContaComp = (theme) => {
   const classes = useStyles(theme);
   const logout = async () => {
     const token = sessionStorage.getItem('token');
-    api.Logout(token);
-    sessionStorage.removeItem('token');
-    localStorage.removeItem('token');
+    if (token) {
+      sessionStorage.removeItem('token');
+      localStorage.removeItem('token');
+    }
   };
 
   return (

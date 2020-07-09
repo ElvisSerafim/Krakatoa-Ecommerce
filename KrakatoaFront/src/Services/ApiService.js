@@ -20,32 +20,9 @@ const ApiService = {
       return error;
     }
   },
-  GetProdutos: async (data) => {
-    try {
-      const url = 'http://64.227.106.165/api/produtos/query';
-      const requestInfo = {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: new Headers({
-          'Content-Type': 'application/json',
-        }),
-      };
-
-      const request = await fetch(url, requestInfo);
-
-      if (request.ok) {
-        const response = await request.json();
-        return response;
-      }
-
-      throw new Error('Não foi possivel conectar com o Server');
-    } catch (error) {
-      return [];
-    }
-  },
   Cadastro: async (data) => {
     try {
-      const url = 'http://64.227.106.165/api/user/';
+      const url = 'http://64.227.106.165/api2/user/';
       const requestInfo = {
         method: 'POST',
         body: JSON.stringify(data),
@@ -59,6 +36,7 @@ const ApiService = {
       if (request.ok) {
         const response = await request.json();
         const { accessToken } = await response;
+
         sessionStorage.setItem('token', accessToken);
         const ok = 'ok';
         return ok;
@@ -70,7 +48,7 @@ const ApiService = {
   },
   Login: async (data) => {
     try {
-      const url = 'http://64.227.106.165/api/user/login';
+      const url = 'http://64.227.106.165/api2/user/login';
       const requestInfo = {
         method: 'POST',
         body: JSON.stringify(data),
@@ -79,13 +57,10 @@ const ApiService = {
         }),
       };
       const request = await fetch(url, requestInfo);
-
       if (request.ok) {
         const response = await request.json();
-        const { token } = response;
-        const { sessao } = data;
-        if (sessao) localStorage.setItem('token', token);
-        await sessionStorage.setItem('token', token);
+        const { accessToken } = response;
+        sessionStorage.setItem('token', accessToken);
         const ok = 'ok';
         return ok;
       }
@@ -96,7 +71,7 @@ const ApiService = {
   },
   AtualizaUsuario: async (data) => {
     try {
-      const url = 'http://64.227.106.165/api/user/me';
+      const url = 'http://64.227.106.165/api2/user/detalhes';
       const { token } = data;
       const requestInfo = {
         method: 'PUT',
@@ -117,7 +92,7 @@ const ApiService = {
   },
   UsuarioEndereco: async (data) => {
     try {
-      const url = 'http://64.227.106.165/api/user/me/endereco';
+      const url = 'http://64.227.106.165/api2/user/me/';
       const { token } = data;
       const Authorization = `Bearer ${token}`;
       const requestInfo = {
@@ -137,17 +112,19 @@ const ApiService = {
       return error;
     }
   },
-  ApagarUsuario: async (email, password) => {
-    const res = await (fetch('http://64.227.106.165/api/user'),
-    {
+  ApagarUsuario: async (data) => {
+    const { token } = data;
+    const Authorization = `Bearer ${token}`;
+    const url = 'http://64.227.106.165/api2/user';
+    const requestInfo = {
       method: 'DELETE',
-      headers: { 'content-type': 'application/json' },
-      body: {
-        email,
-        password,
-      },
-    });
-    return res.json();
+      headers: new Headers({
+        Authorization,
+        'Content-Type': 'application/json',
+      }),
+    };
+    const res = await fetch(url, requestInfo);
+    if (res.ok) return res.json();
   },
   Contato: async (data) => {
     try {
@@ -159,7 +136,7 @@ const ApiService = {
         }),
       };
       const request = await fetch(
-        'http://64.227.106.165/api/contato',
+        'http://64.227.106.165/api2/contato',
         requestInfo,
       );
       if (request.ok) {
@@ -212,31 +189,9 @@ const ApiService = {
       return 'Não foi possivel acessar o servidor';
     }
   },
-  Logout: async (data) => {
-    try {
-      const { token } = data;
-      const Authorization = `Bearer ${token}`;
-      const requestInfo = {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: new Headers({
-          Authorization,
-          'Content-Type': 'application/json',
-        }),
-      };
-      const url = 'http://64.227.106.165/api/user/me/logout';
-      const request = await fetch(url, requestInfo);
-      if (request.ok) {
-        return request.json();
-      }
-      throw new Error('Não foi possivel acessar o servidor');
-    } catch (error) {
-      return 'Não foi possivel acessar o servidor';
-    }
-  },
   getUsuario: async (data) => {
     try {
-      const url = 'http://64.227.106.165/api/user/me/';
+      const url = 'http://64.227.106.165/api2/user/';
       const { token } = data;
       const requestInfo = {
         method: 'GET',
@@ -268,7 +223,7 @@ const ApiService = {
           'Content-Type': 'application/json',
         }),
       };
-      const url = 'http://64.227.106.165/api/pedidos';
+      const url = `http://64.227.106.165/api2/pedido${data.userId}`;
       const request = await fetch(url, requestInfo);
       if (request.ok) {
         return request.json();

@@ -54,7 +54,7 @@ export class UserService {
   async Recover(
     token: string,
     newPassword: string,
-  ): Promise<{ acessToken: string }> {
+  ): Promise<{ accesstoken: string }> {
     try {
       const DecodedToken = Jwt.decode(token) as tokenDecode;
       const { email } = DecodedToken;
@@ -66,8 +66,8 @@ export class UserService {
         user.resetId = undefined;
         await user.save();
         const payload: JwtPayload = { email, nome: user.nome };
-        const acessToken = Jwt.sign(payload, id, { expiresIn: 3600000 });
-        return { acessToken };
+        const accesstoken = Jwt.sign(payload, id, { expiresIn: 3600000 });
+        return { accesstoken };
       }
     } catch (error) {
       throw new UnauthorizedException('Token Invalido');
@@ -99,15 +99,15 @@ export class UserService {
 
   async CreateUser(
     createUserDto: CreateUserDto,
-  ): Promise<{ acessToken: string }> {
+  ): Promise<{ accesstoken: string }> {
     try {
       const createdUser = new this.userModel(createUserDto);
       if (createdUser) {
         await createdUser.save();
         const { email, nome } = createdUser;
         const payload: JwtPayload = { email, nome };
-        const acessToken = this.jwtService.sign(payload);
-        return { acessToken };
+        const accesstoken = this.jwtService.sign(payload);
+        return { accesstoken };
       }
     } catch (error) {
       this.logger.log(error);
@@ -118,7 +118,7 @@ export class UserService {
     }
   }
 
-  async Login(loginUserDto: LoginUserDto): Promise<{ acessToken: string }> {
+  async Login(loginUserDto: LoginUserDto): Promise<{ accesstoken: string }> {
     const { email, password } = loginUserDto;
     const model = this.userModel;
     const user = await User.findByCredentials(model, email, password);
@@ -128,8 +128,8 @@ export class UserService {
 
     const nome = user.nome !== undefined ? user.nome : 'Usuário';
     const payload: JwtPayload = { email, nome };
-    const acessToken = this.jwtService.sign(payload);
-    return { acessToken };
+    const accesstoken = this.jwtService.sign(payload);
+    return { accesstoken };
   }
 
   async UpdateDetailUser(

@@ -26,14 +26,14 @@ export class UserController {
   @Post()
   async createUser(
     @Body() createUserdto: CreateUserDto,
-  ): Promise<{ acessToken: string }> {
+  ): Promise<{ accesstoken: string }> {
     return await this.userService.CreateUser(createUserdto);
   }
 
   @Post('/login')
   async Login(
     @Body() loginUserDto: LoginUserDto,
-  ): Promise<{ acessToken: string }> {
+  ): Promise<{ accesstoken: string }> {
     return await this.userService.Login(loginUserDto);
   }
 
@@ -46,7 +46,7 @@ export class UserController {
   async Recover(
     @Param('id') id: string,
     @Body('newPassword') newPassword: string,
-  ): Promise<{ acessToken: string }> {
+  ): Promise<{ accesstoken: string }> {
     return this.userService.Recover(id, newPassword);
   }
   /*   @Post('/confirm/:id')
