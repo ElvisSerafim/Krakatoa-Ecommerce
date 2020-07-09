@@ -7,7 +7,7 @@ import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 
 async function bootstrap() {
-  const port = 3000;
+  const port = 5000;
   const logger = new Logger('bootstrap');
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.set('trust proxy', 1);

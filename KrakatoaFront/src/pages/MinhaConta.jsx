@@ -4,9 +4,9 @@
 
 import React, { useEffect, useState } from 'react';
 import { Grid, Typography } from '@material-ui/core/';
-import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
+import { decode } from 'jsonwebtoken';
 import './Contato.css';
 import ContaComp from '../components/ContaComp';
 import withAnimation from '../higherComponents/withAnimation';
@@ -58,17 +58,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function MinhaConta() {
-  const [user, setUser] = useState('');
-  const usuario = useSelector((state) => state.user);
+  const [userName, setUserName] = useState('Usuário');
   const classes = useStyles();
   useEffect(() => {
-    const Get = async () => {
-      const tentativa = await usuario;
-      console.log(tentativa);
-      setUser(tentativa.user);
-    };
-
-    Get();
+    const token = sessionStorage.getItem('token');
+    const dados = decode(token);
+    setUserName(dados.nome);
   });
 
   return (
@@ -77,7 +72,6 @@ function MinhaConta() {
       <Grid
         container
         spacing={2}
-        
         justify="space-around"
         style={{ marginBottom: 64 }}
       >
@@ -105,14 +99,11 @@ function MinhaConta() {
           className={classes.Cor}
         >
           <Typography style={styles.txt2} color="textSecondary">
-            Olá, {user.nome}
+            Olá, {userName}
           </Typography>
-          <Typography style={styles.txt3}  color="textSecondary">
+          <Typography style={styles.txt3} color="textSecondary">
             A partir do painel de controle da sua conta, você pode ver suas{' '}
-            <a
-              href="pedidos"
-              style={{ textDecoration: 'none', color: 'red' }}
-            >
+            <a href="pedidos" style={{ textDecoration: 'none', color: 'red' }}>
               Compras recentes{' '}
             </a>
             gerenciar seus{' '}
@@ -123,10 +114,7 @@ function MinhaConta() {
               Endereços de entrega{' '}
             </a>
             e editar suas{' '}
-            <a
-              href="detalhes"
-              style={{ textDecoration: 'none', color: 'red' }}
-            >
+            <a href="detalhes" style={{ textDecoration: 'none', color: 'red' }}>
               Senhas e detalhes da conta
             </a>
           </Typography>

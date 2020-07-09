@@ -1,26 +1,17 @@
 import React from 'react';
-import { Container, Grid, Typography, Box } from '@material-ui/core/';
+import { Container, Typography, Box } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
-import Cadastro from '../components/Cadastro';
+
 import Login from '../components/Login';
-import Navbar from '../components/Nav';
-import Topo from '../components/Topo';
-import Footer from '../components/Footer';
+
 import withAnimation from '../higherComponents/withAnimation';
 import withNav from '../higherComponents/withNav';
-
-const styles = {
-  input: {
-    display: 'flex',
-    width: '100%',
-    marginTop: '32px',
-  },
-};
 
 const useStyles = makeStyles((theme) => ({
   Fundo: {
     backgroundColor: theme.palette.background.color,
     AlignItems: 'center',
+    minHeight: 500,
   },
 }));
 
@@ -28,7 +19,7 @@ const LoginPage = () => {
   const classes = useStyles();
   return (
     <>
-      <Container maxWidth="lg" style={{ marginBottom: 64 }}>
+      <Container maxWidth="lg">
         <Typography
           variant="h3"
           color="primary"

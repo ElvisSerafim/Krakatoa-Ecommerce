@@ -158,64 +158,65 @@ const Login = () => {
   };
 
   const cadastro = async () => {
-    if (emailCadastro === '') {
-      setOpenAlert(true);
-      setMessage('Email vazio');
-      setStatus('error');
-      throw new Error('Email Vazio');
-    }
-    if (nome === '') {
-      setOpenAlert(true);
-      setMessage('Nome Vazio');
-      setStatus('error');
-      throw new Error('Nome Vazio');
-    }
-    if (password === '') {
-      setOpenAlert(true);
-      setMessage('Senha vazia');
-      setStatus('error');
-      throw new Error('Senha Vazia');
-    }
-    if (confirmPassword === '') {
-      setOpenAlert(true);
-      setMessage('Confirmar senha !');
-      setStatus('error');
-      throw new Error('Senha não confirmada');
-    }
-
-    if (password !== confirmPassword) {
-      setOpenAlert(true);
-      setMessage('Senhas não coincidem !');
-      setStatus('error');
-      throw new Error('Senhas Diferentes !');
-    }
-
-    const lower = emailCadastro.toLowerCase();
-    const data = {
-      email: emailCadastro,
-      password,
-      nome,
-    }
-
-    const request = await api.Cadastro(data);
-    if (request === 'ok') {
-      let dataToken;
-      if (sessao) {
-        dataToken = {
-          token: localStorage.getItem('token'),
-        };
-      } else {
-        dataToken = {
-          token: sessionStorage.getItem('token'),
-        };
+    try {
+      if (emailCadastro === '') {
+        setOpenAlert(true);
+        setMessage('Email vazio');
+        setStatus('error');
+        throw new Error('Email Vazio');
       }
-      const usuario = await api.getUsuario(dataToken);
-      dispatch(setUser(usuario));
+      if (nome === '') {
+        setOpenAlert(true);
+        setMessage('Nome Vazio');
+        setStatus('error');
+        throw new Error('Nome Vazio');
+      }
+      if (password === '') {
+        setOpenAlert(true);
+        setMessage('Senha vazia');
+        setStatus('error');
+        throw new Error('Senha Vazia');
+      }
+      if (confirmPassword === '') {
+        setOpenAlert(true);
+        setMessage('Confirmar senha !');
+        setStatus('error');
+        throw new Error('Senha não confirmada');
+      }
 
-      return history.push('/conta/');
-    }
+      if (password !== confirmPassword) {
+        setOpenAlert(true);
+        setMessage('Senhas não coincidem !');
+        setStatus('error');
+        throw new Error('Senhas Diferentes !');
+      }
 
-  }
+      const lower = emailCadastro.toLowerCase();
+      const data = {
+        email: emailCadastro,
+        password,
+        nome,
+      };
+
+      const request = await api.Cadastro(data);
+      if (request === 'ok') {
+        let dataToken;
+        if (sessao) {
+          dataToken = {
+            token: localStorage.getItem('token'),
+          };
+        } else {
+          dataToken = {
+            token: sessionStorage.getItem('token'),
+          };
+        }
+        const usuario = await api.getUsuario(dataToken);
+        dispatch(setUser(usuario));
+
+        return history.push('/conta/');
+      }
+    } catch (error) {}
+  };
   const handleOpen = () => {
     setOpen(true);
   };

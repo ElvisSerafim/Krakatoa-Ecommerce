@@ -5,11 +5,8 @@
 import React, { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { Grid, Typography, Button } from '@material-ui/core/';
-import MaskedInput from 'react-text-mask';
+import * as InputMask from 'react-input-mask';
 import './Contato.css';
-import Input from '@material-ui/core/Input';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
 import { useSelector } from 'react-redux';
 import ContaComp from '../components/ContaComp';
 import Alerta from '../components/Alerta';
@@ -41,52 +38,17 @@ const styles = {
   },
 };
 
-function TextMaskCustom(props) {
-  const { inputRef, ...other } = props;
-
-  return (
-    <MaskedInput
-      {...other}
-      ref={(ref) => {
-        inputRef(ref ? ref.inputElement : null);
-      }}
-      mask={[
-        '(',
-        /\d/,
-        /\d/,
-        ')',
-        ' ',
-        /\d/,
-        /\d/,
-        /\d/,
-        /\d/,
-        /\d/,
-        '-',
-        /\d/,
-        /\d/,
-        /\d/,
-        /\d/,
-      ]}
-      placeholderChar={'\u2000'}
-      showMask
-    />
-  );
-}
 function Detalhes() {
   const [pass, setPass] = useState('');
   const [newPass, setNewPass] = useState('');
   const [nome, setNome] = useState('');
-  const [tel, setTel] = useState('&366&');
+  const [tel, setTel] = useState('');
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('error');
   const [, setPassCurrent] = useState('');
   const [, setToken] = useState();
   const [, setOpenAlert] = useState(false);
-  const [values, setValues] = React.useState({
-    default: '71999362212',
-    numberformat: '1320',
-  });
 
   const usuario = useSelector((state) => state.user);
 
@@ -104,8 +66,8 @@ function Detalhes() {
 
   const enviar = async () => {
     try {
-      if (nome === '') throw new Error('Nome Vazio');
-      if (newPass === '') throw new Error('Nova Senha Vazio');
+      /*      if (nome === '') throw new Error('Nome Vazio');
+      if (newPass === '') throw new Error('Nova Senha Vazio'); */
       if (tel === '') throw new Error('Telefone Vazio');
       let tokenUser;
       if (sessionStorage.getItem('token') !== undefined) {
@@ -141,13 +103,6 @@ function Detalhes() {
     }
     setOpen(false);
   };
-
-  const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value,
-    });
-  };
   return (
     <>
       <Alerta
@@ -158,7 +113,12 @@ function Detalhes() {
         vertical="top"
         horizontal="right"
       />
-      <Grid container spacing={2} style={{ marginBottom: 64 }} justify="space-around">
+      <Grid
+        container
+        spacing={2}
+        style={{ marginBottom: 64 }}
+        justify="space-around"
+      >
         <Grid item lg={12} md={12} sm={12} xs={12}>
           <Typography variant="h4" color="primary" style={{ marginTop: 64 }}>
             Minha Conta
@@ -211,7 +171,11 @@ function Detalhes() {
             <TextField
               variant="filled"
               id="outlined-name"
-              style={{ width: '100%', backgroundColor: 'white', color: 'black' }}
+              style={{
+                width: '100%',
+                backgroundColor: 'white',
+                color: 'black',
+              }}
               color="primary"
               label="Nome"
               fullWidth
@@ -225,7 +189,11 @@ function Detalhes() {
             <TextField
               variant="filled"
               id="outlined-name"
-              style={{ width: '100%', backgroundColor: 'white', color: 'black' }}
+              style={{
+                width: '100%',
+                backgroundColor: 'white',
+                color: 'black',
+              }}
               type="password"
               fullWidth
               label="Nova Senha"
@@ -235,26 +203,26 @@ function Detalhes() {
               }}
             />
           </Grid>
+
           <Grid item lg={6} md={6} sm={12} xs={12}>
-            <FormControl style={{ width: '100%' }}>
-              <InputLabel
-                style={{ fontSize: '1.25em' }}
-                htmlFor="formatted-text-mask-input"
-              >
-                Telefone
-              </InputLabel>
-              <Input
-                defaultValue={values.default}
-                onChange={handleChange}
-                name="textmask"
-                id="formatted-text-mask-input"
-                value={tel}
-                onChange={(event) => {
-                  setTel(event.target.value);
-                }}
-                inputComponent={TextMaskCustom}
-              />
-            </FormControl>
+            <InputMask
+              mask="(99)99999-9999"
+              value={tel}
+              disabled={false}
+              maskChar=" "
+              onChange={(event) => {
+                setTel(event.target.value);
+              }}
+            >
+              {() => (
+                <TextField
+                  variant="filled"
+                  id="outlined-name"
+                  fullWidth
+                  label="Telefone"
+                />
+              )}
+            </InputMask>
           </Grid>
           <Grid item lg={12} container justify="flex-end">
             <Button
@@ -284,7 +252,7 @@ function Detalhes() {
                     setMessage('Você deve botar seu nome!');
                     break;
                   case tel.replace(/[^0-9]/g, '').length !== 11
-                      && tel !== '&366&':
+                    && tel !== '&366&':
                     setStatus('error');
                     setMessage(
                       'Você deve inserir um número de telefone válido com DDD',

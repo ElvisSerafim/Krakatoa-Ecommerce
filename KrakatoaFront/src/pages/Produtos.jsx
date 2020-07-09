@@ -32,7 +32,7 @@ const Produtos = ({ title, name }) => {
         chave: '',
       };
 
-      const request = await api.GetProdutos(data);
+      const request = await api.ListaProdutos(data);
 
       const a = [request];
 
