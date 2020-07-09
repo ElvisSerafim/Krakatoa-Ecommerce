@@ -105,7 +105,7 @@ const Home = () => {
       </Grid>
       <Container maxWidth="lg">
         <Grid container spacing={2} justify="space-evenly">
-          <Grid item lg={12} md={12} sm={12}>
+          <Grid item lg={12} md={12} sm={12} >
             <Typography style={styles.Titulo} color="primary">
               Mais Procurados
             </Typography>

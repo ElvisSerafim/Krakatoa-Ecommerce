@@ -96,9 +96,7 @@ const ItemMobile = ({
                 }}
                 alt="produto"
                 src={imageUrl}
-                onClick={() => {
-                  removerItem(product);
-                }}
+                
               />
             </Grid>
           </Grid>

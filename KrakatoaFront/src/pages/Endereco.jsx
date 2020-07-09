@@ -6,8 +6,10 @@ import {
   Button,
   Grid,
   Hidden,
+  makeStyles,
+
 } from '@material-ui/core/';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
 import { Link } from 'react-router-dom';
 import cartBlank from '../img/cartBlank.svg';
@@ -42,6 +44,12 @@ const styles = {
     padding: '40px',
   },
 };
+
+const useStyles = theme => ({
+  inputLabel: {
+    color: '#44323D'
+  }
+});
 
 const theme = createMuiTheme({
   palette: {
@@ -78,9 +86,9 @@ class Endereco extends PureComponent {
       message: '',
       open: false,
     };
-    console.log(props);
     
   }
+
 
   enviar = async () => {
     try {
@@ -158,9 +166,7 @@ class Endereco extends PureComponent {
           path = '/sumario';
           break;
       }
-      console.log(data);
       const request = await api.UsuarioEndereco(data);
-      console.log(request);
     } catch (error) {
       console.log(error);
     }
@@ -211,7 +217,8 @@ class Endereco extends PureComponent {
       }
       this.setState({ open: false });
     };
-    const { location } = this.props;
+    const { location, classes} = this.props;
+
     return (
       <>
           {location.state == undefined ? (
@@ -252,7 +259,7 @@ class Endereco extends PureComponent {
                 <TextFieldM
                   variant="filled"
                   label="Nome"
-                  style={{ width: '100%', backgroundColor:'white', marginTop:10}}
+                  style={{ width: '100%',marginTop:10}}
                   onChange={(e) => {
                   this.setState({ nome: e.target.value });
           }}
@@ -263,7 +270,7 @@ class Endereco extends PureComponent {
                 <Grid item lg={3} md={12} sm={12}>
                   <TextFieldM
                    variant="filled"
-                   style={{ width: '100%',backgroundColor:'white',marginTop:10}}
+                   style={{ width: '100%',marginTop:10}}
                    label="Sobrenome"
                     onChange={(e) => {
                       this.setState({ sobrenome: e.target.value });
@@ -275,7 +282,7 @@ class Endereco extends PureComponent {
                 <Grid item lg={3} md={12} sm={12}>
                 <TextFieldM
                    variant="filled"
-                   style={{ width: '100%',backgroundColor:'white', marginTop:10}}
+                   style={{ width: '100%', marginTop:10}}
                     label="Celular"
                     onChange={(e) => {
                       this.setState({ telefone: e.target.value });
@@ -288,7 +295,7 @@ class Endereco extends PureComponent {
                 <Grid item lg={3} md={12} sm={12}>
                 <TextFieldM
                    variant="filled"
-                   style={{ width: '100%',backgroundColor:'white', marginTop:10}}
+                   style={{ width: '100%', marginTop:10}}
                     label="CPF"
                     onChange={(e) => {
                       this.setState({ cpf: e.target.value });
@@ -300,7 +307,7 @@ class Endereco extends PureComponent {
                 <Grid item lg={3} md={12} sm={12}>
                 <TextFieldM
                    variant="filled"
-                   style={{ width: '100%',backgroundColor:'white', marginTop:10}}
+                   style={{ width: '100%', marginTop:10}}
                     label="CEP"
                     onChange={(e) => {
                       this.setState({ cep: e.target.value });
@@ -312,7 +319,7 @@ class Endereco extends PureComponent {
                 <Grid item lg={3} md={12} sm={12}>
                 <TextFieldM
                    variant="filled"
-                   style={{ width: '100%',backgroundColor:'white', marginTop:10}}
+                   style={{ width: '100%', marginTop:10}}
                     label="Bairro"
                     onChange={(e) => {
                       this.setState({ bairro: e.target.value });
@@ -324,7 +331,7 @@ class Endereco extends PureComponent {
                 <Grid item lg={3} md={12} sm={12}>
                 <TextFieldM
                    variant="filled"
-                   style={{ width: '100%',backgroundColor:'white', marginTop:10}}
+                   style={{ width: '100%', marginTop:10}}
                     label="Cidade"
                     onChange={(e) => {
                       this.setState({ cidade: e.target.value });
@@ -335,7 +342,7 @@ class Endereco extends PureComponent {
                 <Grid item lg={3} md={12} sm={12}>
                 <TextFieldM
                    variant="filled"
-                   style={{ width: '100%',backgroundColor:'white', marginTop:10}}
+                   style={{ width: '100%', marginTop:10}}
                     label="Rua"
                     onChange={(e) => {
                       this.setState({ rua: e.target.value });
@@ -346,7 +353,7 @@ class Endereco extends PureComponent {
                 <Grid item lg={3} md={12} sm={12}>
                 <TextFieldM
                    variant="filled"
-                   style={{ width: '100%',backgroundColor:'white', marginTop:10}}
+                   style={{ width: '100%', marginTop:10}}
                     label="Numero"
                     onChange={(e) => {
                       this.setState({ numero: e.target.value });
@@ -361,7 +368,7 @@ class Endereco extends PureComponent {
                 <Grid item lg={9} md={12} sm={12}>
                 <TextFieldM
                    variant="filled"
-                   style={{ width: '100%',backgroundColor:'white', marginTop:10}}
+                   style={{ width: '100%', marginTop:10}}
                     label="Complemento"
                     onChange={(e) => {
                       this.setState({ complemento: e.target.value });
@@ -499,7 +506,6 @@ class Endereco extends PureComponent {
                           onClick={() => {
                             this.enviar();
                           }}
-                          href="/checkout"
                         >
                           Continuar
                         </Button>

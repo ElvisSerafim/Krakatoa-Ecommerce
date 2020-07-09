@@ -427,7 +427,7 @@ const ProdutoPage = ({ match }) => {
           >
             <Typography
               variant="body2"
-              color="secondary"
+              color="textSecondary"
               style={{ marginLeft: '50px', paddingTop: '10px' }}
             >
               Descrição

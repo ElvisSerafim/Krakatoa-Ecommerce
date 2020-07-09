@@ -31,6 +31,7 @@ const Pedidos = () => {
 
     const getPedido = async () => {
       pedidos = await api.getPedidos(data);
+      console.log(pedidos);
       setPedidos(pedidos);
     };
 

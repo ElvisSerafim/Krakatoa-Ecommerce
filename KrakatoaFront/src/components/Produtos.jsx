@@ -16,6 +16,7 @@ const useStyles = makeStyles({
     '@media (min-width: 1024px)': {
       justifyContent: 'flex-start',
     },
+    justifyContent: 'space-between',
     marginTop: 60,
   },
 });
