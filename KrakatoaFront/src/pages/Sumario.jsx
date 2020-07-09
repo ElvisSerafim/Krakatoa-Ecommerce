@@ -148,7 +148,9 @@ const Sumario = ({ location }) => {
     let frete = parseFloat(location.state.totalFrete.replace(',','.'));
     let price = (totalFinal + frete)*100
   const boletopag = async ()=>{
-    dado = await boleto(price, location.state.endereco.nome, location.state.endereco.cpf,location.state.endereco.rua,33,location.state.endereco.complemento,location.state.endereco.cep,location.state.endereco.cidade,'BA','BRA',location.state.endereco.bairro,123)
+    let generateSafeId = require('generate-safe-id');
+    let id = generateSafeId();
+    dado = await boleto(price, location.state.endereco.nome, location.state.endereco.cpf,location.state.endereco.rua,33,location.state.endereco.complemento,location.state.endereco.cep,location.state.endereco.cidade,'BA','BRA',location.state.endereco.bairro,id)
     window.open(dado.payment.url)
   }
   useEffect(() => {
