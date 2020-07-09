@@ -3,7 +3,7 @@
 import React from 'react';
 import { Container, Grid, Typography } from '@material-ui/core/';
 import Hidden from '@material-ui/core/Hidden';
-import './Contato.css';
+
 import ContaComp from '../components/ContaComp';
 import MyAddressComp from '../components/MyAddress';
 import withAnimation from '../higherComponents/withAnimation';

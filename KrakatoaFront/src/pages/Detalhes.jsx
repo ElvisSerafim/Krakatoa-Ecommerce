@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { Grid, Typography, Button } from '@material-ui/core/';
 import MaskedInput from 'react-text-mask';
-import './Contato.css';
+
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
