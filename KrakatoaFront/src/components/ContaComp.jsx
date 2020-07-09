@@ -71,42 +71,42 @@ const ContaComp = (theme) => {
     <>
       <div className={classes.Quadrado}>
         <div style={{ ...Estilos.flexRowStandard, paddingBottom: '50' }}>
-          <SettingsIcon style={styles.txt3} color="secondary" />
+          <SettingsIcon style={styles.txt3} color="textSecondary" />
           <a style={{ textDecoration: 'none' }} href="/conta/">
-            <Typography style={styles.txt4} color="secondary">
+            <Typography style={styles.txt4} color="textSecondary">
               Painel
             </Typography>
           </a>
         </div>
 
         <div style={{ ...Estilos.flexRowStandard, paddingBottom: '50' }}>
-          <EventAvailableIcon style={styles.txt1} color="secondary" />
+          <EventAvailableIcon style={styles.txt1} color="textSecondary" />
           <a style={{ textDecoration: 'none' }} href="pedidos">
-            <Typography style={styles.txt2} color="secondary">
+            <Typography style={styles.txt2} color="textSecondary">
               Pedidos
             </Typography>
           </a>
         </div>
         <div style={{ ...Estilos.flexRowStandard, paddingBottom: '50' }}>
-          <RoomIcon style={styles.txt1} color="secondary" />
+          <RoomIcon style={styles.txt1} color="textSecondary" />
           <a style={{ textDecoration: 'none' }} href="meuendereco">
-            <Typography style={styles.txt2} color="secondary">
+            <Typography style={styles.txt2} color="textSecondary">
               Endereços
             </Typography>
           </a>
         </div>
         <div style={{ ...Estilos.flexRowStandard, paddingBottom: '50' }}>
-          <PermIdentityTwoToneIcon style={styles.txt1} color="secondary" />
+          <PermIdentityTwoToneIcon style={styles.txt1} color="textSecondary" />
           <a style={{ textDecoration: 'none' }} href="detalhes">
-            <Typography style={styles.txt2} color="secondary">
+            <Typography style={styles.txt2} color="textSecondary">
               Detalhes da conta
             </Typography>
           </a>
         </div>
         <div style={{ ...Estilos.flexRowStandard, paddingBottom: '50' }}>
-          <ExitToAppTwoToneIcon style={styles.txt1} color="secondary" />
+          <ExitToAppTwoToneIcon style={styles.txt1} color="textSecondary" />
           <a style={{ textDecoration: 'none' }} onClick={logout} href="/">
-            <Typography style={styles.txt2} color="secondary" onClick={logout}>
+            <Typography style={styles.txt2} color="textSecondary" onClick={logout}>
               Sair
             </Typography>
           </a>

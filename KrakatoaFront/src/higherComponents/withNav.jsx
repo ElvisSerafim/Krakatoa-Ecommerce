@@ -9,7 +9,12 @@ const withNav = (Component) => {
     <>
       <Topo />
       <Navbar />
-      <Container maxWidth="lg" style={{ minHeight: 700 }}>
+      <Container
+        maxWidth="lg"
+        style={{ minHeight: 700,
+          alignItems: 'center',
+          display: 'flex' }}
+      >
         <Component {...props} />
       </Container>
       <Footer />

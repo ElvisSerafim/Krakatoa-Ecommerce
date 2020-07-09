@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Typography, Hidden } from '@material-ui/core/';
 import { useSelector, useDispatch } from 'react-redux';
-import './Contato.css';
+
 import Lista from '../components/ListaPedidos';
 import ContaComp from '../components/ContaComp';
 import api from '../Services/ApiService';
@@ -31,6 +31,7 @@ const Pedidos = () => {
 
     const getPedido = async () => {
       pedidos = await api.getPedidos(data);
+      console.log(pedidos);
       setPedidos(pedidos);
     };
 

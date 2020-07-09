@@ -2,11 +2,9 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import {
-  Checkbox,
   Typography,
   Button,
   Grid,
-  TextField,
   FormControl,
   InputLabel,
   InputAdornment,
@@ -158,31 +156,44 @@ const Login = () => {
   };
 
   const cadastro = async () => {
-    try {
-      if (emailCadastro === '') {
-        setOpenAlert(true);
-        setMessage('Email vazio');
-        setStatus('error');
-        throw new Error('Email Vazio');
-      }
-      if (nome === '') {
-        setOpenAlert(true);
-        setMessage('Nome Vazio');
-        setStatus('error');
-        throw new Error('Nome Vazio');
-      }
-      if (password === '') {
-        setOpenAlert(true);
-        setMessage('Senha vazia');
-        setStatus('error');
-        throw new Error('Senha Vazia');
-      }
-      if (confirmPassword === '') {
-        setOpenAlert(true);
-        setMessage('Confirmar senha !');
-        setStatus('error');
-        throw new Error('Senha não confirmada');
-      }
+    if (emailCadastro === '') {
+      setOpenAlert(true);
+      setMessage('Email vazio');
+      setStatus('error');
+      throw new Error('Email Vazio');
+    }
+    if (nome === '') {
+      setOpenAlert(true);
+      setMessage('Nome Vazio');
+      setStatus('error');
+      throw new Error('Nome Vazio');
+    }
+    if (password === '') {
+      setOpenAlert(true);
+      setMessage('Senha vazia');
+      setStatus('error');
+      throw new Error('Senha Vazia');
+    }
+    if (confirmPassword === '') {
+      setOpenAlert(true);
+      setMessage('Confirmar senha !');
+      setStatus('error');
+      throw new Error('Senha não confirmada');
+    }
+
+    if (password !== confirmPassword) {
+      setOpenAlert(true);
+      setMessage('Senhas não coincidem !');
+      setStatus('error');
+      throw new Error('Senhas Diferentes !');
+    }
+
+    const lower = emailCadastro.toLowerCase();
+    const data = {
+      email: emailCadastro,
+      password,
+      nome,
+    };
 
       if (password !== confirmPassword) {
         setOpenAlert(true);
@@ -190,32 +201,8 @@ const Login = () => {
         setStatus('error');
         throw new Error('Senhas Diferentes !');
       }
-
-      const lower = emailCadastro.toLowerCase();
-      const data = {
-        email: emailCadastro,
-        password,
-        nome,
-      };
-
-      const request = await api.Cadastro(data);
-      if (request === 'ok') {
-        let dataToken;
-        if (sessao) {
-          dataToken = {
-            token: localStorage.getItem('token'),
-          };
-        } else {
-          dataToken = {
-            token: sessionStorage.getItem('token'),
-          };
-        }
-        const usuario = await api.getUsuario(dataToken);
-        dispatch(setUser(usuario));
-
-        return history.push('/conta/');
-      }
-    } catch (error) {}
+      return history.push('/conta/');
+    }
   };
   const handleOpen = () => {
     setOpen(true);
@@ -425,7 +412,7 @@ const Login = () => {
               color="textSecondary"
               style={{ width: '100%', color: 'black' }}
               onChange={handleChange('password')}
-              endAdornment={(
+              endAdornment={
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
@@ -436,7 +423,7 @@ const Login = () => {
                     {values.showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </InputAdornment>
-              )}
+              }
             />
           </FormControl>
           <div

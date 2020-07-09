@@ -3,11 +3,10 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { Grid, Typography } from '@material-ui/core/';
+import { Grid, Typography,Container } from '@material-ui/core/';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
-import { decode } from 'jsonwebtoken';
-import './Contato.css';
 import ContaComp from '../components/ContaComp';
 import withAnimation from '../higherComponents/withAnimation';
 import withNav from '../higherComponents/withNav';
@@ -68,14 +67,12 @@ function MinhaConta() {
 
   return (
     <>
-      <Typography variant="h2" color="primary" />
       <Grid
         container
         spacing={2}
         justify="space-around"
-        style={{ marginBottom: 64 }}
       >
-        <Grid item lg={12} md={12} sm={12} xs={12}>
+        <Grid item lg={12} md={12} sm={12} xs={12} style={{alignContent:'center'}}>
           <Typography variant="h4" color="primary">
             Minha Conta
           </Typography>
