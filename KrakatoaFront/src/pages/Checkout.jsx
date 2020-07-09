@@ -107,7 +107,7 @@ function getStepContent(
     const pagar = async()=>{
         if(cartao ==='CreditCard'){
      dado = await credito(nome,total,numero,nome,data,cvv,3333,flag);
-    if(dado.payment.returnCode==4||dado.payment.returnCode==6) {
+    if(dado.payment.returnCode===4||dado.payment.returnCode===6) {
       setCode('Sucesso, volte sempre!')
       setTid(dado.payment.paymentId);
     }else{

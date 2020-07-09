@@ -4,12 +4,11 @@ import ReactDOM from 'react-dom';
 import { Provider, useDispatch } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import './index.css';
+import WebFont from 'webfontloader';
 import store from './store';
 import theme from './themes';
 import { PrivateRoute } from './Services/auth';
 import withNav from './higherComponents/withNav';
-
 import Endereco from './pages/Endereco';
 import Sumario from './pages/Sumario';
 import Checkout from './pages/Checkout';
@@ -18,6 +17,12 @@ import Detalhes from './pages/Detalhes';
 import MyAddress from './pages/MyAddress';
 import Pedidos from './pages/Pedidos';
 import Politicas from './pages/Politicas';
+
+WebFont.load({
+  google: {
+    families: ['Poppins']
+  }
+});
 
 const Produtos = lazy(() => import('./pages/Produtos'));
 const Produto = lazy(() => import('./pages/Produto'));

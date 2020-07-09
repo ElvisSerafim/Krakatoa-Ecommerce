@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
 import ContatoComp from '../components/Contato';
 import { currentPage } from '../reducers/page';
-import './Contato.css';
+
 import fb from '../img/fb.png';
 import insta from '../img/insta@2x.png';
 import withAnimation from '../higherComponents/withAnimation';

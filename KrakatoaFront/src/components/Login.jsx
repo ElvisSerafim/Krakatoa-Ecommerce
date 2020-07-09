@@ -2,11 +2,9 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import {
-  Checkbox,
   Typography,
   Button,
   Grid,
-  TextField,
   FormControl,
   InputLabel,
   InputAdornment,
@@ -195,7 +193,7 @@ const Login = () => {
       email: emailCadastro,
       password,
       nome,
-    }
+    };
 
     const request = await api.Cadastro(data);
     if (request === 'ok') {
@@ -214,8 +212,7 @@ const Login = () => {
 
       return history.push('/conta/');
     }
-
-  }
+  };
   const handleOpen = () => {
     setOpen(true);
   };
@@ -424,7 +421,7 @@ const Login = () => {
               color="textSecondary"
               style={{ width: '100%', color: 'black' }}
               onChange={handleChange('password')}
-              endAdornment={(
+              endAdornment={
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
@@ -435,7 +432,7 @@ const Login = () => {
                     {values.showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </InputAdornment>
-              )}
+              }
             />
           </FormControl>
           <div
