@@ -161,7 +161,7 @@ const Footer = () => {
           <Grid item lg={6} md={6} sm={6} xs={12} style={{ width: '100%' }}>
             <div>
               <div style={styles.marginDiv}>
-                <Typography variant="h6" color="secondary">
+                <Typography variant="h6" color="textSecondary">
                   Nossas Redes Sociais
                 </Typography>
                 <a href="https://www.facebook.com/profile.php?id=100013226432242">
@@ -184,8 +184,8 @@ const Footer = () => {
           <Grid item lg={6} md={6} sm={6} xs={12} style={{ width: '100%' }}>
             <div>
               <div style={styles.marginDiv}>
-                <Typography style={{color:'white'}}variant="h6" >
-                  Métodos de Pagamento
+                <Typography variant="h6" color="textSecondary">
+                  Meios de Pagamento
                 </Typography>
                 <a href="https://www.facebook.com/profile.php?id=100013226432242">
                   <img src={visa} style={styles.social} alt="Cartão Visa" />
