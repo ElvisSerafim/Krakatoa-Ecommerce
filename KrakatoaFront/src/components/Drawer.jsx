@@ -125,7 +125,6 @@ export default function PersistentDrawerLeft() {
             <ExpansionPanelDetails>
               <div>
                 {[
-                  'Cangas',
                   'Mandalas',
                   'Turisticas',
                   'Estampadas',
@@ -155,7 +154,7 @@ export default function PersistentDrawerLeft() {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <div>
-                {['Todos', 'Vestidos', 'Batas', 'Shorts', 'Macaquinho'].map(
+                {[ 'Vestidos', 'Batas', 'Shorts', 'Macaquinhos'].map(
                   (text) => (
                     <a
                       href={`/${text}`}
