@@ -22,8 +22,16 @@ const useStyles = makeStyles({
     '@media (max-width: 360px)': {
       width: 155,
     },
-
   },
+
+  nameProduct: {
+    display: 'flex', 
+    minHeight: 52,
+    '@media (max-width: 360px)': {
+      minHeight: 104
+    }
+  },
+
   media: {
     maxHeight: 290,
     objectFit: 'cover',
@@ -91,10 +99,10 @@ const Produto = ({ produto, title, addItem, update }) => {
             style={{
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'space-between',
+              justifyContent: 'space-between',  
             }}
           >
-            <div style={{ height: 52 }}>
+            <div className={classes.nameProduct}>
               <Typography
                 gutterBottom
                 variant="h5"

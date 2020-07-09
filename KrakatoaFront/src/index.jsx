@@ -99,6 +99,18 @@ ReactDOM.render(
               path="/vestidos/:id"
               render={(props) => <Produto {...props} />}
             />
+            <Route
+              path="/mandalas/:id"
+              render={(props) => <Produto {...props} />}
+            />
+            <Route
+              path="/bolsas/:id"
+              render={(props) => <Produto {...props} />}
+            />
+            <Route
+              path="/chapeus/:id"
+              render={(props) => <Produto {...props} />}
+            />
 
             <Route
               path="/cangas/:id"
