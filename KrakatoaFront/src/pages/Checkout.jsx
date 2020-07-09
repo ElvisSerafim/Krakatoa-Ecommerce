@@ -99,26 +99,31 @@ function getStepContent(
   setE,
 ) {
   let dado;
+  let generateSafeId = require('generate-safe-id');
+  let id;
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
   };
     const pagar = async()=>{
+      id = generateSafeId();
         if(cartao ==='CreditCard'){
-     dado = await credito(nome,total,numero,nome,data,cvv,3333,flag);
-    if(dado.payment.returnCode===4||dado.payment.returnCode===6) {
+     dado = await credito(nome,total,numero,nome,data,cvv,id,flag);
+    if(dado.payment.returnCode==4||dado.payment.returnCode==6) {
       setCode('Sucesso, volte sempre!')
       setTid(dado.payment.paymentId);
     }else{
       setCode('Ocorreu um erro na transação');
       setTid('Transação falha');
     }
-    }else if (cartao == 'DebitCard'){
-    dado = await debito(nome,total,numero,nome,data,cvv,2222,flag);
-    setCode('Você será redirecionado para a pagina da cielo para terminar o pagamento');  
-    window.open(dado.payment.authenticationUrl);
-  }
+    }else if (cartao === 'DebitCard'){
+      dado = await debito(nome,total,numero,nome,data,cvv,id,flag);
+      window.open(dado.payment.authenticationUrl);
+      setCode('Você será redirecionado para a pagina do seu provedor para terminar o pagamento');  
+      setTid(dado.payment.paymentId);
+      
+    }
   }
 
   switch (stepIndex) {
@@ -556,8 +561,13 @@ const Checkout = () => {
               Estatus da transação: {code}
             </Typography>
             <Grid lg={12}>
-            <Typography variant = 'h1'  style={{paddingTop:10,color:'#44323D',textAlign:'center'}}>
+            <Typography variant = 'h1'  style={{paddingTop:20,color:'#44323D',textAlign:'center'}}>
               Código do pagamento: {tid}
+            </Typography>
+              </Grid>
+              <Grid lg={12}>
+            <Typography variant = 'h1'  style={{paddingTop:20,color:'#44323D',textAlign:'center'}}>
+              Grave esse código!
             </Typography>
               </Grid>
               </Grid>
