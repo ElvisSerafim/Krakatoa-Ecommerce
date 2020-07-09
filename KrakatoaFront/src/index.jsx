@@ -99,6 +99,18 @@ ReactDOM.render(
               render={(props) => <Produto {...props} />}
             />
             <Route
+              path="/turisticas/:id"
+              render={(props) => <Produto {...props} />}
+            />
+            <Route
+              path="/pompom/:id"
+              render={(props) => <Produto {...props} />}
+            />
+            <Route
+              path="/estampadas/:id"
+              render={(props) => <Produto {...props} />}
+            />
+            <Route
               path="/bolsas/:id"
               render={(props) => <Produto {...props} />}
             />
@@ -119,7 +131,10 @@ ReactDOM.render(
               path="/shorts/:id"
               render={(props) => <Produto {...props} />}
             />
-
+            <Route
+              path="/macaquinhos/:id"
+              render={(props) => <Produto {...props} />}
+            />
             <Route
               path="/pesquisa/:id"
               render={(props) => <Produto {...props} />}

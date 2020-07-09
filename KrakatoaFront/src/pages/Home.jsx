@@ -59,6 +59,7 @@ const styles = {
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const [productsNovidades, setProductsNovidades] = useState([]);
   const [open, setOpen] = useState(false);
 
   const fechar = (event, reason) => {
@@ -71,13 +72,18 @@ const Home = () => {
     let request = [];
     const getProducts = async () => {
       request = await api.ListaProdutos();
-      const arrayAux = [];
+      const arrayAux  = [];
+      const arrayAuxNovidades = [];
       request.map((item, i) => {
-        if (i > 1 && arrayAux.length <= 3) {
+        if (i > 6 && arrayAux.length <= 3) {
           arrayAux.push(item);
+        }
+        if(i > 10 && arrayAuxNovidades.length <= 3){
+          arrayAuxNovidades.push(item);
         }
       });
       setProducts(arrayAux);
+      setProductsNovidades(arrayAuxNovidades);
     };
     getProducts();
   }, []);
@@ -245,7 +251,7 @@ const Home = () => {
           </Grid>
 
           <Hidden smDown>
-            {products.map((item) => (
+            {productsNovidades.map((item) => (
               <Grid item lg={3} md={3} sm={3}>
                 <Produto
                   produto={item}
@@ -259,7 +265,7 @@ const Home = () => {
 
           <Hidden lgUp>
             <div style={styles.scrollbarMobile}>
-              {products.map((item) => (
+              {productsNovidades.map((item) => (
                 <Grid item lg={12} md={12} sm={12} style={{ marginLeft: 10 }}>
                   <Produto
                     produto={item}
