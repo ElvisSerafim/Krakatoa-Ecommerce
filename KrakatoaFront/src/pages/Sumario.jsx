@@ -153,7 +153,8 @@ const Sumario = ({ location }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   let dado;
-  const frete = parseFloat(location.state.totalFrete.replace(',', '.'));
+  
+  let frete = parseFloat(location.state.totalFrete.replace(',', '.'));
   const price = (totalFinal + frete) * 100;
   const boletopag = async () => {
     dado = await boleto(
@@ -172,6 +173,7 @@ const Sumario = ({ location }) => {
     );
     window.open(dado.payment.url);
   };
+
   useEffect(() => {
     if (location.state !== undefined) {
       if (location.state.entregaSelecionada === 'Pac') {

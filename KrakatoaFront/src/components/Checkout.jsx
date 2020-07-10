@@ -66,10 +66,14 @@ const Checkout = () => {
     const[msg,setMsg]=useState('Erro');
     const [total,setTotal] = useState(0)
     let dado;
-    
+    let generateSafeId = require('generate-safe-id');
+    let id;
     const pagar =async()=>{
+      id = generateSafeId();
         if(cartao ==='CreditCard'){
-     dado = await credito(nome,total,numero,nome,data,cvv,3333,flag);
+     dado = await credito(nome,total,numero,nome,data,cvv,id,flag);
+     console.log(dado);
+     
      if(dado.payment.returnCode==4||dado.payment.returnCode==6) {
     setPag(1)  
     setCode('Sucesso, volte sempre!')    
@@ -79,9 +83,11 @@ const Checkout = () => {
       setTid('Transação falha');
     }
   }else if (cartao == 'DebitCard'){
-    dado = await debito(nome,total,numero,nome,data,cvv,2222,flag);
+    dado = await debito(nome,total,numero,nome,data,cvv,id,flag);
+    console.log(dado);
         setPag(1)
-        setCode('Você será redirecionado para a pagina da cielo para terminar o pagamento');
+        setCode('Você será redirecionado para a pagina do seu provedor para terminar o pagamento');
+        setTid(dado.payment.paymentId);
     window.open(dado.payment.authenticationUrl);
   }   
 }
@@ -221,11 +227,16 @@ const Checkout = () => {
             <Typography variant = 'h1'  style={{paddingTop:50,color:'#44323D',textAlign:'center'}}>
               Estatus da transação: {code}
             </Typography>
+            </Grid>
             <Grid xs={12}>
-            <Typography variant = 'h1'  style={{paddingTop:10,color:'#44323D',textAlign:'center'}}>
+            <Typography variant = 'h1'  style={{paddingTop:20,color:'#44323D',textAlign:'center'}}>
               Código do pagamento: {tid}
             </Typography>
               </Grid>
+              <Grid xs={12}>
+            <Typography variant = 'h1'  style={{paddingTop:20,color:'#44323D',textAlign:'center'}}>
+             Grave esse código!
+            </Typography>
               </Grid>
         </>
         )}
