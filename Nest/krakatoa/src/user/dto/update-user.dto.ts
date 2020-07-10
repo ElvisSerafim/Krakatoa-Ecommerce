@@ -2,7 +2,7 @@ import { IsString, Length } from 'class-validator';
 
 export class UpdateUserDto {
   nome: string;
-  celular: string;
+  telefone: string;
   @Length(11)
   @IsString()
   cpf: string;

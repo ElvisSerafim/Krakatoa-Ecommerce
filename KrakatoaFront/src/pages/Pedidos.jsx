@@ -2,7 +2,6 @@
  */
 import React, { useEffect, useState } from 'react';
 import { Grid, Typography, Hidden } from '@material-ui/core/';
-import { useSelector, useDispatch } from 'react-redux';
 
 import Lista from '../components/ListaPedidos';
 import ContaComp from '../components/ContaComp';
@@ -13,34 +12,26 @@ import withNav from '../higherComponents/withNav';
 
 const Pedidos = () => {
   const [pedidosUsuario, setPedidos] = useState([]);
-  const usuario = useSelector((state) => state.user);
 
   useEffect(() => {
     let pedidos;
-    let data;
-    const getUser = async () => {
-      const tentativa = await usuario;
-      const { user } = tentativa;
-      const token = localStorage.getItem('token');
-      data = {
-        token,
-        user,
-      };
-      getPedido();
-    };
-
+    const token = sessionStorage.getItem('token');
     const getPedido = async () => {
-      pedidos = await api.getPedidos(data);
-      console.log(pedidos);
+      pedidos = await api.getPedidos(token);
       setPedidos(pedidos);
     };
 
-    getUser();
+    getPedido();
   }, []);
 
   return (
     <>
-      <Grid container spacing={2} style={{ marginBottom: 64 }} justify="flex-start">
+      <Grid
+        container
+        spacing={2}
+        style={{ marginBottom: 64 }}
+        justify="flex-start"
+      >
         <Grid item lg={12}>
           <Typography variant="h4" color="primary" style={{ marginTop: 60 }}>
             Minha Conta

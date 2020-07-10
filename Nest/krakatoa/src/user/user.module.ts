@@ -7,7 +7,6 @@ import { UserService } from './user.service';
 import { User, UserSchema } from './schemas/user.schema';
 import { genSalt, hash } from 'bcrypt';
 import { JwtStrategy } from './jwt.strategy';
-import { Pedido, PedidoSchema } from '../pedido/schemas/pedido.schema';
 
 const logger = new Logger('User Module');
 
@@ -42,7 +41,6 @@ const logger = new Logger('User Module');
         },
       },
     ]),
-    MongooseModule.forFeature([{ name: Pedido.name, schema: PedidoSchema }]),
   ],
   controllers: [UserController],
   providers: [UserService, JwtStrategy],

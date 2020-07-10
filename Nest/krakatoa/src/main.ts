@@ -10,6 +10,7 @@ async function bootstrap() {
   const port = 5000;
   const logger = new Logger('bootstrap');
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.setGlobalPrefix('api2');
   app.set('trust proxy', 1);
   app.use(helmet());
   app.enableCors();

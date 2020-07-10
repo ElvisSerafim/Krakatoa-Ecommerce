@@ -12,7 +12,7 @@ export class Pedido extends Document {
   @Prop()
   user: { type: mongoose.Types.ObjectId; ref: 'User' };
 
-  @Prop()
+  @Prop({ required: true })
   produtos: [
     {
       Produto_id: { type: mongoose.Types.ObjectId; ref: 'Produto' };
@@ -22,8 +22,14 @@ export class Pedido extends Document {
     },
   ];
 
-  @Prop()
+  @Prop({ required: true })
   metodo: string;
+
+  @Prop({ required: true })
+  idPagamento: string;
+
+  @Prop({ required: true })
+  idPedido: string;
 }
 
 export const PedidoSchema = SchemaFactory.createForClass(Pedido);

@@ -46,7 +46,7 @@ const MinhaConta = () => (
             >
               Meu Endereço
             </Typography>
-            <div style={{ backgroundColor: 'white', borderRadius: 10 }}>
+            <div style={{ backgroundColor: '#44323D', borderRadius: 10 }}>
               <MyAddressComp />
             </div>
           </Grid>
@@ -79,7 +79,7 @@ const MinhaConta = () => (
             >
               Meu Endereço
             </Typography>
-            <div style={{ backgroundColor: 'white', borderRadius: 10 }}>
+            <div style={{ backgroundColor: '#44323D', borderRadius: 12 }}>
               <MyAddressComp />
             </div>
           </Grid>
