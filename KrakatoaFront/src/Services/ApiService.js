@@ -91,14 +91,13 @@ const ApiService = {
   },
   UsuarioEndereco: async (data) => {
     try {
-      const url = 'http://64.227.106.165/api2/user/me/';
+      const url = 'http://64.227.106.165/api2/user/';
       const { token } = data;
-      const Authorization = `Bearer ${token}`;
       const requestInfo = {
         method: 'PUT',
         body: JSON.stringify(data),
         headers: new Headers({
-          Authorization,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         }),
       };

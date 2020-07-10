@@ -71,7 +71,7 @@ const ContaComp = (theme) => {
     <>
       <div className={classes.Quadrado}>
         <div style={{ ...Estilos.flexRowStandard, paddingBottom: '50' }}>
-          <SettingsIcon style={styles.txt3} color="textSecondary" />
+          <SettingsIcon style={styles.txt3} color="primary" />
           <a style={{ textDecoration: 'none' }} href="/conta/">
             <Typography style={styles.txt4} color="textSecondary">
               Painel
@@ -80,7 +80,7 @@ const ContaComp = (theme) => {
         </div>
 
         <div style={{ ...Estilos.flexRowStandard, paddingBottom: '50' }}>
-          <EventAvailableIcon style={styles.txt1} color="textSecondary" />
+          <EventAvailableIcon style={styles.txt1} color="primary" />
           <a style={{ textDecoration: 'none' }} href="pedidos">
             <Typography style={styles.txt2} color="textSecondary">
               Pedidos
@@ -88,7 +88,7 @@ const ContaComp = (theme) => {
           </a>
         </div>
         <div style={{ ...Estilos.flexRowStandard, paddingBottom: '50' }}>
-          <RoomIcon style={styles.txt1} color="textSecondary" />
+          <RoomIcon style={styles.txt1} color="primary" />
           <a style={{ textDecoration: 'none' }} href="meuendereco">
             <Typography style={styles.txt2} color="textSecondary">
               Endereços
@@ -96,7 +96,7 @@ const ContaComp = (theme) => {
           </a>
         </div>
         <div style={{ ...Estilos.flexRowStandard, paddingBottom: '50' }}>
-          <PermIdentityTwoToneIcon style={styles.txt1} color="textSecondary" />
+          <PermIdentityTwoToneIcon style={styles.txt1} color="primary" />
           <a style={{ textDecoration: 'none' }} href="detalhes">
             <Typography style={styles.txt2} color="textSecondary">
               Detalhes da conta
@@ -104,7 +104,7 @@ const ContaComp = (theme) => {
           </a>
         </div>
         <div style={{ ...Estilos.flexRowStandard, paddingBottom: '50' }}>
-          <ExitToAppTwoToneIcon style={styles.txt1} color="textSecondary" />
+          <ExitToAppTwoToneIcon style={styles.txt1} color="primary" />
           <a style={{ textDecoration: 'none' }} onClick={logout} href="/">
             <Typography style={styles.txt2} color="textSecondary" onClick={logout}>
               Sair

@@ -7,9 +7,13 @@ import {
   Grid,
   Hidden,
   makeStyles,
-
 } from '@material-ui/core/';
-import { createMuiTheme, MuiThemeProvider, withStyles } from '@material-ui/core/styles';
+import InputMask from 'react-input-mask';
+import {
+  createMuiTheme,
+  MuiThemeProvider,
+  withStyles,
+} from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
 import { Link } from 'react-router-dom';
 import cartBlank from '../img/cartBlank.svg';
@@ -45,10 +49,10 @@ const styles = {
   },
 };
 
-const useStyles = theme => ({
+const useStyles = (theme) => ({
   inputLabel: {
-    color: '#44323D'
-  }
+    color: '#44323D',
+  },
 });
 
 const theme = createMuiTheme({
@@ -82,13 +86,12 @@ class Endereco extends PureComponent {
       cidade: ' ',
       numero: ' ',
       complemento: ' ',
+      estado: ' ',
       status: 'error',
       message: '',
       open: false,
     };
-    
   }
-
 
   enviar = async () => {
     try {
@@ -110,23 +113,22 @@ class Endereco extends PureComponent {
         complemento,
         status,
         message,
+        estado,
         open,
       } = this.state;
       const nomeCompleto = [nome, sobrenome].join(' ');
       const data = {
         cep,
-        telefone,
         bairro,
         rua,
-        cpf,
         cidade,
         numero,
         complemento,
+        estado,
+        cpf,
+        celular: telefone,
         nome: nomeCompleto,
         token,
-        message,
-        status,
-        open,
       };
       this.setState({ open: true });
       this.setState({ status: 'error' });
@@ -137,7 +139,7 @@ class Endereco extends PureComponent {
         case sobrenome.length === 0 || sobrenome === ' ':
           this.setState({ message: 'Insira seu sobrenome!' });
           break;
-        case telefone.toString().length !== 11:
+        case telefone.toString().length !== 14:
           this.setState({
             message: 'Você deve inserir um número de telefone válido com DDD',
           });
@@ -217,305 +219,348 @@ class Endereco extends PureComponent {
       }
       this.setState({ open: false });
     };
-    const { location, classes} = this.props;
+    const { location, classes } = this.props;
 
     return (
       <>
-          {location.state == undefined ? (
-            <Redirect
-              to={{
-                pathname: '/carrinho',
-              }}
+        {location.state == undefined ? (
+          <Redirect
+            to={{
+              pathname: '/carrinho',
+            }}
+          />
+        ) : (
+          <>
+            <Alerta
+              openAlert={this.state.open}
+              message={this.state.message}
+              status={this.state.status}
+              handleClose={handleClose}
+              vertical="top"
+              horizontal="right"
             />
-          ) : (
-            <>
-              <Alerta
-                openAlert={this.state.open}
-                message={this.state.message}
-                status={this.state.status}
-                handleClose={handleClose}
-                vertical="top"
-                horizontal="right"
-              />
-              <Grid item lg={12} md={12} sm={12}>
-                <Typography style={styles.title}>Endereço</Typography>
-              </Grid>
+            <Grid item lg={12} md={12} sm={12}>
+              <Typography style={styles.title}>Endereço</Typography>
+            </Grid>
 
-              <Grid item lg={12} md={12} sm={12} justify="flex-end" container>
-                <div style={Estilos.flexRowCENTER2}>
-                  <a href="/carrinho">
-                    <img src={cartBlank} alt="Carinho" />
-                  </a>
-                  <hr style={styles.hrstyle} />
-                  <a href="/endereco">
-                    <img src={delivery} alt="Endereço" />
-                  </a>
-                  <hr style={styles.hrstyle} />
-                  <img src={payment} alt="React Logo" />
-                </div>
-              </Grid>
-              <Grid item lg={12} container direction="row" justify="center">
-                <Grid item lg={3} md={12} sm={12}>
+            <Grid item lg={12} md={12} sm={12} justify="flex-end" container>
+              <div style={Estilos.flexRowCENTER2}>
+                <a href="/carrinho">
+                  <img src={cartBlank} alt="Carinho" />
+                </a>
+                <hr style={styles.hrstyle} />
+                <a href="/endereco">
+                  <img src={delivery} alt="Endereço" />
+                </a>
+                <hr style={styles.hrstyle} />
+                <img src={payment} alt="React Logo" />
+              </div>
+            </Grid>
+            <Grid item lg={12} container direction="row" justify="center">
+              <Grid item lg={3} md={12} sm={12}>
                 <TextFieldM
                   variant="filled"
                   label="Nome"
-                  style={{ width: '100%',marginTop:10}}
+                  style={{ width: '100%', marginTop: 10 }}
                   onChange={(e) => {
-                  this.setState({ nome: e.target.value });
-          }}
-          
-        />
-                </Grid>
-                <Grid item lg={1}></Grid>
-                <Grid item lg={3} md={12} sm={12}>
-                  <TextFieldM
-                   variant="filled"
-                   style={{ width: '100%',marginTop:10}}
-                   label="Sobrenome"
-                    onChange={(e) => {
-                      this.setState({ sobrenome: e.target.value });
-                    }}
-                  />
-                </Grid>
-                <Grid item lg={1}></Grid>
-
-                <Grid item lg={3} md={12} sm={12}>
-                <TextFieldM
-                   variant="filled"
-                   style={{ width: '100%', marginTop:10}}
-                    label="Celular"
-                    onChange={(e) => {
-                      this.setState({ telefone: e.target.value });
-                    }}
-                    numberOnly
-                  />
-                </Grid>
+                    this.setState({ nome: e.target.value });
+                  }}
+                />
               </Grid>
-              <Grid item lg={12} container direction="row" justify="center">
-                <Grid item lg={3} md={12} sm={12}>
+              <Grid item lg={1}></Grid>
+              <Grid item lg={3} md={12} sm={12}>
                 <TextFieldM
-                   variant="filled"
-                   style={{ width: '100%', marginTop:10}}
-                    label="CPF"
-                    onChange={(e) => {
-                      this.setState({ cpf: e.target.value });
-                    }}
-                    type='number'
-                  />
-                </Grid>
-                <Grid item lg={1}></Grid>
-                <Grid item lg={3} md={12} sm={12}>
-                <TextFieldM
-                   variant="filled"
-                   style={{ width: '100%', marginTop:10}}
-                    label="CEP"
-                    onChange={(e) => {
-                      this.setState({ cep: e.target.value });
-                    }}
-                    numberOnly
-                  />
-                </Grid>
-                <Grid item lg={1}></Grid>
-                <Grid item lg={3} md={12} sm={12}>
-                <TextFieldM
-                   variant="filled"
-                   style={{ width: '100%', marginTop:10}}
-                    label="Bairro"
-                    onChange={(e) => {
-                      this.setState({ bairro: e.target.value });
-                    }}
-                  />
-                </Grid>
+                  variant="filled"
+                  style={{ width: '100%', marginTop: 10 }}
+                  label="Sobrenome"
+                  onChange={(e) => {
+                    this.setState({ sobrenome: e.target.value });
+                  }}
+                />
               </Grid>
-              <Grid item lg={12} container direction="row" justify="center">
-                <Grid item lg={3} md={12} sm={12}>
-                <TextFieldM
-                   variant="filled"
-                   style={{ width: '100%', marginTop:10}}
-                    label="Cidade"
-                    onChange={(e) => {
-                      this.setState({ cidade: e.target.value });
-                    }}
-                  />
-                </Grid>
-                <Grid item lg={1}></Grid>
-                <Grid item lg={3} md={12} sm={12}>
-                <TextFieldM
-                   variant="filled"
-                   style={{ width: '100%', marginTop:10}}
-                    label="Rua"
-                    onChange={(e) => {
-                      this.setState({ rua: e.target.value });
-                    }}
-                  />
-                </Grid>
-                <Grid item lg={1}></Grid>
-                <Grid item lg={3} md={12} sm={12}>
-                <TextFieldM
-                   variant="filled"
-                   style={{ width: '100%', marginTop:10}}
-                    label="Numero"
-                    onChange={(e) => {
-                      this.setState({ numero: e.target.value });
-                    }}
-                    numberOnly
-                  />
-                </Grid>
-              </Grid>
-
-              <Grid item lg={4} justify="space-between" container>
-                <Grid item lg={1}></Grid>
-                <Grid item lg={9} md={12} sm={12}>
-                <TextFieldM
-                   variant="filled"
-                   style={{ width: '100%', marginTop:10}}
-                    label="Complemento"
-                    onChange={(e) => {
-                      this.setState({ complemento: e.target.value });
-                    }}
-                    email
-                  />
-                </Grid>
-                <Grid item lg={1}></Grid>
-              </Grid>
-              <Grid item container lg={12} md={12} sm={12} justify="center">
-                <p
-                  style={{
-                    fontFamily: 'Poppins',
-                    fontWeight: 'bold',
+              <Grid item lg={1}></Grid>
+              <Grid item lg={3} md={12} sm={12}>
+                <InputMask
+                  mask="(99)99999-9999"
+                  disabled={false}
+                  maskChar=" "
+                  onChange={(e) => {
+                    this.setState({ telefone: e.target.value });
                   }}
                 >
-                  Tipo de entrega
-                </p>
-              </Grid>
-              <Grid
-                item
-                lg={12}
-                container
-                md={12}
-                sm={12}
-                justify="center"
-                alignItems="center"
-              >
-                <Grid item lg={2} md={6} sm={4}>
-                  <Box
-                    onClick={() => {
-                      this.setState({ deliverySelected: 'Pac' });
-                      this.setState({ borderColorPac: 'red' });
-                      this.setState({ borderColorSedex: 'black' });
-                      this.setState({ priceFrete: this.state.pricePac });
-                    }}
-                    display="flex"
-                    style={{ cursor: 'pointer' }}
-                    flexDirection="column"
-                    height="55%"
-                    alignItems="center"
-                    borderColor={this.state.borderColorPac}
-                    borderRadius={16}
-                    {...styles.boxStyle}
-                  >
-                    <div style={{ paddingBottom: '15px' }}>
-                      <img src={Pac} alt="React Logo" />
-                    </div>
-                    <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
-                      {this.state.pricePac}
-                    </p>
-                    <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
-                      {this.state.diasUteisPac} dias úteis
-                    </p>
-                  </Box>
-                </Grid>
-
-                <Grid item lg={2} md={6} sm={4}>
-                  <Box
-                    onClick={() => {
-                      this.setState({ deliverySelected: 'Sedex' });
-                      this.setState({ borderColorSedex: 'red' });
-                      this.setState({ borderColorPac: 'black' });
-                      this.setState({ priceFrete: this.state.priceSedex });
-                    }}
-                    style={{ cursor: 'pointer' }}
-                    display="flex"
-                    borderColor={this.state.borderColorSedex}
-                    height="55%"
-                    borderRadius={16}
-                    flexDirection="column"
-                    alignItems="center"
-                    {...styles.boxStyle}
-                  >
-                    <div style={{ paddingBottom: '15px' }}>
-                      <img src={Sedex} alt="React Logo" />
-                    </div>
-                    <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
-                      {this.state.priceSedex}
-                    </p>
-                    <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
-                      {this.state.diasUteisSedex} dias úteis
-                    </p>
-                  </Box>
-                </Grid>
-              </Grid>
-              <Grid
-                item
-                justify="center"
-                alignItems="center"
-                container
-                lg={12}
-                md={12}
-                sm={12}
-              >
-                <Grid item lg={1} md={12}>
-                  <MuiThemeProvider theme={theme}>
-                    <div
+                  {() => (
+                    <TextFieldM
+                      variant="filled"
+                      id="outlined-name"
+                      numberOnly
                       style={{
-                        ...Estilos.flexRowStandard,
-                        marginTop: '20px',
-                        justifyContent: 'flex-end',
-                        fontFamily: 'Poppins',
+                        width: '100%',
+                        marginTop: 10,
+                      }}
+                      label="Celular"
+                    />
+                  )}
+                </InputMask>
+              </Grid>
+            </Grid>
+            <Grid item lg={12} container direction="row" justify="center">
+              <Grid item lg={3} md={12} sm={12}>
+              <InputMask
+                  mask="999.999.999-99"
+                  disabled={false}
+                  maskChar=" "
+                  onChange={(e) => {
+                    this.setState({ cpf: e.target.value });
+                  }}
+                >
+                  {() => (
+                    <TextFieldM
+                      variant="filled"
+                      id="outlined-name"
+                      style={{
+                        width: '100%',
+                        marginTop: 10,
+                      }}
+                      label="CPF"
+                    />
+                  )}
+                </InputMask>
+              </Grid>
+              <Grid item lg={1}></Grid>
+              <Grid item lg={3} md={12} sm={12}>
+                <TextFieldM
+                  variant="filled"
+                  style={{ width: '100%', marginTop: 10 }}
+                  label="CEP"
+                  onChange={(e) => {
+                    this.setState({ cep: e.target.value });
+                  }}
+                  numberOnly
+                />
+              </Grid>
+              <Grid item lg={1}></Grid>
+              <Grid item lg={3} md={12} sm={12}>
+                <TextFieldM
+                  variant="filled"
+                  style={{ width: '100%', marginTop: 10 }}
+                  label="Bairro"
+                  onChange={(e) => {
+                    this.setState({ bairro: e.target.value });
+                  }}
+                />
+              </Grid>
+            </Grid>
+            <Grid item lg={12} container direction="row" justify="center">
+              <Grid item lg={3} md={12} sm={12}>
+                <TextFieldM
+                  variant="filled"
+                  style={{ width: '100%', marginTop: 10 }}
+                  label="Cidade"
+                  onChange={(e) => {
+                    this.setState({ cidade: e.target.value });
+                  }}
+                />
+              </Grid>
+              <Grid item lg={1}></Grid>
+              <Grid item lg={3} md={12} sm={12}>
+                <TextFieldM
+                  variant="filled"
+                  style={{ width: '100%', marginTop: 10 }}
+                  label="Rua"
+                  onChange={(e) => {
+                    this.setState({ rua: e.target.value });
+                  }}
+                />
+              </Grid>
+              <Grid item lg={1}></Grid>
+              <Grid item lg={3} md={12} sm={12}>
+                <TextFieldM
+                  variant="filled"
+                  style={{ width: '100%', marginTop: 10 }}
+                  label="Numero"
+                  onChange={(e) => {
+                    this.setState({ numero: e.target.value });
+                  }}
+                  numberOnly
+                />
+              </Grid>
+            </Grid>
+
+            <Grid item lg={12} container direction="row" justify="center">
+              <Grid item lg={3} md={12} sm={12}>
+                <TextFieldM
+                  variant="filled"
+                  style={{ width: '100%', marginTop: 10 }}
+                  label="Complemento"
+                  onChange={(e) => {
+                    this.setState({ complemento: e.target.value });
+                  }}
+                />
+              </Grid>
+              <Grid item lg={1}></Grid>
+              <Grid item lg={3} md={12} sm={12}>
+              <InputMask
+                  mask="aa"
+                  disabled={false}
+                  maskChar=" "
+                  onChange={(e) => {
+                    this.setState({ estado: e.target.value });
+                  }}
+                >
+                  {() => (
+                    <TextFieldM
+                      variant="filled"
+                      id="outlined-name"
+                      style={{
+                        width: '100%',
+                        marginTop: 10,
+                      }}
+                      label="Estado"
+                    />
+                  )}
+                </InputMask>
+              </Grid>
+              <Grid item lg={1} />
+              <Grid item lg={3} md={12} sm={12} />
+            </Grid>
+            <Grid item container lg={12} md={12} sm={12} justify="center">
+              <p
+                style={{
+                  fontFamily: 'Poppins',
+                  fontWeight: 'bold',
+                }}
+              >
+                Tipo de entrega
+              </p>
+            </Grid>
+            <Grid
+              item
+              lg={12}
+              container
+              md={12}
+              sm={12}
+              justify="center"
+              alignItems="center"
+            >
+              <Grid item lg={2} md={6} sm={4}>
+                <Box
+                  onClick={() => {
+                    this.setState({ deliverySelected: 'Pac' });
+                    this.setState({ borderColorPac: 'red' });
+                    this.setState({ borderColorSedex: 'black' });
+                    this.setState({ priceFrete: this.state.pricePac });
+                  }}
+                  display="flex"
+                  style={{ cursor: 'pointer' }}
+                  flexDirection="column"
+                  height="55%"
+                  alignItems="center"
+                  borderColor={this.state.borderColorPac}
+                  borderRadius={16}
+                  {...styles.boxStyle}
+                >
+                  <div style={{ paddingBottom: '15px' }}>
+                    <img src={Pac} alt="React Logo" />
+                  </div>
+                  <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
+                    {this.state.pricePac}
+                  </p>
+                  <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
+                    {this.state.diasUteisPac} dias úteis
+                  </p>
+                </Box>
+              </Grid>
+
+              <Grid item lg={2} md={6} sm={4}>
+                <Box
+                  onClick={() => {
+                    this.setState({ deliverySelected: 'Sedex' });
+                    this.setState({ borderColorSedex: 'red' });
+                    this.setState({ borderColorPac: 'black' });
+                    this.setState({ priceFrete: this.state.priceSedex });
+                  }}
+                  style={{ cursor: 'pointer' }}
+                  display="flex"
+                  borderColor={this.state.borderColorSedex}
+                  height="55%"
+                  borderRadius={16}
+                  flexDirection="column"
+                  alignItems="center"
+                  {...styles.boxStyle}
+                >
+                  <div style={{ paddingBottom: '15px' }}>
+                    <img src={Sedex} alt="React Logo" />
+                  </div>
+                  <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
+                    {this.state.priceSedex}
+                  </p>
+                  <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
+                    {this.state.diasUteisSedex} dias úteis
+                  </p>
+                </Box>
+              </Grid>
+            </Grid>
+            <Grid
+              item
+              justify="center"
+              alignItems="center"
+              container
+              lg={12}
+              md={12}
+              sm={12}
+            >
+              <Grid item lg={1} md={12}>
+                <MuiThemeProvider theme={theme}>
+                  <div
+                    style={{
+                      ...Estilos.flexRowStandard,
+                      marginTop: '20px',
+                      justifyContent: 'flex-end',
+                      fontFamily: 'Poppins',
+                    }}
+                  >
+                    <Link
+                      to={{
+                        pathname: path,
+                        state: {
+                          totalPedido: location.state.totalPedido,
+                          cepEndereco: location.state.cepEndereco,
+                          entregaSelecionada: this.state.deliverySelected,
+                          totalFrete: this.state.priceFrete,
+                          endereco: {
+                            telefone: this.state.telefone,
+                            bairro: this.state.bairro,
+                            rua: this.state.rua,
+                            cpf: this.state.cpf,
+                            cidade: this.state.cidade,
+                            numero: this.state.numero,
+                            complemento: this.state.complemento,
+                            nome: this.state.nome + ' ' + this.state.sobrenome,
+                          },
+                        },
                       }}
                     >
-                      <Link
-                        to={{
-                          pathname: path,
-                          state: {
-                            totalPedido: location.state.totalPedido,
-                            cepEndereco: location.state.cepEndereco,
-                            entregaSelecionada: this.state.deliverySelected,
-                            totalFrete: this.state.priceFrete,
-                            endereco: {
-                              telefone: this.state.telefone,
-                              bairro: this.state.bairro,
-                              rua: this.state.rua,
-                              cpf: this.state.cpf,
-                              cidade: this.state.cidade,
-                              numero: this.state.numero,
-                              complemento: this.state.complemento,
-                              nome: this.state.nome + ' ' + this.state.sobrenome,
-                            },
-                          },
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        style={{
+                          width: 120,
+                          height: 50,
+                          textDecoration: 'none',
+                        }}
+                        onClick={() => {
+                          this.enviar();
                         }}
                       >
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          style={{
-                            width: 120,
-                            height: 50,
-                            textDecoration: 'none',
-                          }}
-                          onClick={() => {
-                            this.enviar();
-                          }}
-                        >
-                          Continuar
-                        </Button>
-                      </Link>
-                    </div>
-                  </MuiThemeProvider>
-                </Grid>
+                        Continuar
+                      </Button>
+                    </Link>
+                  </div>
+                </MuiThemeProvider>
               </Grid>
-            </>
-          )}
+            </Grid>
+          </>
+        )}
       </>
     );
   }

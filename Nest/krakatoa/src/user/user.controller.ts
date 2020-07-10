@@ -26,14 +26,14 @@ export class UserController {
   @Post()
   async createUser(
     @Body() createUserdto: CreateUserDto,
-  ): Promise<{ accesstoken: string }> {
+  ): Promise<{ accessToken: string }> {
     return await this.userService.CreateUser(createUserdto);
   }
 
   @Post('/login')
   async Login(
     @Body() loginUserDto: LoginUserDto,
-  ): Promise<{ accesstoken: string }> {
+  ): Promise<{ accessToken: string }> {
     return await this.userService.Login(loginUserDto);
   }
 
@@ -46,7 +46,7 @@ export class UserController {
   async Recover(
     @Param('id') id: string,
     @Body('newPassword') newPassword: string,
-  ): Promise<{ accesstoken: string }> {
+  ): Promise<{ accessToken: string }> {
     return this.userService.Recover(id, newPassword);
   }
 
@@ -62,8 +62,8 @@ export class UserController {
   @UseGuards(AuthGuard())
   @Get()
   async GetUser(@GetUser() user: User): Promise<userResponse> {
-    const { telefone, nome, pedidos, email } = user;
-    const UserResponse: userResponse = { telefone, nome, pedidos, email };
+    const { telefone, nome, pedidos, email,endereco } = user;
+    const UserResponse: userResponse = { telefone, nome, pedidos, email,endereco };
     return await UserResponse;
   }
 
