@@ -146,12 +146,14 @@ class Endereco extends PureComponent {
           break;
         case cpf.length !== 11:
           this.setState({ message: 'CPF inválido!' });
+          console.log(cpf)
           break;
         case cep.length !== 8:
           this.setState({ message: 'CEP inválido!' });
           break;
         case bairro.length === 0 || bairro === ' ':
           this.setState({ message: 'Insira seu bairro!' });
+          console.log(cep+ ' ' +cep.length)
           break;
         case cidade.length === 0 || cidade === ' ':
           this.setState({ message: 'Insira sua cidade!' });
@@ -310,7 +312,11 @@ class Endereco extends PureComponent {
                   disabled={false}
                   maskChar=" "
                   onChange={(e) => {
-                    this.setState({ cpf: e.target.value });
+                    let cpf = e.target.value.replace('.','');
+                    cpf = cpf.replace('.','')
+                    cpf = cpf.replace('-','')
+                    cpf = cpf.replace(' ','')
+                    this.setState({ cpf: cpf });
                   }}
                 >
                   {() => (
@@ -328,15 +334,27 @@ class Endereco extends PureComponent {
               </Grid>
               <Grid item lg={1}></Grid>
               <Grid item lg={3} md={12} sm={12}>
-                <TextFieldM
-                  variant="filled"
-                  style={{ width: '100%', marginTop: 10 }}
-                  label="CEP"
+              <InputMask
+                  mask="99999-999"
+                  disabled={false}
+                  maskChar=" "
                   onChange={(e) => {
-                    this.setState({ cep: e.target.value });
+                    let cep = e.target.value.replace('-','');
+                    cep = cep.replace(' ','')
+                    this.setState({ cep: cep });
                   }}
-                  numberOnly
-                />
+                >
+                  {() => (
+                    <TextFieldM
+                      variant="filled"
+                      style={{
+                        width: '100%',
+                        marginTop: 10,
+                      }}
+                      label="CEP"
+                    />
+                  )}
+                </InputMask>
               </Grid>
               <Grid item lg={1}></Grid>
               <Grid item lg={3} md={12} sm={12}>
@@ -520,6 +538,9 @@ class Endereco extends PureComponent {
                     }}
                   >
                     <Link
+                    style={{
+                      textDecoration: 'none',
+                    }}
                       to={{
                         pathname: path,
                         state: {
