@@ -141,6 +141,7 @@ const styles = {
 
 const Sumario = ({ location }) => {
   const [totalFinal, setFinalTotal] = useState(0);
+  const [produtosPedidos, setProdutosPedidos] = useState([]);
   const [open, setOpen] = useState(false);
   const [status, Setstatus] = useState('error');
   const [msg, setMsg] = useState('Erro');
@@ -152,8 +153,7 @@ const Sumario = ({ location }) => {
   const products = useSelector((state) => state.productsCart);
   const dispatch = useDispatch();
   const history = useHistory();
-  let dado;
-  
+  let dado;  
   let frete = parseFloat(location.state.totalFrete.replace(',', '.'));
   const price = (totalFinal + frete) * 100;
   const boletopag = async () => {
@@ -172,9 +172,32 @@ const Sumario = ({ location }) => {
       123,
     );
     window.open(dado.payment.url);
+      let dataa = {
+      precoTotal: price,
+      frete: frete,
+      data: '12/12/2122',
+      produtos: produtosPedidos,
+      metodo: "boleto",
+      idPedido: id,
+      idPagamento: dado.payment.paymentId,
+      token: sessionStorage.getItem('token'),
+    }
+    const request = await api.enviarPedido(dataa);
+    console.log(request);
   };
 
   useEffect(() => {
+    let arrayAux = [];
+    products.map((item, i) => {
+      let produto = {};  
+      produto.quantidadePedido = item.quantidadePedido;
+      produto.tamanhoEscolhido = item.tamanhoEscolhido;
+      produto.produto_id = item.produto_id;
+      arrayAux.push(produto);
+    });
+
+    setProdutosPedidos(arrayAux);
+
     if (location.state !== undefined) {
       if (location.state.entregaSelecionada === 'Pac') {
         setUrl(Pac);
@@ -182,7 +205,7 @@ const Sumario = ({ location }) => {
         setUrl(Sedex);
       }
     }
-  });
+  }, [products]);
 
   const atualizarTotal = (total) => {
     let auxTotal = 0;
@@ -207,6 +230,7 @@ const Sumario = ({ location }) => {
           }}
         />
       ) : (
+
         <>
           <Alerta
             openAlert={open}
@@ -246,6 +270,12 @@ const Sumario = ({ location }) => {
                 <a href="/">
                   <img src={payment} alt="Pagamento" />
                 </a>
+                <hr style={styles.hrstyle} />
+                <div style={styles.payment}>
+                  <a href="/">
+                    <img src={payment} alt="React Logo" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -372,9 +402,15 @@ const Sumario = ({ location }) => {
                     <Typography style={styles.escolhidoTypo}>
                       ESCOLHIDO
                     </Typography>
-                  </div>
-                </Box>
-
+                    <Typography style={styles.entrega} id="entregaTipo">
+                      {location.state.entregaSelecionada}
+                    </Typography>
+                    <div style={styles.escolhido}>
+                      <Typography style={styles.escolhidoTypo}>
+                        ESCOLHIDO
+                    </Typography>
+                    </div>
+                  </Box>
                 <div style={{ width: 200, marginTop: 30 }}>
                   <Button
                     variant="contained"
@@ -387,12 +423,13 @@ const Sumario = ({ location }) => {
                       } else if (pagamento === 'CARTAO') {
                         history.push({
                           pathname: '/checkout',
-                          state: { total: price },
+                          state: { total: price, frete: frete }
                         });
                       } else {
                         setMsg('Por favor, insira uma forma de pagamento');
                         setOpen(true);
                       }
+
                     }}
                   >
                     Concluir
@@ -400,9 +437,8 @@ const Sumario = ({ location }) => {
                 </div>
               </div>
             </div>
-          </div>
-        </>
-      )}
+          </>
+        )}
     </>
   );
 };

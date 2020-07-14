@@ -9,7 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-
+import { Typography } from '@material-ui/core/';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Quantity from './Quantity';
 import { productsUpdate } from '../reducers/productsCart';
@@ -60,8 +60,8 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
     const quantidades = [];
     const totais = [];
     allProducts.map((item) => {
-      quantidades.push(item.quantidade);
-      totais.push(item.preco * item.quantidade);
+      quantidades.push(item.quantidadePedido);
+      totais.push(item.preco * item.quantidadePedido);
       setTotal(totais);
       setQuantity(quantidades);
       return null;
@@ -70,12 +70,12 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
   }, [allProducts]);
 
   const updateTotal = (index) => {
-    allProducts[index].quantidade++;
+    allProducts[index].quantidadePedido++;
     dispatch(productsUpdate(allProducts));
   };
 
   const updateSubTotal = (index) => {
-    allProducts[index].quantidade--;
+    allProducts[index].quantidadePedido--;
     dispatch(productsUpdate(allProducts));
   };
   const updateRemoveTotal = (i) => {
@@ -110,9 +110,12 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
                     />
                   </div>
                   <div
-                    style={{ ...Estilos.flexRowCENTER2, paddingLeft: '40px' }}
+                    style={{ ...Estilos.flexColumnCENTER2, paddingLeft: '40px' }}
                   >
                     {row.nome}
+                      <Typography style={{ fontWeight: 'bold', fontSize: 16, paddingTop: 10 }}>
+                        Tamanho: {row.tamanhoEscolhido}
+                      </Typography>
                   </div>
                 </Box>
               </StyledTableCell>

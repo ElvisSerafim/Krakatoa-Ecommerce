@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Container } from '@material-ui/core/';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -32,7 +32,10 @@ const StyledBadge = withStyles(() => ({}))(Badge);
 const Topo = () => {
   const classes = useStyles();
   const allProducts = useSelector((state) => state.productsCart);
-
+  const [quantidadeProdutos, setQuantidade] = useState(0);
+  useEffect(() => {
+    setQuantidade(allProducts.length);
+  }, [allProducts]);
   return (
     <Container maxWidth="lg">
       <Box className={classes.Top}>
@@ -66,7 +69,7 @@ const Topo = () => {
                   classes={{
                     colorPrimary: classes.colorPrimary,
                   }}
-                  badgeContent={allProducts.length}
+                  badgeContent={quantidadeProdutos}
                   showZero
                   color="primary"
                 >
@@ -80,4 +83,4 @@ const Topo = () => {
     </Container>
   );
 };
-export default React.memo(Topo);
+export default Topo;

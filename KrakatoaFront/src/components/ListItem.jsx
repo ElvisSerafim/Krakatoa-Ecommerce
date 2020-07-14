@@ -17,7 +17,7 @@ const ListItem = ({ atualizarTotal }) => {
   useEffect(() => {
     let aux = 0;
     allProducts.map((item, i) => {
-      aux += item.preco * item.quantidade;
+      aux += item.preco * item.quantidadePedido;
     });
     setTotal(aux);
     atualizarTotal(aux);
@@ -31,7 +31,7 @@ const ListItem = ({ atualizarTotal }) => {
     const aux = total + allProducts[index].preco;
     setTotal(aux);
     atualizarTotal(aux);
-    allProducts[index].quantidade++;
+    allProducts[index].quantidadePedido++;
     dispatch(productsUpdate(allProducts));
   };
 
@@ -39,7 +39,7 @@ const ListItem = ({ atualizarTotal }) => {
     const aux = total - allProducts[index].preco;
     setTotal(aux);
     atualizarTotal(aux);
-    allProducts[index].quantidade--;
+    allProducts[index].quantidadePedido--;
     dispatch(productsUpdate(allProducts));
   };
 

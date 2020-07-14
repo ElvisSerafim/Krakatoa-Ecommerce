@@ -62,8 +62,8 @@ export default function CustomizedTables({
     const quantidades = [];
     const totais = [];
     allProducts.map((item) => {
-      quantidades.push(item.quantidade);
-      totais.push(item.preco * item.quantidade);
+      quantidades.push(item.quantidadePedido);
+      totais.push(item.preco * item.quantidadePedido);
       setTotal(totais);
       setQuantity(quantidades);
     });
@@ -71,12 +71,12 @@ export default function CustomizedTables({
   }, [allProducts]);
 
   const updateTotal = (index) => {
-    allProducts[index].quantidade++;
+    allProducts[index].quantidadePedido++;
     dispatch(productsUpdate(allProducts));
   };
 
   const updateSubTotal = (index) => {
-    allProducts[index].quantidade--;
+    allProducts[index].quantidadePedido--;
     dispatch(productsUpdate(allProducts));
   };
 

@@ -12,6 +12,7 @@
     "cielo": "^2.3.1",
     "cleave.js": "^1.5.10",
     "clsx": "^1.1.0",
+    "generate-safe-id": "^1.0.3",
     "jsonwebtoken": "^8.5.1",
     "material-ui-popup-state": "^1.5.4",
     "prop-types": "^15.7.2",

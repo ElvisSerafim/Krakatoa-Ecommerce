@@ -229,6 +229,29 @@ const ApiService = {
       return 'Não foi possivel acessar o servidor';
     }
   },
+
+  enviarPedido: async (data) => {
+    try{
+    console.log(data);
+    const Authorization = `Bearer ${data.token}`;
+    const requestInfo = {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: new Headers({
+        Authorization,
+        'Content-Type': 'application/json',
+      }),
+    };
+    const url = `http://64.227.106.165/api2/pedidos/`;
+    const request = await fetch(url, requestInfo);
+    if (request.ok) {
+      return request.json();
+    }
+    throw new Error('Não foi possivel acessar o servidor');
+  } catch(error) {
+    return 'Não foi possivel acessar o servidor';
+  }
+}
 };
 
 export default ApiService;
