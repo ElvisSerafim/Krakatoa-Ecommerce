@@ -18,9 +18,11 @@ export class PedidoDto {
   @IsString()
   @IsNotEmpty()
   data: string;
+  @IsString()
+  @IsNotEmpty()
+  idPagamento: string;
+  @IsString()
+  @IsNotEmpty()
+  idPedido: string;
   produtos: produto[];
-  pagamento: {
-    metodo: string;
-    frete: number;
-  };
 }

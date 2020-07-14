@@ -16,11 +16,11 @@ import Estilos from '../Estilos';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: 'red',
+    backgroundColor: theme.palette.primary.main,
     color: theme.palette.common.white,
   },
   body: {
-    backgroundColor: '#FF6961',
+    backgroundColor: theme.palette.secondary.main,
     color: theme.palette.common.white,
     fontSize: 20,
   },
@@ -105,24 +105,20 @@ export default function CustomizedTables({
               <StyledTableCell component="th" scope="row">
                 <div style={Estilos.flexRowStandard2}>
                   <div
-                    style={{paddingLeft: '40px',...Estilos.flexRowCENTER2}}
+                    style={{ paddingLeft: '40px', ...Estilos.flexRowCENTER2 }}
                   >
                     {row.nome}
                   </div>
                 </div>
               </StyledTableCell>
               <StyledTableCell align="right">
-                <div
-                  style={Estilos.flexRowCENTER2}
-                >
+                <div style={Estilos.flexRowCENTER2}>
                   <p>R$</p>
                   <p>{row.preco}</p>
                 </div>
               </StyledTableCell>
               <StyledTableCell align="center">
-                <div
-                  style={Estilos.flexRowCENTER2}
-                >
+                <div style={Estilos.flexRowCENTER2}>
                   <Quantity
                     onClickPlus={() => {
                       const aux = [...quantity];
@@ -153,8 +149,7 @@ export default function CustomizedTables({
                 </div>
               </StyledTableCell>
               <StyledTableCell align="center">
-                <div
-                  style={Estilos.flexRowCENTER2}>
+                <div style={Estilos.flexRowCENTER2}>
                   <p>R$</p>
                   <div style={{ width: 20 }}>
                     <p>{total[i]}</p>
@@ -177,9 +172,7 @@ export default function CustomizedTables({
           <StyledTableRow>
             <StyledTableCell component="th" scope="row">
               {' '}
-              <div
-                style={Estilos.flexRowCENTER2}
-              >
+              <div style={Estilos.flexRowCENTER2}>
                 <p>Total</p>
               </div>
             </StyledTableCell>
@@ -187,9 +180,7 @@ export default function CustomizedTables({
             <StyledTableCell align="center" />
             <StyledTableCell align="center">
               {' '}
-              <div
-                style={Estilos.flexRowCENTER2}
-              >
+              <div style={Estilos.flexRowCENTER2}>
                 <p>R$</p>
                 <div style={{ width: 20 }}>
                   <p>{totalSumario}</p>

@@ -46,6 +46,7 @@ const useStyles = makeStyles({
 
 export default function CustomizedTables({ pedidos }) {
   const classes = useStyles();
+  // eslint-disable-next-line no-empty-pattern
   const [] = useState(pedidos.produtosPedido);
 
   const setData = (data) => {
@@ -80,13 +81,13 @@ export default function CustomizedTables({ pedidos }) {
                       Pedido {i + 1}
                     </Typography>
                     <Typography className={classes.heading}>
-                      Frete: R$ {row.pedido.frete}
+                      Frete: R$ {row.frete}
                     </Typography>
                     <Typography className={classes.heading}>
-                      Preço Total: R$ {row.pedido.precoTotal}
+                      Preço Total: R$ {row.precoTotal}
                     </Typography>
                     <Typography className={classes.heading}>
-                      Data: {setData(row.pedido.data)}
+                      Data: {setData(row.data)}
                     </Typography>
                   </div>
                 </ExpansionPanelSummary>

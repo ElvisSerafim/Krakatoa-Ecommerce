@@ -4,11 +4,19 @@
 
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { Typography, Box, Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core/';
+import {
+  Typography,
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from '@material-ui/core/';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, Route, Redirect } from 'react-router-dom';
+import { Link, Route, Redirect, withRouter, useHistory } from 'react-router-dom';
 import { removerCart, removeProducts } from '../reducers/productsCart';
-import { withRouter, useHistory } from 'react-router-dom';
+
 import api from '../Services/ApiService';
 import Alerta from '../components/Alerta';
 import Pac from '../img/Pac.svg';
@@ -145,15 +153,26 @@ const Sumario = ({ location }) => {
   const products = useSelector((state) => state.productsCart);
   const dispatch = useDispatch();
   const history = useHistory();
-  let dado;
+  let dado;  
   let frete = parseFloat(location.state.totalFrete.replace(',', '.'));
-  let price = (totalFinal + frete) * 100;
+  const price = (totalFinal + frete) * 100;
   const boletopag = async () => {
-    let generateSafeId = require('generate-safe-id');
-    let id = generateSafeId();
-    dado = await boleto(price, location.state.endereco.nome, location.state.endereco.cpf, location.state.endereco.rua, 33, location.state.endereco.complemento, location.state.endereco.cep, location.state.endereco.cidade, location.state.endereco.estado, 'BRA', location.state.endereco.bairro, id)
+    dado = await boleto(
+      price,
+      location.state.endereco.nome,
+      location.state.endereco.cpf,
+      location.state.endereco.rua,
+      33,
+      location.state.endereco.complemento,
+      location.state.endereco.cep,
+      location.state.endereco.cidade,
+      'BA',
+      'BRA',
+      location.state.endereco.bairro,
+      123,
+    );
     window.open(dado.payment.url);
-    let dataa = {
+      let dataa = {
       precoTotal: price,
       frete: frete,
       data: '12/12/2122',
@@ -165,7 +184,8 @@ const Sumario = ({ location }) => {
     }
     const request = await api.enviarPedido(dataa);
     console.log(request);
-  }
+  };
+
   useEffect(() => {
     let arrayAux = [];
     products.map((item, i) => {
@@ -210,37 +230,45 @@ const Sumario = ({ location }) => {
           }}
         />
       ) : (
-          <>
-            <Alerta
-              openAlert={open}
-              message={msg}
-              status={status}
-              handleClose={(event, reason) => {
-                if (reason === 'clickaway') {
-                  return;
-                }
-                setOpen(false)
-              }}
-              vertical="top"
-              horizontal="right"
-            />
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}
-            >
-              <Typography style={styles.title}>Sumário</Typography>
 
-              <div style={styles.process}>
-                <a href="/">
-                  <img src={cartBlank} alt="React Logo" />
-                </a>
+        <>
+          <Alerta
+            openAlert={open}
+            message={msg}
+            status={status}
+            handleClose={(event, reason) => {
+              if (reason === 'clickaway') {
+                return;
+              }
+              setOpen(false);
+            }}
+            vertical="top"
+            horizontal="right"
+          />
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Typography variant="h3" color="primary">
+              Sumário
+            </Typography>
 
-                <hr style={styles.hrstyle} />
+            <div style={styles.process}>
+              <a href="/">
+                <img src={cartBlank} alt="Carrinho" />
+              </a>
+
+              <hr style={styles.hrstyle} />
+              <a href="/">
+                <img src={nodeli} alt="Entrega" />
+              </a>
+              <hr style={styles.hrstyle} />
+              <div style={styles.payment}>
                 <a href="/">
-                  <img src={nodeli} alt="React Logo" />
+                  <img src={payment} alt="Pagamento" />
                 </a>
                 <hr style={styles.hrstyle} />
                 <div style={styles.payment}>
@@ -250,45 +278,52 @@ const Sumario = ({ location }) => {
                 </div>
               </div>
             </div>
-            <div style={styles.flexColumn}>
-              <div style={styles.flexRow}>
+          </div>
+          <div style={styles.flexColumn}>
+            <div style={styles.flexRow}>
+              <Grid lg={12} container>
                 <Grid lg={12} container>
-                  <Grid lg={12} container>
-                    <TableSumario
-                      actualTotal={atualizarTotal}
-                      totalSumario={totalFinal}
-                      removerItem={removerProduct}
-                    />
-                  </Grid>
-                  <Grid lg={12} container justify='center'>
-                    <FormControl variant="outlined" style={{ width: '77%' }}>
-                      <InputLabel style={{ color: '#44323D' }}>
-                        Formas de pagamento
-              </InputLabel>
-                      <Select
-                        onChange={handleChangePagamento}
-                        value={pagamento}
-                        label="Formas de pagamento"
-                      >
-                        <MenuItem value={'Nenhum'}></MenuItem>
-                        <MenuItem value={'CARTAO'}>Cartão de crédito/débito</MenuItem>
-                        <MenuItem value={'BOLETO'}>Boleto</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Grid>
+                  <TableSumario
+                    actualTotal={atualizarTotal}
+                    totalSumario={totalFinal}
+                    removerItem={removerProduct}
+                  />
                 </Grid>
-                <div
-                  style={{
-                    fontWeight: 'bold',
-                    fontFamily: 'Poppins',
-                    paddingLeft: 60,
-                  }}
-                >
+                <Grid lg={12} container justify="center">
+                  <FormControl variant="outlined" style={{ width: '77%' }}>
+                    <InputLabel style={{ color: '#44323D' }}>
+                      Formas de pagamento
+                    </InputLabel>
+                    <Select
+                      onChange={handleChangePagamento}
+                      value={pagamento}
+                      label="Formas de pagamento"
+                    >
+                      <MenuItem value="Nenhum" />
+                      <MenuItem value="CARTAO">
+                        Cartão de crédito/débito
+                      </MenuItem>
+                      <MenuItem value="BOLETO">Boleto</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+              </Grid>
+              <div
+                style={{
+                  paddingLeft: 60,
+                  alignContent: 'center',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'inherit',
+                }}
+              >
+                <div style={{ marginBottom: 40 }}>
                   <Typography
                     style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
                   >
                     Endereço de entrega:
-                </Typography>
+                  </Typography>
 
                   <div style={{ marginTop: 10 }}>
                     <Typography
@@ -318,47 +353,54 @@ const Sumario = ({ location }) => {
                     >
                       {location.state.endereco.telefone}
                     </Typography>
-                    <Box
-                      style={{ cursor: 'pointer' }}
-                      display="flex"
-                      borderColor="gray"
-                      borderRadius={16}
-                      flexDirection="column"
-                      alignItems="center"
-                      {...styles.btn}
-                    >
-                      <Link
-                        style={{ textDecoration: 'none' }}
-                        to={{
-                          pathname: '/endereco',
-                          state: {
-                            totalPedido: location.state.totalPedido,
-                            cepEndereco: location.state.cepEndereco,
-                          },
-                        }}
-                      >
-                        <Typography >MUDAR ENDEREÇO</Typography>
-                      </Link>
-                    </Box>
                   </div>
-
-                  <Box
-                    style={{ cursor: 'pointer', marginTop: 15 }}
-                    display="flex"
-                    borderColor="red"
-                    borderRadius={16}
-                    flexDirection="column"
-                    alignItems="center"
-                    {...styles.boxStyle}
+                </div>
+                <Box
+                  style={{ cursor: 'pointer' }}
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                >
+                  <Link
+                    style={{ textDecoration: 'none' }}
+                    to={{
+                      pathname: '/endereco',
+                      state: {
+                        totalPedido: location.state.totalPedido,
+                        cepEndereco: location.state.cepEndereco,
+                      },
+                    }}
                   >
-                    <img
-                      src={urlDelivery}
-                      id="entregaImg"
-                      style={styles.img}
-                      alt="imagem da entrega"
-                    />
-                    <Typography style={styles.price} id="price">
-                      {location.state.totalFrete}
+                    <Button variant="contained" color="secondary" fullWidth>
+                      MUDAR ENDEREÇO
+                    </Button>
+                  </Link>
+                </Box>
+
+                <Box
+                  style={{ cursor: 'pointer', marginTop: 15 }}
+                  display="flex"
+                  borderColor="red"
+                  borderRadius={16}
+                  flexDirection="column"
+                  alignItems="center"
+                  {...styles.boxStyle}
+                >
+                  <img
+                    src={urlDelivery}
+                    id="entregaImg"
+                    style={styles.img}
+                    alt="imagem da entrega"
+                  />
+                  <Typography style={styles.price} id="price">
+                    {location.state.totalFrete}
+                  </Typography>
+                  <Typography style={styles.entrega} id="entregaTipo">
+                    {location.state.entregaSelecionada}
+                  </Typography>
+                  <div style={styles.escolhido}>
+                    <Typography style={styles.escolhidoTypo}>
+                      ESCOLHIDO
                     </Typography>
                     <Typography style={styles.entrega} id="entregaTipo">
                       {location.state.entregaSelecionada}
@@ -369,9 +411,12 @@ const Sumario = ({ location }) => {
                     </Typography>
                     </div>
                   </Box>
-
-                  <div style={{ width: 200, marginTop: 30 }}>
-                    <Button variant="contained" color="primary" fullWidth onClick={() => {
+                <div style={{ width: 200, marginTop: 30 }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={() => {
                       if (pagamento === 'BOLETO') {
                         boletopag();
                         history.push('/');
@@ -382,12 +427,13 @@ const Sumario = ({ location }) => {
                         });
                       } else {
                         setMsg('Por favor, insira uma forma de pagamento');
-                        setOpen(true)
+                        setOpen(true);
                       }
-                    }}>
-                      Concluir
-                    </Button>
-                  </div>
+
+                    }}
+                  >
+                    Concluir
+                  </Button>
                 </div>
               </div>
             </div>

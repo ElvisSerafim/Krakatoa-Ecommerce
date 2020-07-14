@@ -15,7 +15,7 @@ import withNav from '../higherComponents/withNav';
 
 const styles = {
   background: {
-    backgroundColor: '#D0D0D0',
+    backgroundColor: '#44323D',
   },
   flexRow: {
     display: 'flex',
@@ -24,7 +24,7 @@ const styles = {
     paddingBottom: '50',
   },
   quadrado1: {
-    backgroundColor: 'white',
+    backgroundColor: '#44323D',
     width: 800,
     height: 300,
     paddingTop: 50,
@@ -145,7 +145,7 @@ function Detalhes() {
           spacing={2}
           justify="space-around"
           style={{
-            backgroundColor: 'white',
+            backgroundColor: '#44323D',
             borderRadius: 10,
             width: '100%',
             height: '100%',
@@ -218,6 +218,11 @@ function Detalhes() {
                   variant="filled"
                   id="outlined-name"
                   fullWidth
+                  style={{
+                    width: '100%',
+                    backgroundColor: 'white',
+                    color: 'black',
+                  }}
                   label="Telefone"
                 />
               )}

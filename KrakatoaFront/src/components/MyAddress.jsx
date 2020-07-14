@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Button } from '@material-ui/core/';
 import TextField from '@material-ui/core/TextField';
+import InputMask from 'react-input-mask';
 import { useSelector, useDispatch } from 'react-redux';
 import api from '../Services/ApiService';
-import './Contato.css';
 import Alerta from './Alerta';
 
 export default function MyAddress() {
   const [nome, setNome] = useState('');
+  const [estado, setEstado] = useState('');
   const [cep, setCep] = useState('');
   const [cpf, setCpf] = useState('');
   const [bairro, setBairro] = useState('');
@@ -25,16 +26,19 @@ export default function MyAddress() {
 
   useEffect(() => {
     const getUser = async () => {
-      const tentativa = await usuario;
-      const { user } = tentativa;
-      setNome(user.nome);
-      setNumero(user.endereco.numero);
-      setCpf(user.cpf);
-      setCep(user.endereco.cep);
-      setBairro(user.endereco.bairro);
-      setCidade(user.endereco.cidade);
-      setRua(user.endereco.rua);
-      setComplemento(user.endereco.complemento);
+      try {
+        const tentativa = await usuario;
+        const { user } = tentativa;
+        setNome(user.nome);
+        setNumero(user.endereco.numero);
+        setCpf(user.cpf);
+        setCep(user.endereco.cep);
+        setBairro(user.endereco.bairro);
+        setCidade(user.endereco.cidade);
+        setRua(user.endereco.rua);
+        setComplemento(user.endereco.complemento);
+        setEstado(user.endereco.estado);
+      } catch (error) {}
     };
 
     getUser();
@@ -49,16 +53,18 @@ export default function MyAddress() {
       if (cidade === '') throw new Error('Cidade Vazia');
       if (rua === '') throw new Error('Rua Vazia');
       if (numero === '') throw new Error('Numero Vazio');
+      if (estado === '') throw new Error('Estado Vazio');
       const data = {
         nome,
-        cep: parseInt(cep, 10),
-        cpf: parseInt(cpf, 10),
+        cep,
+        cpf,
         bairro,
         cidade,
         rua,
         complemento,
-        numero: parseInt(numero, 10),
+        numero,
         token,
+        estado,
       };
       const request = await api.UsuarioEndereco(data);
       if (request) {
@@ -120,7 +126,26 @@ export default function MyAddress() {
           />
         </Grid>
         <Grid item lg={6} md={6} sm={6} xs={6}>
-          <TextField
+          <InputMask
+            mask="999.999.999-99"
+            disabled={false}
+            maskChar=" "
+            value={cpf}
+            onChange={(e) => {
+              setCpf(e.target.value);
+            }}
+          >
+            {() => (
+              <TextField
+                style={{
+                  width: '100%',
+                }}
+                label="CPF"
+                placeholder="Digite Seu CPF"
+              />
+            )}
+          </InputMask>
+          {/* <TextField
             placeholder="Digite Seu CPF"
             label="CPF"
             style={{ width: '100%' }}
@@ -128,7 +153,7 @@ export default function MyAddress() {
             onChange={(e) => {
               setCpf(e.target.value.replace(/[^0-9]/g, ''));
             }}
-          />
+          /> */}
         </Grid>
         <Grid item lg={6} md={6} sm={6} xs={6}>
           <TextField
@@ -185,6 +210,18 @@ export default function MyAddress() {
             }}
           />
         </Grid>
+        <Grid item lg={6} md={6} sm={6} xs={6}>
+          <TextField
+            placeholder="Digite seu Estado"
+            label="Estado"
+            value={estado}
+            style={{ width: '100%' }}
+            onChange={(e) => {
+              setComplemento(e.target.value);
+            }}
+          />
+        </Grid>
+        <Grid item lg={6} md={6} sm={6} xs={6} />
         <Grid item lg={5} />
         <Grid item lg={9} />
         <Grid item lg={3}>

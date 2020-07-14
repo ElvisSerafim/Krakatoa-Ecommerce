@@ -18,7 +18,6 @@ import { compare } from 'bcrypt';
 import * as Jwt from 'jsonwebtoken';
 import { uuid } from 'uuidv4';
 import { Mail } from './mail/nodemailer';
-import { Pedido } from '../pedido/schemas/pedido.schema';
 
 export interface userResponse {
   email: string;
@@ -47,7 +46,6 @@ export interface tokenDecode {
 export class UserService {
   private logger = new Logger('User Service');
   constructor(
-    @InjectModel(Pedido.name) private pedidoModel: Model<Pedido>,
     @InjectModel(User.name)
     private userModel: Model<User>,
     private jwtService: JwtService,
@@ -56,7 +54,7 @@ export class UserService {
   async Recover(
     token: string,
     newPassword: string,
-  ): Promise<{ accesstoken: string }> {
+  ): Promise<{ accessToken: string }> {
     try {
       const DecodedToken = Jwt.decode(token) as tokenDecode;
       const { email } = DecodedToken;
@@ -68,8 +66,8 @@ export class UserService {
         user.resetId = undefined;
         await user.save();
         const payload: JwtPayload = { email, nome: user.nome };
-        const accesstoken = Jwt.sign(payload, id, { expiresIn: 3600000 });
-        return { accesstoken };
+        const accessToken = Jwt.sign(payload, id, { expiresIn: 3600000 });
+        return { accessToken };
       }
     } catch (error) {
       throw new UnauthorizedException('Token Invalido');
@@ -101,15 +99,15 @@ export class UserService {
 
   async CreateUser(
     createUserDto: CreateUserDto,
-  ): Promise<{ accesstoken: string }> {
+  ): Promise<{ accessToken: string }> {
     try {
       const createdUser = new this.userModel(createUserDto);
       if (createdUser) {
         await createdUser.save();
         const { email, nome } = createdUser;
         const payload: JwtPayload = { email, nome };
-        const accesstoken = this.jwtService.sign(payload);
-        return { accesstoken };
+        const accessToken = this.jwtService.sign(payload);
+        return { accessToken };
       }
     } catch (error) {
       this.logger.log(error);
@@ -120,7 +118,7 @@ export class UserService {
     }
   }
 
-  async Login(loginUserDto: LoginUserDto): Promise<{ accesstoken: string }> {
+  async Login(loginUserDto: LoginUserDto): Promise<{ accessToken: string }> {
     const { email, password } = loginUserDto;
     const model = this.userModel;
     const user = await User.findByCredentials(model, email, password);
@@ -130,8 +128,8 @@ export class UserService {
 
     const nome = user.nome !== undefined ? user.nome : 'Usuário';
     const payload: JwtPayload = { email, nome };
-    const accesstoken = this.jwtService.sign(payload);
-    return { accesstoken };
+    const accessToken = this.jwtService.sign(payload);
+    return { accessToken };
   }
 
   async UpdateDetailUser(
@@ -174,8 +172,7 @@ export class UserService {
     user: User,
     updateUserDto: UpdateUserDto,
   ): Promise<userResponse> {
-    console.log(updateUserDto);
-    const User = user;
+    let UserUp = user;
     const {
       cep,
       estado,
@@ -186,70 +183,84 @@ export class UserService {
       complemento,
       nome,
       cpf,
+      telefone,
     } = updateUserDto;
-    const telefone = updateUserDto.celular;
 
-    if (!User.endereco) {
-      User.endereco = { cep, estado, bairro, cidade, complemento, numero, rua };
+    if (!UserUp.endereco) {
+      UserUp.endereco = {
+        cep,
+        estado,
+        bairro,
+        cidade,
+        complemento,
+        numero,
+        rua,
+      };
     } else {
-      User.endereco.cep = cep !== User.endereco.cep ? cep : User.endereco.cep;
+      const endereco = {
+        cep,
+        complemento,
+        estado,
+        bairro,
+        cidade,
+        numero,
+        rua,
+      };
+      endereco.cep = cep !== UserUp.endereco.cep ? cep : UserUp.endereco.cep;
 
-      User.endereco.complemento =
-        complemento !== User.endereco.complemento
+      endereco.complemento =
+        complemento !== UserUp.endereco.complemento
           ? complemento
-          : User.endereco.complemento;
+          : UserUp.endereco.complemento;
 
-      User.endereco.estado =
-        estado !== User.endereco.estado ? estado : User.endereco.estado;
+      endereco.estado =
+        estado !== UserUp.endereco.estado ? estado : UserUp.endereco.estado;
 
-      User.endereco.cidade =
-        cidade !== User.endereco.cidade ? cidade : User.endereco.cidade;
+      endereco.cidade =
+        cidade !== UserUp.endereco.cidade ? cidade : UserUp.endereco.cidade;
 
-      User.endereco.estado =
-        estado !== User.endereco.estado ? estado : User.endereco.estado;
+      endereco.estado =
+        estado !== UserUp.endereco.estado ? estado : UserUp.endereco.estado;
 
-      User.endereco.bairro =
-        bairro !== User.endereco.bairro ? bairro : User.endereco.bairro;
+      endereco.bairro =
+        bairro !== UserUp.endereco.bairro ? bairro : UserUp.endereco.bairro;
 
-      User.endereco.rua = rua !== User.endereco.rua ? rua : User.endereco.rua;
+      endereco.rua = rua !== UserUp.endereco.rua ? rua : UserUp.endereco.rua;
 
-      User.endereco.numero =
-        numero !== User.endereco.numero ? numero : User.endereco.numero;
+      endereco.numero =
+        numero !== UserUp.endereco.numero ? numero : UserUp.endereco.numero;
+      UserUp.endereco = endereco;
     }
 
-    User.nome =
-      typeof nome === 'string' && nome.trim().length > 0 && User.nome !== nome
+    UserUp.nome =
+      typeof nome === 'string' && nome.trim().length > 0 && UserUp.nome !== nome
         ? nome
-        : User.nome;
+        : UserUp.nome;
 
-    User.telefone =
+    UserUp.telefone =
       typeof telefone === 'string' &&
-      telefone.trim().length === 11 &&
-      User.telefone !== telefone
+      telefone.trim().length >= 11 &&
+      UserUp.telefone !== telefone
         ? telefone
-        : User.telefone;
+        : UserUp.telefone;
 
-    User.cpf = cpf !== User.cpf ? cpf : User.cpf;
+    UserUp.cpf = cpf !== UserUp.cpf ? cpf : UserUp.cpf;
+    /*     console.log(UserUp);
+     */
+    const save = await UserUp.save();
+    console.log(save);
 
-    const save = await User.save();
     if (save) {
       const UserResponse: userResponse = {
-        email: User.email,
+        email: UserUp.email,
         nome,
-        pedidos: User.pedidos,
+        pedidos: UserUp.pedidos,
         telefone,
-        endereco: User.endereco,
+        endereco: UserUp.endereco,
         cpf,
       };
       return UserResponse;
     }
     throw new Error('Não foi possivel Salvar');
   }
-
-  async getPedidos(user: User): Promise<Pedido[]> {
-    const Pedidos = await this.pedidoModel.find({ user: user._id });
-
-    return Pedidos;
-  } 
-
 }
