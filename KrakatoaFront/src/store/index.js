@@ -45,6 +45,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   page: pageReducer
 });
+
 const oldState = loadState();
 
 const store = createStore(

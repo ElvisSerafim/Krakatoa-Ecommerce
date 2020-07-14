@@ -1,9 +1,9 @@
-import React, { useState,useEffect } from 'react';
-import { useSelector} from 'react-redux';
-import {InputLabel,FormControl,Paper,Select,Container,MenuItem,Hidden,makeStyles,Stepper, Step,StepLabel, Grid, Typography, Button, Box,TextField, unstable_createMuiStrictModeTheme } from '@material-ui/core/';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { InputLabel, FormControl, Paper, Select, Container, MenuItem, Hidden, makeStyles, Stepper, Step, StepLabel, Grid, Typography, Button, Box, TextField, unstable_createMuiStrictModeTheme } from '@material-ui/core/';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
-import {useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Footer from '../components/Footer';
 import cartBlank from '../img/cartBlank.svg';
 import nodeli from '../img/noDelivery.svg';
@@ -18,6 +18,7 @@ import InputMask from 'react-input-mask';
 import mastercard from '../img/mastercard.png';
 import { credito, debito, boleto } from '../Services/pagar.js';
 import withAnimation from '../higherComponents/withAnimation';
+import api from '../Services/ApiService';
 import withNav from '../higherComponents/withNav';
 const styles = {
   title: {
@@ -65,6 +66,9 @@ function getSteps() {
   return ['Meios de pagamentos', 'Detalhes do pagamento', 'Resumo'];
 }
 function getStepContent(
+  allProducts,
+  frete,
+  produtosPedidos,
   classes,
   setCode,
   setTid,
@@ -106,23 +110,49 @@ function getStepContent(
       return;
     }
   };
-    const pagar = async()=>{
-      id = generateSafeId();
-        if(cartao ==='CreditCard'){
-     dado = await credito(nome,total,numero,nome,data,cvv,id,flag);
-    if(dado.payment.returnCode==4||dado.payment.returnCode==6) {
-      setCode('Sucesso, volte sempre!')
-      setTid(dado.payment.paymentId);
-    }else{
-      setCode('Ocorreu um erro na transação');
-      setTid('Transação falha');
-    }
-    }else if (cartao === 'DebitCard'){
-      dado = await debito(nome,total,numero,nome,data,cvv,id,flag);
+  const pagar = async () => {
+    id = generateSafeId();
+    if (cartao === 'CreditCard') {
+      dado = await credito(nome, total, numero, nome, data, cvv, id, flag);
+      if (dado.payment.returnCode == 4 || dado.payment.returnCode == 6) {
+        setCode('Sucesso, volte sempre!')
+        setTid(dado.payment.paymentId);
+        //Enviar Pedido
+        let dataa = {
+          precoTotal: total,
+          frete: frete,
+          data: '12/12/2122',
+          produtos: produtosPedidos,
+          metodo: "cartaoCredito",
+          idPedido: id,
+          idPagamento: dado.payment.paymentId,
+          token: sessionStorage.getItem('token'),
+
+        }
+        const request = await api.enviarPedido(dataa);
+        console.log(request);
+      } else {
+        setCode('Ocorreu um erro na transação');
+        setTid('Transação falha');
+      }
+    } else if (cartao === 'DebitCard') {
+      dado = await debito(nome, total, numero, nome, data, cvv, id, flag);
       window.open(dado.payment.authenticationUrl);
-      setCode('Você será redirecionado para a pagina do seu provedor para terminar o pagamento');  
+      setCode('Você será redirecionado para a pagina do seu provedor para terminar o pagamento');
       setTid(dado.payment.paymentId);
-      
+      let dataa = {
+        precoTotal: total,
+        frete: frete,
+        data: '12/12/2122',
+        produtos: produtosPedidos,
+        metodo: "cartaoDebito",
+        idPedido: id,
+        idPagamento: dado.payment.paymentId,
+        token: sessionStorage.getItem('token'),
+
+      }
+      const request = await api.enviarPedido(dataa);
+      console.log(request);
     }
   }
 
@@ -130,7 +160,7 @@ function getStepContent(
     case 0:
       return (
         <>
-         
+
           <div style={{ height: 20 }} />
           <Typography
             variant="h1"
@@ -275,16 +305,16 @@ function getStepContent(
               <Button
                 style={{ color: 'white', backgroundColor: '#44323D' }}
                 variant="contained"
-                onClick={()=>{
-                  if(cartao != 'CreditCard' && cartao != 'DebitCard'){
+                onClick={() => {
+                  if (cartao != 'CreditCard' && cartao != 'DebitCard') {
                     setStatus('error')
                     setMsg('Por favor, selecione o tipo do seu cartão: crédito ou débito');
                     setOpen(true);
-                  }else if(flag ==='Nenhum'){
+                  } else if (flag === 'Nenhum') {
                     setStatus('error')
                     setMsg('Por favor, selecione a bandeira do seu cartão');
                     setOpen(true);
-                  }else{
+                  } else {
                     handleNext();
                   }
                 }}
@@ -293,49 +323,49 @@ function getStepContent(
               </Button>
             </Grid>
           </Grid>
-        
+
         </>
       );
     case 1:
       return (
         <>
-        <Box borderRadius={12} style={{marginLeft:35,height:'45%',width:'90%'}}>
-        <Typography style={{color:'#44323D',paddingTop:20,textAlign:'center'}} variant='h1'>
-          Detalhes do cartão
+          <Box borderRadius={12} style={{ marginLeft: 35, height: '45%', width: '90%' }}>
+            <Typography style={{ color: '#44323D', paddingTop: 20, textAlign: 'center' }} variant='h1'>
+              Detalhes do cartão
         </Typography>
-        <div style={{height:20}}/>
-        <Grid container justify='center' style={{paddingLeft:20}} lg={12}>
-          <Grid lg={5}>
-            <TextField  InputLabelProps={{classes: {root: classes.inputLabel,} }} defaultValue={nome} variant="outlined" label='Nome no cartão *' onChange={(event)=>setNome(event.target.value)} style={{width:250,color:'black'}}/>
-          </Grid>
-          <Grid lg={5}>
-            <TextField InputLabelProps={{classes: {root: classes.inputLabel,} }} defaultValue={numero} onChange={(event)=>setNumero(event.target.value)} variant="outlined" style={{width:266}} type='number' label='Numero do cartão *'/>
-          </Grid>
-          <Grid lg={5}>
-          <InputMask
-            mask="99/9999"
-            onChange={(event)=>setData(event.target.value) }
-          >
-            {() => <TextField
-            style={{width:'92%'}}
-              label='Data de expiração *'
-              margin="normal"
-              InputLabelProps={{classes: {root: classes.inputLabel}}}
-              variant='outlined'
-              type="text"
-              />}
-          </InputMask>
-          </Grid>
-          <Grid lg={5} style={{paddingTop:17}} >
-            <TextField defaultValue={cvv} style={{width:'98%'}}onChange={(event)=>setCvv(event.target.value)} InputLabelProps={{classes: {root: classes.inputLabel,} }} variant="outlined" type='number'  label='Código de segurança *'/>
-          </Grid>
-        </Grid>
-        </Box>
-        <Grid lg={12}  justify="space-between" container>
+            <div style={{ height: 20 }} />
+            <Grid container justify='center' style={{ paddingLeft: 20 }} lg={12}>
+              <Grid lg={5}>
+                <TextField InputLabelProps={{ classes: { root: classes.inputLabel, } }} defaultValue={nome} variant="outlined" label='Nome no cartão *' onChange={(event) => setNome(event.target.value)} style={{ width: 250, color: 'black' }} />
+              </Grid>
+              <Grid lg={5}>
+                <TextField InputLabelProps={{ classes: { root: classes.inputLabel, } }} defaultValue={numero} onChange={(event) => setNumero(event.target.value)} variant="outlined" style={{ width: 266 }} type='number' label='Numero do cartão *' />
+              </Grid>
+              <Grid lg={5}>
+                <InputMask
+                  mask="99/9999"
+                  onChange={(event) => setData(event.target.value)}
+                >
+                  {() => <TextField
+                    style={{ width: '92%' }}
+                    label='Data de expiração *'
+                    margin="normal"
+                    InputLabelProps={{ classes: { root: classes.inputLabel } }}
+                    variant='outlined'
+                    type="text"
+                  />}
+                </InputMask>
+              </Grid>
+              <Grid lg={5} style={{ paddingTop: 17 }} >
+                <TextField defaultValue={cvv} style={{ width: '98%' }} onChange={(event) => setCvv(event.target.value)} InputLabelProps={{ classes: { root: classes.inputLabel, } }} variant="outlined" type='number' label='Código de segurança *' />
+              </Grid>
+            </Grid>
+          </Box>
+          <Grid lg={12} justify="space-between" container>
             <Grid lg={1} container item></Grid>
             <Grid lg={2} container item>
               <Button
-                style={{ fontWeight:'bold',color: '#44323D' }}
+                style={{ fontWeight: 'bold', color: '#44323D' }}
                 onClick={handleBack}
               >
                 Voltar
@@ -345,138 +375,152 @@ function getStepContent(
               <Button
                 style={{ color: 'white', backgroundColor: '#44323D' }}
                 variant="contained"
-                onClick={()=>{
-                  if(nome.length==0){
+                onClick={() => {
+                  if (nome.length == 0) {
                     setStatus('error');
                     setMsg('Por favor, insira o nome que está no cartão');
                     setOpen(true);
-                }else if(numero.toString().length!=16){
+                  } else if (numero.toString().length != 16) {
                     setStatus('error');
                     setMsg('Por favor, insira o número do cartão');
                     setOpen(true);
-                }else if(data.length!=7){
+                  } else if (data.length != 7) {
                     setStatus('error');
                     setMsg('Por favor, insira uma data de expiração válida do cartão');
                     setOpen(true);
-                }else if(data.indexOf('/')==-1){
+                  } else if (data.indexOf('/') == -1) {
                     setStatus('error');
                     setMsg('Por favor, insira uma barra para separar o mês e o ano');
-                    setOpen(true);              
-                }else if(cvv.toString().length!='3' && cvv.toString().length!='4'){
-                    setStatus('error');       
+                    setOpen(true);
+                  } else if (cvv.toString().length != '3' && cvv.toString().length != '4') {
+                    setStatus('error');
                     setMsg('Por favor, insira um código de segurança válido!');
-                    setOpen(true); 
-                }else {
-                handleNext()}}}
+                    setOpen(true);
+                  } else {
+                    handleNext()
+                  }
+                }}
               >
                 Próximo
               </Button>
             </Grid>
           </Grid>
-  <hr style={{width:'70%',marginTop:20}}/>
+          <hr style={{ width: '70%', marginTop: 20 }} />
         </>
       );
     case 2:
       return (
-<>
-        <Box borderRadius={12} style={{marginLeft:35,height:'45%',width:'90%'}}>
-          
-        <Typography variant = 'h1'  style={{paddingTop:20,color:'#44323D',textAlign:'center'}}>
-          Resumo do cartão
+        <>
+          <Box borderRadius={12} style={{ marginLeft: 35, height: '45%', width: '90%' }}>
+
+            <Typography variant='h1' style={{ paddingTop: 20, color: '#44323D', textAlign: 'center' }}>
+              Resumo do cartão
         </Typography>
-        <div style={{height:20}}/>
-        <Grid container lg ={12}  style={{paddingLeft:60}}>
-        <Grid lg={6} item container>
-        <Typography style={{fontWeight:'bold',paddingTop:20, paddingLeft:20,color:'#44323D'}}>
-          BANDEIRA : {flag}
-        </Typography>
-        </Grid>
-        <Grid lg={6} item container>
-        <Typography style={{fontWeight:'bold',paddingTop:20, paddingLeft:20,color:'#44323D'}}>
-          TIPO DE CARTÃO : {cartao}
-        </Typography>
-        </Grid>
-        <Grid lg={6} item container>
-        <Typography style={{fontWeight:'bold',paddingTop:20, paddingLeft:20,color:'#44323D'}}>
-          NOME NO CARTÃO : {nome}
-        </Typography>
-        </Grid>
-        <Grid lg={6} item container>
-        <Typography style={{fontWeight:'bold',paddingTop:20, paddingLeft:20,color:'#44323D'}}>
-          NÚMERO DO CARTÃO : {numero}
-        </Typography>
-        </Grid>
-        <Grid lg={6} item container>
-        <Typography style={{fontWeight:'bold',paddingTop:20, paddingLeft:20,color:'#44323D'}}>
-          CÓDIGO DE SEGURANÇA : {cvv}
-        </Typography>
-        </Grid>
-        <Grid lg={6} item container>
-        <Typography style={{fontWeight:'bold',paddingTop:20, paddingLeft:20,color:'#44323D'}}>
-          DATA : {data}
-        </Typography>
-        </Grid>
-        </Grid>
-        </Box>
-        <Grid lg={12} style={{paddingTop:20}} justify="space-between" container>
+            <div style={{ height: 20 }} />
+            <Grid container lg={12} style={{ paddingLeft: 60 }}>
+              <Grid lg={6} item container>
+                <Typography style={{ fontWeight: 'bold', paddingTop: 20, paddingLeft: 20, color: '#44323D' }}>
+                  BANDEIRA : {flag}
+                </Typography>
+              </Grid>
+              <Grid lg={6} item container>
+                <Typography style={{ fontWeight: 'bold', paddingTop: 20, paddingLeft: 20, color: '#44323D' }}>
+                  TIPO DE CARTÃO : {cartao}
+                </Typography>
+              </Grid>
+              <Grid lg={6} item container>
+                <Typography style={{ fontWeight: 'bold', paddingTop: 20, paddingLeft: 20, color: '#44323D' }}>
+                  NOME NO CARTÃO : {nome}
+                </Typography>
+              </Grid>
+              <Grid lg={6} item container>
+                <Typography style={{ fontWeight: 'bold', paddingTop: 20, paddingLeft: 20, color: '#44323D' }}>
+                  NÚMERO DO CARTÃO : {numero}
+                </Typography>
+              </Grid>
+              <Grid lg={6} item container>
+                <Typography style={{ fontWeight: 'bold', paddingTop: 20, paddingLeft: 20, color: '#44323D' }}>
+                  CÓDIGO DE SEGURANÇA : {cvv}
+                </Typography>
+              </Grid>
+              <Grid lg={6} item container>
+                <Typography style={{ fontWeight: 'bold', paddingTop: 20, paddingLeft: 20, color: '#44323D' }}>
+                  DATA : {data}
+                </Typography>
+              </Grid>
+            </Grid>
+          </Box>
+          <Grid lg={12} style={{ paddingTop: 20 }} justify="space-between" container>
             <Grid lg={1} container item></Grid>
             <Grid lg={2} container item>
               <Button
-                style={{ fontWeight:'bold',color: '#44323D' }}
+                style={{ fontWeight: 'bold', color: '#44323D' }}
                 onClick={handleBack}
               >
                 Voltar
               </Button>
             </Grid>
-        <Typography style={{textAlign:'center',paddingTop:15,fontSize:'1.0em'}} >
-            Total: R${total/100}
-        </Typography>
+            <Typography style={{ textAlign: 'center', paddingTop: 15, fontSize: '1.0em' }} >
+              Total: R${total / 100}
+            </Typography>
             <Grid lg={4} container item>
               <Button
                 style={{ color: 'white', backgroundColor: '#44323D' }}
                 variant="contained"
-                onClick={()=>{handleNext(); pagar()}}
+                onClick={() => { handleNext(); pagar() }}
               >
                 Finalizar
               </Button>
             </Grid>
           </Grid>
-  <hr style={{width:'70%',marginTop:20}}/>
-  </>
+          <hr style={{ width: '70%', marginTop: 20 }} />
+        </>
       );
-  
+
     default:
       return 'Unknown stepIndex';
   }
 }
 const Checkout = () => {
   const location = useLocation();
+  const allProducts = useSelector((state) => state.productsCart);
+  const [produtosPedidos, setProdutosPedidos] = useState([]);
   const [cartao, setCartao] = React.useState('Nenhum');
   const handleChange = (event) => {
     setCartao(event.target.value);
   };
-  const classes=useStyles(); 
-  const[code,setCode] = useState(0);
-  const[tid,setTid] = useState(0);
-  const[open,setOpen] = useState(false);
-  const[status,Setstatus] = useState('error');
-  const[msg,setMsg]=useState('Erro');
-  const [numero,setNumero] = useState(0);
-  const [cvv,setCvv] = useState(0);
-  const [data,setData] = useState('');
-  const [nome,setNome] = useState('');
+  const classes = useStyles();
+  const [code, setCode] = useState(0);
+  const [tid, setTid] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [status, Setstatus] = useState('error');
+  const [msg, setMsg] = useState('Erro');
+  const [numero, setNumero] = useState(0);
+  const [cvv, setCvv] = useState(0);
+  const [data, setData] = useState('');
+  const [nome, setNome] = useState('');
   const [selectedFlag, setSelectedFlag] = useState('Nenhum');
   const [visaElev, setVisaElev] = useState(3);
   const [hiperElev, setHiperElev] = useState(3);
   const [eloElev, setEloElev] = useState(3);
   const [masterElev, setMasterElev] = useState(3);
   const [activeStep, setActiveStep] = React.useState(0);
-  const [total,setTotal] = useState(0);
+  const [total, setTotal] = useState(0);
   const steps = getSteps();
-  useEffect(()=>{
+  const [frete, setFrete] = useState(location.state.frete);
+  useEffect(() => {
     let totalAux = location.state.total;
+    let arrayAux = [];
+    allProducts.map((item, i) => {
+      let produto = {};  
+      produto.quantidadePedido = item.quantidadePedido;
+      produto.tamanhoEscolhido = item.tamanhoEscolhido;
+      produto.produto_id = item.produto_id;
+      arrayAux.push(produto);
+    });
     setTotal(totalAux);
-  },[]);
+    setProdutosPedidos(arrayAux);
+  }, []);
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -487,19 +531,19 @@ const Checkout = () => {
   return (
     <>
       <Container maxWidth="lg">
-      <Alerta
-                openAlert={open}
-                message={msg}
-                status={status}
-                handleClose={(event, reason) => {
-                  if (reason === 'clickaway') {
-                    return;
-                  }
-                setOpen(false)
-                }}
-                vertical="top"
-                horizontal="right"
-              />
+        <Alerta
+          openAlert={open}
+          message={msg}
+          status={status}
+          handleClose={(event, reason) => {
+            if (reason === 'clickaway') {
+              return;
+            }
+            setOpen(false)
+          }}
+          vertical="top"
+          horizontal="right"
+        />
         <Grid
           justify="center"
           container
@@ -527,94 +571,97 @@ const Checkout = () => {
             </div>
           </Grid>
           <Hidden mdDown>
-          <Paper
-            elevation={3}
-            style={{ backgroundColor: '#D2C9C7', height: 600, width: '62%' }}
-          >
-            <Grid lg={12}>
-              <div style={{ height: 30 }}></div>
-            </Grid>
-            <Grid lg={12} container justify="center" alignItems="center">
-              <div className={classes.root}>
-                <Stepper
-                  style={{ backgroundColor: '#D2C9C7' }}
-                  activeStep={activeStep}
-                  alternativeLabel
-                >
-                  {steps.map((label) => (
-                    <Step key={label}>
-                      <StepLabel>{label}</StepLabel>
-                    </Step>
-                  ))}
-                </Stepper>
-              </div>
-            </Grid>
-            {activeStep === steps.length ? (
-              <>
+            <Paper
+              elevation={3}
+              style={{ backgroundColor: '#D2C9C7', height: 600, width: '62%' }}
+            >
               <Grid lg={12}>
-            <Typography variant = 'h1'  style={{paddingTop:10,color:'#44323D',textAlign:'center'}}>
-                Seu pagamento está sendo autenticado, por favor aguarde!
+                <div style={{ height: 30 }}></div>
+              </Grid>
+              <Grid lg={12} container justify="center" alignItems="center">
+                <div className={classes.root}>
+                  <Stepper
+                    style={{ backgroundColor: '#D2C9C7' }}
+                    activeStep={activeStep}
+                    alternativeLabel
+                  >
+                    {steps.map((label) => (
+                      <Step key={label}>
+                        <StepLabel>{label}</StepLabel>
+                      </Step>
+                    ))}
+                  </Stepper>
+                </div>
+              </Grid>
+              {activeStep === steps.length ? (
+                <>
+                  <Grid lg={12}>
+                    <Typography variant='h1' style={{ paddingTop: 10, color: '#44323D', textAlign: 'center' }}>
+                      Seu pagamento está sendo autenticado, por favor aguarde!
               </Typography>
-              </Grid>
-              <Grid lg={12}>
-            <Typography variant = 'h1'  style={{paddingTop:50,color:'#44323D',textAlign:'center'}}>
-              Estatus da transação: {code}
+                  </Grid>
+                  <Grid lg={12}>
+                    <Typography variant='h1' style={{ paddingTop: 50, color: '#44323D', textAlign: 'center' }}>
+                      Estatus da transação: {code}
+                    </Typography>
+                    <Grid lg={12}>
+                      <Typography variant='h1' style={{ paddingTop: 20, color: '#44323D', textAlign: 'center' }}>
+                        Código do pagamento: {tid}
+                      </Typography>
+                    </Grid>
+                    <Grid lg={12}>
+                      <Typography variant='h1' style={{ paddingTop: 20, color: '#44323D', textAlign: 'center' }}>
+                        Grave esse código!
             </Typography>
-            <Grid lg={12}>
-            <Typography variant = 'h1'  style={{paddingTop:20,color:'#44323D',textAlign:'center'}}>
-              Código do pagamento: {tid}
-            </Typography>
-              </Grid>
-              <Grid lg={12}>
-            <Typography variant = 'h1'  style={{paddingTop:20,color:'#44323D',textAlign:'center'}}>
-              Grave esse código!
-            </Typography>
-              </Grid>
-              </Grid>
-              </>
-            ) : (
-              <>
-                {getStepContent(
-                  classes,
-                  setCode,
-                  setTid,
-                  total,
-                  setOpen,
-                  setMsg,
-                  Setstatus,
-                  numero,
-                  setNumero,
-                  cvv,
-                  setCvv,
-                  nome,
-                  setNome,
-                  data,
-                  setData,
-                  activeStep,
-                  steps,
-                  handleNext,
-                  handleBack,
-                  cartao,
-                  handleChange,
-                  activeStep,
-                  visaElev,
-                  masterElev,
-                  hiperElev,
-                  eloElev,
-                  selectedFlag,
-                  setSelectedFlag,
-                  setVisaElev,
-                  setMasterElev,
-                  setHiperElev,
-                  setEloElev,
+                    </Grid>
+                  </Grid>
+                </>
+              ) : (
+                  <>
+                    {getStepContent(
+                      allProducts,
+                      frete,
+                      produtosPedidos,
+                      classes,
+                      setCode,
+                      setTid,
+                      total,
+                      setOpen,
+                      setMsg,
+                      Setstatus,
+                      numero,
+                      setNumero,
+                      cvv,
+                      setCvv,
+                      nome,
+                      setNome,
+                      data,
+                      setData,
+                      activeStep,
+                      steps,
+                      handleNext,
+                      handleBack,
+                      cartao,
+                      handleChange,
+                      activeStep,
+                      visaElev,
+                      masterElev,
+                      hiperElev,
+                      eloElev,
+                      selectedFlag,
+                      setSelectedFlag,
+                      setVisaElev,
+                      setMasterElev,
+                      setHiperElev,
+                      setEloElev,
+                    )}
+                  </>
                 )}
-              </>
-            )}
-          </Paper>
+            </Paper>
           </Hidden>
           <Hidden lgUp>
-                  <Checkout2/>
-          </Hidden> 
+            <Checkout2 />
+          </Hidden>
         </Grid>
       </Container>
     </>

@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     display: 'flex', 
     minHeight: 52,
     '@media (max-width: 360px)': {
-      minHeight: 104
+      minHeight: 90
     }
   },
 

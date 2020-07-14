@@ -52,13 +52,15 @@ const ItemMobile = ({
   const [preco, setPreco] = useState(0);
   const [product, setProduct] = useState('');
   const [nome, setNome] = useState('');
+  const [tamanho, setTamanho] = useState('');
   const [imageUrl, setImageurl] = useState('');
   const [index, setIndex] = useState(0);
   useEffect(() => {
     setProduct(produto);
+    setTamanho(produto.tamanhoEscolhido);
     setPreco(produto.preco);
-    setQuantity(produto.quantidade);
-    setTotal(produto.preco * produto.quantidade);
+    setQuantity(produto.quantidadePedido);
+    setTotal(produto.preco * produto.quantidadePedido);
     setImageurl(produto.Imageurl);
     setNome(produto.nome);
     setIndex(posicao);
@@ -101,8 +103,7 @@ const ItemMobile = ({
             </Grid>
           </Grid>
           <div style={{ paddingTop: 10 }}>
-            <Typography style={style.typography}>Tamanho: GG</Typography>
-            <Typography style={style.typography}>Cor: Azul</Typography>
+            <Typography style={style.typography}>Tamanho: {tamanho} </Typography>
             <Typography style={style.typography}>Preço: R$ {preco}</Typography>
           </div>
           <div style={{ paddingTop: 15 }}>

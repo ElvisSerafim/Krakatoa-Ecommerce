@@ -107,6 +107,7 @@ const ProdutoPage = ({ match }) => {
   const [allProducts, setAllProducts] = useState([]);
   const [atualizar, setAtualizar] = useState(false);
   const [sizes, setSizes] = useState([]);
+  const [size, setSize] = useState('');
   const [] = useState([]);
   const [, setColors] = useState([]);
   const [, setProducts] = useState([]);
@@ -168,9 +169,14 @@ const ProdutoPage = ({ match }) => {
     relacionados(produtosType);
   };
 
-  const addItemCart = (productCart, quantity) => {
-    productCart.quantidade = quantity;
-    dispatch(addCart(productCart));
+  const addItemCart = (produto, quantidade) => {
+    let product = JSON.parse(JSON.stringify(produto));
+    product.quantidadePedido = quantidade;
+    product.tamanhoEscolhido = size;
+    product.produto_id = product.id;
+    dispatch(addCart(product));
+    setQuantity(1);
+    setSize("");   
   };
 
   const classes = useStyles();
@@ -204,7 +210,6 @@ const ProdutoPage = ({ match }) => {
     }
   };
 
-  const [size, setSize] = useState('');
 
   return (
     <>
