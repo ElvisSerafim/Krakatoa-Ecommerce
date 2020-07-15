@@ -28,6 +28,8 @@ import TableSumario from '../components/TableSumario';
 import { boleto } from '../Services/pagar.js';
 import withAnimation from '../higherComponents/withAnimation';
 import withNav from '../higherComponents/withNav';
+let generateSafeId = require('generate-safe-id');
+
 
 const styles = {
   title: {
@@ -153,10 +155,12 @@ const Sumario = ({ location }) => {
   const products = useSelector((state) => state.productsCart);
   const dispatch = useDispatch();
   const history = useHistory();
-  let dado;  
+  let dado;
+
   let frete = parseFloat(location.state.totalFrete.replace(',', '.'));
   const price = (totalFinal + frete) * 100;
   const boletopag = async () => {
+    let id = generateSafeId();
     dado = await boleto(
       price,
       location.state.endereco.nome,
@@ -172,7 +176,7 @@ const Sumario = ({ location }) => {
       123,
     );
     window.open(dado.payment.url);
-      let dataa = {
+    let dataa = {
       precoTotal: price,
       frete: frete,
       data: '12/12/2122',
@@ -184,12 +188,13 @@ const Sumario = ({ location }) => {
     }
     const request = await api.enviarPedido(dataa);
     console.log(request);
+    dispatch(removeProducts());
   };
 
   useEffect(() => {
     let arrayAux = [];
     products.map((item, i) => {
-      let produto = {};  
+      let produto = {};
       produto.quantidadePedido = item.quantidadePedido;
       produto.tamanhoEscolhido = item.tamanhoEscolhido;
       produto.produto_id = item.produto_id;
@@ -230,45 +235,39 @@ const Sumario = ({ location }) => {
           }}
         />
       ) : (
-
-        <>
-          <Alerta
-            openAlert={open}
-            message={msg}
-            status={status}
-            handleClose={(event, reason) => {
-              if (reason === 'clickaway') {
-                return;
-              }
-              setOpen(false);
-            }}
-            vertical="top"
-            horizontal="right"
-          />
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Typography variant="h3" color="primary">
-              Sumário
+          <>
+            <Alerta
+              openAlert={open}
+              message={msg}
+              status={status}
+              handleClose={(event, reason) => {
+                if (reason === 'clickaway') {
+                  return;
+                }
+                setOpen(false);
+              }}
+              vertical="top"
+              horizontal="right"
+            />
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Typography variant="h3" color="primary">
+                Sumário
             </Typography>
 
-            <div style={styles.process}>
-              <a href="/">
-                <img src={cartBlank} alt="Carrinho" />
-              </a>
-
-              <hr style={styles.hrstyle} />
-              <a href="/">
-                <img src={nodeli} alt="Entrega" />
-              </a>
-              <hr style={styles.hrstyle} />
-              <div style={styles.payment}>
+              <div style={styles.process}>
                 <a href="/">
-                  <img src={payment} alt="Pagamento" />
+                  <img src={cartBlank} alt="Carrinho" />
+                </a>
+
+                <hr style={styles.hrstyle} />
+                <a href="/">
+                  <img src={nodeli} alt="Entrega" />
                 </a>
                 <hr style={styles.hrstyle} />
                 <div style={styles.payment}>
@@ -278,129 +277,121 @@ const Sumario = ({ location }) => {
                 </div>
               </div>
             </div>
-          </div>
-          <div style={styles.flexColumn}>
-            <div style={styles.flexRow}>
-              <Grid lg={12} container>
+            <div style={styles.flexColumn}>
+              <div style={styles.flexRow}>
                 <Grid lg={12} container>
-                  <TableSumario
-                    actualTotal={atualizarTotal}
-                    totalSumario={totalFinal}
-                    removerItem={removerProduct}
-                  />
-                </Grid>
-                <Grid lg={12} container justify="center">
-                  <FormControl variant="outlined" style={{ width: '77%' }}>
-                    <InputLabel style={{ color: '#44323D' }}>
-                      Formas de pagamento
+                  <Grid lg={12} container>
+                    <TableSumario
+                      actualTotal={atualizarTotal}
+                      totalSumario={totalFinal}
+                      removerItem={removerProduct}
+                    />
+                  </Grid>
+                  <Grid lg={12} container justify="center">
+                    <FormControl variant="outlined" style={{ width: '77%' }}>
+                      <InputLabel style={{ color: '#44323D' }}>
+                        Formas de pagamento
                     </InputLabel>
-                    <Select
-                      onChange={handleChangePagamento}
-                      value={pagamento}
-                      label="Formas de pagamento"
-                    >
-                      <MenuItem value="Nenhum" />
-                      <MenuItem value="CARTAO">
-                        Cartão de crédito/débito
+                      <Select
+                        onChange={handleChangePagamento}
+                        value={pagamento}
+                        label="Formas de pagamento"
+                      >
+                        <MenuItem value="Nenhum" />
+                        <MenuItem value="CARTAO">
+                          Cartão de crédito/débito
                       </MenuItem>
-                      <MenuItem value="BOLETO">Boleto</MenuItem>
-                    </Select>
-                  </FormControl>
+                        <MenuItem value="BOLETO">Boleto</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Grid>
                 </Grid>
-              </Grid>
-              <div
-                style={{
-                  paddingLeft: 60,
-                  alignContent: 'center',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  textAlign: 'inherit',
-                }}
-              >
-                <div style={{ marginBottom: 40 }}>
-                  <Typography
-                    style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
-                  >
-                    Endereço de entrega:
+                <div
+                  style={{
+                    paddingLeft: 60,
+                    alignContent: 'center',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    textAlign: 'inherit',
+                  }}
+                >
+                  <div style={{ marginBottom: 40 }}>
+                    <Typography
+                      style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
+                    >
+                      Endereço de entrega:
                   </Typography>
 
-                  <div style={{ marginTop: 10 }}>
-                    <Typography
-                      style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
-                    >
-                      {location.state.endereco.nome}
-                    </Typography>
-                    <Typography
-                      style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
-                    >
-                      {location.state.endereco.rua},{' '}
-                      {location.state.endereco.bairro}, Numero°{' '}
-                      {location.state.endereco.numero}
-                    </Typography>
-                    <Typography
-                      style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
-                    >
-                      {location.state.endereco.cidade}
-                    </Typography>
-                    <Typography
-                      style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
-                    >
-                      {location.state.endereco.complemento}
-                    </Typography>
-                    <Typography
-                      style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
-                    >
-                      {location.state.endereco.telefone}
-                    </Typography>
+                    <div style={{ marginTop: 10 }}>
+                      <Typography
+                        style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
+                      >
+                        {location.state.endereco.nome}
+                      </Typography>
+                      <Typography
+                        style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
+                      >
+                        {location.state.endereco.rua},{' '}
+                        {location.state.endereco.bairro}, Numero°{' '}
+                        {location.state.endereco.numero}
+                      </Typography>
+                      <Typography
+                        style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
+                      >
+                        {location.state.endereco.cidade}
+                      </Typography>
+                      <Typography
+                        style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
+                      >
+                        {location.state.endereco.complemento}
+                      </Typography>
+                      <Typography
+                        style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
+                      >
+                        {location.state.endereco.telefone}
+                      </Typography>
+                    </div>
                   </div>
-                </div>
-                <Box
-                  style={{ cursor: 'pointer' }}
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                >
-                  <Link
-                    style={{ textDecoration: 'none' }}
-                    to={{
-                      pathname: '/endereco',
-                      state: {
-                        totalPedido: location.state.totalPedido,
-                        cepEndereco: location.state.cepEndereco,
-                      },
-                    }}
+                  <Box
+                    style={{ cursor: 'pointer' }}
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
                   >
-                    <Button variant="contained" color="secondary" fullWidth>
-                      MUDAR ENDEREÇO
+                    <Link
+                      style={{ textDecoration: 'none' }}
+                      to={{
+                        pathname: '/endereco',
+                        state: {
+                          totalPedido: location.state.totalPedido,
+                          cepEndereco: location.state.cepEndereco,
+                        },
+                      }}
+                    >
+                      <Button variant="contained" color="secondary" fullWidth>
+                        MUDAR ENDEREÇO
                     </Button>
-                  </Link>
-                </Box>
+                    </Link>
+                  </Box>
 
-                <Box
-                  style={{ cursor: 'pointer', marginTop: 15 }}
-                  display="flex"
-                  borderColor="red"
-                  borderRadius={16}
-                  flexDirection="column"
-                  alignItems="center"
-                  {...styles.boxStyle}
-                >
-                  <img
-                    src={urlDelivery}
-                    id="entregaImg"
-                    style={styles.img}
-                    alt="imagem da entrega"
-                  />
-                  <Typography style={styles.price} id="price">
-                    {location.state.totalFrete}
-                  </Typography>
-                  <Typography style={styles.entrega} id="entregaTipo">
-                    {location.state.entregaSelecionada}
-                  </Typography>
-                  <div style={styles.escolhido}>
-                    <Typography style={styles.escolhidoTypo}>
-                      ESCOLHIDO
+                  <Box
+                    style={{ cursor: 'pointer', marginTop: 15 }}
+                    display="flex"
+                    borderColor="red"
+                    borderRadius={16}
+                    flexDirection="column"
+                    alignItems="center"
+                    {...styles.boxStyle}
+                  >
+                    <img
+                      src={urlDelivery}
+                      id="entregaImg"
+                      style={styles.img}
+                      alt="imagem da entrega"
+                    />
+                    <Typography style={styles.price} id="price">
+                      {location.state.totalFrete}
                     </Typography>
                     <Typography style={styles.entrega} id="entregaTipo">
                       {location.state.entregaSelecionada}
@@ -411,29 +402,30 @@ const Sumario = ({ location }) => {
                     </Typography>
                     </div>
                   </Box>
-                <div style={{ width: 200, marginTop: 30 }}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    onClick={() => {
-                      if (pagamento === 'BOLETO') {
-                        boletopag();
-                        history.push('/');
-                      } else if (pagamento === 'CARTAO') {
-                        history.push({
-                          pathname: '/checkout',
-                          state: { total: price, frete: frete }
-                        });
-                      } else {
-                        setMsg('Por favor, insira uma forma de pagamento');
-                        setOpen(true);
-                      }
+                  <div style={{ width: 200, marginTop: 30 }}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      fullWidth
+                      onClick={() => {
+                        if (pagamento === 'BOLETO') {
+                          boletopag();
+                          history.push('/');
+                        } else if (pagamento === 'CARTAO') {
+                          history.push({
+                            pathname: '/checkout',
+                            state: { total: price, frete: frete }
+                          });
+                        } else {
+                          setMsg('Por favor, insira uma forma de pagamento');
+                          setOpen(true);
+                        }
 
-                    }}
-                  >
-                    Concluir
-                  </Button>
+                      }}
+                    >
+                      Concluir
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
