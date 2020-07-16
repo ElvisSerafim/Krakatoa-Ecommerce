@@ -13,7 +13,7 @@ import delivery from '../img/noDelivery.svg';
 import payment from '../img/payment.svg';
 import Table from '../components/Table';
 import ListItem from '../components/ListItem';
-import { removerCart, removeProducts } from '../reducers/productsCart';
+import { removerCart, removeAllProducts } from '../reducers/productsCart';
 import api from '../Services/ApiService';
 import Estilos from '../Estilos';
 import { ProdutoTipo } from '../Services/dto/produto.dto';
@@ -135,7 +135,7 @@ const Carrinho = () => {
   };
 
   const removeAllProducts = () => {
-    dispatch(removeProducts());
+    dispatch(removeAllProducts());
   };
   const classes = useStyles();
   return (

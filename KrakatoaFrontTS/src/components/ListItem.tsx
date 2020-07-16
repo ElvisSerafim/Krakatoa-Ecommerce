@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   productsUpdate,
   removerCart,
-  removeProducts,
+  removeAllProducts,
 } from '../reducers/productsCart';
 
 import ItemMobile from './ItemMobile';
