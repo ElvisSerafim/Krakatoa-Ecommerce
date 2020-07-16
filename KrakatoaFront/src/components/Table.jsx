@@ -70,13 +70,17 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
   }, [allProducts]);
 
   const updateTotal = (index) => {
-    allProducts[index].quantidadePedido++;
-    dispatch(productsUpdate(allProducts));
+    let produtosCarrinho = JSON.parse(JSON.stringify(allProducts));
+    let produtoAtualizado = produtosCarrinho[index];
+    produtoAtualizado.quantidadePedido++;
+    dispatch(productsUpdate(produtoAtualizado));
   };
 
   const updateSubTotal = (index) => {
-    allProducts[index].quantidadePedido--;
-    dispatch(productsUpdate(allProducts));
+    let produtosCarrinho = JSON.parse(JSON.stringify(allProducts));
+    let produtoAtualizado = produtosCarrinho[index];
+    produtoAtualizado.quantidadePedido--;
+    dispatch(productsUpdate(produtoAtualizado));
   };
   const updateRemoveTotal = (i) => {
     const auxiliar = [...total];

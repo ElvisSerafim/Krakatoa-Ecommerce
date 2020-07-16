@@ -1,13 +1,15 @@
-const INITIAL_STATE = [];
+import { createSlice } from '@reduxjs/toolkit';
 
-export default function reducer(state = INITIAL_STATE, action) {
-  if (action.type === 'CURRENTY_PRODUCTS') {
-    return action.products;
+
+const productsPage = createSlice({
+  name: 'productsPage',
+  initialState: [],
+  reducers: {
+    updateProducts: (state, action) => {
+      return action.payload;
+    }
   }
-  return state;
-}
+})
 
-export const updateProducts = (products) => ({
-  type: 'CURRENTY_PRODUCTS',
-  products,
-});
+export default productsPage.reducer;
+export const {updateProducts} = productsPage.actions;

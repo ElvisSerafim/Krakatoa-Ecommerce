@@ -2,7 +2,6 @@ import React from 'react';
 import { Typography } from '@material-ui/core/';
 import { useDispatch } from 'react-redux';
 import SobreCompomente from '../components/Sobre';
-import { currentPage } from '../reducers/page';
 import withAnimation from '../higherComponents/withAnimation';
 import withNav from '../higherComponents/withNav';
 
@@ -17,8 +16,6 @@ const styles = {
 
 
 const Sobre = () => {
-  const dispatch = useDispatch();
-  dispatch(currentPage(3));
   return (
     <>
       <section>

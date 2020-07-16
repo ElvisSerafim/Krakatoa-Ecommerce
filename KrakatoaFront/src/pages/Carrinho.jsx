@@ -160,21 +160,7 @@ const Carrinho = () => {
             </Grid>
             <Grid item lg={8} />
             <Grid item lg={4} container justify="flex-end">
-              <Box style={Estilos.flexRowCENTER2}>
-                <a href="/carrinho">
-                  <div style={styles.searchIcon}>
-                    <ShoppingCartIcon />
-                  </div>
-                </a>
-                <hr style={styles.hrstyle} />
-                <a href="/endereco">
-                  <img src={delivery} alt="Endereço" />
-                </a>
-                <hr style={styles.hrstyle} />
-                <a href="/">
-                  <img src={payment} alt="Pagamento" />
-                </a>
-              </Box>
+              
             </Grid>
             <Hidden smDown="true">
               <Grid

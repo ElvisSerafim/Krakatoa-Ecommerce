@@ -31,16 +31,20 @@ const ListItem = ({ atualizarTotal }) => {
     const aux = total + allProducts[index].preco;
     setTotal(aux);
     atualizarTotal(aux);
-    allProducts[index].quantidadePedido++;
-    dispatch(productsUpdate(allProducts));
+    let produtosCarrinho = JSON.parse(JSON.stringify(allProducts));
+    let produtoAtualizado = produtosCarrinho[index];
+    produtoAtualizado.quantidadePedido--;
+    dispatch(productsUpdate(produtoAtualizado));
   };
 
   const updateSubTotal = (index) => {
     const aux = total - allProducts[index].preco;
     setTotal(aux);
     atualizarTotal(aux);
-    allProducts[index].quantidadePedido--;
-    dispatch(productsUpdate(allProducts));
+    let produtosCarrinho = JSON.parse(JSON.stringify(allProducts));
+    let produtoAtualizado = produtosCarrinho[index];
+    produtoAtualizado.quantidadePedido--;
+    dispatch(productsUpdate(produtoAtualizado));
   };
 
   return (
