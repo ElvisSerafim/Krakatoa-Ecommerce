@@ -6,7 +6,6 @@ import { Grid, Typography } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
 import ContatoComp from '../components/Contato';
-import { currentPage } from '../reducers/page';
 
 import fb from '../img/fb.png';
 import insta from '../img/insta@2x.png';
@@ -40,8 +39,7 @@ const useStyles = makeStyles({
 
 const Contato = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  dispatch(currentPage(4));
+
   return (
     <>
       <Grid

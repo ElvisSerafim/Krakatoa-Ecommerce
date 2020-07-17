@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch} from 'react-redux';
-import { removeProducts } from '../reducers/productsCart';
+import { removeAllProducts } from '../reducers/productsCart';
 import { InputLabel, FormControl, Paper, Select, Container, MenuItem, Hidden, makeStyles, Stepper, Step, StepLabel, Grid, Typography, Button, Box, TextField, unstable_createMuiStrictModeTheme } from '@material-ui/core/';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';

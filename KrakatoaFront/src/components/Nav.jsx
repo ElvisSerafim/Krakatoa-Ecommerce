@@ -13,7 +13,6 @@ import {
   bindHover,
   bindMenu,
 } from 'material-ui-popup-state/hooks';
-import { currentPage } from '../reducers/page';
 
 const useStyles = makeStyles((theme) => ({
   a: {
@@ -80,9 +79,6 @@ const NavBar = () => {
     variant: 'popover',
     popupId: 'test3',
   });
-  const handleChange = (event, newValue) => {
-    dispatch(currentPage(newValue));
-  };
 
   const classes = useStyles();
   return (
@@ -148,7 +144,6 @@ const NavBar = () => {
                       <a
                         href={`/${text}`}
                         onClick={() => {
-                          dispatch(currentPage(1));
                         }}
                         className={classes.a}
 
@@ -172,9 +167,7 @@ const NavBar = () => {
                   {['Bolsas', 'Chapeus'].map((text) => (
                     <a
                       href={`/${text}`}
-                      onClick={() => {
-                        dispatch(currentPage(2));
-                      }}
+                      
                       className={classes.a}
 
                     >
@@ -199,7 +192,6 @@ const NavBar = () => {
                       <a
                         href={`/cangas/${text}`}
                         onClick={() => {
-                          dispatch(currentPage(0));
                         }}
 
                         className={classes.a}

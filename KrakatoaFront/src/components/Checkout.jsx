@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removerCart, removeProducts } from '../reducers/productsCart';
+import { removerCart, removeAllProducts } from '../reducers/productsCart';
 import InputMask from 'react-input-mask';
 import { useLocation } from 'react-router-dom';
 import {
@@ -104,7 +104,7 @@ const Checkout = () => {
         }
         const request = await api.enviarPedido(dataa);
         console.log(request);
-        dispatch(removeProducts());
+        dispatch(removeAllProducts());
       } else {
         setCode('Ocorreu um erro na transação');
         setTid('Transação falha');

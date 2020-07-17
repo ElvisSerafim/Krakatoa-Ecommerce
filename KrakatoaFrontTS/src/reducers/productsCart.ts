@@ -32,7 +32,7 @@ export const addCart = (product) => ({
   product,
 });
 
-export const removeProducts = () => ({
+export const removeAllProducts = () => ({
   type: 'REMOVE_ALL_PRODUCTS',
 });
 

@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core/';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, Route, Redirect, withRouter, useHistory } from 'react-router-dom';
-import { removerCart, removeProducts } from '../reducers/productsCart';
+import { removerCart, removeAllProducts } from '../reducers/productsCart';
 
 import api from '../Services/ApiService';
 import Alerta from '../components/Alerta';
@@ -188,7 +188,7 @@ const Sumario = ({ location }) => {
     }
     const request = await api.enviarPedido(dataa);
     console.log(request);
-    dispatch(removeProducts());
+    dispatch(removeAllProducts());
   };
 
   useEffect(() => {

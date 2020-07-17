@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core/';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, Route, Redirect, RouteProps } from 'react-router-dom';
-import { removerCart, removeProducts } from '../reducers/productsCart';
+import { removerCart, removeAllProducts } from '../reducers/productsCart';
 
 import api from '../Services/ApiService';
 import Navbar from '../components/Nav';

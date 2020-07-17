@@ -23,7 +23,6 @@ const Produtos = ({ title, name }) => {
   const [open, setOpen] = useState(false);
   const [, setNome] = useState('');
   const search = useSelector((state) => state.pesquisaBarra);
-
   useEffect(() => {
     setNome(name);
     const getProducts = async () => {
@@ -33,14 +32,15 @@ const Produtos = ({ title, name }) => {
       };
 
       const request = await api.ListaProdutos(data);
-
+      console.log(request);
       const a = [request];
 
       if (name === 'pesquisa') {
-        setProduct([[]]);
-        const arrayPesquisa = search.split(' ');
+        setProduct([]);
+        const arrayPesquisa = search.pesquisa.split(' ');
         const arrayAux = [];
-
+        console.log('estou aqui');
+        console.log(arrayPesquisa);
         if (arrayPesquisa.length === 1) {
           request.forEach((itemI) => {
             if (
@@ -51,6 +51,7 @@ const Produtos = ({ title, name }) => {
             }
           });
           setProduct([arrayAux]);
+          console.log(product);
         } else {
           request.forEach((itemI) => {
             let verifica = true;
@@ -79,7 +80,7 @@ const Produtos = ({ title, name }) => {
         });
         setProduct([category]);
       } else {
-        setProduct(a);
+        setProduct(a); 
       }
     };
 

@@ -13,7 +13,7 @@ import Produto from '../components/Produto';
 import { addCart } from '../reducers/productsCart';
 import api from '../Services/ApiService';
 import Estilos from '../Estilos';
-
+import generateSafeId from 'generate-safe-id';
 import ProdutoMobile from '../components/ProdutoMobile';
 import Quantity from '../components/Quantity';
 import Alerta from '../components/Alerta';
@@ -174,6 +174,7 @@ const ProdutoPage = ({ match }) => {
     product.quantidadePedido = quantidade;
     product.tamanhoEscolhido = size;
     product.produto_id = product.id;
+    product.cartId = generateSafeId();
     dispatch(addCart(product));
     setQuantity(1);
     setSize("");   

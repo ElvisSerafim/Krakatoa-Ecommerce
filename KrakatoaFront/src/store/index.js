@@ -1,10 +1,5 @@
-import { createStore, combineReducers } from 'redux';
-import productsReducers from '../reducers/products';
-import productsCartsReducers from '../reducers/productsCart';
-import allProductsReducers from '../reducers/allProducts';
-import SearchReducer from '../reducers/search';
-import userReducer from '../reducers/user';
-import pageReducer from '../reducers/page';
+import rootReducer from './reducer';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 
 const saveState = (state) => {
   try {
@@ -33,27 +28,18 @@ const loadState = () => {
     // Return undefined if localStorage is not available,
     // or data could not be de-serialised,
     // or there was some other error
-    return undefined;
+    return [];
   }
 };
 
-const rootReducer = combineReducers({
-  products: productsReducers,
-  productsCart: productsCartsReducers,
-  allProducts: allProductsReducers,
-  pesquisaBarra: SearchReducer,
-  user: userReducer,
-  page: pageReducer
-});
 
 const oldState = loadState();
 
-const store = createStore(
-  rootReducer,
-  oldState,
-  // eslint-disable-next-line no-underscore-dangle
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-);
+const store = configureStore({
+  reducer: rootReducer,
+  ...getDefaultMiddleware(),
+  preloadedState: oldState,
+});
 
 store.subscribe(() => {
   saveState(store.getState());

@@ -1,13 +1,15 @@
-const INITIAL_STATE = {};
 
-export default function reducer(state = INITIAL_STATE, action) {
-  if (action.type === 'SEARCH') {
-    return action.payload;
+import { createSlice } from '@reduxjs/toolkit';
+
+const search = createSlice({
+  name: 'search',
+  initialState: {},
+  reducers: {
+    sendSearch: (state, action) => {
+      state.pesquisa = action.payload;
+    }
   }
-  return state;
-}
+})
 
-export const sendSearch = (payload) => ({
-  type: 'SEARCH',
-  payload,
-});
+export default search.reducer;
+export const {sendSearch} = search.actions;

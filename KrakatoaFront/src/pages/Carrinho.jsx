@@ -11,7 +11,7 @@ import delivery from '../img/noDelivery.svg';
 import payment from '../img/payment.svg';
 import Table from '../components/Table';
 import ListItem from '../components/ListItem';
-import { removerCart, removeProducts } from '../reducers/productsCart';
+import { removerCart, removeAllProducts } from '../reducers/productsCart';
 import api from '../Services/ApiService';
 import Estilos from '../Estilos';
 import withAnimation from '../higherComponents/withAnimation';
@@ -135,7 +135,7 @@ const Carrinho = () => {
   };
 
   const removeAllProducts = () => {
-    dispatch(removeProducts());
+    dispatch(removeAllProducts());
   };
   const classes = useStyles();
   return (
@@ -160,21 +160,7 @@ const Carrinho = () => {
             </Grid>
             <Grid item lg={8} />
             <Grid item lg={4} container justify="flex-end">
-              <Box style={Estilos.flexRowCENTER2}>
-                <a href="/carrinho">
-                  <div style={styles.searchIcon}>
-                    <ShoppingCartIcon />
-                  </div>
-                </a>
-                <hr style={styles.hrstyle} />
-                <a href="/endereco">
-                  <img src={delivery} alt="Endereço" />
-                </a>
-                <hr style={styles.hrstyle} />
-                <a href="/">
-                  <img src={payment} alt="Pagamento" />
-                </a>
-              </Box>
+              
             </Grid>
             <Hidden smDown="true">
               <Grid
