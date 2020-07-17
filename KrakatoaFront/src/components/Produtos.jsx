@@ -39,7 +39,7 @@ const Produtos = ({ title, alert, name }) => {
   }, [products]);
 
   const ordenar = async (value) => {
-    const arrayAux = products[0];
+    const arrayAux = JSON.parse(JSON.stringify(products[0]));
 
     if (value === '') return;
     if (value === 'Mais vendidos') {
@@ -76,7 +76,6 @@ const Produtos = ({ title, alert, name }) => {
       });
     }
 
-    setProduct([arrayAux]);
     dispatch(updateProducts([arrayAux]));
   };
   const [] = React.useState({ open: false, defer: false });
