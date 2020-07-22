@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from '@material-ui/core/';
+import { Typography, Paper } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import SettingsIcon from '@material-ui/icons/Settings';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
@@ -16,6 +16,14 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 20,
     borderRadius: 10,
   },
+  Paper:{
+    '@media (min-width: 1280px)':{
+      width:'75%',
+    },
+    '@media (max-width: 600px)':{
+      width:'145%'
+    }
+  }
 }));
 
 const styles = {
@@ -69,11 +77,19 @@ const ContaComp = (theme) => {
 
   return (
     <>
-      <div className={classes.Quadrado}>
+        <Paper className={classes.Paper}
+           elevation={3}
+           style={{
+             backgroundColor: '#D2C9C7',
+             borderRadius:10,
+              height:220
+            }}
+                
+              >
         <div style={{ ...Estilos.flexRowStandard, paddingBottom: '50' }}>
           <SettingsIcon style={styles.txt3} color="primary" />
           <a style={{ textDecoration: 'none' }} href="/conta/">
-            <Typography style={styles.txt4} color="textSecondary">
+            <Typography style={{...styles.txt4, fontWeight:'bold'}} color="textPrimary">
               Painel
             </Typography>
           </a>
@@ -82,7 +98,7 @@ const ContaComp = (theme) => {
         <div style={{ ...Estilos.flexRowStandard, paddingBottom: '50' }}>
           <EventAvailableIcon style={styles.txt1} color="primary" />
           <a style={{ textDecoration: 'none' }} href="pedidos">
-            <Typography style={styles.txt2} color="textSecondary">
+            <Typography style={{...styles.txt2, fontWeight:'bold'}} color="textPrimary">
               Pedidos
             </Typography>
           </a>
@@ -90,7 +106,7 @@ const ContaComp = (theme) => {
         <div style={{ ...Estilos.flexRowStandard, paddingBottom: '50' }}>
           <RoomIcon style={styles.txt1} color="primary" />
           <a style={{ textDecoration: 'none' }} href="meuendereco">
-            <Typography style={styles.txt2} color="textSecondary">
+            <Typography style={{...styles.txt2, fontWeight:'bold'}} color="textPrimary">
               Endereços
             </Typography>
           </a>
@@ -98,7 +114,7 @@ const ContaComp = (theme) => {
         <div style={{ ...Estilos.flexRowStandard, paddingBottom: '50' }}>
           <PermIdentityTwoToneIcon style={styles.txt1} color="primary" />
           <a style={{ textDecoration: 'none' }} href="detalhes">
-            <Typography style={styles.txt2} color="textSecondary">
+            <Typography style={{...styles.txt2, fontWeight:'bold'}} color="textPrimary">
               Detalhes da conta
             </Typography>
           </a>
@@ -106,12 +122,12 @@ const ContaComp = (theme) => {
         <div style={{ ...Estilos.flexRowStandard, paddingBottom: '50' }}>
           <ExitToAppTwoToneIcon style={styles.txt1} color="primary" />
           <a style={{ textDecoration: 'none' }} onClick={logout} href="/">
-            <Typography style={styles.txt2} color="textSecondary" onClick={logout}>
+            <Typography style={{...styles.txt2, fontWeight:'bold'}} color="textPrimary" onClick={logout}>
               Sair
             </Typography>
           </a>
         </div>
-      </div>
+        </Paper>
     </>
   );
 };
