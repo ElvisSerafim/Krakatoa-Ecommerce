@@ -270,7 +270,7 @@ const ProdutoPage = ({ match }) => {
                   {product.nome}
                 </Typography>
                 <Typography
-                  style={{ paddingTop: 30, color: 'red' }}
+                  style={{ paddingTop: 30 }}
                   variant="h4"
                   id="price"
                 >
@@ -286,6 +286,7 @@ const ProdutoPage = ({ match }) => {
                       width: '150px',
                       borderRadius: 7,
                     }}
+                    color='secondary'
                     value={size}
                     items={sizes}
                     label="Tamanhos"
