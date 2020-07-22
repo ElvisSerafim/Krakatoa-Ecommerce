@@ -8,7 +8,6 @@ import {
   MuiThemeProvider,
   withStyles,
 } from '@material-ui/core/styles';
-import { red } from '@material-ui/core/colors';
 import PropTypes from 'prop-types';
 
 const styles = {
@@ -27,7 +26,7 @@ const styles = {
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: red[600],
+      main: '#00000',
     },
   },
 });
