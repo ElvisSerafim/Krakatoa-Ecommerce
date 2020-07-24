@@ -1,48 +1,49 @@
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+import expireReducer from 'redux-persist-expire';
 import rootReducer from './reducer';
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
+import api from './middleware/api';
+import { loadProducts } from '../reducers/products';
 
-const saveState = (state) => {
-  try {
-    // Convert the state to a JSON string
-    const serialisedState = JSON.stringify(state);
-
-    // Save the serialised state to localStorage against the key 'app_state'
-    window.sessionStorage.setItem('app_state', serialisedState);
-  } catch (err) {
-    // Log errors here, or ignore
-  }
+const persistConfig = {
+  key: 'root',
+  storage,
+  stateReconciler: autoMergeLevel2,
+  transforms: [
+    expireReducer('products', {
+      // (Optional) Key to be used for the time relative to which store is to be expired
+      persistedAtKey: '__persisted_at',
+      // (Required) Seconds after which store will be expired
+      expireSeconds: 60,
+      // (Optional) State to be used for resetting e.g. provide initial reducer state
+      expiredState: {},
+    }),
+    expireReducer('user', {
+      // (Optional) Key to be used for the time relative to which store is to be expired
+      persistedAtKey: '__persisted_at',
+      // (Required) Seconds after which store will be expired
+      expireSeconds: 5,
+      // (Optional) State to be used for resetting e.g. provide initial reducer state
+      expiredState: { user: [] },
+    }),
+  ],
 };
 
-const loadState = () => {
-  try {
-    // Load the data saved in localStorage, against the key 'app_state'
-    const serialisedState = window.sessionStorage.getItem('app_state');
+const pReducer = persistReducer(persistConfig, rootReducer);
 
-    // Passing undefined to createStore will result in our app getting the default state
-    // If no data is saved, return undefined
-    if (!serialisedState) return undefined;
-
-    // De-serialise the saved state, and return it.
-    return JSON.parse(serialisedState);
-  } catch (err) {
-    // Return undefined if localStorage is not available,
-    // or data could not be de-serialised,
-    // or there was some other error
-    return [];
-  }
-};
-
-
-const oldState = loadState();
-
-const store = configureStore({
-  reducer: rootReducer,
-  ...getDefaultMiddleware(),
-  preloadedState: oldState,
+export const store = configureStore({
+  reducer: pReducer,
+  middleware: [...getDefaultMiddleware(), api],
 });
 
-store.subscribe(() => {
-  saveState(store.getState());
-});
+export const persistor = persistStore(store);
 
-export default store;
+/* const state = store.getState();
+
+console.log(state);
+
+if (localStorage.getItem) store.dispatch(loadProducts());
+
+console.log(state); */

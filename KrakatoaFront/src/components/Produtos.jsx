@@ -33,7 +33,7 @@ const Produtos = ({ title, alert, name }) => {
     alert();
   };
   const lower = title.toLowerCase();
-  const products = useSelector((state) => state.products);
+  const products = useSelector((state) => state.products.list);
   useEffect(() => {
     setProdutos(products);
   }, [products]);

@@ -23,12 +23,13 @@ const styles = {
   },
   txt2: {
     paddingTop: 26,
-    textAlign:'center',
-    color:'#44323D'
+    textAlign: 'center',
+    color: '#44323D',
   },
   txt3: {
     paddingLeft: 20,
-    color:'#44323D'
+    color: '#44323D',
+    marginBottom: 64,
   },
   txt4: {
     paddingLeft: 5,
@@ -58,18 +59,18 @@ const useStyles = makeStyles((theme) => ({
   },
   texto: {
     '@media (min-width: 1024px)': {
-      paddingBottom:72,
+      paddingBottom: 72,
       paddingTop: 26,
     },
-    '@media (max-width: 1024px)':{
-      paddingBottom: 10
-    }
+    '@media (max-width: 1024px)': {
+      paddingBottom: 10,
+    },
   },
-  body:{
-    '@media (max-width: 1024px)':{
-      paddingBottom: 15
-    }
-  }
+  body: {
+    '@media (max-width: 1024px)': {
+      paddingBottom: 15,
+    },
+  },
 }));
 
 function MinhaConta() {
@@ -83,67 +84,80 @@ function MinhaConta() {
 
   return (
     <>
-      <Grid container spacing={2} justify="space-around">
-        <Grid
-          item
-          lg={12}
-          md={12}
-          sm={12}
-          xs={12}
-          style={{ alignContent: 'center' }}
-        >
-          <Typography variant="h3" style={{ marginTop: 0 }} color="primary">
+      <Grid
+        container
+        spacing={2}
+        justify="space-around"
+        alignItems="flex-start"
+      >
+        <Grid item lg={12} md={12} sm={12} xs={12}>
+          <Typography variant="h4" color="primary" style={{ marginBottom: 32 }}>
             Minha Conta
           </Typography>
         </Grid>
-        <Grid item lg={4} md={3} sm={5} style={{ marginBottom: 64 }}>
+        <Grid item container lg={5} md={4} sm={12} xs={12}>
           <ContaComp />
         </Grid>
-        <Hidden smUp>
-          <Grid item sm={1} />
-        </Hidden>
-        <Hidden mdUp>
-          <Grid item md={1} />
-        </Hidden>
-        <Grid
-          container
-          item
-          lg={5}
-          md={6}
-          sm={6}
-          justify="space-around"
-        >
-        <Paper
-           elevation={3}
-           style={{
-             backgroundColor: '#D2C9C7',
-             borderRadius:10
-                }}
-                fullWidth
-              >
-          <Typography className = {classes.texto} variant='h1' style={styles.txt2} color="textSecondary">
-            Olá, {userName}
-          </Typography>
-          <Typography style={styles.txt3} className={classes.body} color="textSecondary">
-            A partir do painel de controle da sua conta, você pode ver suas{' '}
-            <a href="pedidos" style={{ textDecoration: 'none', color: '#8C0705', fontWeight:'bold' }}>
-              Compras recentes{' '}
-            </a>
-            gerenciar seus{' '}
-            <a
-              href="meuendereco"
-              style={{ textDecoration: 'none', color: '#8C0705', fontWeight:'bold' }}
+
+        <Grid item container lg={7} md={7} sm={12} xs={12} spacing={2}>
+          <Paper
+            elevation={3}
+            style={{
+              backgroundColor: '#D2C9C7',
+              borderRadius: 10,
+              borderBottom: 32,
+            }}
+            fullWidth
+          >
+            <Typography
+              className={classes.texto}
+              variant="h1"
+              style={styles.txt2}
+              color="textSecondary"
             >
-              Endereços de entrega{' '}
-            </a>
-            e editar suas{' '}
-            <a href="detalhes" style={{ textDecoration: 'none', color: '#8C0705', fontWeight:'bold' }}>
-              Senhas e detalhes da conta
-            </a>
-          </Typography>
-              </Paper>
+              Olá, {userName}
+            </Typography>
+            <Typography
+              style={styles.txt3}
+              className={classes.body}
+              color="textSecondary"
+            >
+              A partir do painel de controle da sua conta, você pode ver suas{' '}
+              <a
+                href="pedidos"
+                style={{
+                  textDecoration: 'none',
+                  color: '#8C0705',
+                  fontWeight: 'bold',
+                }}
+              >
+                Compras recentes{' '}
+              </a>
+              gerenciar seus{' '}
+              <a
+                href="meuendereco"
+                style={{
+                  textDecoration: 'none',
+                  color: '#8C0705',
+                  fontWeight: 'bold',
+                }}
+              >
+                Endereços de entrega{' '}
+              </a>
+              e editar suas{' '}
+              <a
+                href="detalhes"
+                style={{
+                  textDecoration: 'none',
+                  color: '#8C0705',
+                  fontWeight: 'bold',
+                }}
+              >
+                Senhas e detalhes da conta
+              </a>
+            </Typography>
+          </Paper>
         </Grid>
-            
       </Grid>
     </>
   );

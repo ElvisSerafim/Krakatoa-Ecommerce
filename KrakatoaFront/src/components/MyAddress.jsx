@@ -100,7 +100,8 @@ export default function MyAddress() {
         container
         spacing={2}
         justify="space-around"
-        style={{ marginTop: 32, padding: 16 }}
+        alignItems="flex-start"
+        style={{ padding: 16 }}
         lg={12}
       >
         <Grid item lg={6} md={6} sm={6} xs={6}>
@@ -108,7 +109,8 @@ export default function MyAddress() {
             placeholder="Digite Seu Nome"
             label="Nome"
             value={nome}
-            style={{ width: '100%' }}
+            variant="filled"
+            fullWidth
             onChange={(e) => {
               setNome(e.target.value);
             }}
@@ -118,8 +120,9 @@ export default function MyAddress() {
           <TextField
             placeholder="Digite Seu CEP"
             label="CEP"
-            style={{ width: '100%' }}
+            fullWidth
             value={cep}
+            variant="filled"
             onChange={(e) => {
               setCep(e.target.value.replace(/[^0-9]/g, ''));
             }}
@@ -142,24 +145,18 @@ export default function MyAddress() {
                 }}
                 label="CPF"
                 placeholder="Digite Seu CPF"
+                fullWidth
+                variant="filled"
               />
             )}
           </InputMask>
-          {/* <TextField
-            placeholder="Digite Seu CPF"
-            label="CPF"
-            style={{ width: '100%' }}
-            value={cpf}
-            onChange={(e) => {
-              setCpf(e.target.value.replace(/[^0-9]/g, ''));
-            }}
-          /> */}
         </Grid>
         <Grid item lg={6} md={6} sm={6} xs={6}>
           <TextField
             placeholder="Digite Seu Bairro"
             label="Bairro"
-            style={{ width: '100%' }}
+            variant="filled"
+            fullWidth
             value={bairro}
             onChange={(e) => {
               setBairro(e.target.value);
@@ -170,7 +167,8 @@ export default function MyAddress() {
           <TextField
             placeholder="Digite Sua Cidade"
             label="Cidade"
-            style={{ width: '100%' }}
+            variant="filled"
+            fullWidth
             value={cidade}
             onChange={(e) => {
               setCidade(e.target.value);
@@ -181,7 +179,8 @@ export default function MyAddress() {
           <TextField
             placeholder="Digite Sua Rua"
             label="Rua"
-            style={{ width: '100%' }}
+            variant="filled"
+            fullWidth
             value={rua}
             onChange={(e) => {
               setRua(e.target.value);
@@ -192,7 +191,8 @@ export default function MyAddress() {
           <TextField
             placeholder="Digite seu Numero"
             label="Número"
-            style={{ width: '100%' }}
+            variant="filled"
+            fullWidth
             value={numero}
             onChange={(e) => {
               setNumero(e.target.value.replace(/[^0-9]/g, ''));
@@ -204,7 +204,8 @@ export default function MyAddress() {
             placeholder="Digite seu Complemento"
             label="Complemento"
             value={complemento}
-            style={{ width: '100%' }}
+            variant="filled"
+            fullWidth
             onChange={(e) => {
               setComplemento(e.target.value);
             }}
@@ -215,7 +216,8 @@ export default function MyAddress() {
             placeholder="Digite seu Estado"
             label="Estado"
             value={estado}
-            style={{ width: '100%' }}
+            variant="filled"
+            fullWidth
             onChange={(e) => {
               setComplemento(e.target.value);
             }}

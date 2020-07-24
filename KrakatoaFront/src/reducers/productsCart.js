@@ -1,5 +1,7 @@
-//Reducer do Carrinho da loja
- 
+/* eslint-disable operator-assignment */
+/* eslint-disable no-param-reassign */
+// Reducer do Carrinho da loja
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const cart = createSlice({
@@ -11,14 +13,18 @@ const cart = createSlice({
       let flag = false;
 
       state.forEach((value, index) => {
-        if ((value.nome === action.payload.nome) && (value.tamanhoEscolhido === action.payload.tamanhoEscolhido)) {
+        if (
+          value.nome === action.payload.nome
+          && value.tamanhoEscolhido === action.payload.tamanhoEscolhido
+        ) {
           flag = true;
           posicao = index;
         }
-      })
+      });
 
-      if (flag == true) {
-        state[posicao].quantidadePedido = state[posicao].quantidadePedido + action.payload.quantidadePedido;
+      if (flag === true) {
+        state[posicao].quantidadePedido =
+          state[posicao].quantidadePedido + action.payload.quantidadePedido;
       } else {
         state.push(action.payload);
       }
@@ -29,26 +35,31 @@ const cart = createSlice({
     productsUpdate: (state, action) => {
       let index = null;
       state.forEach((item, i) => {
-        if(item.cartId === action.payload.cartId){
-           index = state.indexOf(item);
+        if (item.cartId === action.payload.cartId) {
+          index = state.indexOf(item);
         }
-      })
-      if(index >= 0 && action.payload.quantidadePedido > 0){
+      });
+      if (index >= 0 && action.payload.quantidadePedido > 0) {
         state[index].quantidadePedido = action.payload.quantidadePedido;
       }
     },
     removerCart: (state, action) => {
       let index = null;
-      state.forEach((item, i) => {
+      state.forEach((item) => {
         if (item.cartId === action.payload.cartId) {
-            index = state.indexOf(item);
+          index = state.indexOf(item);
         }
-      })
+      });
 
       state.splice(index, 1);
-    }
-  }
-})
+    },
+  },
+});
 
 export default cart.reducer;
-export const { addCart, removeAllProducts, removerCart, productsUpdate } = cart.actions;
+export const {
+  addCart,
+  removeAllProducts,
+  removerCart,
+  productsUpdate,
+} = cart.actions;
