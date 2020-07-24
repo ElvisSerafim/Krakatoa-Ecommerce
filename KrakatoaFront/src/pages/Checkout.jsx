@@ -393,7 +393,7 @@ function getStepContent(
                     setStatus('error');
                     setMsg('Por favor, insira uma barra para separar o mês e o ano');
                     setOpen(true);
-                  } else if (cvv.toString().length != '3' && cvv.toString().length != '4') {
+                  } else if (cvv.toString().length != '3') {
                     setStatus('error');
                     setMsg('Por favor, insira um código de segurança válido!');
                     setOpen(true);
