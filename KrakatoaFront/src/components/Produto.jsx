@@ -56,7 +56,7 @@ const Produto = ({ produto, title, addItem, update }) => {
     if (produto.imagens.length !== 0) {
       if (produto.categoria !== undefined && title !== 'pesquisa') {
         setImageurl(
-          `http://64.227.106.165/imgs/${title}/${produto.imagens[0]}.jpg`,
+          `http://64.227.106.165/imgs/${produto.categoria}/${produto.imagens[0]}.jpg`,
         );
       } else if (title === 'pesquisa') {
         setImageurl(

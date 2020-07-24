@@ -124,46 +124,54 @@ ReactDOM.render(
                 render={(props) => <Produto {...props} />}
               />
 
-              <Route
-                path="/cangas/:id"
-                render={(props) => <Produto {...props} />}
-              />
-              <Route
-                path="/batas/:id"
-                render={(props) => <Produto {...props} />}
-              />
-              <Route
-                path="/shorts/:id"
-                render={(props) => <Produto {...props} />}
-              />
-              <Route
-                path="/macaquinhos/:id"
-                render={(props) => <Produto {...props} />}
-              />
-              <Route
-                path="/pesquisa/:id"
-                render={(props) => <Produto {...props} />}
-              />
-              <Route path="/carrinho" component={Carrinho} />
-              <Route path="/testeGabriel" component={TesteGabriel} />
-              <Route
-                path="/login"
-                component={Login}
-                render={(props) => <Login {...props} />}
-              />
-              <Route path="/inicio" component={Home} />
-              <Route path="/politicasdaloja" component={Politicas} />
-              <PrivateRoute path="/conta" exact component={MinhaConta} />
-              <PrivateRoute path="/endereco" component={Endereco} />
-              <PrivateRoute path="/sumario" component={Sumario} />
-              <PrivateRoute path="/checkout" component={Checkout} />
-              <PrivateRoute
-                path="/conta/meuendereco"
-                exact
-                component={MyAddress}
-              />
-              <PrivateRoute path="/conta/detalhes" exact component={Detalhes} />
-              <PrivateRoute path="/conta/pedidos" exact component={Pedidos} />
+            <Route
+              path="/cangas/:id"
+              render={(props) => <Produto {...props} />}
+            />
+             <Route
+              path="/acessorios/:id"
+              render={(props) => <Produto {...props} />}
+            />
+             <Route
+              path="/confeccoes/:id"
+              render={(props) => <Produto {...props} />}
+            />
+            <Route
+              path="/batas/:id"
+              render={(props) => <Produto {...props} />}
+            />
+            <Route
+              path="/shorts/:id"
+              render={(props) => <Produto {...props} />}
+            />
+            <Route
+              path="/macaquinhos/:id"
+              render={(props) => <Produto {...props} />}
+            />
+            <Route
+              path="/pesquisa/:id"
+              render={(props) => <Produto {...props} />}
+            />
+            <Route path="/carrinho" component={Carrinho} />
+            <Route path="/testeGabriel" component={TesteGabriel} />
+            <Route
+              path="/login"
+              component={Login}
+              render={(props) => <Login {...props} />}
+            />
+            <Route path="/inicio" component={Home} />
+            <Route path="/politicasdaloja" component={Politicas} />
+            <PrivateRoute path="/conta" exact component={MinhaConta} />
+            <PrivateRoute path="/endereco" component={Endereco} />
+            <PrivateRoute path="/sumario" component={Sumario} />
+            <PrivateRoute path="/checkout" component={Checkout} />
+            <PrivateRoute
+              path="/conta/meuendereco"
+              exact
+              component={MyAddress}
+            />
+            <PrivateRoute path="/conta/detalhes" exact component={Detalhes} />
+            <PrivateRoute path="/conta/pedidos" exact component={Pedidos} />
 
               {/* <Route component={NotFound} /> */}
             </Switch>

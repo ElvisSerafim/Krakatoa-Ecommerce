@@ -145,9 +145,9 @@ const ProdutoPage = ({ match }) => {
         setColors(item.cores);
         setPosicao(i);
         if (item.imagens.length !== 0) {
-          item.Imageurl = `http://64.227.106.165/imgs/${tipo}/${item.imagens[0]}.jpg`;
+          item.Imageurl = `http://64.227.106.165/imgs/${item.categoria}/${item.imagens[0]}.jpg`;
           setFotoAtual(
-            `http://64.227.106.165/imgs/${tipo}/${item.imagens[0]}.jpg`,
+            `http://64.227.106.165/imgs/${item.categoria}/${item.imagens[0]}.jpg`,
           );
           setFotos(item.imagens);
           setFotosMobile(item.imagens);
@@ -226,10 +226,10 @@ const ProdutoPage = ({ match }) => {
               {fotos.map((item) => (
                 <div style={styles.foto}>
                   <img
-                    src={`http://64.227.106.165/imgs/${product.tipo}/${item}.jpg`}
+                    src={`http://64.227.106.165/imgs/${product.categoria}/${item}.jpg`}
                     onClick={() => {
                       setFotoAtual(
-                        `http://64.227.106.165/imgs/${product.tipo}/${item}.jpg`,
+                        `http://64.227.106.165/imgs/${product.categoria}/${item}.jpg`,
                       );
                     }}
                     style={styles.img}

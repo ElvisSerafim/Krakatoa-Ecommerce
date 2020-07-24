@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core/';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, Route, Redirect, withRouter, useHistory } from 'react-router-dom';
-import { removerCart, removeAllProducts } from '../reducers/productsCart';
+import { removeAllProducts } from '../reducers/productsCart';
 
 import api from '../Services/ApiService';
 import Alerta from '../components/Alerta';
@@ -220,9 +220,7 @@ const Sumario = ({ location }) => {
     setFinalTotal(auxTotal);
   };
 
-  const removerProduct = (produto) => {
-    dispatch(removerCart(produto));
-  };
+ 
   const handleChangePagamento = (event) => {
     setPag(event.target.value);
   };
@@ -260,22 +258,7 @@ const Sumario = ({ location }) => {
                 Sumário
             </Typography>
 
-              <div style={styles.process}>
-                <a href="/">
-                  <img src={cartBlank} alt="Carrinho" />
-                </a>
-
-                <hr style={styles.hrstyle} />
-                <a href="/">
-                  <img src={nodeli} alt="Entrega" />
-                </a>
-                <hr style={styles.hrstyle} />
-                <div style={styles.payment}>
-                  <a href="/">
-                    <img src={payment} alt="React Logo" />
-                  </a>
-                </div>
-              </div>
+              
             </div>
             <div style={styles.flexColumn}>
               <div style={styles.flexRow}>
@@ -284,7 +267,6 @@ const Sumario = ({ location }) => {
                     <TableSumario
                       actualTotal={atualizarTotal}
                       totalSumario={totalFinal}
-                      removerItem={removerProduct}
                     />
                   </Grid>
                   <Grid lg={12} container justify="center">
