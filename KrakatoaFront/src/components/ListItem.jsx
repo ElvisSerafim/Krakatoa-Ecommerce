@@ -33,7 +33,7 @@ const ListItem = ({ atualizarTotal }) => {
     atualizarTotal(aux);
     let produtosCarrinho = JSON.parse(JSON.stringify(allProducts));
     let produtoAtualizado = produtosCarrinho[index];
-    produtoAtualizado.quantidadePedido--;
+    produtoAtualizado.quantidadePedido++;
     dispatch(productsUpdate(produtoAtualizado));
   };
 

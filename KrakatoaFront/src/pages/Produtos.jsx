@@ -80,7 +80,13 @@ const Produtos = ({ title, name }) => {
         });
         setProduct([category]);
       } else {
-        setProduct(a); 
+        const arrayAuxProdutos = [];
+        request.forEach((item) => {
+          if(item.tipo === name){
+            arrayAuxProdutos.push(item);
+          }
+        });
+        setProduct([arrayAuxProdutos]); 
       }
     };
 

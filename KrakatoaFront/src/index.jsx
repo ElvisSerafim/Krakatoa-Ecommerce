@@ -71,7 +71,7 @@ ReactDOM.render(
                 path={`/${item}`}
                 exact
                 render={(props) => (
-                  <Produtos {...props} name="confeccões" title={item} />
+                  <Produtos {...props} name="confeccoes" title={item} />
                 )}
               />
             ))}
@@ -126,6 +126,14 @@ ReactDOM.render(
 
             <Route
               path="/cangas/:id"
+              render={(props) => <Produto {...props} />}
+            />
+             <Route
+              path="/acessorios/:id"
+              render={(props) => <Produto {...props} />}
+            />
+             <Route
+              path="/confeccoes/:id"
               render={(props) => <Produto {...props} />}
             />
             <Route
