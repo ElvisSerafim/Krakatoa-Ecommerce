@@ -1,7 +1,7 @@
 /* Pagina de Contato
  */
 import React from 'react';
-import { Container, Grid, Typography } from '@material-ui/core/';
+import { Container, Grid, Typography, Paper } from '@material-ui/core/';
 import Hidden from '@material-ui/core/Hidden';
 
 import ContaComp from '../components/ContaComp';
@@ -11,81 +11,61 @@ import withNav from '../higherComponents/withNav';
 
 const MinhaConta = () => (
   <>
-    <Container maxWidth="lg" style={{ marginBottom: 64 }}>
-      <Grid
-        container
-        spacing={2}
-
-        justify="space-around"
-        style={{ marginTop: 64 }}
-      >
-        <Hidden only="sm">
-          <Grid
-            item
-            container
-            lg={4}
-            md={4}
-            sm={12}
-            xs={12}
-            justify="space-around"
-          >
-            <Grid item lg={12} md={12} sm={12} xs={12}>
-              <Typography variant="h4" color="primary">
-                Minha Conta
-              </Typography>
-            </Grid>
-            <ContaComp />
-          </Grid>
-          <Grid item lg={8} md={7} sm={7} xs={12}>
+    <Grid
+      container
+      spacing={2}
+      justify="space-around"
+      style={{ marginTop: 64 }}
+    >
+      <Hidden only="sm">
+        <Grid
+          item
+          container
+          lg={12}
+          md={12}
+          sm={12}
+          xs={12}
+          justify="space-around"
+        >
+          <Grid item lg={12} md={12} sm={12} xs={12}>
             <Typography
               variant="h4"
-              style={{
-                fontWeight: 'bold',
-              }}
               color="primary"
+              style={{ marginBottom: 32 }}
             >
-              Meu Endereço
-            </Typography>
-            <div style={{ backgroundColor: '#44323D', borderRadius: 10 }}>
-              <MyAddressComp />
-            </div>
-          </Grid>
-        </Hidden>
-
-        <Hidden only={['lg', 'md', 'xs', 'xl']}>
-          <Grid item container justify="center" sm={12}>
-            <Typography variant="h4" color="primary">
               Minha Conta
             </Typography>
-            <Grid
-              item
-              justify="center"
-              container
-              lg={4}
-              md={12}
-              sm={12}
-              xs={12}
-            >
-              <ContaComp />
-            </Grid>
           </Grid>
-          <Grid item lg={8} md={7} sm={7} xs={12}>
-            <Typography
-              variant="h4"
-              style={{
-                fontWeight: 'bold',
-              }}
-              color="primary"
+          <Grid item container lg={5} md={4} sm={12} xs={12}>
+            <ContaComp />
+          </Grid>
+          <Grid item lg={7} md={7} sm={7} xs={12}>
+            <Paper
+              elevation={3}
+              style={{ backgroundColor: '#D2C9C7', padding: 30 }}
             >
-              Meu Endereço
-            </Typography>
-            <div style={{ backgroundColor: '#44323D', borderRadius: 12 }}>
               <MyAddressComp />
-            </div>
+            </Paper>
           </Grid>
-        </Hidden>
-      </Grid>
-    </Container>
+        </Grid>
+      </Hidden>
+
+      <Hidden only={['lg', 'md', 'xs', 'xl']}>
+        <Grid item container justify="center">
+          <Typography variant="h4" color="primary">
+            Minha Conta
+          </Typography>
+          <Grid item container lg={5} md={4} sm={12} xs={12}>
+            <ContaComp />
+          </Grid>
+        </Grid>
+        <Grid item lg={8} md={7} sm={7} xs={12}>
+          <Paper>
+            <MyAddressComp />
+          </Paper>
+        </Grid>
+      </Hidden>
+    </Grid>
   </>
 );
 

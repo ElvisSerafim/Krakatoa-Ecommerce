@@ -1,4 +1,3 @@
-
 import { createSlice } from '@reduxjs/toolkit';
 
 const search = createSlice({
@@ -7,9 +6,9 @@ const search = createSlice({
   reducers: {
     sendSearch: (state, action) => {
       state.pesquisa = action.payload;
-    }
-  }
-})
+    },
+  },
+});
 
 export default search.reducer;
-export const {sendSearch} = search.actions;
+export const { sendSearch } = search.actions;

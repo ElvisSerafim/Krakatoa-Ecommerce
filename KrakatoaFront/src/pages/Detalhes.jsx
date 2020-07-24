@@ -4,7 +4,7 @@
  */
 import React, { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
-import { Grid, Typography, Button } from '@material-ui/core/';
+import { Grid, Typography, Button, Paper, Box } from '@material-ui/core/';
 import InputMask from 'react-input-mask';
 import { useSelector } from 'react-redux';
 import ContaComp from '../components/ContaComp';
@@ -112,170 +112,141 @@ function Detalhes() {
         vertical="top"
         horizontal="right"
       />
-      <Grid
-        container
-        spacing={2}
-        style={{ marginBottom: 64 }}
-        justify="space-around"
-      >
-        <Grid item lg={12} md={12} sm={12} xs={12}>
-          <Typography variant="h4" color="primary" style={{ marginTop: 64 }}>
+      <Grid container spacing={2} justify="space-around" alignItems="flex-start">
+        <Grid item lg={12} md={12} sm={12} xs={12} style={{ marginBottom: 32 }}>
+          <Typography variant="h4" color="primary">
             Minha Conta
           </Typography>
         </Grid>
-        <Grid
-          item
-          container
-          justify="space-around"
-          lg={3}
-          md={3}
-          sm={12}
-          xs={12}
-          style={{ marginBottom: 32 }}
-        >
+        <Grid item container lg={5} md={4} sm={12} xs={12}>
           <ContaComp />
         </Grid>
-        <Grid
-          item
-          container
-          lg={7}
-          md={7}
-          sm={12}
-          xs={12}
-          spacing={2}
-          justify="space-around"
-          style={{
-            backgroundColor: '#44323D',
-            borderRadius: 10,
-            width: '100%',
-            height: '100%',
-            padding: 30,
-          }}
-        >
-          <Grid item lg={6} md={6} sm={12} xs={12}>
-            <TextField
-              variant="filled"
-              id="outlined-name"
-              style={{ width: '100%', backgroundColor: 'white' }}
-              type="password"
-              label="Senha Atual"
-              value={pass}
-              fullWidth
-              onChange={(event) => {
-                setPass(event.target.value);
-              }}
-            />
-          </Grid>
-          <Grid item lg={6} md={6} sm={12} xs={12}>
-            <TextField
-              variant="filled"
-              id="outlined-name"
-              style={{
-                width: '100%',
-                backgroundColor: 'white',
-                color: 'black',
-              }}
-              color="primary"
-              label="Nome"
-              fullWidth
-              value={nome}
-              onChange={(event) => {
-                setNome(event.target.value);
-              }}
-            />
-          </Grid>
-          <Grid item lg={6} md={6} sm={12} xs={12}>
-            <TextField
-              variant="filled"
-              id="outlined-name"
-              style={{
-                width: '100%',
-                backgroundColor: 'white',
-                color: 'black',
-              }}
-              type="password"
-              fullWidth
-              label="Nova Senha"
-              value={newPass}
-              onChange={(event) => {
-                setNewPass(event.target.value);
-              }}
-            />
-          </Grid>
-
-          <Grid item lg={6} md={6} sm={12} xs={12}>
-            <InputMask
-              mask="(99)99999-9999"
-              value={tel}
-              disabled={false}
-              maskChar=" "
-              onChange={(event) => {
-                setTel(event.target.value);
-              }}
+        <Grid item container lg={7} md={7} sm={12} xs={12} spacing={2} alignContent="flex-start">
+          <Paper
+            elevation={3}
+            style={{ backgroundColor: '#D2C9C7', padding: 30 }}
+          >
+            <Grid
+              item
+              container
+              lg={12}
+              md={12}
+              sm={12}
+              xs={12}
+              spacing={2}
+              justify="space-around"
             >
-              {() => (
+              <Grid item lg={6} md={6} sm={12} xs={12}>
                 <TextField
                   variant="filled"
-                  id="outlined-name"
+                  id="passwordOld"
+                  type="password"
+                  label="Senha Atual"
+                  value={pass}
                   fullWidth
-                  style={{
-                    width: '100%',
-                    backgroundColor: 'white',
-                    color: 'black',
+                  onChange={(event) => {
+                    setPass(event.target.value);
                   }}
-                  label="Telefone"
                 />
-              )}
-            </InputMask>
-          </Grid>
-          <Grid item lg={12} container justify="flex-end">
-            <Button
-              style={styles.botao}
-              onClick={() => {
-                setToken(sessionStorage.getItem('token'));
-                enviar();
-                setOpen(true);
-                setStatus('success');
-                switch (true) {
-                  case newPass.length > 0:
-                    if (pass === '') setMessage('Senha vazio');
-                    /*
+              </Grid>
+              <Grid item lg={6} md={6} sm={12} xs={12}>
+                <TextField
+                  variant="filled"
+                  id="name"
+                  color="primary"
+                  label="Nome"
+                  fullWidth
+                  value={nome}
+                  onChange={(event) => {
+                    setNome(event.target.value);
+                  }}
+                />
+              </Grid>
+              <Grid item lg={6} md={6} sm={12} xs={12}>
+                <TextField
+                  variant="filled"
+                  id="passwordNew"
+                  type="password"
+                  fullWidth
+                  label="Nova Senha"
+                  value={newPass}
+                  onChange={(event) => {
+                    setNewPass(event.target.value);
+                  }}
+                />
+              </Grid>
+
+              <Grid item lg={6} md={6} sm={12} xs={12}>
+                <InputMask
+                  mask="(99)99999-9999"
+                  value={tel}
+                  disabled={false}
+                  maskChar=" "
+                  onChange={(event) => {
+                    setTel(event.target.value);
+                  }}
+                >
+                  {() => (
+                    <TextField
+                      variant="filled"
+                      id="outlined-name"
+                      fullWidth
+
+                      label="Telefone"
+                    />
+                  )}
+                </InputMask>
+              </Grid>
+              <Grid item lg={12} container justify="flex-end">
+                <Button
+                  style={styles.botao}
+                  onClick={() => {
+                    setToken(sessionStorage.getItem('token'));
+                    enviar();
+                    setOpen(true);
+                    setStatus('success');
+                    switch (true) {
+                      case newPass.length > 0:
+                        if (pass === '') setMessage('Senha vazio');
+                        /*
                         VERIFICAR SE A SENHA ATUAL ESTÁ CERTA
                       */
 
-                    setStatus('success');
-                    setMessage('Alterações salvas!');
+                        setStatus('success');
+                        setMessage('Alterações salvas!');
 
-                    /*
+                        /*
                       SE ESTIVER CERTA, RODAR O CÓDIGO ABAIXO:
                     */
-                    // ATUALIZAR A SENHA PARA NEWPASS
-                    break;
-                  case nome.length === 0:
-                    setStatus('error');
-                    setMessage('Você deve botar seu nome!');
-                    break;
-                  case tel.replace(/[^0-9]/g, '').length !== 11
-                    && tel !== '&366&':
-                    setStatus('error');
-                    setMessage(
-                      'Você deve inserir um número de telefone válido com DDD',
-                    );
-                    break;
-                  default:
-                    setMessage('Alterações salvas!');
-                    setStatus('success');
-                    // ATUALIZAR O NOME DO USARIO
-                    // ATUALIZAR O TELEFONE DO USARIO
-                    break;
-                }
-              }}
-              variant="contained"
-              color="primary"
-            >
-              SALVAR
-            </Button>
-          </Grid>
+                        // ATUALIZAR A SENHA PARA NEWPASS
+                        break;
+                      case nome.length === 0:
+                        setStatus('error');
+                        setMessage('Você deve botar seu nome!');
+                        break;
+                      case tel.replace(/[^0-9]/g, '').length !== 11 &&
+                        tel !== '&366&':
+                        setStatus('error');
+                        setMessage(
+                          'Você deve inserir um número de telefone válido com DDD',
+                        );
+                        break;
+                      default:
+                        setMessage('Alterações salvas!');
+                        setStatus('success');
+                        // ATUALIZAR O NOME DO USARIO
+                        // ATUALIZAR O TELEFONE DO USARIO
+                        break;
+                    }
+                  }}
+                  variant="contained"
+                  color="primary"
+                >
+                  SALVAR
+                </Button>
+              </Grid>
+            </Grid>
+          </Paper>
         </Grid>
       </Grid>
     </>

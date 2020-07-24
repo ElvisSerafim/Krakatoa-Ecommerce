@@ -10,6 +10,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "axios": "^0.19.2",
     "cielo": "^2.3.1",
     "cleave.js": "^1.5.10",
     "clsx": "^1.1.0",
@@ -30,6 +31,8 @@
     "react-text-mask": "^5.4.3",
     "react-window": "^1.8.5",
     "redux": "^4.0.5",
+    "redux-persist": "^6.0.0",
+    "redux-persist-expire": "^1.1.0",
     "slick-carousel": "^1.8.1",
     "snyk": "^1.320.2",
     "webfontloader": "^1.6.28"
