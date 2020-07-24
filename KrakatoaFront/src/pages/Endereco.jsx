@@ -44,7 +44,7 @@ const styles = {
   },
   boxStyle: {
     m: 1,
-    border: 5,
+    border: 3,
     padding: '40px',
   },
 };
@@ -74,6 +74,8 @@ class Endereco extends PureComponent {
       diasUteisSedex: '0',
       deliverySelected: '',
       priceFrete: '',
+      opacityPac: 0.5,
+      opacitySedex: 0.5,
       borderColorPac: 'black',
       borderColorSedex: 'black',
       cep: ' ',
@@ -167,7 +169,6 @@ class Endereco extends PureComponent {
         default:
           this.setState({ status: 'success' });
           this.setState({ message: 'Boas compras!' });
-          path = '/sumario';
           break;
       }
       const request = await api.UsuarioEndereco(data);
@@ -178,12 +179,24 @@ class Endereco extends PureComponent {
 
   componentDidMount() {
     if (this.props.location.state != undefined) {
-      this.getInformaçõesCep();
+      this.getInformaçõesCep(this.props.location.state.cepEndereco);
+      this.getInformaçõesLocal(this.props.location.state.cepEndereco);
     }
   }
 
-  getInformaçõesCep = async () => {
-    const cep = this.props.location.state.cepEndereco;
+
+
+  getInformaçõesLocal = async (cep) =>{
+    console.log(cep);
+    const requestLocal = await api.getLocalEntrega(cep);
+    console.log(requestLocal);
+    this.setState({ cep: cep });
+    this.setState({ bairro: requestLocal.bairro });
+    this.setState({ rua: requestLocal.logradouro });
+    this.setState({ cidade: requestLocal.localidade });
+    this.setState({ estado: requestLocal.uf });
+  }
+  getInformaçõesCep = async (cep) => {
     const data = {
       cepOrigem: '41610200',
       cepDestino: cep,
@@ -338,9 +351,14 @@ class Endereco extends PureComponent {
                   mask="99999-999"
                   disabled={false}
                   maskChar=" "
+                  value={this.state.cep}
                   onChange={(e) => {
                     let cep = e.target.value.replace('-','');
                     cep = cep.replace(' ','')
+                    if(cep !== this.state.cep && cep.length === 8){
+                      this.getInformaçõesCep(cep);
+                      this.getInformaçõesLocal(cep);
+                    }
                     this.setState({ cep: cep });
                   }}
                 >
@@ -362,6 +380,7 @@ class Endereco extends PureComponent {
                   variant="filled"
                   style={{ width: '100%', marginTop: 10 }}
                   label="Bairro"
+                  value={this.state.bairro}
                   onChange={(e) => {
                     this.setState({ bairro: e.target.value });
                   }}
@@ -374,6 +393,7 @@ class Endereco extends PureComponent {
                   variant="filled"
                   style={{ width: '100%', marginTop: 10 }}
                   label="Cidade"
+                  value={this.state.cidade}
                   onChange={(e) => {
                     this.setState({ cidade: e.target.value });
                   }}
@@ -385,6 +405,7 @@ class Endereco extends PureComponent {
                   variant="filled"
                   style={{ width: '100%', marginTop: 10 }}
                   label="Rua"
+                  value={this.state.rua}
                   onChange={(e) => {
                     this.setState({ rua: e.target.value });
                   }}
@@ -421,6 +442,7 @@ class Endereco extends PureComponent {
                   mask="aa"
                   disabled={false}
                   maskChar=" "
+                  value={this.state.estado}
                   onChange={(e) => {
                     this.setState({ estado: e.target.value });
                   }}
@@ -465,11 +487,13 @@ class Endereco extends PureComponent {
                   onClick={() => {
                     this.setState({ deliverySelected: 'Pac' });
                     this.setState({ borderColorPac: 'red' });
+                    this.setState({ opacityPac: 1 });
+                    this.setState({ opacitySedex: 0.5 });
                     this.setState({ borderColorSedex: 'black' });
                     this.setState({ priceFrete: this.state.pricePac });
                   }}
                   display="flex"
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: 'pointer', opacity: this.state.opacityPac}}
                   flexDirection="column"
                   height="55%"
                   alignItems="center"
@@ -494,10 +518,12 @@ class Endereco extends PureComponent {
                   onClick={() => {
                     this.setState({ deliverySelected: 'Sedex' });
                     this.setState({ borderColorSedex: 'red' });
+                    this.setState({ opacitySedex: 1 });
+                    this.setState({ opacityPac: 0.5 });
                     this.setState({ borderColorPac: 'black' });
                     this.setState({ priceFrete: this.state.priceSedex });
                   }}
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: 'pointer', opacity: this.state.opacitySedex }}
                   display="flex"
                   borderColor={this.state.borderColorSedex}
                   height="55%"
@@ -542,7 +568,7 @@ class Endereco extends PureComponent {
                       textDecoration: 'none',
                     }}
                       to={{
-                        pathname: path,
+                        pathname: '/sumario',
                         state: {
                           totalPedido: location.state.totalPedido,
                           cepEndereco: location.state.cepEndereco,

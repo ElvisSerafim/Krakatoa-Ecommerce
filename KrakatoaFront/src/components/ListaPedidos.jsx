@@ -47,7 +47,7 @@ const useStyles = makeStyles({
 export default function CustomizedTables({ pedidos }) {
   const classes = useStyles();
   // eslint-disable-next-line no-empty-pattern
-  const [] = useState(pedidos.produtosPedido);
+  const [] = useState(pedidos.produtos);
 
   const setData = (data) => {
     if (data !== undefined) {
@@ -78,16 +78,16 @@ export default function CustomizedTables({ pedidos }) {
                 >
                   <div style={Estilo.flexRowSPACEBTW}>
                     <Typography className={classes.heading}>
-                      Pedido {i + 1}
+                      Pedido {row.idPedido}
                     </Typography>
                     <Typography className={classes.heading}>
                       Frete: R$ {row.frete}
                     </Typography>
                     <Typography className={classes.heading}>
-                      Preço Total: R$ {row.precoTotal}
+                      Preço Total: R$ {row.precoTotal/100}
                     </Typography>
                     <Typography className={classes.heading}>
-                      Data: {setData(row.data)}
+                      Data: {setData(row.createdAt)}
                     </Typography>
                   </div>
                 </ExpansionPanelSummary>
@@ -97,23 +97,20 @@ export default function CustomizedTables({ pedidos }) {
                     aria-label="customized table"
                   >
                     <TableBody>
-                      {row.produtosPedido.map((item, i) => (
+                      {row.produtos.map((item, i) => (
                         <StyledTableRow key={i}>
                           <StyledTableCell component="th" scope="row">
-                            <p>{item.produto.nome}</p>
+                            <p>Teste {i +1}</p>
                           </StyledTableCell>
                           <StyledTableCell component="th" scope="row">
-                            <p>Tamanho: {item.tamanhoEscolhida}</p>
+                            <p>Tamanho: {item.tamanhoEscolhido}</p>
                           </StyledTableCell>
                           <StyledTableCell component="th" scope="row">
-                            <p>Cor: {item.corEscolhida}</p>
-                          </StyledTableCell>
-                          <StyledTableCell component="th" scope="row">
-                            <p>Quantidade: {item.quantidade}</p>
+                            <p>Quantidade: {item.quantidadePedido}</p>
                           </StyledTableCell>
                           <StyledTableCell component="th" scope="row">
                             <p>
-                              Preço: R$ {item.produto.preco * item.quantidade}
+                              Preço: R$ {100 * item.quantidadePedido}
                             </p>
                           </StyledTableCell>
                         </StyledTableRow>
