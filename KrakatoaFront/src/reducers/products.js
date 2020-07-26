@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable implicit-arrow-linebreak */
 import { createSlice } from '@reduxjs/toolkit';
+import { createSelector } from 'reselect';
 import { apiCallBegan } from '../store/api';
 
 const url = '/produto';
@@ -20,10 +21,10 @@ const productsPage = createSlice({
       products.list = action.payload;
       products.loading = false;
     },
-    productsRequested: (products, action) => {
+    productsRequested: (products) => {
       products.loading = true;
     },
-    productsRequestFail: (products, action) => {
+    productsRequestFail: (products) => {
       products.loading = false;
     },
   },
@@ -45,3 +46,15 @@ export const loadProducts = () =>
     onSuccess: productsRecieved.type,
     onError: productsRequestFail.type,
   });
+
+export const ProductPageFiler = (categoria, tipo) =>
+  createSelector(
+    (state) => state.products.list,
+    (products) =>
+      products.filter((product) => {
+        if (categoria.toUpperCase() === tipo.toUpperCase()) {
+          if (product.categoria.toUpperCase() === categoria.toUpperCase()) return product;
+        }
+        return product.tipo.toUpperCase() === tipo.toUpperCase();
+      }),
+  );

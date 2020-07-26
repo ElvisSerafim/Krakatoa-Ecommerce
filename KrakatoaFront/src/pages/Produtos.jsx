@@ -17,41 +17,26 @@ const useStyles = makeStyles((theme) => ({
   margin: theme.spacing(2),
 }));
 
-const Produtos = ({ title, name }) => {
+const Produtos = ({ categoria, tipo }) => {
   const [product, setProduct] = useState([]);
-  const [] = useState('');
   const [open, setOpen] = useState(false);
-  const [, setNome] = useState('');
   const search = useSelector((state) => state.pesquisaBarra);
+  const request = useSelector((state) => state.products.list);
   useEffect(() => {
-    setNome(name);
     const getProducts = async () => {
-      const data = {
-        tipo: name,
-        chave: '',
-      };
-
-      const request = await api.ListaProdutos(data);
-      console.log(request);
-      const a = [request];
-
-      if (name === 'pesquisa') {
+      if (tipo === 'pesquisa') {
         setProduct([]);
         const arrayPesquisa = search.pesquisa.split(' ');
         const arrayAux = [];
-        console.log('estou aqui');
-        console.log(arrayPesquisa);
         if (arrayPesquisa.length === 1) {
           request.forEach((itemI) => {
             if (
               itemI.nome.toUpperCase().includes(arrayPesquisa[0].toUpperCase())
             ) {
-              console.log(itemI);
               arrayAux.push(itemI);
             }
           });
-          setProduct([arrayAux]);
-          console.log(product);
+          setProduct(arrayAux);
         } else {
           request.forEach((itemI) => {
             let verifica = true;
@@ -66,34 +51,26 @@ const Produtos = ({ title, name }) => {
             }
           });
 
-          setProduct([arrayAux]);
+          setProduct(arrayAux);
         }
-      } else if (title.toUpperCase() !== name.toUpperCase()) {
-        const aux = request;
-        let category;
-        request.forEach(() => {
-          category = aux.filter((iten) => {
-            if (iten.categoria !== undefined) {
-              return iten.categoria.toUpperCase() === title.toUpperCase();
-            }
-          });
-        });
-        setProduct([category]);
+      } else if (categoria.toUpperCase() !== tipo.toUpperCase()) {
+        const ProdutosCategoria = request.filter(
+          (produto) => produto.categoria.toUpperCase() === categoria.toUpperCase(),
+        );
+        setProduct(ProdutosCategoria);
       } else {
         const arrayAuxProdutos = [];
-        request.forEach((item) => {
-          if(item.tipo === name){
-            arrayAuxProdutos.push(item);
+        request.forEach((produto) => {
+          if (produto.tipo === tipo) {
+            arrayAuxProdutos.push(produto);
           }
         });
-        setProduct([arrayAuxProdutos]); 
+        setProduct(arrayAuxProdutos);
       }
     };
 
     getProducts();
-  }, [name, title, search]);
-  const dispatch = useDispatch();
-  dispatch(updateProducts(product));
+  }, [tipo, categoria, search]);
 
   const fechar = (event, reason) => {
     if (reason === 'clickaway') {
@@ -105,6 +82,7 @@ const Produtos = ({ title, name }) => {
   const { o } = useSpring({
     from: { o: 0 },
   });
+
   return (
     <>
       <Box
@@ -135,8 +113,8 @@ const Produtos = ({ title, name }) => {
               setOpen(true);
             }}
             products={product}
-            name={name}
-            title={title}
+            name={tipo}
+            title={categoria}
           />
         </animated.div>
       </Box>

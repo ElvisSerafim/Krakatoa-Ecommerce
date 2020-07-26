@@ -1,8 +1,9 @@
+/* eslint-disable no-param-reassign */
 /* Pagina de Inicio */
 
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, Button, Box } from '@material-ui/core/';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Hidden from '@material-ui/core/Hidden';
 import TextField from '../components/TextField';
 import Produto from '../components/Produto';
@@ -16,11 +17,9 @@ import pqKraka from '../img/pqKraka.png';
 import money from '../img/money.png';
 import pag from '../img/pagarIcone.png';
 import Estilos from '../Estilos';
-import api from '../Services/ApiService';
 import Alerta from '../components/Alerta';
 import { addCart } from '../reducers/productsCart';
 import withAnimation from '../higherComponents/withAnimation';
-import withNav from '../higherComponents/withNav';
 
 const styles = {
   Promos: { width: 'auto', height: '373px', backgroundColor: '#B1B1B1' },
@@ -61,7 +60,8 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [productsNovidades, setProductsNovidades] = useState([]);
   const [open, setOpen] = useState(false);
-
+  const request = useSelector((state) => state.products.list);
+  const dispatch = useDispatch();
   const fechar = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -69,23 +69,18 @@ const Home = () => {
     setOpen(false);
   };
   useEffect(() => {
-    let request = [];
-    const getProducts = async () => {
-      request = await api.ListaProdutos();
-      const arrayAux  = [];
-      const arrayAuxNovidades = [];
-      request.map((item, i) => {
-        if (i > 6 && arrayAux.length <= 3) {
-          arrayAux.push(item);
-        }
-        if(i > 10 && arrayAuxNovidades.length <= 3){
-          arrayAuxNovidades.push(item);
-        }
-      });
-      setProducts(arrayAux);
-      setProductsNovidades(arrayAuxNovidades);
-    };
-    getProducts();
+    const arrayAux = [];
+    const arrayAuxNovidades = [];
+    request.map((item, i) => {
+      if (i > 6 && arrayAux.length <= 3) {
+        arrayAux.push(item);
+      }
+      if (i > 10 && arrayAuxNovidades.length <= 3) {
+        arrayAuxNovidades.push(item);
+      }
+    });
+    setProducts(arrayAux);
+    setProductsNovidades(arrayAuxNovidades);
   }, []);
 
   const addItemCart = (productCart) => {
@@ -93,7 +88,7 @@ const Home = () => {
     dispatch(addCart(productCart));
     setOpen(true);
   };
-  const dispatch = useDispatch();
+
   return (
     <>
       <Alerta

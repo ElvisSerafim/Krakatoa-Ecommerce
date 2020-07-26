@@ -19,7 +19,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import api from '../Services/ApiService';
-import { setUser } from '../reducers/user';
+import { setUser, setToken, loadUser } from '../reducers/user';
 import Alerta from './Alerta';
 import Estilos from '../Estilos';
 
@@ -89,7 +89,6 @@ const Login = () => {
   const [openAlert, setOpenAlert] = useState(false);
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('');
-  const [sessao, setSessao] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
@@ -128,23 +127,16 @@ const Login = () => {
       const data = {
         email: lower,
         password: values.password,
-        sessao,
       };
       const request = await api.Login(data);
       if (request === 'ok') {
-        let dataToken;
-        if (sessao) {
-          dataToken = {
-            token: localStorage.getItem('token'),
-          };
-        } else {
-          dataToken = {
-            token: sessionStorage.getItem('token'),
-          };
-        }
+        const dataToken = {
+          token: sessionStorage.getItem('token'),
+        };
+        dispatch(setToken(dataToken.token));
         const usuario = await api.getUsuario(dataToken);
         dispatch(setUser(usuario));
-
+        dispatch(loadUser(sessionStorage.getItem('token')));
         return history.push('/conta/');
       }
       throw new Error('Checar Email e Senha');
@@ -196,16 +188,9 @@ const Login = () => {
     };
     const request = await api.Cadastro(data);
     if (request === 'ok') {
-      let dataToken;
-      if (sessao) {
-        dataToken = {
-          token: localStorage.getItem('token'),
-        };
-      } else {
-        dataToken = {
-          token: sessionStorage.getItem('token'),
-        };
-      }
+      const dataToken = {
+        token: sessionStorage.getItem('token'),
+      };
       const usuario = await api.getUsuario(dataToken);
       dispatch(setUser(usuario));
     }
@@ -471,22 +456,6 @@ const Login = () => {
           </Button>
         </div>
       </Grid>
-
-      <div
-        style={{
-          ...Estilos.flexRowStandard,
-          flexWrap: 'nowrap',
-          alignSelf: 'center',
-        }}
-      >
-        <div
-          style={{
-            ...Estilos.flexRowStandard,
-            flexWrap: 'nowrap',
-            alignSelf: 'center',
-          }}
-        />
-      </div>
     </>
   );
 };

@@ -2,11 +2,12 @@
 /* Pagina de Contato
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Typography, Paper } from '@material-ui/core/';
-import { decode } from 'jsonwebtoken';
 import { makeStyles } from '@material-ui/core/styles';
+import { useSelector, useDispatch } from 'react-redux';
 import Hidden from '@material-ui/core/Hidden';
+import { createSelector } from 'reselect';
 import ContaComp from '../components/ContaComp';
 import withAnimation from '../higherComponents/withAnimation';
 import withNav from '../higherComponents/withNav';
@@ -73,15 +74,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function MinhaConta() {
+const MinhaConta = () => {
   const [userName, setUserName] = useState('Usuário');
   const classes = useStyles();
+  const nome = useSelector((state) => state.user2.user.nome);
   useEffect(() => {
-    const token = sessionStorage.getItem('token');
-    const dados = decode(token);
-    setUserName(dados.nome);
-  });
-
+    setUserName(nome);
+  }, []);
   return (
     <>
       <Grid
@@ -161,6 +160,6 @@ function MinhaConta() {
       </Grid>
     </>
   );
-}
+};
 
 export default withNav(withAnimation(MinhaConta));

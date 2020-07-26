@@ -3,10 +3,11 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { decode } from 'jsonwebtoken';
+import { useSelector, useDispatch } from 'react-redux';
+import { loadUser } from '../reducers/user';
 
-const isAuth = () => {
+const isAuth = (token) => {
   try {
-    const token = sessionStorage.getItem('token');
     if (token === null) {
       return false;
     }
@@ -23,34 +24,41 @@ const isAuth = () => {
   }
 };
 
-export const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) => (isAuth() ? (
-      <Component {...props} />
-    ) : (
-      <Redirect
-        to={{
-          pathname: '/login',
-          state: { mensage: 'Checar Email e Senha' },
-        }}
-      />
-    ))}
-  />
-);
+export const PrivateRoute = ({ component: Component, ...rest }) => {
+  const token = useSelector((state) => state.user2.token);
+  useDispatch(loadUser(token));
+  return (
+    <Route
+      {...rest}
+      render={(props) => (isAuth(token) ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: '/login',
+            state: { mensage: 'Checar Email e Senha' },
+          }}
+        />
+      ))}
+    />
+  );
+};
 
-export const PrivateRouteBuy = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) => (isAuth() ? (
-      <Component {...props} />
-    ) : (
-      <Redirect
-        to={{
-          pathname: '/login',
-          state: { mensage: 'Checar Email e Senha' },
-        }}
-      />
-    ))}
-  />
-);
+export const PrivateRouteBuy = ({ component: Component, ...rest }) => {
+  const token = useSelector((state) => state.user2.token);
+  return (
+    <Route
+      {...rest}
+      render={(props) => (isAuth(token) ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: '/login',
+            state: { mensage: 'Checar Email e Senha' },
+          }}
+        />
+      ))}
+    />
+  );
+};

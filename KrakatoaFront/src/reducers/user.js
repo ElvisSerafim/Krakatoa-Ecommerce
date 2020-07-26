@@ -1,4 +1,8 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable implicit-arrow-linebreak */
+import { createSlice } from '@reduxjs/toolkit';
 import api from '../Services/ApiService';
+import { apiCallBegan } from '../store/api';
 
 let a = '';
 let b = '';
@@ -57,3 +61,58 @@ export const setUser = (payload) => ({
   type: 'SET_USER',
   payload,
 });
+
+const url = 'user/';
+
+const slice = createSlice({
+  name: 'user',
+  initialState: {
+    token: '',
+    user: {},
+    loading: false,
+  },
+  reducers: {
+    setToken: (user2, action) => {
+      user2.token = action.payload;
+    },
+    userRecieved: (user2, action) => {
+      user2.user = action.payload;
+      user2.loading = false;
+    },
+    userRequested: (user2) => {
+      user2.loading = true;
+    },
+    userRequestFail: (user2) => {
+      user2.loading = false;
+    },
+    logout: (user2) => {
+      user2.token = '';
+    },
+    userDetails: (user2, action) => {
+      user2.user.nome = action.payload.nome;
+      user2.user.telefone = action.payload.tel;
+    },
+  },
+});
+
+export const { reducer } = slice;
+export const {
+  getUser,
+  setToken,
+  userRecieved,
+  userRequestFail,
+  userRequested,
+  logout,
+  userDetails,
+} = slice.actions;
+
+export const loadUser = (token) =>
+  apiCallBegan({
+    url,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    onStart: userRequested.type,
+    onSuccess: userRecieved.type,
+    onError: userRequestFail.type,
+  });

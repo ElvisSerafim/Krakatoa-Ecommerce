@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import { Provider, useSelector, useDispatch } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import WebFont from 'webfontloader';
@@ -39,7 +39,7 @@ const Suspended = () => <div>Carregando...</div>;
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
     <Provider store={store}>
-      <PersistGate loading={withNav(Suspended)} persistor={persistor}>
+      <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
           <Suspense fallback={withNav(Suspended)}>
             <Switch>
@@ -51,7 +51,7 @@ ReactDOM.render(
                 path="/cangas"
                 exact
                 render={(props) => (
-                  <Produtos {...props} name="cangas" title="Cangas" />
+                  <Produtos {...props} tipo="cangas" categoria="Cangas" />
                 )}
               />
 
@@ -60,7 +60,7 @@ ReactDOM.render(
                   path={`/cangas/${item}`}
                   exact
                   render={(props) => (
-                    <Produtos {...props} name="cangas" title={item} />
+                    <Produtos {...props} tipo="cangas" categoria={item} />
                   )}
                 />
               ))}
@@ -71,7 +71,7 @@ ReactDOM.render(
                     path={`/${item}`}
                     exact
                     render={(props) => (
-                      <Produtos {...props} name="confeccoes" title={item} />
+                      <Produtos {...props} tipo="confeccoes" categoria={item} />
                     )}
                   />
                 ),
@@ -82,7 +82,7 @@ ReactDOM.render(
                   path={`/${item}`}
                   exact
                   render={(props) => (
-                    <Produtos {...props} name="acessorios" title={item} />
+                    <Produtos {...props} tipo="acessorios" categoria={item} />
                   )}
                 />
               ))}
@@ -91,7 +91,7 @@ ReactDOM.render(
                 path="/pesquisa"
                 exact
                 render={(props) => (
-                  <Produtos {...props} name="pesquisa" title="Pesquisa" />
+                  <Produtos {...props} tipo="pesquisa" categoria="Pesquisa" />
                 )}
               />
 
@@ -124,54 +124,54 @@ ReactDOM.render(
                 render={(props) => <Produto {...props} />}
               />
 
-            <Route
-              path="/cangas/:id"
-              render={(props) => <Produto {...props} />}
-            />
-             <Route
-              path="/acessorios/:id"
-              render={(props) => <Produto {...props} />}
-            />
-             <Route
-              path="/confeccoes/:id"
-              render={(props) => <Produto {...props} />}
-            />
-            <Route
-              path="/batas/:id"
-              render={(props) => <Produto {...props} />}
-            />
-            <Route
-              path="/shorts/:id"
-              render={(props) => <Produto {...props} />}
-            />
-            <Route
-              path="/macaquinhos/:id"
-              render={(props) => <Produto {...props} />}
-            />
-            <Route
-              path="/pesquisa/:id"
-              render={(props) => <Produto {...props} />}
-            />
-            <Route path="/carrinho" component={Carrinho} />
-            <Route path="/testeGabriel" component={TesteGabriel} />
-            <Route
-              path="/login"
-              component={Login}
-              render={(props) => <Login {...props} />}
-            />
-            <Route path="/inicio" component={Home} />
-            <Route path="/politicasdaloja" component={Politicas} />
-            <PrivateRoute path="/conta" exact component={MinhaConta} />
-            <PrivateRoute path="/endereco" component={Endereco} />
-            <PrivateRoute path="/sumario" component={Sumario} />
-            <PrivateRoute path="/checkout" component={Checkout} />
-            <PrivateRoute
-              path="/conta/meuendereco"
-              exact
-              component={MyAddress}
-            />
-            <PrivateRoute path="/conta/detalhes" exact component={Detalhes} />
-            <PrivateRoute path="/conta/pedidos" exact component={Pedidos} />
+              <Route
+                path="/cangas/:id"
+                render={(props) => <Produto {...props} />}
+              />
+              <Route
+                path="/acessorios/:id"
+                render={(props) => <Produto {...props} />}
+              />
+              <Route
+                path="/confeccoes/:id"
+                render={(props) => <Produto {...props} />}
+              />
+              <Route
+                path="/batas/:id"
+                render={(props) => <Produto {...props} />}
+              />
+              <Route
+                path="/shorts/:id"
+                render={(props) => <Produto {...props} />}
+              />
+              <Route
+                path="/macaquinhos/:id"
+                render={(props) => <Produto {...props} />}
+              />
+              <Route
+                path="/pesquisa/:id"
+                render={(props) => <Produto {...props} />}
+              />
+              <Route path="/carrinho" component={Carrinho} />
+              <Route path="/testeGabriel" component={TesteGabriel} />
+              <Route
+                path="/login"
+                component={Login}
+                render={(props) => <Login {...props} />}
+              />
+              <Route path="/inicio" component={Home} />
+              <Route path="/politicasdaloja" component={Politicas} />
+              <PrivateRoute path="/conta" exact component={MinhaConta} />
+              <PrivateRoute path="/endereco" component={Endereco} />
+              <PrivateRoute path="/sumario" component={Sumario} />
+              <PrivateRoute path="/checkout" component={Checkout} />
+              <PrivateRoute
+                path="/conta/meuendereco"
+                exact
+                component={MyAddress}
+              />
+              <PrivateRoute path="/conta/detalhes" exact component={Detalhes} />
+              <PrivateRoute path="/conta/pedidos" exact component={Pedidos} />
 
               {/* <Route component={NotFound} /> */}
             </Switch>
