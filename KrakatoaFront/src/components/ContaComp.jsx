@@ -6,7 +6,9 @@ import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import RoomIcon from '@material-ui/icons/Room';
 import PermIdentityTwoToneIcon from '@material-ui/icons/PermIdentityTwoTone';
 import ExitToAppTwoToneIcon from '@material-ui/icons/ExitToAppTwoTone';
+import { useDispatch } from 'react-redux';
 import Estilos from '../Estilos';
+import { logout } from '../reducers/user';
 
 const useStyles = makeStyles((theme) => ({
   Quadrado: {
@@ -66,12 +68,9 @@ const styles = {
 
 const ContaComp = (theme) => {
   const classes = useStyles(theme);
-  const logout = async () => {
-    const token = sessionStorage.getItem('token');
-    if (token) {
-      sessionStorage.removeItem('token');
-      localStorage.removeItem('token');
-    }
+  const dispatch = useDispatch();
+  const logoutNow = () => {
+    dispatch(logout());
   };
 
   return (
@@ -132,11 +131,11 @@ const ContaComp = (theme) => {
         </div>
         <div style={{ ...Estilos.flexRowStandard, paddingBottom: '50' }}>
           <ExitToAppTwoToneIcon style={styles.txt1} color="primary" />
-          <a style={{ textDecoration: 'none' }} onClick={logout} href="/">
+          <a style={{ textDecoration: 'none' }} onClick={logoutNow} href="/">
             <Typography
               style={{ ...styles.txt2, fontWeight: 'bold' }}
               color="textPrimary"
-              onClick={logout}
+              onClick={logoutNow}
             >
               Sair
             </Typography>

@@ -1,25 +1,6 @@
 /* eslint-disable quote-props */
 /* eslint-disable consistent-return */
 const ApiService = {
-  ListaProdutos: async () => {
-    try {
-      const url = 'http://64.227.106.165/api2/produto/';
-      const requestInfo = {
-        method: 'GET',
-        headers: new Headers({
-          'Content-Type': 'application/json',
-        }),
-      };
-      const request = await fetch(url, requestInfo);
-      if (request.ok) {
-        const response = await request.json();
-        return response;
-      }
-      throw new Error('Não foi possivel acessar o servidor');
-    } catch (error) {
-      return error;
-    }
-  },
   Cadastro: async (data) => {
     try {
       const url = 'http://64.227.106.165/api2/user/';

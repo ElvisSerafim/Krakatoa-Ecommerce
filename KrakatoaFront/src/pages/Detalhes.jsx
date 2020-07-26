@@ -4,14 +4,15 @@
  */
 import React, { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
-import { Grid, Typography, Button, Paper, Box } from '@material-ui/core/';
+import { Grid, Typography, Button, Paper } from '@material-ui/core/';
 import InputMask from 'react-input-mask';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import ContaComp from '../components/ContaComp';
 import Alerta from '../components/Alerta';
 import api from '../Services/ApiService';
 import withAnimation from '../higherComponents/withAnimation';
 import withNav from '../higherComponents/withNav';
+import { userDetails } from '../reducers/user';
 
 const styles = {
   background: {
@@ -45,37 +46,22 @@ function Detalhes() {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('error');
-  const [, setPassCurrent] = useState('');
   const [, setToken] = useState();
   const [, setOpenAlert] = useState(false);
 
-  const usuario = useSelector((state) => state.user);
+  const usuario = useSelector((state) => state.user2.user);
+  const tokenUser = useSelector((state) => state.user2.token);
 
   useEffect(() => {
-    const getUser = async () => {
-      const tentativa = await usuario;
-      const { user } = tentativa;
-      setPassCurrent(user.password);
-      setNome(user.nome);
-      setTel(user.telefone);
-    };
-
-    getUser();
+    setNome(usuario.nome);
+    setTel(usuario.telefone);
   }, []);
 
+  const dispatch = useDispatch();
   const enviar = async () => {
     try {
-      /*      if (nome === '') throw new Error('Nome Vazio');
-      if (newPass === '') throw new Error('Nova Senha Vazio'); */
       if (tel === '') throw new Error('Telefone Vazio');
-      let tokenUser;
-      if (sessionStorage.getItem('token') !== undefined) {
-        tokenUser = sessionStorage.getItem('token');
-        setToken(tokenUser);
-      } else {
-        tokenUser = localStorage.getItem('token');
-        setToken(tokenUser);
-      }
+
       const data = {
         nome,
         password: pass,
@@ -85,7 +71,9 @@ function Detalhes() {
       };
       const request = await api.AtualizaUsuario(data);
       if (request) {
+        const SendRedux = { nome, tel };
         setOpenAlert(true);
+        dispatch(userDetails(SendRedux));
         setMessage('Dados Alterados com Sucesso');
         setStatus('success');
       }
@@ -112,7 +100,12 @@ function Detalhes() {
         vertical="top"
         horizontal="right"
       />
-      <Grid container spacing={2} justify="space-around" alignItems="flex-start">
+      <Grid
+        container
+        spacing={2}
+        justify="space-around"
+        alignItems="flex-start"
+      >
         <Grid item lg={12} md={12} sm={12} xs={12} style={{ marginBottom: 32 }}>
           <Typography variant="h4" color="primary">
             Minha Conta
@@ -121,7 +114,16 @@ function Detalhes() {
         <Grid item container lg={5} md={4} sm={12} xs={12}>
           <ContaComp />
         </Grid>
-        <Grid item container lg={7} md={7} sm={12} xs={12} spacing={2} alignContent="flex-start">
+        <Grid
+          item
+          container
+          lg={7}
+          md={7}
+          sm={12}
+          xs={12}
+          spacing={2}
+          alignContent="flex-start"
+        >
           <Paper
             elevation={3}
             style={{ backgroundColor: '#D2C9C7', padding: 30 }}
@@ -191,7 +193,6 @@ function Detalhes() {
                       variant="filled"
                       id="outlined-name"
                       fullWidth
-
                       label="Telefone"
                     />
                   )}

@@ -7,7 +7,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Menu from 'material-ui-popup-state/HoverMenu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   usePopupState,
   bindHover,
@@ -60,13 +59,9 @@ const StyledTab = withStyles((theme) => ({
       opacity: 0.5,
     },
   },
-}))((props) => (
-  <Tab disableRipple {...props} component="a" />
-));
+}))((props) => <Tab disableRipple {...props} component="a" />);
 
 const NavBar = () => {
-  const dispatch = useDispatch();
-  const page = useSelector((state) => state.page);
   const popupStateConfec = usePopupState({
     variant: 'popover',
     popupId: 'teste',
@@ -99,9 +94,7 @@ const NavBar = () => {
                 justifyContent: 'space-evenly',
               }}
             >
-              <StyledTabs
-                aria-label="NavBar"
-              >
+              <StyledTabs aria-label="NavBar">
                 <StyledTab
                   style={{ fontSize: '1.25em' }}
                   label="Cangas"
@@ -143,10 +136,9 @@ const NavBar = () => {
                     (text) => (
                       <a
                         href={`/${text}`}
-                        onClick={() => {
-                        }}
+                        onClick={() => {}}
                         className={classes.a}
-
+                        key={text}
                       >
                         <MenuItem style={{ fontSize: '1.25em' }}>
                           {`${text}`}
@@ -165,12 +157,7 @@ const NavBar = () => {
                   }}
                 >
                   {['Bolsas', 'Chapeus'].map((text) => (
-                    <a
-                      href={`/${text}`}
-                      
-                      className={classes.a}
-
-                    >
+                    <a href={`/${text}`} className={classes.a} key={text}>
                       <MenuItem style={{ fontSize: '1.25em' }}>
                         {`${text}`}
                       </MenuItem>
@@ -191,10 +178,9 @@ const NavBar = () => {
                     (text) => (
                       <a
                         href={`/cangas/${text}`}
-                        onClick={() => {
-                        }}
-
+                        onClick={() => {}}
                         className={classes.a}
+                        key={text}
                       >
                         <MenuItem style={{ fontSize: '1.25em' }}>
                           {`${text}`}

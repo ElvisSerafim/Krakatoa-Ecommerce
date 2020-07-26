@@ -1,7 +1,7 @@
 /* Pagina de Contato
  */
 import React from 'react';
-import { Container, Grid, Typography, Paper } from '@material-ui/core/';
+import { Grid, Typography, Paper } from '@material-ui/core/';
 import Hidden from '@material-ui/core/Hidden';
 
 import ContaComp from '../components/ContaComp';

@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import api from '../Services/ApiService';
 import Alerta from './Alerta';
 
-export default function MyAddress() {
+const MyAddress = () => {
   const [nome, setNome] = useState('');
   const [estado, setEstado] = useState('');
   const [cep, setCep] = useState('');
@@ -22,27 +22,19 @@ export default function MyAddress() {
   const [open, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
 
-  const usuario = useSelector((state) => state.user);
+  const usuario = useSelector((state) => state.user2.user);
 
   useEffect(() => {
-    const getUser = async () => {
-      try {
-        const tentativa = await usuario;
-        const { user } = tentativa;
-        setNome(user.nome);
-        setNumero(user.endereco.numero);
-        setCpf(user.cpf);
-        setCep(user.endereco.cep);
-        setBairro(user.endereco.bairro);
-        setCidade(user.endereco.cidade);
-        setRua(user.endereco.rua);
-        setComplemento(user.endereco.complemento);
-        setEstado(user.endereco.estado);
-      } catch (error) {}
-    };
-
-    getUser();
-  }, [usuario]);
+    setNome(usuario.nome);
+    setNumero(usuario.endereco.numero);
+    setCpf(usuario.cpf);
+    setCep(usuario.endereco.cep);
+    setBairro(usuario.endereco.bairro);
+    setCidade(usuario.endereco.cidade);
+    setRua(usuario.endereco.rua);
+    setComplemento(usuario.endereco.complemento);
+    setEstado(usuario.endereco.estado);
+  }, []);
 
   const enviar = async () => {
     try {
@@ -270,4 +262,5 @@ export default function MyAddress() {
       </Grid>
     </>
   );
-}
+};
+export default MyAddress;

@@ -13,22 +13,17 @@ const persistConfig = {
   stateReconciler: autoMergeLevel2,
   transforms: [
     expireReducer('products', {
-      // (Optional) Key to be used for the time relative to which store is to be expired
-      persistedAtKey: '__persisted_at',
-      // (Required) Seconds after which store will be expired
-      expireSeconds: 60,
-      // (Optional) State to be used for resetting e.g. provide initial reducer state
+      expireSeconds: 3600,
       expiredState: {},
+      autoExpire: true,
     }),
-    expireReducer('user', {
-      // (Optional) Key to be used for the time relative to which store is to be expired
-      persistedAtKey: '__persisted_at',
-      // (Required) Seconds after which store will be expired
-      expireSeconds: 5,
-      // (Optional) State to be used for resetting e.g. provide initial reducer state
-      expiredState: { user: [] },
+    expireReducer('user2', {
+      expireSeconds: 3600,
+      expiredState: {},
+      autoExpire: true,
     }),
   ],
+  /* blacklist: [user2.info], */
 };
 
 const pReducer = persistReducer(persistConfig, rootReducer);
@@ -38,12 +33,14 @@ export const store = configureStore({
   middleware: [...getDefaultMiddleware(), api],
 });
 
-export const persistor = persistStore(store);
+const checkHydrate = () => {
+  const state = store.getState();
+  if (state.products.list.length < 1) {
+    store.dispatch(loadProducts());
+  }
+};
+export const persistor = persistStore(store, {}, checkHydrate);
 
-/* const state = store.getState();
+/* console.log(state.products.list); */
 
-console.log(state);
-
-if (localStorage.getItem) store.dispatch(loadProducts());
-
-console.log(state); */
+/* if ((state.products.list.length === 0)) store.dispatch(loadProducts()); */

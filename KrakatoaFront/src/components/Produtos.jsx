@@ -1,14 +1,13 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
-import NoSsr from '@material-ui/core/NoSsr';
 import Produto from './Produto';
 import { addCart } from '../reducers/productsCart';
 import ComboBox from './ComboBox';
-import { updateProducts } from '../reducers/products';
 import Estilos from '../Estilos';
 
 const useStyles = makeStyles({
@@ -21,9 +20,8 @@ const useStyles = makeStyles({
   },
 });
 
-const Produtos = ({ title, alert, name }) => {
-  const [, setProdutos] = useState([]);
-  const [, setProduct] = useState([]);
+const Produtos = ({ title, alert, products }) => {
+  const [ProdutosOrder, setProdutos] = useState([]);
   const [orderBy, setOrderBy] = useState('');
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -33,60 +31,60 @@ const Produtos = ({ title, alert, name }) => {
     alert();
   };
   const lower = title.toLowerCase();
-  const products = useSelector((state) => state.products.list);
+
   useEffect(() => {
     setProdutos(products);
   }, [products]);
 
   const ordenar = async (value) => {
-    const arrayAux = JSON.parse(JSON.stringify(products[0]));
+    const arrayAux = JSON.parse(JSON.stringify(products));
 
     if (value === '') return;
     if (value === 'Mais vendidos') {
-      arrayAux.sort((a, b) => {
-        if (a.vendas < b.vendas) {
+      arrayAux.sort((produtoLeft, produtoRight) => {
+        if (produtoLeft.vendas < produtoRight.vendas) {
           return -1;
         }
-        if (a.vendas > b.vendas) {
+        if (produtoLeft.vendas > produtoRight.vendas) {
           return 1;
         }
         return 0;
       });
     }
     if (value === 'Menor Preço') {
-      arrayAux.sort((a, b) => {
-        if (a.preco < b.preco) {
+      arrayAux.sort((produtoLeft, produtoRight) => {
+        if (produtoLeft.preco < produtoRight.preco) {
           return -1;
         }
-        if (a.preco > b.preco) {
+        if (produtoLeft.preco > produtoRight.preco) {
           return 1;
         }
         return 0;
       });
     }
     if (value === 'Maior Preço') {
-      arrayAux.sort((a, b) => {
-        if (a.preco > b.preco) {
+      arrayAux.sort((produtoLeft, produtoRight) => {
+        if (produtoLeft.preco > produtoRight.preco) {
           return -1;
         }
-        if (a.preco < b.preco) {
+        if (produtoLeft.preco < produtoRight.preco) {
           return 1;
         }
         return 0;
       });
     }
 
-    dispatch(updateProducts([arrayAux]));
+    setProdutos(arrayAux);
   };
-  const [] = React.useState({ open: false, defer: false });
-  return products.map((item) => (
+
+  return (
     <Grid
       container
       justify="space-evenly"
       spacing={2}
       className={classes.GridContainer}
     >
-      {products[0].length === 0 ? (
+      {products.length === 0 ? (
         <Grid container lg={12} style={{ flexDirection: 'row-reverse' }} />
       ) : (
         <Grid container lg={12} style={{ flexDirection: 'row-reverse' }}>
@@ -103,7 +101,7 @@ const Produtos = ({ title, alert, name }) => {
         </Grid>
       )}
 
-      {products[0].length === 0 ? (
+      {products.length === 0 ? (
         <div
           style={{
             ...Estilos.flexRowCENTER,
@@ -121,8 +119,8 @@ const Produtos = ({ title, alert, name }) => {
           </Typography>
         </div>
       ) : (
-        <NoSsr defer>
-          {item.map((value) => (
+        <>
+          {ProdutosOrder.map((value) => (
             <Grid
               key={value.id}
               item
@@ -132,20 +130,18 @@ const Produtos = ({ title, alert, name }) => {
               xs={6}
               className={classes.product}
             >
-              <NoSsr defer>
-                <Produto
-                  produto={value}
-                  update={() => {}}
-                  title={lower}
-                  addItem={addItemCart}
-                />
-              </NoSsr>
+              <Produto
+                produto={value}
+                update={() => {}}
+                title={lower}
+                addItem={addItemCart}
+              />
             </Grid>
           ))}
-        </NoSsr>
+        </>
       )}
     </Grid>
-  ));
+  );
 };
 
 export default Produtos;

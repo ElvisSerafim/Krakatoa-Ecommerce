@@ -96,7 +96,7 @@ const Carrinho = () => {
   const [cep, setCep] = useState('');
 
   const products = useSelector((state) => state.productsCart);
-
+  /* const preCep = useSelector((state) => state.user2.user.endereco.cep); */
   const dispatch = useDispatch();
   const length = useSelector((state) => state.productsCart.length);
 
@@ -122,6 +122,10 @@ const Carrinho = () => {
     setTotal(totally.toFixed(2));
   }, [totalFinal, totalFrete]);
 
+  /* useEffect(() => {
+    setCep(preCep);
+  }, []); */
+
   const calcularPrazo = async () => {
     const data = {
       cepOrigem: '41610200',
@@ -134,7 +138,7 @@ const Carrinho = () => {
     setTotalFrete(val);
   };
 
-  const removeAllProducts = () => {
+  const removeAll = () => {
     dispatch(removeAllProducts());
   };
   const classes = useStyles();
@@ -159,9 +163,7 @@ const Carrinho = () => {
               </Typography>
             </Grid>
             <Grid item lg={8} />
-            <Grid item lg={4} container justify="flex-end">
-              
-            </Grid>
+            <Grid item lg={4} />
             <Hidden smDown="true">
               <Grid
                 container
@@ -179,6 +181,7 @@ const Carrinho = () => {
                 />
               </Grid>
             </Hidden>
+
             <Hidden lgUp="true">
               <ListItem atualizarTotal={atualizarTotalList} />
             </Hidden>
@@ -204,7 +207,7 @@ const Carrinho = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={removeAllProducts}
+                  onClick={removeAll}
                   style={{ ...styles.borderHeight, width: 120 }}
                 >
                   Limpar
@@ -236,16 +239,13 @@ const Carrinho = () => {
                 </Grid>
                 <Grid item lg={12} md={12} sm={12} xs={12}>
                   <TextField
+                    variant="filled"
+                    type="Cep"
+                    label="Cep"
+                    value={cep}
                     placeholder="Insira seu CEP"
                     onChange={(event) => {
                       setCep(event.target.value);
-                    }}
-                    style={{
-                      color: 'red',
-                      backgroundColor: 'white',
-                      ...styles.borderHeight,
-                      width: '100%',
-                      marginBottom: 16,
                     }}
                   />
                 </Grid>
