@@ -96,7 +96,7 @@ const Carrinho = () => {
   const [cep, setCep] = useState('');
 
   const products = useSelector((state) => state.productsCart);
-  /* const preCep = useSelector((state) => state.user2.user.endereco.cep); */
+  /* const preCep = useSelector((state) => state.user.user.endereco.cep); */
   const dispatch = useDispatch();
   const length = useSelector((state) => state.productsCart.length);
 

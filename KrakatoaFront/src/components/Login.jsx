@@ -129,14 +129,9 @@ const Login = () => {
         password: values.password,
       };
       const request = await api.Login(data);
-      if (request === 'ok') {
-        const dataToken = {
-          token: sessionStorage.getItem('token'),
-        };
-        dispatch(setToken(dataToken.token));
-        const usuario = await api.getUsuario(dataToken);
-        dispatch(setUser(usuario));
-        dispatch(loadUser(sessionStorage.getItem('token')));
+      if (request.length > 5) {
+        dispatch(setToken(request));
+        dispatch(loadUser(request));
         return history.push('/conta/');
       }
       throw new Error('Checar Email e Senha');
@@ -187,14 +182,11 @@ const Login = () => {
       nome,
     };
     const request = await api.Cadastro(data);
-    if (request === 'ok') {
-      const dataToken = {
-        token: sessionStorage.getItem('token'),
-      };
-      const usuario = await api.getUsuario(dataToken);
-      dispatch(setUser(usuario));
+    if (request.length > 5) {
+      dispatch(setToken(request));
+      dispatch(loadUser(request));
+      return history.push('/conta/');
     }
-    return history.push('/conta/');
   };
 
   const handleOpen = () => {
@@ -405,7 +397,7 @@ const Login = () => {
               color="textSecondary"
               style={{ width: '100%', color: 'black' }}
               onChange={handleChange('password')}
-              endAdornment={
+              endAdornment={(
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
@@ -416,7 +408,7 @@ const Login = () => {
                     {values.showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </InputAdornment>
-              }
+              )}
             />
           </FormControl>
           <div

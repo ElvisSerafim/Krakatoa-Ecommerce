@@ -22,7 +22,7 @@ const MyAddress = () => {
   const [open, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
 
-  const usuario = useSelector((state) => state.user2.user);
+  const usuario = useSelector((state) => state.user.user);
 
   useEffect(() => {
     setNome(usuario.nome);

@@ -19,6 +19,7 @@ const productsPage = createSlice({
     },
     productsRecieved: (products, action) => {
       products.list = action.payload;
+      products.__persisted_at = Date.now();
       products.loading = false;
     },
     productsRequested: (products) => {
@@ -53,7 +54,8 @@ export const ProductPageFiler = (categoria, tipo) =>
     (products) =>
       products.filter((product) => {
         if (categoria.toUpperCase() === tipo.toUpperCase()) {
-          if (product.categoria.toUpperCase() === categoria.toUpperCase()) return product;
+          if (product.categoria.toUpperCase() === categoria.toUpperCase())
+            return product;
         }
         return product.tipo.toUpperCase() === tipo.toUpperCase();
       }),
