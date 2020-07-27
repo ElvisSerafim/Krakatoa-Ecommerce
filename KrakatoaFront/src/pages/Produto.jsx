@@ -108,6 +108,7 @@ const ProdutoPage = ({ match }) => {
   const [allProducts, setAllProducts] = useState([]);
   const [atualizar, setAtualizar] = useState(false);
   const [sizes, setSizes] = useState([]);
+  const [descricao, setDescricao] = useState([]);
   const [size, setSize] = useState('');
   const [fotoAtual, setFotoAtual] = useState('');
   const [fotos, setFotos] = useState([]);
@@ -141,6 +142,7 @@ const ProdutoPage = ({ match }) => {
   const getProduto = (produtos) => {
     const produtosType = [];
     let tipo;
+    let descricaoProduto = [];
     produtos.map((item, i) => {
       if (item.id === match.params.id) {
         tipo = item.tipo;
@@ -155,7 +157,8 @@ const ProdutoPage = ({ match }) => {
         } else {
           setFotoAtual(item.Imageurl);
         }
-
+        descricaoProduto = item.descricao.split('.');
+        setDescricao(descricaoProduto);
         setProduct(item);
         setType(item.tipo);
       }
@@ -426,24 +429,26 @@ const ProdutoPage = ({ match }) => {
           <div
             className={classes.backgroundC}
             style={{
+              display: 'flex',
               width: '100%',
               maxWidth: 1240,
-              height: 350,
+              minHeight: 350,
             }}
           >
-            <Typography
-              variant="h6"
-              color="textSecondary"
-              style={{
-                paddingTop: '64px',
-                width: '100%',
-                fontSize: 'clamp(16px, 4vw, 22px)',
-                marginLeft: 5,
-              }}
-            >
-              {product.descricao}
-              <br />
-            </Typography>
+            <p style={{padding: 32}}>
+              {descricao.map((item) => (
+                <Typography
+                  variant="h6"
+                  color="textSecondary"
+                  style={{
+                    width: '100%',
+                    fontSize: 'clamp(16px, 4vw, 22px)',
+                  }}
+                >
+                  -{item}.
+                </Typography>
+              ))}
+            </p>
           </div>
         </Grid>
       </Grid>
