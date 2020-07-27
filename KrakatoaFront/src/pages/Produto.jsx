@@ -111,6 +111,8 @@ const ProdutoPage = ({ match }) => {
   const [fotos, setFotos] = useState([]);
   const [fotosMobile, setFotosMobile] = useState([]);
   const [open, setOpen] = useState(false);
+  const [msg, setMsg] = useState(false);
+  const [status, setStatus] = useState(false);
   const dispatch = useDispatch();
 
   const produtosT = useSelector((state) => state.products.list);
@@ -311,11 +313,11 @@ const ProdutoPage = ({ match }) => {
                 </div>
 
                 <Alerta
-                  message="Produto adicionado!"
+                  message= {msg}
                   vertical="top"
                   horizontal="right"
                   handleClose={handleClose}
-                  status="success"
+                  status={status}
                   openAlert={open}
                 />
                 <div style={{ ...Estilos.flexColumnStandard, marginTop: 40 }}>
@@ -347,8 +349,16 @@ const ProdutoPage = ({ match }) => {
                             maxHeight: '100%',
                           }}
                           onClick={() => {
-                            setOpen(true);
-                            addItemCart(product, quantity);
+                            if(size === ''){
+                              setStatus("error");
+                              setMsg("Selecione um tamanho!");
+                              setOpen(true);
+                            }else{
+                              setStatus("Success");
+                              setMsg("Produto adicionado!");
+                              setOpen(true);
+                              addItemCart(product, quantity);
+                            }
                           }}
                         >
                           ADICIONAR AO CARRINHO
@@ -364,11 +374,11 @@ const ProdutoPage = ({ match }) => {
 
         <Hidden mdUp>
           <Alerta
-            message="Produto adicionado!"
+            message={msg}
             vertical="top"
             horizontal="right"
             handleClose={handleClose}
-            status="success"
+            status={status}
             openAlert={open}
           />
           <div
@@ -422,8 +432,16 @@ const ProdutoPage = ({ match }) => {
               color="primary"
               style={{ width: '100%', maxHeight: '100%' }}
               onClick={() => {
-                setOpen(true);
-                addItemCart(product, quantity);
+                if(size === ''){
+                  setStatus("error");
+                  setMsg("Selecione um tamanho!");
+                  setOpen(true);
+                }else{
+                  setStatus("Success");
+                  setMsg("Produto adicionado!");
+                  setOpen(true);
+                  addItemCart(product, quantity);
+                }
               }}
             >
               ADICIONAR AO CARRINHO
