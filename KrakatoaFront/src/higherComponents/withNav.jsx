@@ -3,23 +3,35 @@ import { Container } from '@material-ui/core/';
 import Topo from '../components/Topo';
 import Navbar from '../components/Nav';
 import Footer from '../components/Footer';
-
+import {makeStyles} from '@material-ui/core/styles';
+const useStyles = makeStyles((theme) => ({
+  container: {
+    '@media (min-width: 1280px)': {
+      minHeight: 700,
+      alignItems: 'center',
+    },
+    minHeight: 500,
+    alignContent: 'center',
+    display: 'flex'
+  }
+}));
 const withNav = (Component) => {
-  const WithNav = (props) => (
-    <>
-      <Topo />
-      <Navbar />
-      <Container
-        maxWidth="lg"
-        style={{ minHeight: 700,
-          alignItems: 'center',
-          display: 'flex' }}
-      >
-        <Component {...props} />
-      </Container>
-      <Footer />
-    </>
-  );
+  const WithNav = (props) => {
+    const classes = useStyles();
+    return (
+      <>
+        <Topo />
+        <Navbar />
+        <Container
+          maxWidth="lg"
+          className={classes.container}
+        >
+          <Component {...props} />
+        </Container>
+        <Footer />
+      </>
+    )
+  };
   return WithNav;
 };
 

@@ -74,15 +74,15 @@ const PedidosMobile = ({ theme, pedidos }) => {
                     Pedido {i + 1}
                   </Typography>
                   <Typography className={classes.heading}>
-                    Data: {setData(item.pedido.data)}
+                    Data: {setData(item.createdAt)}
                   </Typography>
                 </div>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
                 <div style={Estilo.flexColumnStandard}>
                   <div style={Estilo.flexRowSPACEBTW}>
-                    <Typography>Frete: {item.pedido.frete}</Typography>
-                    <Typography>Total: R$ {item.pedido.precoTotal}</Typography>
+                    <Typography>Frete: {item.frete}</Typography>
+                    <Typography>Total: R$ {item.precoTotal}</Typography>
                   </div>
                   <div style={{ color: 'white' }}>
                     <ExpansionPanel className={classes.cor}>
@@ -105,7 +105,7 @@ const PedidosMobile = ({ theme, pedidos }) => {
                           aria-label="customized table"
                         >
                           <TableBody>
-                            {item.produtosPedido.map((row, i) => (
+                            {item.produtos.map((row, i) => (
                               <StyledTableRow>
                                 <div
                                   style={{
@@ -127,10 +127,10 @@ const PedidosMobile = ({ theme, pedidos }) => {
                                     }}
                                   >
                                     <p style={{ margin: 0 }}>
-                                      {row.produto.nome}
+                                        Teste {i +1}
                                     </p>
                                     <p style={{ margin: 0 }}>
-                                      Qnt: {row.quantidade}
+                                      Qnt: {row.quantidadePedido}
                                     </p>
                                   </div>
                                   <div
@@ -138,11 +138,10 @@ const PedidosMobile = ({ theme, pedidos }) => {
                                       fontFamily: 'Poppins',
                                       display: 'flex',
                                       flexDirection: 'row',
-                                      justifyContent: 'space-between',
+                                      justifyContent: 'center',
                                     }}
                                   >
-                                    <p>Tam: {row.tamanhoEscolhida}</p>
-                                    <p>Cor: {row.corEscolhida}</p>
+                                    <p>Tam: {row.tamanhoEscolhido}</p>
                                   </div>
                                   <div style={Estilo.flexColumnCENTER}>
                                     <p
@@ -152,7 +151,7 @@ const PedidosMobile = ({ theme, pedidos }) => {
                                       }}
                                     >
                                       Preço: R$
-                                      {row.produto.preco * row.quantidade}
+                                      {100 * row.quantidadePedido}
                                     </p>
                                   </div>
                                 </div>
