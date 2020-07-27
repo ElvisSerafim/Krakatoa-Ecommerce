@@ -10,7 +10,6 @@ import {
   CardContent,
 } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import withAnimation from '../higherComponents/withAnimation';
 
 const useStyles = makeStyles({
@@ -25,11 +24,11 @@ const useStyles = makeStyles({
   },
 
   nameProduct: {
-    display: 'flex', 
+    display: 'flex',
     minHeight: 52,
     '@media (max-width: 360px)': {
-      minHeight: 90
-    }
+      minHeight: 90,
+    },
   },
 
   media: {
@@ -46,11 +45,9 @@ const useStyles = makeStyles({
 
 const CardMediaMod = withAnimation(CardMedia);
 
-const Produto = ({ produto, title, addItem, update }) => {
-  const { id, nome, preco, colecao } = produto;
-  const [promoPrice, setpromoPrice] = useState('');
+const Produto = ({ produto, title }) => {
+  const { id, nome, preco } = produto;
   const [Imageurl, setImageurl] = useState('');
-  const [type, setType] = useState(title);
   const classes = useStyles();
   useEffect(() => {
     if (produto.imagens.length !== 0) {
@@ -68,20 +65,12 @@ const Produto = ({ produto, title, addItem, update }) => {
   const FuncCapitalize = (str) => {
     str = str.split(' ');
     for (let i = 0, x = str.length; i < x; i++) {
-      if (str[i] != '') {
+      if (str[i] !== '') {
         str[i] = str[i][0].toUpperCase() + str[i].substr(1);
       }
     }
     return str.join(' ');
   };
-  const product = {
-    nome,
-    colecao,
-    preco,
-    promoPrice,
-    Imageurl,
-  };
-
 
   return (
     <Card className={classes.root}>
@@ -99,7 +88,7 @@ const Produto = ({ produto, title, addItem, update }) => {
             style={{
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'space-between',  
+              justifyContent: 'space-between',
             }}
           >
             <div className={classes.nameProduct}>
@@ -122,13 +111,6 @@ const Produto = ({ produto, title, addItem, update }) => {
               <Typography variant="body2" color="secondary" component="p">
                 R$ {preco}
               </Typography>
-              <AddShoppingCartIcon
-                color="primary"
-                style={{ paddingTop: 5 }}
-                onClick={() => {
-                  addItem(product);
-                }}
-              />
             </div>
           </CardContent>
         </div>

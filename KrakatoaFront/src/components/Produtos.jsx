@@ -1,12 +1,10 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import Produto from './Produto';
-import { addCart } from '../reducers/productsCart';
 import ComboBox from './ComboBox';
 import Estilos from '../Estilos';
 
@@ -20,16 +18,10 @@ const useStyles = makeStyles({
   },
 });
 
-const Produtos = ({ title, alert, products }) => {
+const Produtos = ({ title, products }) => {
   const [ProdutosOrder, setProdutos] = useState([]);
   const [orderBy, setOrderBy] = useState('');
-  const dispatch = useDispatch();
   const classes = useStyles();
-  const addItemCart = (productCart) => {
-    productCart.quantidade = 1;
-    dispatch(addCart(productCart));
-    alert();
-  };
   const lower = title.toLowerCase();
 
   useEffect(() => {
@@ -130,12 +122,7 @@ const Produtos = ({ title, alert, products }) => {
               xs={6}
               className={classes.product}
             >
-              <Produto
-                produto={value}
-                update={() => {}}
-                title={lower}
-                addItem={addItemCart}
-              />
+              <Produto produto={value} update={() => {}} title={lower} />
             </Grid>
           ))}
         </>

@@ -5,15 +5,16 @@
 
 import React, { useEffect, useState } from 'react';
 import { Grid, Typography, Button, Paper } from '@material-ui/core/';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
+import generateSafeId from 'generate-safe-id';
+import produce from 'immer';
 import ComboBox from '../components/ComboBox';
 import Produto from '../components/Produto';
 import { addCart } from '../reducers/productsCart';
-import api from '../Services/ApiService';
+import { setImage } from '../reducers/products';
 import Estilos from '../Estilos';
-import generateSafeId from 'generate-safe-id';
 import ProdutoMobile from '../components/ProdutoMobile';
 import Quantity from '../components/Quantity';
 import Alerta from '../components/Alerta';
@@ -108,79 +109,13 @@ const ProdutoPage = ({ match }) => {
   const [atualizar, setAtualizar] = useState(false);
   const [sizes, setSizes] = useState([]);
   const [size, setSize] = useState('');
-  const [] = useState([]);
-  const [, setColors] = useState([]);
-  const [, setProducts] = useState([]);
   const [fotoAtual, setFotoAtual] = useState('');
   const [fotos, setFotos] = useState([]);
   const [fotosMobile, setFotosMobile] = useState([]);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    let request = [];
-    const getProducts = async () => {
-      request = await api.ListaProdutos();
-      setProducts(request);
-      await getProduto(request);
-    };
-    getProducts();
-  }, [atualizar]);
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setOpen(false);
-  };
-  const getProduto = (produtos) => {
-    const produtosType = [];
-    let tipo;
-    produtos.map((item, i) => {
-      if (item.id === match.params.id) {
-        tipo = item.tipo;
-        console.log(item);
-
-        setSizes(item.tamanho);
-        setColors(item.cores);
-        setPosicao(i);
-        if (item.imagens.length !== 0) {
-          item.Imageurl = `http://64.227.106.165/imgs/${item.categoria}/${item.imagens[0]}.jpg`;
-          setFotoAtual(
-            `http://64.227.106.165/imgs/${item.categoria}/${item.imagens[0]}.jpg`,
-          );
-          setFotos(item.imagens);
-          setFotosMobile(item.imagens);
-        } else {
-          item.Imageurl = `http://64.227.106.165/imgs/${item.id}.jpg`;
-          setFotoAtual(item.Imageurl);
-        }
-        setProduct(item);
-        setType(item.tipo);
-      }
-    });
-
-    produtos.map((item) => {
-      if (item.tipo === tipo && item.id !== match.params.id) {
-        produtosType.push(item);
-      }
-    });
-
-    relacionados(produtosType);
-  };
-
-  const addItemCart = (produto, quantidade) => {
-    let product = JSON.parse(JSON.stringify(produto));
-    product.quantidadePedido = quantidade;
-    product.tamanhoEscolhido = size;
-    product.produto_id = product.id;
-    product.cartId = generateSafeId();
-    dispatch(addCart(product));
-    setQuantity(1);
-    setSize("");   
-  };
-
-  const classes = useStyles();
+  const produtosT = useSelector((state) => state.products.list);
 
   const relacionados = (produtins) => {
     const newProdutosRelacionados = [];
@@ -203,6 +138,68 @@ const ProdutoPage = ({ match }) => {
     setAllProducts(newProdutosRelacionados);
   };
 
+  const getProduto = (produtos) => {
+    const produtosType = [];
+    let tipo;
+    produtos.map((item, i) => {
+      if (item.id === match.params.id) {
+        tipo = item.tipo;
+        setSizes(item.tamanho);
+        setPosicao(i);
+        if (item.imagens.length !== 0) {
+          setFotoAtual(
+            `http://64.227.106.165/imgs/${item.categoria}/${item.imagens[0]}.jpg`,
+          );
+          setFotos(item.imagens);
+          setFotosMobile(item.imagens);
+        } else {
+          setFotoAtual(item.Imageurl);
+        }
+
+        setProduct(item);
+        setType(item.tipo);
+      }
+    });
+    produtos.map((item) => {
+      if (item.tipo === tipo && item.id !== match.params.id) {
+        produtosType.push(item);
+      }
+    });
+
+    relacionados(produtosType);
+  };
+  useEffect(() => {
+    getProduto(produtosT);
+  }, [atualizar]);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const addItemCart = (produto, quantidade) => {
+    const productCart = produce(produto, (newState) => {
+      newState.quantidadePedido = quantidade;
+      newState.tamanhoEscolhido = size;
+      newState.produto_id = product.id;
+      newState.cartId = generateSafeId();
+    });
+
+    dispatch(addCart(productCart));
+    setQuantity(1);
+    setSize('');
+  };
+
+  const classes = useStyles();
+
+  const data = {
+    id: product.id,
+    img: fotoAtual,
+  };
+  dispatch(setImage(data));
+
   const atualiza = () => {
     if (atualizar === true) {
       setAtualizar(false);
@@ -210,7 +207,6 @@ const ProdutoPage = ({ match }) => {
       setAtualizar(true);
     }
   };
-
 
   return (
     <>
@@ -269,11 +265,7 @@ const ProdutoPage = ({ match }) => {
                 >
                   {product.nome}
                 </Typography>
-                <Typography
-                  style={{ paddingTop: 30 }}
-                  variant="h4"
-                  id="price"
-                >
+                <Typography style={{ paddingTop: 30 }} variant="h4" id="price">
                   R$ {product.preco}
                 </Typography>
                 <div style={{ marginTop: 50 }}>
@@ -286,7 +278,7 @@ const ProdutoPage = ({ match }) => {
                       width: '150px',
                       borderRadius: 7,
                     }}
-                    color='secondary'
+                    color="secondary"
                     value={size}
                     items={sizes}
                     label="Tamanhos"
