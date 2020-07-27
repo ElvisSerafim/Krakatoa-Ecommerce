@@ -116,6 +116,10 @@ ReactDOM.render(
                 render={(props) => <Produto {...props} />}
               />
               <Route
+                path="/estampada/:id"
+                render={(props) => <Produto {...props} />}
+              />
+              <Route
                 path="/bolsas/:id"
                 render={(props) => <Produto {...props} />}
               />
