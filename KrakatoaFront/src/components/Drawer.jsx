@@ -169,6 +169,33 @@ export default function PersistentDrawerLeft() {
               </div>
             </ExpansionPanelDetails>
           </ExpansionPanel>
+          <ExpansionPanel
+            classes={{
+              root: classes.rootLanducci,
+            }}
+          >
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
+            >
+              <Typography>Acessórios</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <div>
+                {['Bolsas', 'Chapeus'].map(
+                  (text) => (
+                    <a
+                      href={`/${text}`}
+                      style={{ textDecoration: 'none', color: 'white' }}
+                    >
+                      <ListItem button key={text}>
+                        <ListItemText primary={text} />
+                      </ListItem>
+                    </a>
+                  ),
+                )}
+              </div>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
         </List>
       </Drawer>
     </div>

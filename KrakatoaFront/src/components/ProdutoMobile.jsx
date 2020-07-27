@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
   button: {
     color: 'white',
   },
+  buttonBack: {
+    color: 'white',
+  },
   header: {
     display: 'flex',
     alignItems: 'center',
@@ -126,7 +129,7 @@ const ProdutoMobile = ({ imagens, produto }) => {
           <Button
             size="small"
             className={{
-              root: classes.button,
+              root: classes.buttonBack,
             }}
             onClick={handleBack}
             disabled={activeStep === 0}
