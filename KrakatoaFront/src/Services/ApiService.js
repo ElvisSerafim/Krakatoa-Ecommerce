@@ -212,7 +212,6 @@ const ApiService = {
 
   enviarPedido: async (data) => {
     try {
-      console.log(data);
       const Authorization = `Bearer ${data.token}`;
       const requestInfo = {
         method: 'POST',

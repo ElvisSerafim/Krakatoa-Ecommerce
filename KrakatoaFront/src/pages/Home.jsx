@@ -295,68 +295,6 @@ const Home = () => {
           </Grid>
         </Grid>
       </Container>
-      <div
-        style={{
-          backgroundColor: '#44323D',
-          width: '100%',
-          paddingTop: '2vw',
-          height: 200,
-          marginBottom: 100,
-          borderRadius: 20,
-        }}
-      >
-        <Grid
-          item
-          alignItems="center"
-          justify="space-around"
-          container
-          lg={12}
-          md={12}
-          sm={12}
-        >
-          <Grid item container xl={3} lg={3} md={4} sm={5}>
-            <Box flexDirection="column" style={Estilos.flexColumnStandard}>
-              <Typography
-                style={{
-                  color: 'white',
-                  textAlign: 'center',
-                  fontSize: '1.2em',
-                }}
-              >
-                Se inscreva no nosso loja
-              </Typography>
-
-              <Typography
-                color="secondary"
-                style={{
-                  color: 'white',
-                  textAlign: 'center',
-                  fontSize: '1.2em',
-                }}
-                variant="h5"
-              >
-                {' '}
-                e receba ofertas exclusivas!
-              </Typography>
-            </Box>
-          </Grid>
-
-          <div style={{ width: 215 }}>
-            <TextField
-              fullWidth
-              styleslabel={{ color: 'white' }}
-              label="Escreva seu melhor email"
-            />
-          </div>
-          <Grid justify="center" item container lg={3} md={3} sm={5}>
-            <div style={{ borderRadius: 100, width: 200, paddingTop: 35 }}>
-              <Button variant="contained" color="primary" fullWidth>
-                SE INSCREVA
-              </Button>
-            </div>
-          </Grid>
-        </Grid>
-      </div>
       <Footer />
     </>
   );

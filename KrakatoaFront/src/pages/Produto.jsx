@@ -24,14 +24,17 @@ import withNav from '../higherComponents/withNav';
 const styles = {
   foto: {
     borderRadius: 5,
-    height: 122,
+    height: '100%',
     marginTop: 10,
-    maxWidth: 116,
+    maxWidth: '100%',
   },
   quadradao1: {
     borderRadius: 10,
     height: 700,
     marginTop: 40,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   quadradao2: {
     backgroundColor: 'black',
@@ -47,17 +50,10 @@ const styles = {
   },
   marginDiv: {
     marginTop: 40,
-  },
-  promo: {
-    backgroundColor: 'red',
-    borderRadius: '10px 0px 20px 0px',
-    height: 33,
-    width: '150px',
-    padding: '3px',
-    textAlign: 'center',
-  },
-  promoText: {
-    color: 'white',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   scrollbarMobile: {
     display: 'flex',
@@ -66,8 +62,8 @@ const styles = {
   },
 
   img: {
-    height: '100%',
     width: '100%',
+    height: '100%',
     borderRadius: '10px',
     objectFit: 'cover',
     cursor: 'pointer',
@@ -103,6 +99,7 @@ const useStyles = makeStyles((theme) => ({
 const ProdutoPage = ({ match }) => {
   const [product, setProduct] = useState('');
   const [quantity, setQuantity] = useState(1);
+  const [isCanga, setIsCanga] = useState(false);
   const [type, setType] = useState('');
   const [posicao, setPosicao] = useState();
   const [allProducts, setAllProducts] = useState([]);
@@ -155,9 +152,9 @@ const ProdutoPage = ({ match }) => {
         } else {
           setFotoAtual(item.Imageurl);
         }
-
         setProduct(item);
         setType(item.tipo);
+        if (item.tipo === 'cangas') setIsCanga(true);
       }
     });
     produtos.map((item) => {
@@ -165,7 +162,6 @@ const ProdutoPage = ({ match }) => {
         produtosType.push(item);
       }
     });
-
     relacionados(produtosType);
   };
   useEffect(() => {
@@ -207,7 +203,6 @@ const ProdutoPage = ({ match }) => {
       setAtualizar(true);
     }
   };
-
   return (
     <>
       <Grid
@@ -221,27 +216,53 @@ const ProdutoPage = ({ match }) => {
             <div style={styles.marginDiv}>
               {fotos.map((item) => (
                 <div style={styles.foto}>
-                  <img
-                    src={`http://64.227.106.165/imgs/${product.categoria}/${item}.jpg`}
-                    onClick={() => {
-                      setFotoAtual(
-                        `http://64.227.106.165/imgs/${product.categoria}/${item}.jpg`,
-                      );
-                    }}
-                    style={styles.img}
-                    alt="produto"
-                  />
+                  {isCanga ? (
+                    <img
+                      src={`http://64.227.106.165/imgs/${product.categoria}/${item}.jpg`}
+                      style={{
+                        display: 'none',
+                      }}
+                      alt="produto"
+                    />
+                  ) : (
+                    <img
+                      src={`http://64.227.106.165/imgs/${product.categoria}/${item}.jpg`}
+                      onClick={() => {
+                        setFotoAtual(
+                          `http://64.227.106.165/imgs/${product.categoria}/${item}.jpg`,
+                        );
+                      }}
+                      style={styles.img}
+                      alt="produto"
+                    />
+                  )}
                 </div>
               ))}
             </div>
           </Grid>
-          <Grid item lg={4} md={4}>
-            <div className={classes.backgroundC} style={styles.quadradao1}>
-              <img src={fotoAtual} style={styles.img} alt="produto" />
+          <Grid item lg={4} md={4} sm={12}>
+            <div
+              className={classes.backgroundC}
+              style={{ ...styles.quadradao1, backgroundColor: 'white' }}
+            >
+              {isCanga ? (
+                <img
+                  src={fotoAtual}
+                  style={{
+                    ...styles.img,
+                    width: 680,
+                    height: 380,
+                    transform: 'rotate(90deg)',
+                  }}
+                  alt="produto"
+                />
+              ) : (
+                <img src={fotoAtual} style={styles.img} alt="produto" />
+              )}
             </div>
           </Grid>
         </Hidden>
-        <Hidden lgUp>
+        <Hidden mdUp>
           <div style={{ marginTop: 30 }}>
             <ProdutoMobile produto={product} imagens={fotosMobile} />
           </div>
@@ -337,7 +358,7 @@ const ProdutoPage = ({ match }) => {
           </Grid>
         </Hidden>
 
-        <Hidden lgUp>
+        <Hidden mdUp>
           <Alerta
             message="Produto adicionado!"
             vertical="top"
