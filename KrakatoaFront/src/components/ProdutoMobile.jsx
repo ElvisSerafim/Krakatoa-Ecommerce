@@ -14,7 +14,6 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 400,
     flexGrow: 1,
     fontFamily: 'Poppins',
     color: 'white',
@@ -46,8 +45,11 @@ const useStyles = makeStyles((theme) => ({
   },
   img: {
     height: 350,
+    '@media (min-width:400px)': {
+      height: 500,
+    },
     display: 'block',
-    maxWidth: 400,
+    objectPosition: 'top center',
     overflow: 'hidden',
     width: '100%',
     objectFit: 'cover',
@@ -106,7 +108,7 @@ const ProdutoMobile = ({ imagens, produto }) => {
         position="static"
         variant="text"
         activeStep={activeStep}
-        nextButton={(
+        nextButton={
           <Button
             size="small"
             classes={{
@@ -122,8 +124,8 @@ const ProdutoMobile = ({ imagens, produto }) => {
               <KeyboardArrowRight />
             )}
           </Button>
-        )}
-        backButton={(
+        }
+        backButton={
           <Button
             size="small"
             className={{
@@ -139,7 +141,7 @@ const ProdutoMobile = ({ imagens, produto }) => {
             )}
             Back
           </Button>
-        )}
+        }
       />
     </div>
   );
