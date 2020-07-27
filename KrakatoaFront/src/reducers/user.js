@@ -1,10 +1,9 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable implicit-arrow-linebreak */
 import { createSlice } from '@reduxjs/toolkit';
-import api from '../Services/ApiService';
 import { apiCallBegan } from '../store/api';
 
-let a = '';
+/* let a = '';
 let b = '';
 a = localStorage.getItem('token');
 b = sessionStorage.getItem('token');
@@ -60,7 +59,7 @@ export default async function user(state = initialState, action) {
 export const setUser = (payload) => ({
   type: 'SET_USER',
   payload,
-});
+}); */
 
 const url = 'user/';
 
@@ -72,30 +71,30 @@ const slice = createSlice({
     loading: false,
   },
   reducers: {
-    setToken: (user2, action) => {
-      user2.token = action.payload;
+    setToken: (user, action) => {
+      user.token = action.payload;
     },
-    userRecieved: (user2, action) => {
-      user2.user = action.payload;
-      user2.loading = false;
+    userRecieved: (user, action) => {
+      user.user = action.payload;
+      user.loading = false;
     },
-    userRequested: (user2) => {
-      user2.loading = true;
+    userRequested: (user) => {
+      user.loading = true;
     },
-    userRequestFail: (user2) => {
-      user2.loading = false;
+    userRequestFail: (user) => {
+      user.loading = false;
     },
-    logout: (user2) => {
-      user2.token = '';
+    logout: (user) => {
+      user.token = '';
     },
-    userDetails: (user2, action) => {
-      user2.user.nome = action.payload.nome;
-      user2.user.telefone = action.payload.tel;
+    userDetails: (user, action) => {
+      user.user.nome = action.payload.nome;
+      user.user.telefone = action.payload.tel;
     },
   },
 });
 
-export const { reducer } = slice;
+export default slice.reducer;
 export const {
   getUser,
   setToken,

@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Estilo from '../Estilos';
+import moment from 'moment';
+import {
+  Box,
+  TableBody,
+  Table,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  ExpansionPanelDetails,
+  Typography,
+} from '@material-ui/core';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -48,17 +51,7 @@ export default function CustomizedTables({ pedidos }) {
   const classes = useStyles();
   // eslint-disable-next-line no-empty-pattern
   const [] = useState(pedidos.produtos);
-
-  const setData = (data) => {
-    if (data !== undefined) {
-      const stringData = data.toString();
-      const arrayString = stringData.split('T');
-      return arrayString[0];
-    }
-    return '';
-  };
   console.log(pedidos);
-
   return (
     <TableContainer className={classes.table}>
       <Table className={classes.table} aria-label="customized table">
@@ -68,28 +61,17 @@ export default function CustomizedTables({ pedidos }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {pedidos.map((row, i) => (
+          {pedidos.map((row) => (
             <StyledTableRow>
-              <ExpansionPanel>
+              <ExpansionPanel style={{ borderRadius: 0 }}>
                 <ExpansionPanelSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <div style={Estilo.flexRowSPACEBTW}>
-                    <Typography className={classes.heading}>
-                      Pedido {row.idPedido}
-                    </Typography>
-                    <Typography className={classes.heading}>
-                      Frete: R$ {row.frete}
-                    </Typography>
-                    <Typography className={classes.heading}>
-                      Preço Total: R$ {row.precoTotal/100}
-                    </Typography>
-                    <Typography className={classes.heading}>
-                      Data: {setData(row.createdAt)}
-                    </Typography>
-                  </div>
+                  <Typography className={classes.heading}>
+                    Pedido {row.idPedido}
+                  </Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
                   <Table
@@ -97,10 +79,18 @@ export default function CustomizedTables({ pedidos }) {
                     aria-label="customized table"
                   >
                     <TableBody>
+                      <Box display="flex" flex justifyContent="space-between">
+                        <Typography className={classes.heading}>
+                          Frete: R$ {row.frete}
+                        </Typography>
+                        <Typography className={classes.heading}>
+                          Preço Total: R$ {row.precoTotal / 100}
+                        </Typography>
+                      </Box>
                       {row.produtos.map((item, i) => (
                         <StyledTableRow key={i}>
                           <StyledTableCell component="th" scope="row">
-                            <p>Teste {i +1}</p>
+                            <p>Teste {i + 1}</p>
                           </StyledTableCell>
                           <StyledTableCell component="th" scope="row">
                             <p>Tamanho: {item.tamanhoEscolhido}</p>
@@ -109,12 +99,17 @@ export default function CustomizedTables({ pedidos }) {
                             <p>Quantidade: {item.quantidadePedido}</p>
                           </StyledTableCell>
                           <StyledTableCell component="th" scope="row">
-                            <p>
-                              Preço: R$ {100 * item.quantidadePedido}
-                            </p>
+                            <p>Preço: R$ {item.preco * item.quantidadePedido}</p>
                           </StyledTableCell>
                         </StyledTableRow>
                       ))}
+                      <Typography
+                        variant="body1"
+                        style={{ padding: 10 }}
+                        color="primary"
+                      >
+                        Data {moment(row.createdAt).format('DD/MM/YYYY')}
+                      </Typography>
                     </TableBody>
                   </Table>
                 </ExpansionPanelDetails>

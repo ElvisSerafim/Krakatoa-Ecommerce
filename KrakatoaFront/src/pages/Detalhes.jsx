@@ -49,8 +49,8 @@ function Detalhes() {
   const [, setToken] = useState();
   const [, setOpenAlert] = useState(false);
 
-  const usuario = useSelector((state) => state.user2.user);
-  const tokenUser = useSelector((state) => state.user2.token);
+  const usuario = useSelector((state) => state.user.user);
+  const tokenUser = useSelector((state) => state.user.token);
 
   useEffect(() => {
     setNome(usuario.nome);

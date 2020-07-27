@@ -2,6 +2,7 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+import moment from 'moment';
 import expireReducer from 'redux-persist-expire';
 import rootReducer from './reducer';
 import api from './middleware/api';
@@ -17,13 +18,13 @@ const persistConfig = {
       expiredState: {},
       autoExpire: true,
     }),
-    expireReducer('user2', {
+    expireReducer('user', {
       expireSeconds: 3600,
       expiredState: {},
       autoExpire: true,
     }),
   ],
-  /* blacklist: [user2.info], */
+  /* blacklist: [user.info], */
 };
 
 const pReducer = persistReducer(persistConfig, rootReducer);
@@ -35,7 +36,12 @@ export const store = configureStore({
 
 const checkHydrate = () => {
   const state = store.getState();
+  const { __persisted_at } = state.products;
+  const diffInMinutes = moment().diff(moment(__persisted_at), 'minutes');
   if (state.products.list.length < 1) {
+    store.dispatch(loadProducts());
+  }
+  if (diffInMinutes > 30) {
     store.dispatch(loadProducts());
   }
 };

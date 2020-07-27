@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
 const MinhaConta = () => {
   const [userName, setUserName] = useState('Usuário');
   const classes = useStyles();
-  const nome = useSelector((state) => state.user2.user.nome);
+  const nome = useSelector((state) => state.user.user.nome);
   useEffect(() => {
     setUserName(nome);
   }, []);

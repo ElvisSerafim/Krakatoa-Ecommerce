@@ -2,7 +2,7 @@
  */
 import React, { useEffect, useState } from 'react';
 import { Grid, Typography, Hidden } from '@material-ui/core/';
-
+import { useDispatch, useSelector } from 'react-redux';
 import Lista from '../components/ListaPedidos';
 import ContaComp from '../components/ContaComp';
 import api from '../Services/ApiService';
@@ -12,10 +12,10 @@ import withNav from '../higherComponents/withNav';
 
 const Pedidos = () => {
   const [pedidosUsuario, setPedidos] = useState([]);
+  const token = useSelector((state) => state.user.token);
 
   useEffect(() => {
     let pedidos;
-    const token = sessionStorage.getItem('token');
     const getPedido = async () => {
       pedidos = await api.getPedidos(token);
       setPedidos(pedidos);

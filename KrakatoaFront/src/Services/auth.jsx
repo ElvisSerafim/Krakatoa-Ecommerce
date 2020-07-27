@@ -25,7 +25,7 @@ const isAuth = (token) => {
 };
 
 export const PrivateRoute = ({ component: Component, ...rest }) => {
-  const token = useSelector((state) => state.user2.token);
+  const token = useSelector((state) => state.user.token);
   useDispatch(loadUser(token));
   return (
     <Route
@@ -45,7 +45,7 @@ export const PrivateRoute = ({ component: Component, ...rest }) => {
 };
 
 export const PrivateRouteBuy = ({ component: Component, ...rest }) => {
-  const token = useSelector((state) => state.user2.token);
+  const token = useSelector((state) => state.user.token);
   return (
     <Route
       {...rest}

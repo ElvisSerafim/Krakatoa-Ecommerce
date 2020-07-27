@@ -1,9 +1,10 @@
 /* eslint-disable quote-props */
 /* eslint-disable consistent-return */
+const URL = 'http://64.227.106.165/api2/';
 const ApiService = {
   Cadastro: async (data) => {
     try {
-      const url = 'http://64.227.106.165/api2/user/';
+      const url = `${URL}user/`;
       const requestInfo = {
         method: 'POST',
         body: JSON.stringify(data),
@@ -40,9 +41,7 @@ const ApiService = {
       if (request.ok) {
         const response = await request.json();
         const { accessToken } = response;
-        sessionStorage.setItem('token', accessToken);
-        const ok = 'ok';
-        return ok;
+        return accessToken;
       }
       throw new Error('Login Invalido');
     } catch (error) {
@@ -223,7 +222,7 @@ const ApiService = {
           'Content-Type': 'application/json',
         }),
       };
-      const url = `http://64.227.106.165/api2/pedidos/`;
+      const url = 'http://64.227.106.165/api2/pedidos/';
       const request = await fetch(url, requestInfo);
       if (request.ok) {
         return request.json();
@@ -245,11 +244,10 @@ const ApiService = {
       const url = `https://viacep.com.br/ws/${cep}/json/`;
       const request = await fetch(url, requestInfo);
       return request.json();
-
     } catch (error) {
       return 'Não foi possivel acessar o servidor';
     }
-  }
+  },
 };
 
 export default ApiService;
