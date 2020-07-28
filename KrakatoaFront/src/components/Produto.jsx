@@ -61,7 +61,7 @@ const Produto = ({ produto, title }) => {
         );
       }
     }
-  }, []);
+  }, [produto]);
   const FuncCapitalize = (str) => {
     str = str.split(' ');
     for (let i = 0, x = str.length; i < x; i++) {
@@ -73,49 +73,50 @@ const Produto = ({ produto, title }) => {
   };
 
   return (
-    <Card className={classes.root}>
-      <CardActionArea>
-        <a href={`/${produto.categoria}/${id}`}>
+    <a href={`/${produto.categoria}/${id}`} style={{ textDecoration: 'none' }}>
+      <Card className={classes.root}>
+        <CardActionArea>
           <CardMediaMod
             className={classes.media}
             image={Imageurl}
             title={nome}
             component="img"
           />
-        </a>
-        <div>
-          <CardContent
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-            }}
-          >
-            <div className={classes.nameProduct}>
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="h2"
-                color="primary"
-              >
-                {FuncCapitalize(nome)}
-              </Typography>
-            </div>
-            <div
+
+          <div>
+            <CardContent
               style={{
                 display: 'flex',
-                flexDirection: 'row',
+                flexDirection: 'column',
                 justifyContent: 'space-between',
               }}
             >
-              <Typography variant="body2" color="secondary" component="p">
-                R$ {preco}
-              </Typography>
-            </div>
-          </CardContent>
-        </div>
-      </CardActionArea>
-    </Card>
+              <div className={classes.nameProduct}>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="h2"
+                  color="primary"
+                >
+                  {FuncCapitalize(nome)}
+                </Typography>
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Typography variant="body2" color="secondary" component="p">
+                  R$ {preco}
+                </Typography>
+              </div>
+            </CardContent>
+          </div>
+        </CardActionArea>
+      </Card>
+    </a>
   );
 };
 

@@ -31,11 +31,11 @@ const StyledBadge = withStyles(() => ({}))(Badge);
 
 const Topo = () => {
   const classes = useStyles();
-  const allProducts = useSelector((state) => state.productsCart);
+  const cartProducts = useSelector((state) => state.productsCart);
   const [quantidadeProdutos, setQuantidade] = useState(0);
   useEffect(() => {
-    setQuantidade(allProducts.length);
-  }, [allProducts]);
+    setQuantidade(cartProducts.length);
+  }, [cartProducts]);
   return (
     <Container maxWidth="lg">
       <Box className={classes.Top}>

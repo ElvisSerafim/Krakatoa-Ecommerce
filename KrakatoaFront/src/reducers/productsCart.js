@@ -14,8 +14,8 @@ const cart = createSlice({
 
       state.forEach((value, index) => {
         if (
-          value.nome === action.payload.nome
-          && value.tamanhoEscolhido === action.payload.tamanhoEscolhido
+          value.nome === action.payload.nome &&
+          value.tamanhoEscolhido === action.payload.tamanhoEscolhido
         ) {
           flag = true;
           posicao = index;
@@ -29,8 +29,10 @@ const cart = createSlice({
         state.push(action.payload);
       }
     },
-    removeAllProducts: (state, action) => {
-      state = [];
+    removeAllProducts: (state) => {
+      /* Não funciona */
+      const initialState = [];
+      Object.assign(state, initialState);
     },
     productsUpdate: (state, action) => {
       let index = null;

@@ -13,7 +13,6 @@ import produce from 'immer';
 import ComboBox from '../components/ComboBox';
 import Produto from '../components/Produto';
 import { addCart } from '../reducers/productsCart';
-import { setImage } from '../reducers/products';
 import Estilos from '../Estilos';
 import ProdutoMobile from '../components/ProdutoMobile';
 import Quantity from '../components/Quantity';
@@ -108,21 +107,23 @@ const ProdutoPage = ({ match }) => {
   const [descricao, setDescricao] = useState([]);
   const [size, setSize] = useState('');
   const [fotoAtual, setFotoAtual] = useState('');
+  const [ready, setReady] = useState(false);
   const [fotos, setFotos] = useState([]);
   const [fotosMobile, setFotosMobile] = useState([]);
   const [open, setOpen] = useState(false);
   const [msg, setMsg] = useState(false);
   const [status, setStatus] = useState(false);
   const dispatch = useDispatch();
-
-  const produtosT = useSelector((state) => state.products.list);
+  const stateProducts = useSelector((state) => state.products);
+  const { list, loading } = stateProducts;
+  console.log(loading);
 
   const relacionados = (produtins) => {
     const newProdutosRelacionados = [];
+    let last;
     let count = 0;
     const aux = [];
-    let last;
-    while (count !== 4) {
+    while (count < 4) {
       const index = Math.floor(Math.random() * produtins.length);
       if (index !== posicao) {
         const randomItem = produtins[index];
@@ -131,15 +132,15 @@ const ProdutoPage = ({ match }) => {
           last = randomItem;
           newProdutosRelacionados.push(randomItem);
           aux.push(randomItem);
-          count += 1;
+          count++;
         }
+        console.log(newProdutosRelacionados);
+        setAllProducts(newProdutosRelacionados);
       }
     }
-    setAllProducts(newProdutosRelacionados);
   };
-
+  const produtosType = [];
   const getProduto = (produtos) => {
-    const produtosType = [];
     let tipo;
     let descricaoProduto = [];
     produtos.map((item, i) => {
@@ -161,18 +162,16 @@ const ProdutoPage = ({ match }) => {
         setProduct(item);
         setType(item.tipo);
         if (item.tipo === 'cangas') setIsCanga(true);
-      }
-    });
-    produtos.map((item) => {
-      if (item.tipo === tipo && item.id !== match.params.id) {
+      } else if (item.tipo === tipo) {
         produtosType.push(item);
+        setReady(true);
       }
     });
-    relacionados(produtosType);
+    if (ready) relacionados(produtosType);
   };
   useEffect(() => {
-    getProduto(produtosT);
-  }, [atualizar]);
+    getProduto(list);
+  }, [atualizar, loading, ready]);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -187,20 +186,15 @@ const ProdutoPage = ({ match }) => {
       newState.tamanhoEscolhido = size;
       newState.produto_id = product.id;
       newState.cartId = generateSafeId();
+      newState.ImageUrl = fotoAtual;
+      newState.isCanga = isCanga;
     });
-
     dispatch(addCart(productCart));
     setQuantity(1);
     setSize('');
   };
 
   const classes = useStyles();
-
-  const data = {
-    id: product.id,
-    img: fotoAtual,
-  };
-  dispatch(setImage(data));
 
   const atualiza = () => {
     if (atualizar === true) {
@@ -222,15 +216,7 @@ const ProdutoPage = ({ match }) => {
             <div style={styles.marginDiv}>
               {fotos.map((item) => (
                 <div style={styles.foto}>
-                  {isCanga ? (
-                    <img
-                      src={`http://64.227.106.165/imgs/${product.categoria}/${item}.jpg`}
-                      style={{
-                        display: 'none',
-                      }}
-                      alt="produto"
-                    />
-                  ) : (
+                  {isCanga ? null : (
                     <img
                       src={`http://64.227.106.165/imgs/${product.categoria}/${item}.jpg`}
                       onClick={() => {
@@ -475,7 +461,7 @@ const ProdutoPage = ({ match }) => {
               minHeight: 350,
             }}
           >
-            <p style={{padding: 32}}>
+            <p style={{ padding: 32 }}>
               {descricao.map((item) => (
                 <Typography
                   variant="h6"
@@ -485,7 +471,7 @@ const ProdutoPage = ({ match }) => {
                     fontSize: 'clamp(16px, 4vw, 22px)',
                   }}
                 >
-                  -{item}.
+                  -{item}
                 </Typography>
               ))}
             </p>
@@ -513,7 +499,7 @@ const ProdutoPage = ({ match }) => {
         >
           <Hidden smDown>
             {allProducts.map((value) => (
-              <Grid key={value.id} item lg={3} md={4} sm={6}>
+              <Grid item lg={3} md={4} sm={6}>
                 <Produto
                   produto={value}
                   title={type}
@@ -529,26 +515,15 @@ const ProdutoPage = ({ match }) => {
             ))}
           </Hidden>
 
-          <Hidden lgUp>
+          <Hidden mdUp>
             <div style={styles.scrollbarMobile}>
               {allProducts.map((value) => (
-                <Grid
-                  key={value.id}
-                  item
-                  lg={3}
-                  md={4}
-                  sm={6}
-                  style={{ marginLeft: 10 }}
-                >
+                <Grid item lg={3} md={4} sm={6} style={{ marginLeft: 10 }}>
                   <Produto
                     produto={value}
                     title={type}
                     update={() => {
                       atualiza();
-                    }}
-                    addItem={(product) => {
-                      setOpen(true);
-                      addItemCart(product, 1);
                     }}
                   />
                 </Grid>

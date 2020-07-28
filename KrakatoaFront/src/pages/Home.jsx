@@ -1,11 +1,10 @@
 /* eslint-disable no-param-reassign */
 /* Pagina de Inicio */
 
-import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography, Button, Box } from '@material-ui/core/';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
+import { Container, Grid, Typography, Button } from '@material-ui/core/';
 import { useDispatch, useSelector } from 'react-redux';
 import Hidden from '@material-ui/core/Hidden';
-import TextField from '../components/TextField';
 import Produto from '../components/Produto';
 import Navbar from '../components/Nav';
 import Topo from '../components/Topo';
@@ -16,8 +15,6 @@ import deli from '../img/deli.png';
 import pqKraka from '../img/pqKraka.png';
 import money from '../img/money.png';
 import pag from '../img/pagarIcone.png';
-import Estilos from '../Estilos';
-import Alerta from '../components/Alerta';
 import { addCart } from '../reducers/productsCart';
 import withAnimation from '../higherComponents/withAnimation';
 
@@ -60,7 +57,8 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [productsNovidades, setProductsNovidades] = useState([]);
   const [open, setOpen] = useState(false);
-  const request = useSelector((state) => state.products.list);
+  const stateProdutos = useSelector((state) => state.products);
+  const { list, loading } = stateProdutos;
   const dispatch = useDispatch();
   const fechar = (event, reason) => {
     if (reason === 'clickaway') {
@@ -71,7 +69,7 @@ const Home = () => {
   useEffect(() => {
     const arrayAux = [];
     const arrayAuxNovidades = [];
-    request.map((item, i) => {
+    list.map((item, i) => {
       if (i > 6 && arrayAux.length <= 3) {
         arrayAux.push(item);
       }
@@ -81,7 +79,7 @@ const Home = () => {
     });
     setProducts(arrayAux);
     setProductsNovidades(arrayAuxNovidades);
-  }, []);
+  }, [loading === true]);
 
   const addItemCart = (productCart) => {
     productCart.quantidade = 1;
@@ -91,14 +89,6 @@ const Home = () => {
 
   return (
     <>
-      <Alerta
-        message="Produto adicionado"
-        vertical="top"
-        horizontal="right"
-        status="success"
-        handleClose={fechar}
-        openAlert={open}
-      />
       <Topo />
       <Navbar />
       <Grid item lg={12} md={12}>
@@ -131,7 +121,7 @@ const Home = () => {
             ))}
           </Hidden>
 
-          <Hidden lgUp>
+          <Hidden mdUp>
             <div style={styles.scrollbarMobile}>
               {products.map((item) => (
                 <Grid item lg={12} md={12} sm={12} style={{ marginLeft: 10 }}>
@@ -264,7 +254,7 @@ const Home = () => {
             ))}
           </Hidden>
 
-          <Hidden lgUp>
+          <Hidden mdUp>
             <div style={styles.scrollbarMobile}>
               {productsNovidades.map((item) => (
                 <Grid item lg={12} md={12} sm={12} style={{ marginLeft: 10 }}>
