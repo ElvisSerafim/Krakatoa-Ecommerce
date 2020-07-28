@@ -16,7 +16,10 @@ const productsPage = createSlice({
     setImage: (products, action) => {
       const { id = '', img = '' } = action.payload;
       products.list.map((item) => {
-        if (item.id === id) item.ImageUrl = img;
+        if (item.id === id) {
+          if (item.ImageUrl === undefined) console.log('opa');
+          item.ImageUrl = img;
+        }
       });
     },
     productsRecieved: (products, action) => {

@@ -21,6 +21,7 @@ const api = ({ dispatch }) => (next) => async (action) => {
     const response = await axios.request({
       baseURL: 'http://64.227.106.165/api2/',
       url,
+      timeout: 2000,
       method,
       data,
       headers,

@@ -80,7 +80,7 @@ const MinhaConta = () => {
   const nome = useSelector((state) => state.user.user.nome);
   useEffect(() => {
     setUserName(nome);
-  }, []);
+  }, [nome]);
   return (
     <>
       <Grid

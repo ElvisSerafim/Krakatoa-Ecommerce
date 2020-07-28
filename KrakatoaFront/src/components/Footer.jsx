@@ -1,7 +1,6 @@
 import React from 'react';
 import { Typography, Container, Grid } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
-import Hidden from '@material-ui/core/Hidden';
 import logo from '../img/logoBranca.png';
 import fbBranco from '../img/fbBranco.png';
 import instaBranco from '../img/instaBranco.png';
@@ -73,7 +72,7 @@ const styles = {
 const useStyles = makeStyles((theme) => ({
   GridContainer: {
     '@media (min-width: 960px)': {
-      justifyContent: 'flex-start',
+      justifyContent: 'center',
       padding: theme.spacing(2),
       alignItems: 'center',
     },
@@ -125,39 +124,39 @@ const Footer = () => {
               </div>
             </div>
           </Grid>
-          <Hidden smDown>
-            <Grid item lg={6} md={6} sm={12}>
+
+          <Grid item lg={6} md={6} sm={12}>
+            <div>
               <div>
-                <div>
-                  <a href="/sobre" style={{ textDecoration: 'none' }}>
-                    <Typography variant="h6" color="textSecondary">
-                      Quem Somos
-                    </Typography>
-                  </a>
-                  <a href="/tipo/entrega" style={{ textDecoration: 'none' }}>
-                    <Typography variant="h6" color="textSecondary">
-                      Prazo de Entrega
-                    </Typography>
-                  </a>
-                  <a href="/politicasdaloja" style={{ textDecoration: 'none' }}>
-                    <Typography variant="h6" color="textSecondary">
-                      Nossas Políticas
-                    </Typography>
-                  </a>
-                  <a href="/tipo/pagamento" style={{ textDecoration: 'none' }}>
-                    <Typography variant="h6" color="textSecondary">
-                      Revenda
-                    </Typography>
-                  </a>
-                  <a href="/contato" style={{ textDecoration: 'none' }}>
-                    <Typography variant="h6" color="textSecondary">
-                      Fale Conosco
-                    </Typography>
-                  </a>
-                </div>
+                <a href="/sobre" style={{ textDecoration: 'none' }}>
+                  <Typography variant="h6" color="textSecondary">
+                    Quem Somos
+                  </Typography>
+                </a>
+                <a href="/tipo/entrega" style={{ textDecoration: 'none' }}>
+                  <Typography variant="h6" color="textSecondary">
+                    Prazo de Entrega
+                  </Typography>
+                </a>
+                <a href="/politicasdaloja" style={{ textDecoration: 'none' }}>
+                  <Typography variant="h6" color="textSecondary">
+                    Nossas Políticas
+                  </Typography>
+                </a>
+                <a href="/tipo/pagamento" style={{ textDecoration: 'none' }}>
+                  <Typography variant="h6" color="textSecondary">
+                    Revenda
+                  </Typography>
+                </a>
+                <a href="/contato" style={{ textDecoration: 'none' }}>
+                  <Typography variant="h6" color="textSecondary">
+                    Fale Conosco
+                  </Typography>
+                </a>
               </div>
-            </Grid>
-          </Hidden>
+            </div>
+          </Grid>
+
           <Grid item lg={6} md={6} sm={6} xs={12} style={{ width: '100%' }}>
             <div>
               <div style={styles.marginDiv}>
