@@ -2,13 +2,11 @@
 /* Vestidos,Batas,Shorts,Kangas */
 
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Box } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSpring, animated } from 'react-spring';
-import { updateProducts } from '../reducers/products';
 import ProductList from '../components/Produtos';
-import api from '../Services/ApiService';
 import Alerta from '../components/Alerta';
 import withAnimation from '../higherComponents/withAnimation';
 import withNav from '../higherComponents/withNav';
@@ -21,7 +19,8 @@ const Produtos = ({ categoria, tipo }) => {
   const [product, setProduct] = useState([]);
   const [open, setOpen] = useState(false);
   const search = useSelector((state) => state.pesquisaBarra);
-  const request = useSelector((state) => state.products.list);
+  const stateProducts = useSelector((state) => state.products);
+  const { list, loading } = stateProducts;
   useEffect(() => {
     const getProducts = async () => {
       if (tipo === 'pesquisa') {
@@ -29,7 +28,7 @@ const Produtos = ({ categoria, tipo }) => {
         const arrayPesquisa = search.pesquisa.split(' ');
         const arrayAux = [];
         if (arrayPesquisa.length === 1) {
-          request.forEach((itemI) => {
+          list.forEach((itemI) => {
             if (
               itemI.nome.toUpperCase().includes(arrayPesquisa[0].toUpperCase())
             ) {
@@ -38,7 +37,7 @@ const Produtos = ({ categoria, tipo }) => {
           });
           setProduct(arrayAux);
         } else {
-          request.forEach((itemI) => {
+          list.forEach((itemI) => {
             let verifica = true;
             arrayPesquisa.forEach((item) => {
               if (!itemI.nome.toUpperCase().includes(item.toUpperCase())) {
@@ -54,13 +53,14 @@ const Produtos = ({ categoria, tipo }) => {
           setProduct(arrayAux);
         }
       } else if (categoria.toUpperCase() !== tipo.toUpperCase()) {
-        const ProdutosCategoria = request.filter(
-          (produto) => produto.categoria.toUpperCase() === categoria.toUpperCase(),
+        const ProdutosCategoria = list.filter(
+          (produto) =>
+            produto.categoria.toUpperCase() === categoria.toUpperCase(),
         );
         setProduct(ProdutosCategoria);
       } else {
         const arrayAuxProdutos = [];
-        request.forEach((produto) => {
+        list.forEach((produto) => {
           if (produto.tipo === tipo) {
             arrayAuxProdutos.push(produto);
           }
@@ -70,7 +70,7 @@ const Produtos = ({ categoria, tipo }) => {
     };
 
     getProducts();
-  }, [tipo, categoria, search]);
+  }, [loading === true, tipo, categoria, search]);
 
   const fechar = (event, reason) => {
     if (reason === 'clickaway') {

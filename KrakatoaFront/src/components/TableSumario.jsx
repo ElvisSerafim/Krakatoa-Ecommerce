@@ -8,7 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Box, Typography, Avatar } from '@material-ui/core/';
+import { Box, Typography, Avatar, Paper } from '@material-ui/core/';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Quantity from './Quantity';
 import { productsUpdate } from '../reducers/productsCart';
@@ -39,7 +39,6 @@ const StyledTableRow = withStyles((theme) => ({
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 700,
-    borderRadius: 10,
     fontFamily: 'Poppins',
   },
   tableHead: {
@@ -51,10 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CustomizedTables({
-  totalSumario,
-  actualTotal,
-}) {
+export default function CustomizedTables({ totalSumario, actualTotal }) {
   const classes = useStyles();
   const [quantity, setQuantity] = useState([]);
   const [total, setTotal] = useState([]);
@@ -75,82 +71,79 @@ export default function CustomizedTables({
     actualTotal(totais);
   }, [allProducts]);
 
-
   return (
-    <TableContainer className={classes.table}>
-      <Table className={classes.table} aria-label="customized table">
-        <TableHead>
-          <TableRow className={classes.tableHead}>
-            <StyledTableCell align="center" />
-            <StyledTableCell align="center">Produtos</StyledTableCell>
-            <StyledTableCell align="center">Preço</StyledTableCell>
-            <StyledTableCell align="center">Quantidade</StyledTableCell>
-            <StyledTableCell align="center">Total</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {allProducts.map((row, i) => (
-            <StyledTableRow key={row.id}>
+    <Paper style={{ width: '100%', height: '100%' }}>
+      <TableContainer className={classes.table}>
+        <Table className={classes.table} aria-label="customized table">
+          <TableHead>
+            <TableRow className={classes.tableHead}>
+              <StyledTableCell align="center" />
+              <StyledTableCell align="center">Produtos</StyledTableCell>
+              <StyledTableCell align="center">Preço</StyledTableCell>
+              <StyledTableCell align="center">Quantidade</StyledTableCell>
+              <StyledTableCell align="center">Total</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {allProducts.map((row, i) => (
+              <StyledTableRow key={row.id}>
+                <StyledTableCell component="th" scope="row">
+                  <Avatar src={row.ImageUrl} className={classes.large} />
+                </StyledTableCell>
+                <StyledTableCell component="th" scope="row">
+                  <div style={{ ...Estilos.flexRowCENTER2 }}>{row.nome}</div>
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  <div style={Estilos.flexRowCENTER2}>
+                    <p>R$</p>
+                    <p>{row.preco}</p>
+                  </div>
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <div style={Estilos.flexRowCENTER2}>
+                    <Typography
+                      style={{
+                        fontFamily: 'Poppins',
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      {quantity[i]}
+                    </Typography>
+                  </div>
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <div style={Estilos.flexRowCENTER2}>
+                    <p>R$</p>
+                    <div style={{ width: 20 }}>
+                      <p>{total[i]}</p>
+                    </div>
+                  </div>
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+            <StyledTableRow>
               <StyledTableCell component="th" scope="row">
-                <Avatar src={row.ImageUrl} className={classes.large} />
-              </StyledTableCell>
-              <StyledTableCell component="th" scope="row">
-                <div
-                  style={{ ...Estilos.flexRowCENTER2 }}
-                >
-                  {row.nome}
+                {' '}
+                <div style={Estilos.flexRowCENTER2}>
+                  <p>Total</p>
                 </div>
-
               </StyledTableCell>
+              <StyledTableCell align="right"> </StyledTableCell>
+              <StyledTableCell align="center" />
+              <StyledTableCell align="center" />
               <StyledTableCell align="right">
-                <div style={Estilos.flexRowCENTER2}>
-                  <p>R$</p>
-                  <p>{row.preco}</p>
-                </div>
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                <div style={Estilos.flexRowCENTER2}>
-                  <Typography style={{
-                    fontFamily: 'Poppins',
-                    fontWeight: 'bold'
-                  }}>
-                    {quantity[i]}
-                  </Typography>
-                </div>
-              </StyledTableCell>
-              <StyledTableCell align="center">
+                {' '}
                 <div style={Estilos.flexRowCENTER2}>
                   <p>R$</p>
                   <div style={{ width: 20 }}>
-                    <p>{total[i]}</p>
+                    <p>{totalSumario}</p>
                   </div>
                 </div>
               </StyledTableCell>
             </StyledTableRow>
-          ))}
-          <StyledTableRow>
-            <StyledTableCell component="th" scope="row">
-              {' '}
-              <div style={Estilos.flexRowCENTER2}>
-                <p>Total</p>
-              </div>
-            </StyledTableCell>
-            <StyledTableCell align="right"> </StyledTableCell>
-            <StyledTableCell align="center" />
-            <StyledTableCell align="center" />
-            <StyledTableCell align="right">
-              {' '}
-              <div style={Estilos.flexRowCENTER2}>
-                <p>R$</p>
-                <div style={{ width: 20 }}>
-                  <p>{totalSumario}</p>
-                </div>
-              </div>
-            </StyledTableCell>
-
-          </StyledTableRow>
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Paper>
   );
 }

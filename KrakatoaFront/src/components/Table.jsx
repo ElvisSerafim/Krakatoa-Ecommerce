@@ -2,14 +2,16 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
-import Table from '@material-ui/core/Table';
-import { Box } from '@material-ui/core/';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import { Typography } from '@material-ui/core/';
+import {
+  Typography,
+  Box,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Table,
+} from '@material-ui/core/';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Quantity from './Quantity';
 import { productsUpdate } from '../reducers/productsCart';
@@ -47,16 +49,18 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CustomizedTables({ actualTotal, removerItem }) {
+export default function CustomizedTables({
+  actualTotal,
+  removerItem,
+  products,
+}) {
   const classes = useStyles();
   const [quantity, setQuantity] = useState([]);
   const [total, setTotal] = useState([]);
-  const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
-  const allProducts = useSelector((state) => state.productsCart);
+  const allProducts = products;
 
   useEffect(() => {
-    setProducts(allProducts);
     const quantidades = [];
     const totais = [];
     allProducts.map((item) => {
@@ -106,20 +110,57 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
             <StyledTableRow key={row.id}>
               <StyledTableCell component="th" scope="row">
                 <Box display="flex" alignContent="center">
-                  <div style={{ width: '100px', height: '150px' }}>
-                    <img
-                      src={row.ImageUrl}
-                      style={{ width: '100%', height: '100%', borderRadius: 5 }}
-                      alt="Imagem produto"
-                    />
-                  </div>
+                  {row.isCanga ? (
+                    <div
+                      style={{
+                        display: 'flex',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: 100,
+                        height: 150,
+                      }}
+                    >
+                      <img
+                        src={row.ImageUrl}
+                        style={{
+                          transform: 'rotate(90deg)',
+                          width: '150px',
+                          height: '100px',
+                          borderRadius: 5,
+                        }}
+                        alt="Imagem produto"
+                      />
+                    </div>
+                  ) : (
+                    <div style={{ width: '100px', height: '150px' }}>
+                      <img
+                        src={row.ImageUrl}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          borderRadius: 5,
+                        }}
+                        alt="Imagem produto"
+                      />
+                    </div>
+                  )}
                   <div
-                    style={{ ...Estilos.flexColumnCENTER2, paddingLeft: '40px' }}
+                    style={{
+                      ...Estilos.flexColumnCENTER2,
+                      paddingLeft: '40px',
+                    }}
                   >
                     {row.nome}
-                      <Typography style={{ fontWeight: 'bold', fontSize: 16, paddingTop: 10 }}>
-                        Tamanho: {row.tamanhoEscolhido}
-                      </Typography>
+                    <Typography
+                      style={{
+                        fontWeight: 'bold',
+                        fontSize: 16,
+                        paddingTop: 10,
+                      }}
+                    >
+                      Tamanho: {row.tamanhoEscolhido}
+                    </Typography>
                   </div>
                 </Box>
               </StyledTableCell>
