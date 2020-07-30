@@ -13,6 +13,7 @@ import produce from 'immer';
 import ComboBox from '../components/ComboBox';
 import Produto from '../components/Produto';
 import { addCart } from '../reducers/productsCart';
+import { setImage } from '../reducers/products';
 import Estilos from '../Estilos';
 import ProdutoMobile from '../components/ProdutoMobile';
 import Quantity from '../components/Quantity';
@@ -102,55 +103,62 @@ const ProdutoPage = ({ match }) => {
   const [type, setType] = useState('');
   const [posicao, setPosicao] = useState();
   const [allProducts, setAllProducts] = useState([]);
-  const [atualizar, setAtualizar] = useState(false);
+  const [produtosTipo, setProdutosTipo] = useState([]);
+  const [ready, setReady] = useState(false);
   const [sizes, setSizes] = useState([]);
   const [descricao, setDescricao] = useState([]);
   const [size, setSize] = useState('');
   const [fotoAtual, setFotoAtual] = useState('');
-  const [ready, setReady] = useState(false);
   const [fotos, setFotos] = useState([]);
   const [fotosMobile, setFotosMobile] = useState([]);
   const [open, setOpen] = useState(false);
-  const [msg, setMsg] = useState(false);
-  const [status, setStatus] = useState(false);
   const dispatch = useDispatch();
-  
+
   const produtosT = useSelector((state) => state.products.list);
-  const prod = useSelector((state) => state.products);
-  
-  const relacionados = (produtins) => {
+
+  const relacionados = () => {
     const newProdutosRelacionados = [];
-    let last;
+    const produtosType = [];
+    const produtos = JSON.parse(JSON.stringify(produtosT));
     let count = 0;
     const aux = [];
+    let last;
+    produtos.forEach((item, i) => {
+      if(item.tipo === product.tipo){
+         let aux = JSON.parse(JSON.stringify(item));
+         produtosType.push(aux);
+      }
+    })
     while (count < 4) {
-      const index = Math.floor(Math.random() * produtins.length);
-      if (index !== posicao) {
-        const randomItem = produtins[index];
-        const teste = aux.includes(randomItem);
-        if (randomItem !== last && teste === false) {
-          last = randomItem;
-          newProdutosRelacionados.push(randomItem);
-          aux.push(randomItem);
-          count++;
+      const index = Math.floor(Math.random() * produtosType.length);
+      if (index !== type) {
+        const randomItem = produtosType[index];
+        if (randomItem.nome !== product.nome) {
+          const teste = aux.includes(randomItem);
+          if (randomItem !== last && teste === false) {
+            last = randomItem;
+            newProdutosRelacionados.push(randomItem);
+            aux.push(randomItem);
+            count += 1;
+          }
         }
-        console.log(newProdutosRelacionados);
-        setAllProducts(newProdutosRelacionados);
       }
     }
+    setAllProducts(newProdutosRelacionados);
   };
-  const getProduto = async (produtos) => {
-    const produtosType = [];
+
+  const getProduto = (produtos) => {
     let tipo;
     let descricaoProduto = [];
     produtos.map((item, i) => {
       if (item.id === match.params.id) {
         tipo = item.tipo;
+        setType(item.tipo);
         setSizes(item.tamanho);
         setPosicao(i);
         if (item.imagens.length !== 0) {
           setFotoAtual(
-            `http://64.227.106.165/imgs/${item.categoria}/${item.imagens[0]}.jpg`,
+            `https://64.227.106.165/imgs/${item.categoria}/${item.imagens[0]}.jpg`,
           );
           setFotos(item.imagens);
           setFotosMobile(item.imagens);
@@ -160,22 +168,22 @@ const ProdutoPage = ({ match }) => {
         descricaoProduto = item.descricao.split('.');
         setDescricao(descricaoProduto);
         setProduct(item);
-        setType(item.tipo);
-        console.log(item);
 
         if (item.tipo === 'cangas') setIsCanga(true);
-      } else if (item.tipo === tipo) {
-        produtosType.push(item);
-        setReady(true);
       }
     });
-    if (ready) relacionados(produtosType);
+    setReady(true);
   };
-  
-  useEffect(() => { 
-    getProduto(produtosT);
-  }, [prod]);
-  
+  useEffect(() => {
+    (async () => getProduto(produtosT))();
+  }, [produtosT]);
+
+  useEffect(() => {
+    if (product !== '') {
+      relacionados();
+    }
+  }, [product]);
+
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -189,9 +197,8 @@ const ProdutoPage = ({ match }) => {
       newState.tamanhoEscolhido = size;
       newState.produto_id = product.id;
       newState.cartId = generateSafeId();
-      newState.ImageUrl = fotoAtual;
-      newState.isCanga = isCanga;
     });
+
     dispatch(addCart(productCart));
     setQuantity(1);
     setSize('');
@@ -199,13 +206,12 @@ const ProdutoPage = ({ match }) => {
 
   const classes = useStyles();
 
-  const atualiza = () => {
-    if (atualizar === true) {
-      setAtualizar(false);
-    } else {
-      setAtualizar(true);
-    }
+  const data = {
+    id: product.id,
+    img: fotoAtual,
   };
+  dispatch(setImage(data));
+
   return (
     <>
       <Grid
@@ -219,18 +225,26 @@ const ProdutoPage = ({ match }) => {
             <div style={styles.marginDiv}>
               {fotos.map((item) => (
                 <div style={styles.foto}>
-                  {isCanga ? null : (
+                  {isCanga ? (
                     <img
-                      src={`http://64.227.106.165/imgs/${product.categoria}/${item}.jpg`}
-                      onClick={() => {
-                        setFotoAtual(
-                          `http://64.227.106.165/imgs/${product.categoria}/${item}.jpg`,
-                        );
+                      src={`https://64.227.106.165/imgs/${product.categoria}/${item}.jpg`}
+                      style={{
+                        display: 'none',
                       }}
-                      style={styles.img}
                       alt="produto"
                     />
-                  )}
+                  ) : (
+                      <img
+                        src={`https://64.227.106.165/imgs/${product.categoria}/${item}.jpg`}
+                        onClick={() => {
+                          setFotoAtual(
+                            `https://64.227.106.165/imgs/${product.categoria}/${item}.jpg`,
+                          );
+                        }}
+                        style={styles.img}
+                        alt="produto"
+                      />
+                    )}
                 </div>
               ))}
             </div>
@@ -302,11 +316,11 @@ const ProdutoPage = ({ match }) => {
                 </div>
 
                 <Alerta
-                  message= {msg}
+                  message="Produto adicionado!"
                   vertical="top"
                   horizontal="right"
                   handleClose={handleClose}
-                  status={status}
+                  status="success"
                   openAlert={open}
                 />
                 <div style={{ ...Estilos.flexColumnStandard, marginTop: 40 }}>
@@ -338,16 +352,8 @@ const ProdutoPage = ({ match }) => {
                             maxHeight: '100%',
                           }}
                           onClick={() => {
-                            if(size === ''){
-                              setStatus("error");
-                              setMsg("Selecione um tamanho!");
-                              setOpen(true);
-                            }else{
-                              setStatus("Success");
-                              setMsg("Produto adicionado!");
-                              setOpen(true);
-                              addItemCart(product, quantity);
-                            }
+                            setOpen(true);
+                            addItemCart(product, quantity);
                           }}
                         >
                           ADICIONAR AO CARRINHO
@@ -363,11 +369,11 @@ const ProdutoPage = ({ match }) => {
 
         <Hidden mdUp>
           <Alerta
-            message={msg}
+            message="Produto adicionado!"
             vertical="top"
             horizontal="right"
             handleClose={handleClose}
-            status={status}
+            status="success"
             openAlert={open}
           />
           <div
@@ -421,16 +427,8 @@ const ProdutoPage = ({ match }) => {
               color="primary"
               style={{ width: '100%', maxHeight: '100%' }}
               onClick={() => {
-                if(size === ''){
-                  setStatus("error");
-                  setMsg("Selecione um tamanho!");
-                  setOpen(true);
-                }else{
-                  setStatus("Success");
-                  setMsg("Produto adicionado!");
-                  setOpen(true);
-                  addItemCart(product, quantity);
-                }
+                setOpen(true);
+                addItemCart(product, quantity);
               }}
             >
               ADICIONAR AO CARRINHO
@@ -438,7 +436,7 @@ const ProdutoPage = ({ match }) => {
           </div>
         </Hidden>
 
-        <Grid item lg={12} md={12}>
+        <Grid item lg={12} md={12} sm={12} xs={12}>
           <div
             className={classes.backgroundC}
             style={{
@@ -474,7 +472,7 @@ const ProdutoPage = ({ match }) => {
                     fontSize: 'clamp(16px, 4vw, 22px)',
                   }}
                 >
-                  -{item}
+                  -{item}.
                 </Typography>
               ))}
             </p>
@@ -502,13 +500,11 @@ const ProdutoPage = ({ match }) => {
         >
           <Hidden smDown>
             {allProducts.map((value) => (
-              <Grid item lg={3} md={4} sm={6}>
+              <Grid key={value.id} item lg={3} md={4} sm={6}>
                 <Produto
                   produto={value}
                   title={type}
-                  update={() => {
-                    atualiza();
-                  }}
+
                   addItem={(product) => {
                     setOpen(true);
                     addItemCart(product, 1);
@@ -518,15 +514,24 @@ const ProdutoPage = ({ match }) => {
             ))}
           </Hidden>
 
-          <Hidden mdUp>
+          <Hidden lgUp>
             <div style={styles.scrollbarMobile}>
               {allProducts.map((value) => (
-                <Grid item lg={3} md={4} sm={6} style={{ marginLeft: 10 }}>
+                <Grid
+                  key={value.id}
+                  item
+                  lg={3}
+                  md={4}
+                  sm={6}
+                  style={{ marginLeft: 10 }}
+                >
                   <Produto
                     produto={value}
                     title={type}
-                    update={() => {
-                      atualiza();
+
+                    addItem={(product) => {
+                      setOpen(true);
+                      addItemCart(product, 1);
                     }}
                   />
                 </Grid>
