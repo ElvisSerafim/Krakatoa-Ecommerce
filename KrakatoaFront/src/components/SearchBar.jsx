@@ -39,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
   inputInput: {
     fontFamily: 'Poppins',
     color: theme.palette.background.color,
+    '@media (max-width:1024px)':{
+      color: 'white',
+    },
     padding: theme.spacing(1, 1, 1, 0),
     transition: theme.transitions.create('width'),
     width: '100%',

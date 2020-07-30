@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Container } from '@material-ui/core/';
+import { Box, Container, Grid , Divider} from '@material-ui/core/';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Carrinho from '@material-ui/icons/ShoppingCart';
+import Carrinho from '@material-ui/icons/ShoppingCartOutlined';
+import SearchIcon from '@material-ui/icons/Search';
 import Badge from '@material-ui/core/Badge';
-import Conta from '@material-ui/icons/AccountCircleOutlined';
-import IconButton from '@material-ui/core/IconButton';
-import Hidden from '@material-ui/core/Hidden';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import SearchBar from './SearchBar';
+import SearchDrawer from './SearchDrawer';
 import Logo from './Logo';
-import TopoMobile from './topoMobile'
-import Drawer from './Drawer';
+import IconButton from '@material-ui/core/IconButton';
+import Drawer2 from './Drawer';
+import Drawer from '@material-ui/core/Drawer';
 
 const useStyles = makeStyles(() => ({
   box: {
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: '2%',
   },
-
+  colorCart:{
+    color: '#44323D'
+  },
   colorPrimary: {
     color: 'white',
     backgroundColor: '#44323D',
@@ -29,7 +30,7 @@ const useStyles = makeStyles(() => ({
 
 const StyledBadge = withStyles(() => ({}))(Badge);
 
-const Topo = () => {
+const TopoMobile = () => {
   const classes = useStyles();
   const cartProducts = useSelector((state) => state.productsCart);
   const [quantidadeProdutos, setQuantidade] = useState(0);
@@ -37,24 +38,18 @@ const Topo = () => {
     setQuantidade(cartProducts.length);
   }, [cartProducts]);
   return (
-    <>
-    <Hidden mdDown>
     <Container maxWidth="lg">
-      <Box className={classes.Top}>
         <Box className={classes.box}>
+            <Drawer2 />
           <Link to="/" style={{ textDecoration: 'none' }}>
             <Logo />
           </Link>
-            <Box style={{ minWidth: '200px', maxWidth: '100%' }}>
-              <SearchBar />
-            </Box>
-            <a href="/conta/">
-              <IconButton aria-label="conta">
-                <Conta color="primary" fontSize="large" />
-              </IconButton>
-            </a>
-            <a href="/carrinho">
-              <IconButton aria-label="carrinho">
+
+          <div style={{display:'flex',flexDirection:"row",justifyContent:'space-between'}}>
+
+         <SearchDrawer/>
+          <a href="/carrinho" >
+              <IconButton  learia-label="carrinho">
                 <StyledBadge
                   anchorOrigin={{
                     vertical: 'top',
@@ -67,19 +62,15 @@ const Topo = () => {
                   showZero
                   color="primary"
                 >
-                  <Carrinho color="primary" fontSize="large" />
+                  <Carrinho style={{height:30, width:30}} className={classes.colorCart}  fontSize="large" />
                 </StyledBadge>
               </IconButton>
             </a>
-        </Box>
+          </div>
+            
       </Box>
+    <Divider fullWidth style={{marginTop:2}}/>
     </Container>
-    </Hidden>
-    <Hidden lgUp>
-
-      <TopoMobile/>
-    </Hidden>
-    </>
   );
 };
-export default Topo;
+export default TopoMobile ;
