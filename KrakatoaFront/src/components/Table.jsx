@@ -145,7 +145,6 @@ export default function CustomizedTables({
                       />
                     </div>
                   )}
-
                   <div
                     style={{
                       ...Estilos.flexColumnCENTER2,

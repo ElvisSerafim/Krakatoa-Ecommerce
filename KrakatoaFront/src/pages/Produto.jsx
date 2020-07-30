@@ -114,10 +114,10 @@ const ProdutoPage = ({ match }) => {
   const [msg, setMsg] = useState(false);
   const [status, setStatus] = useState(false);
   const dispatch = useDispatch();
-  const stateProducts = useSelector((state) => state.products);
-  const { list, loading } = stateProducts;
-  console.log(loading);
-
+  
+  const produtosT = useSelector((state) => state.products.list);
+  const prod = useSelector((state) => state.products);
+  
   const relacionados = (produtins) => {
     const newProdutosRelacionados = [];
     let last;
@@ -139,8 +139,8 @@ const ProdutoPage = ({ match }) => {
       }
     }
   };
-  const produtosType = [];
-  const getProduto = (produtos) => {
+  const getProduto = async (produtos) => {
+    const produtosType = [];
     let tipo;
     let descricaoProduto = [];
     produtos.map((item, i) => {
@@ -161,6 +161,8 @@ const ProdutoPage = ({ match }) => {
         setDescricao(descricaoProduto);
         setProduct(item);
         setType(item.tipo);
+        console.log(item);
+
         if (item.tipo === 'cangas') setIsCanga(true);
       } else if (item.tipo === tipo) {
         produtosType.push(item);
@@ -169,10 +171,11 @@ const ProdutoPage = ({ match }) => {
     });
     if (ready) relacionados(produtosType);
   };
-  useEffect(() => {
-    getProduto(list);
-  }, [atualizar, loading, ready]);
-
+  
+  useEffect(() => { 
+    getProduto(produtosT);
+  }, [prod]);
+  
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -249,8 +252,8 @@ const ProdutoPage = ({ match }) => {
                   alt="produto"
                 />
               ) : (
-                <img src={fotoAtual} style={styles.img} alt="produto" />
-              )}
+                  <img src={fotoAtual} style={styles.img} alt="produto" />
+                )}
             </div>
           </Grid>
         </Hidden>
