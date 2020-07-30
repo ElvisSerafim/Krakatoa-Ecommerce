@@ -93,7 +93,7 @@ const ProdutoMobile = ({ imagens, produto }) => {
             {Math.abs(activeStep - index) <= 2 ? (
               <img
                 className={classes.img}
-                src={`http://64.227.106.165/imgs/${produto.categoria}/${item}.jpg`}
+                src={`https://64.227.106.165/imgs/${produto.categoria}/${item}.jpg`}
                 alt={`${produto.nome}`}
               />
             ) : null}
@@ -108,7 +108,7 @@ const ProdutoMobile = ({ imagens, produto }) => {
         position="static"
         variant="text"
         activeStep={activeStep}
-        nextButton={
+        nextButton={(
           <Button
             size="small"
             classes={{
@@ -124,8 +124,8 @@ const ProdutoMobile = ({ imagens, produto }) => {
               <KeyboardArrowRight />
             )}
           </Button>
-        }
-        backButton={
+        )}
+        backButton={(
           <Button
             size="small"
             className={{
@@ -141,7 +141,7 @@ const ProdutoMobile = ({ imagens, produto }) => {
             )}
             Back
           </Button>
-        }
+        )}
       />
     </div>
   );

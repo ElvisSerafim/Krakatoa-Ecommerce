@@ -19,7 +19,7 @@ const api = ({ dispatch }) => (next) => async (action) => {
 
   try {
     const response = await axios.request({
-      baseURL: 'https://localhost:5000/api2/',
+      baseURL: 'https://64.227.106.165/api2/',
       url,
       timeout: 2000,
       method,

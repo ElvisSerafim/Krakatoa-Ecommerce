@@ -47,7 +47,7 @@ const debito = (nome, amount, cardNumber, holder, exp, cv, id, bandeira)=> {
             type: cielo_1.EnumCardType.DEBIT,
             amount: amount,
             provider: "Simulado",
-            returnUrl: "http://64.227.106.165",
+            returnUrl: "https://64.227.106.165",
        debitCard:{  
           cardNumber: cardNumber,
           holder: holder,
