@@ -92,7 +92,7 @@ export default function CustomizedTables({
           {allProducts.map((row, i) => (
             <StyledTableRow key={row.id}>
               <StyledTableCell component="th" scope="row">
-                <Avatar src={row.Imageurl} className={classes.large} />
+                <Avatar src={row.ImageUrl} className={classes.large} />
               </StyledTableCell>
               <StyledTableCell component="th" scope="row">
                 <div

@@ -61,7 +61,7 @@ const ItemMobile = ({
     setPreco(produto.preco);
     setQuantity(produto.quantidadePedido);
     setTotal(produto.preco * produto.quantidadePedido);
-    setImageurl(produto.Imageurl);
+    setImageurl(produto.ImageUrl);
     setNome(produto.nome);
     setIndex(posicao);
   }, []);

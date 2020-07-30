@@ -127,7 +127,7 @@ export default function PersistentDrawerLeft() {
                 {[
                   'Mandalas',
                   'Turisticas',
-                  'Estampadas',
+                  'Estampada',
                   'Pompom',
                 ].map((text) => (
                   <a

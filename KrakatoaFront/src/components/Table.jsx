@@ -108,7 +108,7 @@ export default function CustomizedTables({ actualTotal, removerItem }) {
                 <Box display="flex" alignContent="center">
                   <div style={{ width: '100px', height: '150px' }}>
                     <img
-                      src={row.Imageurl}
+                      src={row.ImageUrl}
                       style={{ width: '100%', height: '100%', borderRadius: 5 }}
                       alt="Imagem produto"
                     />

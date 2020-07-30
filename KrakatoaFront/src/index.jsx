@@ -19,6 +19,8 @@ import MyAddress from './pages/MyAddress';
 import Pedidos from './pages/Pedidos';
 import Politicas from './pages/Politicas';
 
+
+
 WebFont.load({
   google: {
     families: ['Poppins'],
@@ -46,7 +48,6 @@ ReactDOM.render(
               <Route path="/" exact component={Home} />
               <Route path="/sobre" component={Sobre} />
               <Route path="/contato" component={Contato} />
-
               <Route
                 path="/cangas"
                 exact

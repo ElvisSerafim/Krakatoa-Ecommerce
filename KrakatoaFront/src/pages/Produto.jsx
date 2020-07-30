@@ -114,7 +114,7 @@ const ProdutoPage = ({ match }) => {
   const dispatch = useDispatch();
 
   const produtosT = useSelector((state) => state.products.list);
-
+  const prod = useSelector((state) => state.products);
   const relacionados = (produtins) => {
     const newProdutosRelacionados = [];
     let count = 0;
@@ -136,7 +136,7 @@ const ProdutoPage = ({ match }) => {
     setAllProducts(newProdutosRelacionados);
   };
 
-  const getProduto = (produtos) => {
+  const getProduto = async (produtos) => {
     const produtosType = [];
     let tipo;
     let descricaoProduto = [];
@@ -158,6 +158,8 @@ const ProdutoPage = ({ match }) => {
         setDescricao(descricaoProduto);
         setProduct(item);
         setType(item.tipo);
+        console.log(item);
+
         if (item.tipo === 'cangas') setIsCanga(true);
       }
     });
@@ -168,9 +170,9 @@ const ProdutoPage = ({ match }) => {
     });
     relacionados(produtosType);
   };
-  useEffect(() => {
+  useEffect(() => { 
     getProduto(produtosT);
-  }, [atualizar]);
+  }, [prod]);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -229,17 +231,17 @@ const ProdutoPage = ({ match }) => {
                       alt="produto"
                     />
                   ) : (
-                    <img
-                      src={`http://64.227.106.165/imgs/${product.categoria}/${item}.jpg`}
-                      onClick={() => {
-                        setFotoAtual(
-                          `http://64.227.106.165/imgs/${product.categoria}/${item}.jpg`,
-                        );
-                      }}
-                      style={styles.img}
-                      alt="produto"
-                    />
-                  )}
+                      <img
+                        src={`http://64.227.106.165/imgs/${product.categoria}/${item}.jpg`}
+                        onClick={() => {
+                          setFotoAtual(
+                            `http://64.227.106.165/imgs/${product.categoria}/${item}.jpg`,
+                          );
+                        }}
+                        style={styles.img}
+                        alt="produto"
+                      />
+                    )}
                 </div>
               ))}
             </div>
@@ -261,8 +263,8 @@ const ProdutoPage = ({ match }) => {
                   alt="produto"
                 />
               ) : (
-                <img src={fotoAtual} style={styles.img} alt="produto" />
-              )}
+                  <img src={fotoAtual} style={styles.img} alt="produto" />
+                )}
             </div>
           </Grid>
         </Hidden>
@@ -457,7 +459,7 @@ const ProdutoPage = ({ match }) => {
               minHeight: 350,
             }}
           >
-            <p style={{padding: 32}}>
+            <p style={{ padding: 32 }}>
               {descricao.map((item) => (
                 <Typography
                   variant="h6"
