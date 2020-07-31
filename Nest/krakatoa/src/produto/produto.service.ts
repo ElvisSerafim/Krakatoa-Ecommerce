@@ -4,7 +4,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Produto } from './schemas/produto.schema';
 import { CreateProdutoDto } from './dto/create-produto.dto';
 import { UpdateProdutoDto } from './dto/update-produto.dto';
-import { QueryProdutoDto } from './dto/query-produto.dto';
 
 @Injectable()
 export class ProdutoService {
@@ -28,93 +27,56 @@ export class ProdutoService {
     id: string,
   ): Promise<Produto> {
     const produto = await this.produtoModel.findById(id);
+    console.log(produto);
+
     if (!produto) {
       throw new Error('Não foi possivel achar o produto');
     }
     const {
       nome,
       categoria,
-      cores,
       descricao,
-      preco,
-      precoPromo,
-      promocao,
-      quantidade,
       tamanho,
       imagens,
+      preco,
       tipo,
-      vendas,
     } = updateProdutoDto;
-    produto.nome =
-      typeof nome === 'string' && nome.length > 0 && produto.nome !== nome
-        ? nome
-        : produto.nome;
 
-    produto.categoria =
-      typeof categoria !== 'undefined' &&
-      categoria.length > 0 &&
-      produto.categoria !== categoria
-        ? categoria
-        : produto.categoria;
+    const checkString = (Novo: string, Antigo: string) => {
+      if (typeof Novo === 'string' && Novo !== Antigo) return true;
+      return false;
+    };
+    const checkNumber = (Novo: number, Antigo: number) => {
+      if (typeof Novo === 'number' && Novo > 0 && Novo !== Antigo) return true;
+      return false;
+    };
+    const checkArray = (Novo: string[], Antigo: string[]) => {
+      if (typeof Novo !== 'undefined' && Novo.length > 0 && Novo !== Antigo)
+        return true;
+      return false;
+    };
 
-    produto.cores =
-      typeof cores !== 'undefined' &&
-      cores.length > 0 &&
-      produto.cores !== cores
-        ? cores
-        : produto.cores;
+    produto.nome = checkString(nome, produto.nome) ? nome : produto.nome;
 
-    produto.descricao =
-      typeof descricao !== 'undefined' &&
-      descricao.length > 0 &&
-      produto.descricao !== descricao
-        ? descricao
-        : produto.descricao;
+    produto.categoria = checkString(categoria, produto.categoria)
+      ? categoria
+      : produto.categoria;
 
-    produto.preco =
-      typeof preco === 'number' && preco > 0 && produto.preco !== preco
-        ? preco
-        : produto.preco;
+    produto.descricao = checkString(descricao, produto.descricao)
+      ? descricao
+      : produto.descricao;
 
-    produto.vendas =
-      typeof preco === 'number' && preco > 0 && produto.vendas !== vendas
-        ? vendas
-        : produto.vendas;
+    produto.tipo = checkString(tipo, produto.tipo) ? tipo : produto.tipo;
 
-    produto.promocao = typeof promocao === 'boolean' && promocao === true;
+    produto.preco = checkNumber(preco, produto.preco) ? preco : produto.preco;
 
-    produto.precoPromo =
-      typeof quantidade === 'number' &&
-      precoPromo > 0 &&
-      produto.precoPromo !== precoPromo
-        ? precoPromo
-        : produto.precoPromo;
+    produto.tamanho = checkArray(tamanho, produto.tamanho)
+      ? tamanho
+      : produto.tamanho;
 
-    produto.quantidade =
-      typeof quantidade === 'number' &&
-      quantidade > 0 &&
-      produto.quantidade !== quantidade
-        ? quantidade
-        : produto.quantidade;
-
-    produto.tamanho =
-      typeof tamanho !== 'undefined' &&
-      tamanho.length > 0 &&
-      produto.tamanho !== tamanho
-        ? tamanho
-        : produto.tamanho;
-
-    produto.imagens =
-      typeof imagens !== 'undefined' &&
-      imagens.length > 0 &&
-      produto.imagens !== imagens
-        ? imagens
-        : produto.imagens;
-
-    produto.tipo =
-      typeof tipo === 'string' && tipo.length > 0 && produto.tipo !== tipo
-        ? tipo
-        : produto.tipo;
+    produto.imagens = checkArray(imagens, produto.imagens)
+      ? imagens
+      : produto.imagens;
 
     return produto.save();
   }
@@ -128,34 +90,22 @@ export class ProdutoService {
       throw new Error('Não foi possivel apagar produto');
     }
   }
-  GetAllProdutos(): Promise<Produto[]> {
-    return this.produtoModel.find().exec();
-  }
-  async GetProdutoQuery(queryProdutoDto: QueryProdutoDto): Promise<Produto[]> {
-    const { tipo, chave } = queryProdutoDto;
-    const produtos = await this.produtoModel.find({ tipo });
-    if (chave === 'menorP') {
-      produtos.sort((a, b) => {
-        if (a.preco > b.preco) return 1;
-        if (a.preco < b.preco) return -1;
-        return 0;
-      });
-    }
-    if (chave === 'maiorP') {
-      produtos.sort((a, b) => {
-        if (a.preco < b.preco) return 1;
-        if (a.preco > b.preco) return -1;
-        return 0;
-      });
-    }
-    if (chave === 'maiorV') {
-      produtos.sort((a, b) => {
-        if (a.vendas < b.vendas) return 1;
-        if (a.vendas > b.vendas) return -1;
-        return 0;
-      });
-    }
-    if (produtos.length !== 0) return produtos;
-    throw new Error('Não foi possivel encontrar Produtos');
+  async GetAllProdutos(): Promise<Produto[]> {
+    const Produtos: Produto[] = await this.produtoModel
+      .aggregate([
+        {
+          $project: {
+            cores: 0,
+            createdAt: 0,
+            updatedAt: 0,
+            __v: 0,
+            quantidade: 0,
+            vendas: 0,
+          },
+        },
+      ])
+      .exec();
+
+    return Produtos;
   }
 }

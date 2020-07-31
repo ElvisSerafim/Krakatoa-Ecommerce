@@ -6,16 +6,16 @@ export class Produto extends Document {
   @Prop({ required: true })
   nome: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, min: 0 })
   preco: number;
   /* Fazer um enum */
   @Prop({ required: true })
   tipo: string;
   /* Fazer um enum */
-  @Prop({ required: true })
+  @Prop({ required: true, default: ['Único'] })
   tamanho: string[];
 
-  @Prop({ required: true })
+  @Prop({ required: true, default: false })
   promocao: boolean;
 
   @Prop({ required: true })
@@ -27,16 +27,13 @@ export class Produto extends Document {
   @Prop({ required: true })
   categoria: string;
 
-  @Prop({ required: true, minlength: 1 })
-  cores: string[];
-
   @Prop({ required: true, min: 10 })
   descricao: string;
 
-  @Prop({ required: true })
+  @Prop({ default: 0 })
   vendas: number;
 
-  @Prop({ required: true, min: 1 })
+  @Prop({ required: true, min: 1, default: 10 })
   quantidade: number;
 }
 

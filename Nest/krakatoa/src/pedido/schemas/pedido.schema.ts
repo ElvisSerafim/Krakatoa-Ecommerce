@@ -1,35 +1,44 @@
-import mongoose, { SchemaTypes, Document } from 'mongoose';
-import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-
-@Schema({ timestamps: true, toJSON: { virtuals: true } })
+import { Document, Schema, SchemaTypes } from 'mongoose';
+import * as NestMongo from '@nestjs/mongoose';
+@NestMongo.Schema({ timestamps: true, toJSON: { virtuals: true } })
 export class Pedido extends Document {
-  @Prop({ required: true })
+  @NestMongo.Prop({ required: true })
   precoTotal: number;
 
-  @Prop({ required: true })
+  @NestMongo.Prop({ required: true })
   frete: number;
 
-  @Prop()
-  user: { type: mongoose.Types.ObjectId; ref: 'User' };
+  @NestMongo.Prop({
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  })
+  user: Schema.Types.ObjectId;
 
-  @Prop({ required: true })
-  produtos: [
-    {
-      Produto_id: { type: mongoose.Types.ObjectId; ref: 'Produto' };
-      quantidadePedido: number;
-      tamanhoEscolhido: string;
-      corEscolhida: string;
-    },
-  ];
+  @NestMongo.Prop(
+    NestMongo.raw([
+      {
+        Produto_id: {
+          type: Schema.Types.ObjectId,
+          ref: 'Produto',
+          autopopulate: true,
+        },
+        quantidadePedido: { type: Number, required: true },
+        tamanhoEscolhido: { type: String, required: true },
+      },
+    ]),
+  )
+  produtos: Record<string, any>;
 
-  @Prop({ required: true })
+  @NestMongo.Prop({ required: true })
   metodo: string;
 
-  @Prop({ required: true })
+  @NestMongo.Prop({ required: true })
   idPagamento: string;
 
-  @Prop({ required: true })
+  @NestMongo.Prop({ required: true })
   idPedido: string;
 }
 
-export const PedidoSchema = SchemaFactory.createForClass(Pedido);
+export const PedidoSchema = NestMongo.SchemaFactory.createForClass(
+  Pedido,
+).plugin(require('mongoose-autopopulate'));
