@@ -19,8 +19,7 @@ const ApiService = {
         const { accessToken } = await response;
 
         sessionStorage.setItem('token', accessToken);
-        const ok = 'ok';
-        return ok;
+        return accessToken;
       }
       return Error('Erro Na hora de Cadastrar');
     } catch (error) {

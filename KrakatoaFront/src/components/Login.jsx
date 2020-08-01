@@ -182,6 +182,7 @@ const Login = () => {
       nome,
     };
     const request = await api.Cadastro(data);
+    console.log(request);
     if (request.length > 5) {
       dispatch(setToken(request));
       dispatch(loadUser(request));

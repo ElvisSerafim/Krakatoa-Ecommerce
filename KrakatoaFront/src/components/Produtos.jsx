@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Produto from './Produto';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 import ComboBox from './ComboBox';
 
 const useStyles = makeStyles({
@@ -20,11 +22,16 @@ const useStyles = makeStyles({
 const Produtos = ({ title, products }) => {
   const [ProdutosOrder, setProdutos] = useState([]);
   const [orderBy, setOrderBy] = useState('');
+  const [habilityOrder, setHabilityOrder] = useState(false);
   const classes = useStyles();
   const lower = title.toLowerCase();
 
   useEffect(() => {
+    Aos.init({ duration: 2000 });
     setProdutos(products);
+    setTimeout(() => {
+      setHabilityOrder(true);
+    }, 300);
   }, [products]);
 
   const ordenar = async (value) => {
@@ -75,23 +82,27 @@ const Produtos = ({ title, products }) => {
       spacing={2}
       className={classes.GridContainer}
     >
-      <Grid container style={{ flexDirection: 'row-reverse' }}>
-        <ComboBox
-          onChange={(event) => {
-            setOrderBy(event.target.value);
-            ordenar(event.target.value);
-          }}
-          style={{ maxWidth: 300, marginBottom: 36 }}
-          value={orderBy}
-          items={['Mais vendidos', 'Menor Preço', 'Maior Preço']}
-          label="Ordenar por: "
-        />
-      </Grid>
+      {habilityOrder && (
+        <Grid data-aos="fade-left" data-aos-once="true" container style={{ flexDirection: 'row-reverse' }}>
+          <ComboBox
+            onChange={(event) => {
+              setOrderBy(event.target.value);
+              ordenar(event.target.value);
+            }}
+            style={{ maxWidth: 300, marginBottom: 36 }}
+            value={orderBy}
+            items={['Mais vendidos', 'Menor Preço', 'Maior Preço']}
+            label="Ordenar por: "
+          />
+        </Grid>
+      )}
+
 
       <>
         {ProdutosOrder.map((value) => (
-          <Grid key={value.id} item lg={3} md={4} sm={6} xs={6}>
-            <Produto produto={value} update={() => {}} title={lower} />
+
+          <Grid data-aos="fade-up" data-aos-once="true" key={value.id} item lg={3} md={4} sm={6} xs={6}>
+            <Produto produto={value} update={() => { }} title={lower} />
           </Grid>
         ))}
       </>
