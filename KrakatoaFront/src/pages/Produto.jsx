@@ -151,7 +151,7 @@ const ProdutoPage = ({ match }) => {
     let tipo;
     let descricaoProduto = [];
     produtos.map((item, i) => {
-      if (item.id === match.params.id) {
+      if (item._id === match.params.id) {
         tipo = item.tipo;
         setType(item.tipo);
         setSizes(item.tamanho);
@@ -195,7 +195,7 @@ const ProdutoPage = ({ match }) => {
     const productCart = produce(produto, (newState) => {
       newState.quantidadePedido = quantidade;
       newState.tamanhoEscolhido = size;
-      newState.produto_id = product.id;
+      newState.produto_id = product._id;
       newState.cartId = generateSafeId();
     });
 
@@ -207,7 +207,7 @@ const ProdutoPage = ({ match }) => {
   const classes = useStyles();
 
   const data = {
-    id: product.id,
+    id: product._id,
     img: fotoAtual,
   };
   dispatch(setImage(data));

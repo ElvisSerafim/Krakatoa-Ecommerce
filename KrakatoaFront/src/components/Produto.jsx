@@ -46,7 +46,7 @@ const useStyles = makeStyles({
 const CardMediaMod = withAnimation(CardMedia);
 
 const Produto = ({ produto, title }) => {
-  const { id, nome, preco } = produto;
+  const { _id, nome, preco } = produto;
   const [Imageurl, setImageurl] = useState('');
   const classes = useStyles();
   useEffect(() => {
@@ -73,7 +73,7 @@ const Produto = ({ produto, title }) => {
   };
 
   return (
-    <a href={`/${produto.categoria}/${id}`} style={{ textDecoration: 'none' }}>
+    <a href={`/${produto.categoria}/${_id}`} style={{ textDecoration: 'none' }}>
       <Card className={classes.root}>
         <CardActionArea>
           <CardMediaMod
