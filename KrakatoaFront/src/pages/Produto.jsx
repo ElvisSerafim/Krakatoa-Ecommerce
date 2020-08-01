@@ -158,7 +158,7 @@ const ProdutoPage = ({ match }) => {
         setPosicao(i);
         if (item.imagens.length !== 0) {
           setFotoAtual(
-            `https://64.227.106.165/imgs/${item.categoria}/${item.imagens[0]}.jpg`,
+            `https://testekrakatoa.tk/imgs/${item.categoria}/${item.imagens[0]}.jpg`,
           );
           setFotos(item.imagens);
           setFotosMobile(item.imagens);
@@ -227,7 +227,7 @@ const ProdutoPage = ({ match }) => {
                 <div style={styles.foto}>
                   {isCanga ? (
                     <img
-                      src={`https://64.227.106.165/imgs/${product.categoria}/${item}.jpg`}
+                      src={`https://testekrakatoa.tk/imgs/${product.categoria}/${item}.jpg`}
                       style={{
                         display: 'none',
                       }}
@@ -235,10 +235,10 @@ const ProdutoPage = ({ match }) => {
                     />
                   ) : (
                       <img
-                        src={`https://64.227.106.165/imgs/${product.categoria}/${item}.jpg`}
+                        src={`https://testekrakatoa.tk/imgs/${product.categoria}/${item}.jpg`}
                         onClick={() => {
                           setFotoAtual(
-                            `https://64.227.106.165/imgs/${product.categoria}/${item}.jpg`,
+                            `https://testekrakatoa.tk/imgs/${product.categoria}/${item}.jpg`,
                           );
                         }}
                         style={styles.img}

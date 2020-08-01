@@ -17,8 +17,10 @@ import { JwtPayload } from './jwt-payload';
 import { compare } from 'bcrypt';
 import * as Jwt from 'jsonwebtoken';
 import { uuid } from 'uuidv4';
-import { Mail } from './mail/nodemailer';
-
+const mailjet = require('node-mailjet').connect(
+  '9b4c4b2356385d8f352b67ad0813b60c',
+  '5fa302479fd049e12e0a763f9973aa07',
+);
 export interface userResponse {
   email: string;
   nome: string;
@@ -75,7 +77,7 @@ export class UserService {
   }
 
   async Forgot(email: string): Promise<void> {
-    this.logger.log(email);
+    /* this.logger.log(email); */
     const user = await this.userModel.findOne({ email: email });
     if (user) {
       const id = uuid();
@@ -83,17 +85,40 @@ export class UserService {
       await user.save();
       const payload = { email };
       const recoverToken = Jwt.sign(payload, id, { expiresIn: 3600000 });
-      const mail = new Mail(
-        email,
-        'Recuperar Senha',
-        `http://localhost:3000/user/recover/${recoverToken}`,
-      );
-      const resultado = await mail.sendMail();
-      this.logger.log(resultado);
+      const request = mailjet.post('send', { version: 'v3.1' }).request({
+        Messages: [
+          {
+            From: {
+              Email: 'recover@testekrakatoa.tk',
+              Name: 'Krakatoa',
+            },
+            To: [
+              {
+                Email: email,
+                Name: user.nome,
+              },
+            ],
+            TemplateID: 1602027,
+            TemplateLanguage: true,
+            Subject: 'Recuperação de Senha',
+            Variables: {
+              user: user.nome,
+              token: recoverToken,
+            },
+          },
+        ],
+      });
+      request
+        .then(result => {
+          console.log(result.body);
+        })
+        .catch(err => {
+          console.log(err.statusCode);
+        });
       /* if (resultado.length > 2) {
         throw new Error('Não Foi possivel enviar email');
       } */
-      console.log(recoverToken);
+      /* console.log(recoverToken); */
     }
   }
 

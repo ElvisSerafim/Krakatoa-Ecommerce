@@ -6,7 +6,6 @@ import {
   Get,
   Body,
   Param,
-  ParseIntPipe,
 } from '@nestjs/common';
 import { ProdutoService } from './produto.service';
 import { CreateProdutoDto } from './dto/create-produto.dto';
@@ -26,7 +25,7 @@ export class ProdutoController {
   @Put(':id')
   async UpdateProduto(
     @Body() updateProdutoDto: UpdateProdutoDto,
-    @Param('id', new ParseIntPipe()) id: string,
+    @Param('id') id: string,
   ): Promise<Produto> {
     return await this.produtoService.UpdateProduto(updateProdutoDto, id);
   }
@@ -37,11 +36,5 @@ export class ProdutoController {
   @Get()
   async GetAllProdutos(): Promise<Produto[]> {
     return await this.produtoService.GetAllProdutos();
-  }
-  @Post(':id')
-  async GetQueryProdutos(
-    @Body() queryProdutoDto: QueryProdutoDto,
-  ): Promise<Produto[]> {
-    return await this.produtoService.GetProdutoQuery(queryProdutoDto);
   }
 }
