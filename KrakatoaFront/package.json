@@ -24,6 +24,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-hook-form": "^6.2.0",
     "react-horizontal-scrolling-menu": "^0.7.7",
     "react-input-mask": "^2.0.4",
     "react-redux": "^7.2.0",

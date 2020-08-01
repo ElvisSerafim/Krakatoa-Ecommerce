@@ -39,7 +39,6 @@ const useStyles = makeStyles({
 
 const Contato = () => {
   const classes = useStyles();
-
   return (
     <>
       <Grid

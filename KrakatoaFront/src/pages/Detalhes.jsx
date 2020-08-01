@@ -46,7 +46,6 @@ function Detalhes() {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('error');
-  const [, setToken] = useState();
   const [, setOpenAlert] = useState(false);
 
   const usuario = useSelector((state) => state.user.user);
@@ -202,24 +201,15 @@ function Detalhes() {
                 <Button
                   style={styles.botao}
                   onClick={() => {
-                    setToken(sessionStorage.getItem('token'));
                     enviar();
                     setOpen(true);
                     setStatus('success');
                     switch (true) {
                       case newPass.length > 0:
                         if (pass === '') setMessage('Senha vazio');
-                        /*
-                        VERIFICAR SE A SENHA ATUAL ESTÁ CERTA
-                      */
-
                         setStatus('success');
                         setMessage('Alterações salvas!');
 
-                        /*
-                      SE ESTIVER CERTA, RODAR O CÓDIGO ABAIXO:
-                    */
-                        // ATUALIZAR A SENHA PARA NEWPASS
                         break;
                       case nome.length === 0:
                         setStatus('error');

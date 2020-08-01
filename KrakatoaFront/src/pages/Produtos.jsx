@@ -68,7 +68,6 @@ const Produtos = ({ categoria, tipo }) => {
         setProduct(arrayAuxProdutos);
       }
     };
-
     getProducts();
   }, [loading === true, tipo, categoria, search]);
 
