@@ -113,6 +113,7 @@ const Home = () => {
         <Grid container spacing={2} justify="space-evenly">
           <Grid
             data-aos="fade-up"
+            data-aos-once="true"
             style={{ paddingTop: 20 }}
             item
             lg={12}
@@ -122,6 +123,7 @@ const Home = () => {
           </Grid>
           <Grid
             data-aos="fade-right"
+            data-aos-once="true"
             style={{ paddingBottom: 40, paddingTop: 20 }}
             item
             lg={12}
@@ -134,7 +136,7 @@ const Home = () => {
           </Grid>
 
           <Hidden smDown>
-            <Grid data-aos="fade-left" container lg={12}>
+            <Grid data-aos="fade-left" data-aos-once="true" container lg={12}>
               <ListProducts list={produtosMaisProcurados} />
             </Grid>
           </Hidden>
@@ -144,6 +146,7 @@ const Home = () => {
               {products.map((item) => (
                 <Grid
                   data-aos="fade-left"
+                  data-aos-once="true"
                   item
                   lg={12}
                   md={12}
@@ -163,6 +166,7 @@ const Home = () => {
 
           <Grid
             data-aos="fade-right"
+            data-aos-once="true"
             item
             container
             style={{ paddingTop: 50, paddingBottom: '20px' }}
@@ -179,7 +183,7 @@ const Home = () => {
               VEJA TODOS
             </Button>
           </Grid>
-          <Grid data-aos="fade-down" item lg={12} md={12} sm={12}>
+          <Grid data-aos="fade-down" data-aos-once="true" item lg={12} md={12} sm={12}>
             <Typography
               color="secondary"
               style={{
@@ -193,7 +197,7 @@ const Home = () => {
             </Typography>
           </Grid>
 
-          <Grid data-aos="fade-down" item lg={3} md={3} sm={3} xs={12}>
+          <Grid data-aos="fade-down" data-aos-once="true" item lg={3} md={3} sm={3} xs={12}>
             <div style={styles.deli}>
               <img
                 style={{ padding: '25px 0px 0px 15px' }}
@@ -212,7 +216,7 @@ const Home = () => {
               Entrega rápida e eficiente em sua casa.
             </Typography>
           </Grid>
-          <Grid data-aos="fade-down" item lg={3} md={3} sm={3} xs={12}>
+          <Grid data-aos="fade-down" data-aos-once="true" item lg={3} md={3} sm={3} xs={12}>
             <div style={styles.pag}>
               <img
                 style={{ padding: '17px 0px 0px 16px' }}
@@ -236,7 +240,7 @@ const Home = () => {
               bandeiras do país!
             </Typography>
           </Grid>
-          <Grid data-aos="fade-down" item lg={3} md={3} sm={3} xs={12}>
+          <Grid data-aos="fade-down" data-aos-once="true" item lg={3} md={3} sm={3} xs={12}>
             <div style={styles.money}>
               <img
                 style={{ padding: '22px 0px 0px 20px' }}
@@ -259,7 +263,7 @@ const Home = () => {
               Site 100% confiável. Seu produto é enviado assim que autorizado.
             </Typography>
           </Grid>
-          <Grid data-aos="fade-down" item lg={3} md={3} sm={3} xs={12}>
+          <Grid data-aos="fade-down" data-aos-once="true" item lg={3} md={3} sm={3} xs={12}>
             <div style={styles.pqKraka}>
               <img
                 style={{ padding: '20px 0px 0px 17px' }}
@@ -283,6 +287,7 @@ const Home = () => {
           </Grid>
           <Grid
             data-aos="fade-right"
+            data-aos-once="true"
             item
             lg={12}
             md={12}
@@ -296,7 +301,7 @@ const Home = () => {
 
           <Hidden smDown>
             {productsNovidades.map((item) => (
-              <Grid data-aos="fade-up" item lg={3} md={3} sm={3}>
+              <Grid data-aos="fade-up" data-aos-once="true" item lg={3} md={3} sm={3}>
                 <Produto
                   produto={item}
                   update={() => {}}
@@ -312,6 +317,7 @@ const Home = () => {
               {productsNovidades.map((item) => (
                 <Grid
                   data-aos="fade-up"
+                  data-aos-once="true"
                   item
                   lg={12}
                   md={12}
@@ -331,6 +337,7 @@ const Home = () => {
           <Grid item container lg={12} md={12} sm={12}>
             <Grid
               data-aos="fade-right"
+              data-aos-once="true"
               item
               container
               justify="center"
