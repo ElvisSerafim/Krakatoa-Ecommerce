@@ -16,8 +16,9 @@ const productsPage = createSlice({
   reducers: {
     setImage: (products, action) => {
       const { id = '', img = '' } = action.payload;
+      console.log(id);
       products.list.map((item) => {
-        if (item.id === id) {
+        if (item._id === id) {
           item.ImageUrl = img;
         }
       });

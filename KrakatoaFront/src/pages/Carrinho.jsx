@@ -157,11 +157,6 @@ const Carrinho = () => {
       ) : (
         <>
           <Grid spacing={2} style={{ marginTop: 64, marginBottom: 64 }}>
-            <Grid item lg={12}>
-              <Typography variant="h2" color="primary">
-                Carrinho
-              </Typography>
-            </Grid>
             {/* Table dos Produtos */}
             <Hidden smDown="true">
               <Grid

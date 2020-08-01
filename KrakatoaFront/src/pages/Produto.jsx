@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/prop-types */
@@ -124,11 +126,11 @@ const ProdutoPage = ({ match }) => {
     const aux = [];
     let last;
     produtos.forEach((item, i) => {
-      if(item.tipo === product.tipo){
-         let aux = JSON.parse(JSON.stringify(item));
-         produtosType.push(aux);
+      if (item.tipo === product.tipo) {
+        const aux = JSON.parse(JSON.stringify(item));
+        produtosType.push(aux);
       }
-    })
+    });
     while (count < 4) {
       const index = Math.floor(Math.random() * produtosType.length);
       if (index !== type) {
@@ -197,20 +199,21 @@ const ProdutoPage = ({ match }) => {
       newState.tamanhoEscolhido = size;
       newState.produto_id = product._id;
       newState.cartId = generateSafeId();
+      newState.ImageUrl = fotoAtual;
     });
 
     dispatch(addCart(productCart));
     setQuantity(1);
     setSize('');
+    const data = {
+      id: product._id,
+      img: fotoAtual,
+    };
+    console.log(data);
+    dispatch(setImage(data));
   };
 
   const classes = useStyles();
-
-  const data = {
-    id: product._id,
-    img: fotoAtual,
-  };
-  dispatch(setImage(data));
 
   return (
     <>
@@ -234,17 +237,17 @@ const ProdutoPage = ({ match }) => {
                       alt="produto"
                     />
                   ) : (
-                      <img
-                        src={`https://testekrakatoa.tk/imgs/${product.categoria}/${item}.jpg`}
-                        onClick={() => {
-                          setFotoAtual(
-                            `https://testekrakatoa.tk/imgs/${product.categoria}/${item}.jpg`,
-                          );
-                        }}
-                        style={styles.img}
-                        alt="produto"
-                      />
-                    )}
+                    <img
+                      src={`https://testekrakatoa.tk/imgs/${product.categoria}/${item}.jpg`}
+                      onClick={() => {
+                        setFotoAtual(
+                          `https://testekrakatoa.tk/imgs/${product.categoria}/${item}.jpg`,
+                        );
+                      }}
+                      style={styles.img}
+                      alt="produto"
+                    />
+                  )}
                 </div>
               ))}
             </div>
@@ -266,8 +269,8 @@ const ProdutoPage = ({ match }) => {
                   alt="produto"
                 />
               ) : (
-                  <img src={fotoAtual} style={styles.img} alt="produto" />
-                )}
+                <img src={fotoAtual} style={styles.img} alt="produto" />
+              )}
             </div>
           </Grid>
         </Hidden>
@@ -504,7 +507,6 @@ const ProdutoPage = ({ match }) => {
                 <Produto
                   produto={value}
                   title={type}
-
                   addItem={(product) => {
                     setOpen(true);
                     addItemCart(product, 1);
@@ -528,7 +530,6 @@ const ProdutoPage = ({ match }) => {
                   <Produto
                     produto={value}
                     title={type}
-
                     addItem={(product) => {
                       setOpen(true);
                       addItemCart(product, 1);

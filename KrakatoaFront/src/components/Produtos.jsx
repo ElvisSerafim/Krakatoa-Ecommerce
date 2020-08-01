@@ -2,11 +2,9 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { Typography } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import Produto from './Produto';
 import ComboBox from './ComboBox';
-import Estilos from '../Estilos';
 
 const useStyles = makeStyles({
   GridContainer: {
@@ -18,29 +16,6 @@ const useStyles = makeStyles({
     marginTop: 60,
   },
 });
-
-const Teste = () =>
-  setTimeout(
-    () => (
-      <div
-        style={{
-          ...Estilos.flexRowCENTER,
-          paddingTop: 64,
-          paddingBottom: 64,
-          minHeight: 700,
-        }}
-      >
-        <Typography
-          color="primary"
-          variant="h5"
-          style={{ fontSize: '3.0em', fontWeight: 'Bold' }}
-        >
-          Sem produtos na categoria
-        </Typography>
-      </div>
-    ),
-    3,
-  );
 
 const Produtos = ({ title, products }) => {
   const [ProdutosOrder, setProdutos] = useState([]);

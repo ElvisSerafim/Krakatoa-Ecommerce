@@ -5,6 +5,7 @@ import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { Container, Grid, Typography, Button } from '@material-ui/core/';
 import { useDispatch, useSelector } from 'react-redux';
 import Hidden from '@material-ui/core/Hidden';
+import Aos from 'aos';
 import ListProducts from '../components/ListProducts';
 import Promos from '../components/promos';
 import Produto from '../components/Produto';
@@ -19,8 +20,7 @@ import money from '../img/money.png';
 import pag from '../img/pagarIcone.png';
 import { addCart } from '../reducers/productsCart';
 import withAnimation from '../higherComponents/withAnimation';
-import "aos/dist/aos.css";
-import Aos from 'aos';
+import 'aos/dist/aos.css';
 
 const styles = {
   Promos: { width: 'auto', height: '373px', backgroundColor: '#B1B1B1' },
@@ -83,8 +83,12 @@ const Home = () => {
       if (i > 10 && arrayAuxNovidades.length <= 3) {
         arrayAuxNovidades.push(item);
       }
-      if(item.categoria === 'vestidos' || item.categoria === 'batas' || item.categoria === 'macaquinhos'){
-         arrayList.push(item);
+      if (
+        item.categoria === 'vestidos'
+        || item.categoria === 'batas'
+        || item.categoria === 'macaquinhos'
+      ) {
+        arrayList.push(item);
       }
     });
     setProductsMaisProcurados(arrayList);
@@ -112,8 +116,8 @@ const Home = () => {
             style={{ paddingTop: 20 }}
             item
             lg={12}
-            md={2}>
-
+            md={2}
+          >
             <Promos />
           </Grid>
           <Grid
@@ -138,10 +142,17 @@ const Home = () => {
           <Hidden mdUp>
             <div style={styles.scrollbarMobile}>
               {products.map((item) => (
-                <Grid data-aos="fade-left" item lg={12} md={12} sm={12} style={{ marginLeft: 10 }}>
+                <Grid
+                  data-aos="fade-left"
+                  item
+                  lg={12}
+                  md={12}
+                  sm={12}
+                  style={{ marginLeft: 10 }}
+                >
                   <Produto
                     produto={item}
-                    update={() => { }}
+                    update={() => {}}
                     title={item.tipo}
                     addItem={addItemCart}
                   />
@@ -171,7 +182,11 @@ const Home = () => {
           <Grid data-aos="fade-down" item lg={12} md={12} sm={12}>
             <Typography
               color="secondary"
-              style={{ textAlign: 'center', paddingBottom: '40px', paddingTop: 70 }}
+              style={{
+                textAlign: 'center',
+                paddingBottom: '40px',
+                paddingTop: 70,
+              }}
               variant="h5"
             >
               Por que Krakatoa?
@@ -186,7 +201,11 @@ const Home = () => {
                 src={deli}
               />
             </div>
-            <Typography color="secondary" variant="h1" style={{ paddingTop: 30 }}>
+            <Typography
+              color="secondary"
+              variant="h1"
+              style={{ paddingTop: 30 }}
+            >
               ENTREGA
             </Typography>
             <Typography color="secondary">
@@ -201,7 +220,11 @@ const Home = () => {
                 src={pag}
               />
             </div>
-            <Typography color="secondary" variant="h1" style={{ paddingTop: 30 }}>
+            <Typography
+              color="secondary"
+              variant="h1"
+              style={{ paddingTop: 30 }}
+            >
               PAGAMENTO
             </Typography>
             <Typography color="secondary">
@@ -221,7 +244,11 @@ const Home = () => {
                 src={money}
               />
             </div>
-            <Typography color="secondary" variant="h1" style={{ paddingTop: 30 }}>
+            <Typography
+              color="secondary"
+              variant="h1"
+              style={{ paddingTop: 30 }}
+            >
               SEGURANÇA
             </Typography>
             <Typography color="secondary">
@@ -240,7 +267,11 @@ const Home = () => {
                 src={pqKraka}
               />
             </div>
-            <Typography color="secondary" variant="h1" style={{ paddingTop: 30 }}>
+            <Typography
+              color="secondary"
+              variant="h1"
+              style={{ paddingTop: 30 }}
+            >
               VARIEDADE
             </Typography>
             <Typography color="secondary">
@@ -250,7 +281,14 @@ const Home = () => {
               para todos os gostos das nossas clientes!
             </Typography>
           </Grid>
-          <Grid data-aos="fade-right" item lg={12} md={12} sm={12} style={{ paddingBottom: 12 }}>
+          <Grid
+            data-aos="fade-right"
+            item
+            lg={12}
+            md={12}
+            sm={12}
+            style={{ paddingBottom: 12 }}
+          >
             <Typography color="secondary" style={styles.Titulo}>
               Novidades
             </Typography>
@@ -261,7 +299,7 @@ const Home = () => {
               <Grid data-aos="fade-up" item lg={3} md={3} sm={3}>
                 <Produto
                   produto={item}
-                  update={() => { }}
+                  update={() => {}}
                   title={item.tipo}
                   addItem={addItemCart}
                 />
@@ -272,10 +310,17 @@ const Home = () => {
           <Hidden mdUp>
             <div style={styles.scrollbarMobile}>
               {productsNovidades.map((item) => (
-                <Grid data-aos="fade-up" item lg={12} md={12} sm={12} style={{ marginLeft: 10 }}>
+                <Grid
+                  data-aos="fade-up"
+                  item
+                  lg={12}
+                  md={12}
+                  sm={12}
+                  style={{ marginLeft: 10 }}
+                >
                   <Produto
                     produto={item}
-                    update={() => { }}
+                    update={() => {}}
                     title={item.tipo}
                     addItem={addItemCart}
                   />
@@ -289,7 +334,7 @@ const Home = () => {
               item
               container
               justify="center"
-              style={{  paddingTop: 50, paddingBottom: '20px' }}
+              style={{ paddingTop: 50, paddingBottom: '20px' }}
               lg={12}
               md={12}
               sm={12}

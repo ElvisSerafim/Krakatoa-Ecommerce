@@ -92,7 +92,7 @@ export default function CustomizedTables({
     setTotal(auxiliar);
     actualTotal(auxiliar);
   };
-
+  console.log(allProducts);
   return (
     <TableContainer className={classes.table}>
       <Table className={classes.table} aria-label="customized table">
@@ -107,13 +107,12 @@ export default function CustomizedTables({
         </TableHead>
         <TableBody>
           {allProducts.map((row, i) => (
-            <StyledTableRow key={row.id}>
+            <StyledTableRow key={row._id}>
               <StyledTableCell component="th" scope="row">
                 <Box display="flex" alignContent="center">
                   {row.isCanga ? (
                     <div
                       style={{
-                        display: 'flex',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
