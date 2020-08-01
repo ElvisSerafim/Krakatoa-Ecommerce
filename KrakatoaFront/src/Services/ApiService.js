@@ -1,6 +1,6 @@
 /* eslint-disable quote-props */
 /* eslint-disable consistent-return */
-const URL = 'https://64.227.106.165/api2/';
+const URL = 'https://testekrakatoa.tk/api2/';
 const ApiService = {
   Cadastro: async (data) => {
     try {
@@ -29,7 +29,7 @@ const ApiService = {
   },
   Login: async (data) => {
     try {
-      const url = 'https://64.227.106.165/api2/user/login';
+      const url = 'https://testekrakatoa.tk/api2/user/login';
       const requestInfo = {
         method: 'POST',
         body: JSON.stringify(data),
@@ -50,7 +50,7 @@ const ApiService = {
   },
   AtualizaUsuario: async (data) => {
     try {
-      const url = 'https://64.227.106.165/api2/user/detalhes';
+      const url = 'https://testekrakatoa.tk/api2/user/detalhes';
       const { token } = data;
       const requestInfo = {
         method: 'PUT',
@@ -71,7 +71,7 @@ const ApiService = {
   },
   UsuarioEndereco: async (data) => {
     try {
-      const url = 'https://64.227.106.165/api2/user/';
+      const url = 'https://testekrakatoa.tk/api2/user/';
       const { token } = data;
       const requestInfo = {
         method: 'PUT',
@@ -93,7 +93,7 @@ const ApiService = {
   ApagarUsuario: async (data) => {
     const { token } = data;
     const Authorization = `Bearer ${token}`;
-    const url = 'https://64.227.106.165/api2/user';
+    const url = 'https://testekrakatoa.tk/api2/user';
     const requestInfo = {
       method: 'DELETE',
       headers: new Headers({
@@ -114,7 +114,7 @@ const ApiService = {
         }),
       };
       const request = await fetch(
-        'https://64.227.106.165/api2/contato',
+        'https://testekrakatoa.tk/api2/contato',
         requestInfo,
       );
       if (request.ok) {
@@ -136,7 +136,7 @@ const ApiService = {
         }),
       };
       const request = await fetch(
-        'https://64.227.106.165/api/calcPrazo',
+        'https://testekrakatoa.tk/api/calcPrazo',
         requestInfo,
       );
       if (request.ok) {
@@ -157,7 +157,7 @@ const ApiService = {
           'Content-Type': 'application/json',
         }),
       };
-      const url = 'https://64.227.106.165/api/calcPrazoPreco';
+      const url = 'https://testekrakatoa.tk/api/calcPrazoPreco';
       const request = await fetch(url, requestInfo);
       if (request.ok) {
         return request.json();
@@ -169,7 +169,7 @@ const ApiService = {
   },
   getUsuario: async (data) => {
     try {
-      const url = 'https://64.227.106.165/api2/user/';
+      const url = 'https://testekrakatoa.tk/api2/user/';
       const { token } = data;
       const requestInfo = {
         method: 'GET',
@@ -198,7 +198,7 @@ const ApiService = {
           'Content-Type': 'application/json',
         }),
       };
-      const url = 'https://64.227.106.165/api2/pedidos';
+      const url = 'https://testekrakatoa.tk/api2/pedidos';
       const request = await fetch(url, requestInfo);
 
       if (request.ok) {
@@ -221,7 +221,7 @@ const ApiService = {
           'Content-Type': 'application/json',
         }),
       };
-      const url = 'https://64.227.106.165/api2/pedidos/';
+      const url = 'https://testekrakatoa.tk/api2/pedidos/';
       const request = await fetch(url, requestInfo);
       if (request.ok) {
         return request.json();

@@ -19,7 +19,7 @@ const api = ({ dispatch }) => (next) => async (action) => {
 
   try {
     const response = await axios.request({
-      baseURL: 'https://64.227.106.165/api2/',
+      baseURL: 'https://testekrakatoa.tk/api2/',
       url,
       timeout: 2000,
       method,

@@ -4,7 +4,7 @@ import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 interface produto {
   quantidadePedido: number;
   tamanhoEscolhido: string;
-  corEscolhida: string;
+  nomeProduto: string;
   produto_id: string;
   Produto_id: mongoose.Types.ObjectId;
 }

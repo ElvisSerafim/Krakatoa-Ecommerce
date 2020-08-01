@@ -53,11 +53,11 @@ const Produto = ({ produto, title }) => {
     if (produto.imagens.length !== 0) {
       if (produto.categoria !== undefined && title !== 'pesquisa') {
         setImageurl(
-          `https://64.227.106.165/imgs/${produto.categoria}/${produto.imagens[0]}.jpg`,
+          `https://testekrakatoa.tk/imgs/${produto.categoria}/${produto.imagens[0]}.jpg`,
         );
       } else if (title === 'pesquisa') {
         setImageurl(
-          `https://64.227.106.165/imgs/${produto.categoria}/${produto.imagens[0]}.jpg`,
+          `https://testekrakatoa.tk/imgs/${produto.categoria}/${produto.imagens[0]}.jpg`,
         );
       }
     }

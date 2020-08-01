@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const url = 'https://64.227.106.165/imgs/sobre';
+const url = 'https://testekrakatoa.tk/imgs/sobre';
 
 const CardMediaMod = withAnimation(CardMedia);
 
