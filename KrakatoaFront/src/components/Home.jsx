@@ -11,15 +11,15 @@ import withAnimation from '../higherComponents/withAnimation';
 const photos = [
   {
     name: 'Photo1',
-    url: 'https://64.227.106.165/imgs/carroceu/r_card1.jpg',
+    url: 'https://testekrakatoa.tk/imgs/carroceu/r_card1.jpg',
   },
   {
     name: 'Photo2',
-    url: 'https://64.227.106.165/imgs/carroceu/r_card2.jpg',
+    url: 'https://testekrakatoa.tk/imgs/carroceu/r_card2.jpg',
   },
   {
     name: 'Photo3',
-    url: 'https://64.227.106.165/imgs/carroceu/r_card3.jpg',
+    url: 'https://testekrakatoa.tk/imgs/carroceu/r_card3.jpg',
   },
 ];
 

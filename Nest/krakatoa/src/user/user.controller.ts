@@ -44,7 +44,7 @@ export class UserController {
 
   @Post('/recover/:id')
   async Recover(
-    @Param('id') id: string,
+    @Body('token') id: string,
     @Body('newPassword') newPassword: string,
   ): Promise<{ accessToken: string }> {
     return this.userService.Recover(id, newPassword);

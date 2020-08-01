@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 /* eslint-disable implicit-arrow-linebreak */
 import { createSlice } from '@reduxjs/toolkit';
@@ -17,7 +18,6 @@ const productsPage = createSlice({
       const { id = '', img = '' } = action.payload;
       products.list.map((item) => {
         if (item.id === id) {
-          if (item.ImageUrl === undefined) console.log('opa');
           item.ImageUrl = img;
         }
       });

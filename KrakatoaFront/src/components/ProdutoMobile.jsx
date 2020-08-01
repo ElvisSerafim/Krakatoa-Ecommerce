@@ -93,7 +93,7 @@ const ProdutoMobile = ({ imagens, produto }) => {
             {Math.abs(activeStep - index) <= 2 ? (
               <img
                 className={classes.img}
-                src={`https://64.227.106.165/imgs/${produto.categoria}/${item}.jpg`}
+                src={`https://testekrakatoa.tk/imgs/${produto.categoria}/${item}.jpg`}
                 alt={`${produto.nome}`}
               />
             ) : null}
