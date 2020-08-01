@@ -6,12 +6,14 @@ import {
   Typography,
   CardActionArea,
   CardActions,
+  CardMedia,
   Button,
 } from '@material-ui/core/';
+import { makeStyles } from '@material-ui/core/styles';
 
 const styles = {
   root: {
-    width: 'auto',
+    width: '100%',
     height: '373px',
     boxShadow: 'none',
     borderRadius: 0,
@@ -26,65 +28,79 @@ const styles = {
 
 const data = [
   {
-    quarter: 'card1',
+    quarter: 'card',
     title: 'Coleção de Verão!',
-    size: 5,
-    img: card1,
+    size: 6,
   },
   {
     quarter: 'card2',
     title: 'Kangas \n a Partir de \n R$29,99',
-    size: 3,
-    img: card2,
-  },
-  {
-    quarter: 'card3',
-    title: 'Descontos da \n Semana!',
-    size: 4,
-    img: card3,
+    size: 5,
   },
 ];
+const useStyles = makeStyles((theme) => ({
+  media: {
+    height: '80%',
+    objectFit: 'cover',
+    maxHeight: 345,
+  },
+  img: {
+    width: '100%',
+    maxHeight: 300,
+  },
+  card: {
+    height: 373,
+    backgroundImage: 'http://64.227.106.165/imgs/sobre/card.jpg'
+  },
+  txt: {
+    padding: 5,
+    color: theme.palette.background.color,
+  },
+}));
 
-export default class Promos extends PureComponent {
-  render() {
-    return (
-      <div style={styles.promo}>
-        <Grid container spacing={2} direction="row" justify="space-around">
-          {data.map((elem) => (
-            <Grid
-              item
-              lg={elem.size}
-              md={4}
-              sm={4}
-              xs={12}
-              key={data.indexOf(elem)}
+const Promos = () => {
+  const url = 'http://64.227.106.165/imgs/sobre';
+  const classes = useStyles();
+  return (
+    <div>
+      <Grid container spacing={2} direction="row" justify="space-between">
+
+        {data.map((elem) => (
+          <Grid
+            item
+            lg={elem.size}
+            md={4}
+            sm={4}
+            xs={12}
+            key={data.indexOf(elem)}
+          >
+            <Card
+              style={styles.root}
+              classes={classes.card}
             >
-              <Card
-                style={styles.root}
-                className={elem.quarter}
-                backgroundColor={elem.img}
-              >
-                <CardActionArea>
-                  <CardContent style={styles.container}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {elem.title}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions>
-                  <Button
-                    size="medium"
-                    variant="contained"
-                    className="saibaMais"
+              <CardActionArea>
+                <CardMedia
+                  component="img"
+                  image="http://64.227.106.165/imgs/sobre/card.jpg"
+                />
+              </CardActionArea>
+              <CardContent>
+                <div>
+                  <Typography
+                    variant="h5"
+                    component="h2"
+                    className={classes.txt}
                   >
-                    Saiba Mais
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </div>
-    );
-  }
+                    {elem.title}
+                  </Typography>
+                  </div>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+          </Grid>
+    </div >
+  );
 }
+
+export default Promos;
