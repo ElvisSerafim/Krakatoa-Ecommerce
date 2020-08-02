@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { Provider, useSelector, useDispatch } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -17,6 +18,9 @@ import Detalhes from './pages/Detalhes';
 import MyAddress from './pages/MyAddress';
 import Pedidos from './pages/Pedidos';
 import Politicas from './pages/Politicas';
+import TesteGabriel from './pages/testeGabriel';
+import RecuperarSenha from './pages/RecuperarSenha';
+import RedefinirSenha from './pages/RedefinirSenha';
 
 WebFont.load({
   google: {
@@ -33,7 +37,7 @@ const Login = lazy(() => import('./pages/Login'));
 const MinhaConta = lazy(() => import('./pages/MinhaConta'));
 const Carrinho = lazy(() => import('./pages/Carrinho'));
 
-const Suspended = () => <div>Carregando...</div>;
+const Suspended = () => <div style={{width: '100%'}}><LinearProgress color="secondary" /></div>;
 const NewComponent = withNav(Suspended);
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
@@ -159,6 +163,9 @@ ReactDOM.render(
                 render={(props) => <Produto {...props} />}
               />
               <Route path="/carrinho" component={Carrinho} />
+              <Route path="/testeGabriel" component={TesteGabriel} />
+              <Route path="/recuperarSenha" component={RecuperarSenha} />
+              <Route path="/redefinirSenha" component={RedefinirSenha} />
               <Route
                 path="/login"
                 component={Login}

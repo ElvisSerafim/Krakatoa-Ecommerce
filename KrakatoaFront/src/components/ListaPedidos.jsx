@@ -89,7 +89,7 @@ export default function CustomizedTables({ pedidos }) {
                       {row.produtos.map((item, i) => (
                         <StyledTableRow key={i}>
                           <StyledTableCell component="th" scope="row">
-                            <p>Teste {i + 1}</p>
+                            <p>{item.Produto_id.nome}</p>
                           </StyledTableCell>
                           <StyledTableCell component="th" scope="row">
                             <p>Tamanho: {item.tamanhoEscolhido}</p>
@@ -98,7 +98,7 @@ export default function CustomizedTables({ pedidos }) {
                             <p>Quantidade: {item.quantidadePedido}</p>
                           </StyledTableCell>
                           <StyledTableCell component="th" scope="row">
-                            <p>Preço: R$ {item.preco * item.quantidadePedido}</p>
+                            <p>Preço: R$ {item.Produto_id.preco * item.quantidadePedido}</p>
                           </StyledTableCell>
                         </StyledTableRow>
                       ))}

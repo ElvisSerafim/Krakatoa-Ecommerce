@@ -18,6 +18,7 @@ const Pedidos = () => {
     let pedidos;
     const getPedido = async () => {
       pedidos = await api.getPedidos(token);
+      console.log(pedidos);
       setPedidos(pedidos);
     };
 

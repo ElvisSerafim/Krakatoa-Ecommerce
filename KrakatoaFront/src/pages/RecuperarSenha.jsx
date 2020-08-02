@@ -4,6 +4,7 @@ import logo from '../img/logo192.png';
 import { makeStyles } from '@material-ui/core/styles';
 import withNav from '../higherComponents/withNav';
 import Footer from '../components/Footer';
+import { useHistory } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -21,8 +22,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const TesteGabriel = () => {
+const RecuperarSenha = () => {
     const classes = useStyles();
+    const history = useHistory();
     return (
         <>
             <Grid container justify="center" alignItems="center" direction="column" lg={12} sm={12} md={12}>
@@ -54,37 +56,16 @@ const TesteGabriel = () => {
                     <Paper className={classes.Paper}>
                         <Grid item lg={12} md={12} sm={12} xm={12}>
                             <Typography variant="h6" style={{ color: "white" }}>
-                                Insira o token que foi enviado para o seu email e escolha a nova senha da sua conta.
-                            </Typography>
+                                Digite o endereço de e-mail verificado da sua conta de usuário e enviaremos um token de redefinição de senha.                            </Typography>
                         </Grid>
                         <Grid item style={{ paddingTop: 30 }} lg={12} md={12} sm={12} xs={12}>
                             <TextField
                                 variant="filled"
                                 color="secondary"
                                 style={{ backgroundColor: 'white' }}
-                                label="Token"
+                                label="Email"
                                 fullWidth
-                                placeholder="Insira o token"
-                            />
-                        </Grid>
-                        <Grid item style={{ paddingTop: 30 }} lg={12} md={12} sm={12} xs={12}>
-                            <TextField
-                                variant="filled"
-                                color="secondary"
-                                style={{ backgroundColor: 'white' }}
-                                label="Nova Senha"
-                                fullWidth
-                                placeholder="Insira a nova senha"
-                            />
-                        </Grid>
-                        <Grid item style={{ paddingTop: 30 }} lg={12} md={12} sm={12} xs={12}>
-                            <TextField
-                                variant="filled"
-                                color="secondary"
-                                style={{ backgroundColor: 'white' }}
-                                label="Confirmar Senha"
-                                fullWidth
-                                placeholder="Confirmar senha"
+                                placeholder="Insira seu Email"
                             />
                         </Grid>
                         <Grid
@@ -100,10 +81,13 @@ const TesteGabriel = () => {
                             <Button
                                 variant="contained"
                                 color="primary"
+                                onClick={()=> {
+                                    history.push("/redefinirSenha");
+                                }}
                                 fullWidth
                                 style={{ borderRadius: 7, height: 50 }}
                             >
-                                Confirmar redefinição de senha
+                                Enviar email de redefinição de senha
                     </Button>
                         </Grid>
                     </Paper>
@@ -114,4 +98,4 @@ const TesteGabriel = () => {
         </>
     );
 };
-export default TesteGabriel;
+export default RecuperarSenha;

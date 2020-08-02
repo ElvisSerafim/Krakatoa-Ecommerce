@@ -13,6 +13,8 @@ import {
 } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Estilo from '../Estilos';
+import moment from 'moment';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,7 +76,7 @@ const PedidosMobile = ({ theme, pedidos }) => {
                     Pedido {i + 1}
                   </Typography>
                   <Typography className={classes.heading}>
-                    Data: {setData(item.createdAt)}
+                    Data: {moment(item.createdAt).format('DD/MM/YYYY')}
                   </Typography>
                 </div>
               </ExpansionPanelSummary>
@@ -82,7 +84,7 @@ const PedidosMobile = ({ theme, pedidos }) => {
                 <div style={Estilo.flexColumnStandard}>
                   <div style={Estilo.flexRowSPACEBTW}>
                     <Typography>Frete: {item.frete}</Typography>
-                    <Typography>Total: R$ {item.precoTotal}</Typography>
+                    <Typography>Total: R$ {item.precoTotal / 100}</Typography>
                   </div>
                   <div style={{ color: 'white' }}>
                     <ExpansionPanel className={classes.cor}>
@@ -127,7 +129,7 @@ const PedidosMobile = ({ theme, pedidos }) => {
                                     }}
                                   >
                                     <p style={{ margin: 0 }}>
-                                        Teste {i +1}
+                                      {row.Produto_id.nome}
                                     </p>
                                     <p style={{ margin: 0 }}>
                                       Qnt: {row.quantidadePedido}
@@ -151,7 +153,7 @@ const PedidosMobile = ({ theme, pedidos }) => {
                                       }}
                                     >
                                       Preço: R$
-                                      {100 * row.quantidadePedido}
+                                      {row.Produto_id.preco * row.quantidadePedido}
                                     </p>
                                   </div>
                                 </div>

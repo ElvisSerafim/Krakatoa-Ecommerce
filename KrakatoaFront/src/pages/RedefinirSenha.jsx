@@ -4,6 +4,7 @@ import logo from '../img/logo192.png';
 import { makeStyles } from '@material-ui/core/styles';
 import withNav from '../higherComponents/withNav';
 import Footer from '../components/Footer';
+import { useHistory } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -21,8 +22,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const TesteGabriel = () => {
+const RedefinirSenha = () => {
     const classes = useStyles();
+    const history = useHistory();
+
     return (
         <>
             <Grid container justify="center" alignItems="center" direction="column" lg={12} sm={12} md={12}>
@@ -114,4 +117,4 @@ const TesteGabriel = () => {
         </>
     );
 };
-export default TesteGabriel;
+export default RedefinirSenha;
