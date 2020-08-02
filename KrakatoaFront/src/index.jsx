@@ -10,7 +10,7 @@ import { store, persistor } from './store';
 import theme from './themes';
 import { PrivateRoute } from './Services/auth';
 import withNav from './higherComponents/withNav';
-import Endereco from './pages/Endereco';
+import Endereco from './pages/Endereco2';
 import Sumario from './pages/Sumario';
 import Checkout from './pages/Checkout';
 import TesteGabriel from './pages/testeGabriel';
@@ -18,8 +18,6 @@ import Detalhes from './pages/Detalhes';
 import MyAddress from './pages/MyAddress';
 import Pedidos from './pages/Pedidos';
 import Politicas from './pages/Politicas';
-
-
 
 WebFont.load({
   google: {

@@ -1,19 +1,20 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import { Container } from '@material-ui/core/';
 import Topo from '../components/Topo';
 import Navbar from '../components/Nav';
 import Footer from '../components/Footer';
-import {makeStyles} from '@material-ui/core/styles';
-const useStyles = makeStyles((theme) => ({
+
+const useStyles = makeStyles(() => ({
   container: {
-    '@media (min-width: 1280px)': {
+    '@media (min-width: 960px)': {
       minHeight: 700,
       alignItems: 'center',
     },
     minHeight: 500,
     alignContent: 'center',
-    display: 'flex'
-  }
+    display: 'flex',
+  },
 }));
 const withNav = (Component) => {
   const WithNav = (props) => {
@@ -22,15 +23,12 @@ const withNav = (Component) => {
       <>
         <Topo />
         <Navbar />
-        <Container
-          maxWidth="lg"
-          className={classes.container}
-        >
+        <Container maxWidth="lg" className={classes.container}>
           <Component {...props} />
         </Container>
         <Footer />
       </>
-    )
+    );
   };
   return WithNav;
 };

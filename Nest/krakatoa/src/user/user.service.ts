@@ -115,10 +115,6 @@ export class UserService {
         .catch(err => {
           console.log(err.statusCode);
         });
-      /* if (resultado.length > 2) {
-        throw new Error('Não Foi possivel enviar email');
-      } */
-      /* console.log(recoverToken); */
     }
   }
 
@@ -160,7 +156,7 @@ export class UserService {
   async UpdateDetailUser(
     detailsUserDto: DetailsUserDto,
     user: User,
-  ): Promise<userResponse> {
+  ): Promise<void> {
     const { nome, password, telefone, newPassword } = detailsUserDto;
     const User = user;
     User.nome =
@@ -177,9 +173,7 @@ export class UserService {
 
     const Save = User.save();
     if (Save) {
-      const { email, pedidos, nome, telefone } = User;
-      const response: userResponse = { email, pedidos, telefone, nome };
-      return response;
+      return;
     }
     throw new Error('Não foi possivel salvar');
   }
@@ -196,7 +190,7 @@ export class UserService {
   async UpdateEndeUser(
     user: User,
     updateUserDto: UpdateUserDto,
-  ): Promise<userResponse> {
+  ): Promise<void> {
     let UserUp = user;
     const {
       cep,
@@ -206,9 +200,7 @@ export class UserService {
       rua,
       numero,
       complemento,
-      nome,
       cpf,
-      telefone,
     } = updateUserDto;
 
     if (!UserUp.endereco) {
@@ -257,34 +249,12 @@ export class UserService {
       UserUp.endereco = endereco;
     }
 
-    UserUp.nome =
-      typeof nome === 'string' && nome.trim().length > 0 && UserUp.nome !== nome
-        ? nome
-        : UserUp.nome;
-
-    UserUp.telefone =
-      typeof telefone === 'string' &&
-      telefone.trim().length >= 11 &&
-      UserUp.telefone !== telefone
-        ? telefone
-        : UserUp.telefone;
-
     UserUp.cpf = cpf !== UserUp.cpf ? cpf : UserUp.cpf;
-    /*     console.log(UserUp);
-     */
+
     const save = await UserUp.save();
-    console.log(save);
 
     if (save) {
-      const UserResponse: userResponse = {
-        email: UserUp.email,
-        nome,
-        pedidos: UserUp.pedidos,
-        telefone,
-        endereco: UserUp.endereco,
-        cpf,
-      };
-      return UserResponse;
+      return;
     }
     throw new Error('Não foi possivel Salvar');
   }

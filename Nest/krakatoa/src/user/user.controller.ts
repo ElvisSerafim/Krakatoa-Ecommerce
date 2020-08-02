@@ -55,31 +55,40 @@ export class UserController {
   async updateDetailUser(
     @GetUser() user: User,
     @Body() detailsUserDto: DetailsUserDto,
-  ): Promise<userResponse> {
-    return await this.userService.UpdateDetailUser(detailsUserDto, user);
+  ): Promise<void> {
+    await this.userService.UpdateDetailUser(detailsUserDto, user);
+    return;
   }
 
   @UseGuards(AuthGuard())
   @Get()
   async GetUser(@GetUser() user: User): Promise<userResponse> {
-    const { telefone, nome, pedidos, email,endereco } = user;
-    const UserResponse: userResponse = { telefone, nome, pedidos, email,endereco };
+    const { telefone, nome, pedidos, email, endereco } = user;
+    const UserResponse: userResponse = {
+      telefone,
+      nome,
+      cpf,
+      pedidos,
+      email,
+      endereco,
+    };
     return await UserResponse;
   }
 
-  
   @UseGuards(AuthGuard())
   @Put()
   async updateEndeUser(
     @GetUser() user: User,
     @Body() updateUserDto: UpdateUserDto,
-  ): Promise<userResponse> {
-    return await this.userService.UpdateEndeUser(user, updateUserDto);
+  ): Promise<void> {
+    await this.userService.UpdateEndeUser(user, updateUserDto);
+    return;
   }
 
   @Delete()
   @UseGuards(AuthGuard())
   async DeleteUser(@GetUser() user: User): Promise<void> {
-    return await this.userService.DeleteUser(user);
+    await this.userService.DeleteUser(user);
+    return;
   }
 }

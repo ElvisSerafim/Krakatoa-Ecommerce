@@ -1,9 +1,6 @@
-import { IsString, Length } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class UpdateUserDto {
-  nome: string;
-  telefone: string;
-  @Length(11)
   @IsString()
   cpf: string;
   @IsString()
