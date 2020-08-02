@@ -48,8 +48,8 @@ const SumarioMobile = ({ actualTotal }) => {
     return (
         <div style={{ display: 'flex', flex: 1 }}>
             <List className={classes.root}>
-                {allProducts.map((row, i) => (
-                    <ListItem>
+                {allProducts.map((row, i,index) => (
+                    <ListItem key={index}>
                         <ListItemAvatar>
                             <Avatar src={row.Imageurl} className={classes.large} />
                         </ListItemAvatar>
@@ -74,7 +74,7 @@ const SumarioMobile = ({ actualTotal }) => {
                                 </Typography>
                             </div>
                         </div>
-                        <Divider variant="inset" component="li" />
+                        <Divider variant="inset"  />
                     </ListItem>
                 ))}
             </List>

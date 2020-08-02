@@ -17,9 +17,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Link,
-  Route,
   Redirect,
-  withRouter,
   useHistory,
 } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
@@ -270,8 +268,8 @@ const Sumario = ({ location }) => {
             </div>
             <div style={styles.flexColumn}>
               <div style={styles.flexRow}>
-                <Grid lg={12} container>
-                  <Grid lg={12} container>
+                <Grid item lg={12} container>
+                  <Grid item lg={12} container>
                     <TableSumario
                       actualTotal={atualizarTotal}
                       totalSumario={totalFinal}
@@ -282,6 +280,7 @@ const Sumario = ({ location }) => {
                     style={{ marginTop: 32 }}
                     container
                     justify="center"
+                    item
                   >
                     <FormControl variant="outlined" style={{ width: '77%' }}>
                       <InputLabel style={{ color: '#44323D' }}>
@@ -426,7 +425,7 @@ const Sumario = ({ location }) => {
           </Hidden>
 
           <Hidden mdUp>
-            <Grid spacing={2} style={{ marginTop: 50, marginBottom: 64 }}>
+            <Grid style={{ marginTop: 50, marginBottom: 64 }}>
               <Grid item lg={12}>
                 <Typography variant="h4" color="primary">
                   Sumário

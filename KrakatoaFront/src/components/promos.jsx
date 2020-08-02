@@ -1,13 +1,11 @@
-import React, { PureComponent } from 'react';
+import React  from 'react';
 import {
   Grid,
   Card,
   CardContent,
   Typography,
   CardActionArea,
-  CardActions,
   CardMedia,
-  Button,
 } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -59,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Promos = () => {
-  const url = 'http://64.227.106.165/imgs/sobre';
   const classes = useStyles();
   return (
     <div>
@@ -76,7 +73,7 @@ const Promos = () => {
           >
             <Card
               style={styles.root}
-              classes={classes.card}
+              className={classes.card}
             >
               <CardActionArea>
                 <CardMedia

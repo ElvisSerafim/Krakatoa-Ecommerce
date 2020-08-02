@@ -40,12 +40,12 @@ const Pedidos = () => {
         <Grid item lg={4} sm={12}>
           <ContaComp />
         </Grid>
-        <Hidden smDown="true">
+        <Hidden smDown={true}>
           <Grid style={{ width: '100%' }} item lg={8} sm={12}>
             <Lista pedidos={pedidosUsuario} />
           </Grid>
         </Hidden>
-        <Hidden lgUp="true">
+        <Hidden lgUp={true}>
           <Typography
             variant="h4"
             style={{

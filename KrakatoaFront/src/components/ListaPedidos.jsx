@@ -51,7 +51,6 @@ export default function CustomizedTables({ pedidos }) {
   const classes = useStyles();
   // eslint-disable-next-line no-empty-pattern
   const [] = useState(pedidos.produtos);
-  console.log(pedidos);
   return (
     <TableContainer className={classes.table}>
       <Table className={classes.table} aria-label="customized table">
@@ -62,7 +61,7 @@ export default function CustomizedTables({ pedidos }) {
         </TableHead>
         <TableBody>
           {pedidos.map((row) => (
-            <StyledTableRow>
+            <StyledTableRow key={row.id}>
               <ExpansionPanel style={{ borderRadius: 0 }}>
                 <ExpansionPanelSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -79,7 +78,7 @@ export default function CustomizedTables({ pedidos }) {
                     aria-label="customized table"
                   >
                     <TableBody>
-                      <Box display="flex" flex justifyContent="space-between">
+                      <Box display="flex" component='th'justifyContent="space-between">
                         <Typography className={classes.heading}>
                           Frete: R$ {row.frete}
                         </Typography>

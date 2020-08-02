@@ -169,14 +169,14 @@ function getStepContent(
           >
             SELECIONE UM MEIO DE PAGAMENTO
           </Typography>
-          <Grid
+          <Grid item
             container
             style={{ paddingTop: 30, paddingBottom: 30 }}
             lg={12}
             justify="center"
             alignItems="center"
           >
-            <Grid lg={2} item>
+            <Grid item lg={2} item>
               <Paper
                 elevation={v}
                 style={{
@@ -199,7 +199,7 @@ function getStepContent(
                 />
               </Paper>
             </Grid>
-            <Grid lg={2} item>
+            <Grid item lg={2} item>
               <Paper
                 elevation={m}
                 style={{
@@ -222,7 +222,7 @@ function getStepContent(
                 />
               </Paper>
             </Grid>
-            <Grid lg={2} item>
+            <Grid item lg={2} item>
               <Paper
                 elevation={h}
                 style={{
@@ -245,7 +245,7 @@ function getStepContent(
                 />
               </Paper>
             </Grid>
-            <Grid lg={2} item>
+            <Grid item lg={2} item>
               <Paper
                 elevation={e}
                 style={{
@@ -269,8 +269,8 @@ function getStepContent(
               </Paper>
             </Grid>
           </Grid>
-          <Grid container lg={12} justify="center"></Grid>
-          <Grid
+          <Grid item container lg={12} justify="center"></Grid>
+          <Grid item
             container
             justify="center"
             lg={12}
@@ -291,9 +291,9 @@ function getStepContent(
             </FormControl>
           </Grid>
           <div style={{ paddingTop: 20 }} />
-          <Grid lg={12} justify="space-between" container>
-            <Grid lg={1} container item></Grid>
-            <Grid lg={2} container item>
+          <Grid item lg={12} justify="space-between" container>
+            <Grid item lg={1} container item></Grid>
+            <Grid item lg={2} container item>
               <Button
                 style={{ color: '#44323D' }}
                 disabled
@@ -302,7 +302,7 @@ function getStepContent(
                 Voltar
               </Button>
             </Grid>
-            <Grid lg={4} container item>
+            <Grid item lg={4} container item>
               <Button
                 style={{ color: 'white', backgroundColor: '#44323D' }}
                 variant="contained"
@@ -335,14 +335,14 @@ function getStepContent(
               Detalhes do cartão
         </Typography>
             <div style={{ height: 20 }} />
-            <Grid container justify='center' style={{ paddingLeft: 20 }} lg={12}>
-              <Grid lg={5}>
+            <Grid item container justify='center' style={{ paddingLeft: 20 }} lg={12}>
+              <Grid item lg={5}>
                 <TextField InputLabelProps={{ classes: { root: classes.inputLabel, } }} defaultValue={nome} variant="outlined" label='Nome no cartão *' onChange={(event) => setNome(event.target.value)} style={{ width: 250, color: 'black' }} />
               </Grid>
-              <Grid lg={5}>
+              <Grid item lg={5}>
                 <TextField InputLabelProps={{ classes: { root: classes.inputLabel, } }} defaultValue={numero} onChange={(event) => setNumero(event.target.value)} variant="outlined" style={{ width: 266 }} type='number' label='Numero do cartão *' />
               </Grid>
-              <Grid lg={5}>
+              <Grid item lg={5}>
                 <InputMask
                   mask="99/9999"
                   onChange={(event) => setData(event.target.value)}
@@ -357,14 +357,14 @@ function getStepContent(
                   />}
                 </InputMask>
               </Grid>
-              <Grid lg={5} style={{ paddingTop: 17 }} >
+              <Grid item lg={5} style={{ paddingTop: 17 }} >
                 <TextField defaultValue={cvv} style={{ width: '98%' }} onChange={(event) => setCvv(event.target.value)} InputLabelProps={{ classes: { root: classes.inputLabel, } }} variant="outlined" type='number' label='Código de segurança *' />
               </Grid>
             </Grid>
           </Box>
-          <Grid lg={12} justify="space-between" container>
-            <Grid lg={1} container item></Grid>
-            <Grid lg={2} container item>
+          <Grid item lg={12} justify="space-between" container>
+            <Grid item lg={1} container item></Grid>
+            <Grid item lg={2} container item>
               <Button
                 style={{ fontWeight: 'bold', color: '#44323D' }}
                 onClick={handleBack}
@@ -372,7 +372,7 @@ function getStepContent(
                 Voltar
               </Button>
             </Grid>
-            <Grid lg={4} container item>
+            <Grid item lg={4} container item>
               <Button
                 style={{ color: 'white', backgroundColor: '#44323D' }}
                 variant="contained"
@@ -418,42 +418,42 @@ function getStepContent(
               Resumo do cartão
         </Typography>
             <div style={{ height: 20 }} />
-            <Grid container lg={12} style={{ paddingLeft: 60 }}>
-              <Grid lg={6} item container>
+            <Grid item container lg={12} style={{ paddingLeft: 60 }}>
+              <Grid item lg={6} item container>
                 <Typography style={{ fontWeight: 'bold', paddingTop: 20, paddingLeft: 20, color: '#44323D' }}>
                   BANDEIRA : {flag}
                 </Typography>
               </Grid>
-              <Grid lg={6} item container>
+              <Grid item lg={6} item container>
                 <Typography style={{ fontWeight: 'bold', paddingTop: 20, paddingLeft: 20, color: '#44323D' }}>
                   TIPO DE CARTÃO : {cartao}
                 </Typography>
               </Grid>
-              <Grid lg={6} item container>
+              <Grid item lg={6} item container>
                 <Typography style={{ fontWeight: 'bold', paddingTop: 20, paddingLeft: 20, color: '#44323D' }}>
                   NOME NO CARTÃO : {nome}
                 </Typography>
               </Grid>
-              <Grid lg={6} item container>
+              <Grid item lg={6} item container>
                 <Typography style={{ fontWeight: 'bold', paddingTop: 20, paddingLeft: 20, color: '#44323D' }}>
                   NÚMERO DO CARTÃO : {numero}
                 </Typography>
               </Grid>
-              <Grid lg={6} item container>
+              <Grid item lg={6} item container>
                 <Typography style={{ fontWeight: 'bold', paddingTop: 20, paddingLeft: 20, color: '#44323D' }}>
                   CÓDIGO DE SEGURANÇA : {cvv}
                 </Typography>
               </Grid>
-              <Grid lg={6} item container>
+              <Grid item lg={6} item container>
                 <Typography style={{ fontWeight: 'bold', paddingTop: 20, paddingLeft: 20, color: '#44323D' }}>
                   DATA : {data}
                 </Typography>
               </Grid>
             </Grid>
           </Box>
-          <Grid lg={12} style={{ paddingTop: 20 }} justify="space-between" container>
-            <Grid lg={1} container item></Grid>
-            <Grid lg={2} container item>
+          <Grid item lg={12} style={{ paddingTop: 20 }} justify="space-between" container>
+            <Grid item lg={1} container item></Grid>
+            <Grid item lg={2} container item>
               <Button
                 style={{ fontWeight: 'bold', color: '#44323D' }}
                 onClick={handleBack}
@@ -464,7 +464,7 @@ function getStepContent(
             <Typography style={{ textAlign: 'center', paddingTop: 15, fontSize: '1.0em' }} >
               Total: R${total / 100}
             </Typography>
-            <Grid lg={4} container item>
+            <Grid item lg={4} container item>
               <Button
                 style={{ color: 'white', backgroundColor: '#44323D' }}
                 variant="contained"
@@ -545,16 +545,16 @@ const Checkout = () => {
           vertical="top"
           horizontal="right"
         />
-        <Grid
+        <Grid item
           justify="center"
           container
           spacing={2}
           style={{ marginTop: 64, marginBottom: 64 }}
         >
-          <Grid lg="12">
+          <Grid item item lg={12}>
             <Typography style={styles.title}>Pagamento</Typography>
           </Grid>
-          <Grid lg={12} justify="flex-end" container>
+          <Grid item lg={12} justify="flex-end" container>
             <div style={Estilos.flexRowCENTER2}>
               <a href="/carinho">
                 <img src={cartBlank} alt="Carinho" />
@@ -576,10 +576,10 @@ const Checkout = () => {
               elevation={3}
               style={{ backgroundColor: '#D2C9C7', height: 600, width: '62%' }}
             >
-              <Grid lg={12}>
+              <Grid item lg={12}>
                 <div style={{ height: 30 }}></div>
               </Grid>
-              <Grid lg={12} container justify="center" alignItems="center">
+              <Grid item lg={12} container justify="center" alignItems="center">
                 <div className={classes.root}>
                   <Stepper
                     style={{ backgroundColor: '#D2C9C7' }}
@@ -596,21 +596,21 @@ const Checkout = () => {
               </Grid>
               {activeStep === steps.length ? (
                 <>
-                  <Grid lg={12}>
+                  <Grid item lg={12}>
                     <Typography variant='h1' style={{ paddingTop: 10, color: '#44323D', textAlign: 'center' }}>
                       Seu pagamento está sendo autenticado, por favor aguarde!
               </Typography>
                   </Grid>
-                  <Grid lg={12}>
+                  <Grid item lg={12}>
                     <Typography variant='h1' style={{ paddingTop: 50, color: '#44323D', textAlign: 'center' }}>
                       Estatus da transação: {code}
                     </Typography>
-                    <Grid lg={12}>
+                    <Grid item lg={12}>
                       <Typography variant='h1' style={{ paddingTop: 20, color: '#44323D', textAlign: 'center' }}>
                         Código do pagamento: {tid}
                       </Typography>
                     </Grid>
-                    <Grid lg={12}>
+                    <Grid item lg={12}>
                       <Typography variant='h1' style={{ paddingTop: 20, color: '#44323D', textAlign: 'center' }}>
                         Grave esse código!
             </Typography>

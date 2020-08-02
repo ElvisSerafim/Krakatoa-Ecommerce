@@ -14,7 +14,7 @@ const ContatoComp = () => {
   const [openAlert, setOpenAlert] = useState(false);
   const [status, setStatus] = useState();
   const classes = useStyles();
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit } = useForm();
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;

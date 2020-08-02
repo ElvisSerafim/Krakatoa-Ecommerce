@@ -13,7 +13,6 @@ import withNav from './higherComponents/withNav';
 import Endereco from './pages/Endereco';
 import Sumario from './pages/Sumario';
 import Checkout from './pages/Checkout';
-import TesteGabriel from './pages/testeGabriel';
 import Detalhes from './pages/Detalhes';
 import MyAddress from './pages/MyAddress';
 import Pedidos from './pages/Pedidos';
@@ -37,19 +36,20 @@ const MinhaConta = lazy(() => import('./pages/MinhaConta'));
 const Carrinho = lazy(() => import('./pages/Carrinho'));
 
 const Suspended = () => <div>Carregando...</div>;
-
+const NewComponent = withNav(Suspended);
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
-          <Suspense fallback={withNav(Suspended)}>
+          <Suspense fallback={<NewComponent/>}>
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/sobre" component={Sobre} />
               <Route path="/contato" component={Contato} />
               <Route
                 path="/cangas"
+                
                 exact
                 render={(props) => (
                   <Produtos {...props} tipo="cangas" categoria="Cangas" />
@@ -58,6 +58,7 @@ ReactDOM.render(
 
               {['Mandalas', 'turisticas', 'pompom', 'estampada'].map((item) => (
                 <Route
+                  key={item}
                   path={`/cangas/${item}`}
                   exact
                   render={(props) => (
@@ -69,6 +70,7 @@ ReactDOM.render(
               {['Vestidos', 'Batas', 'Shorts', 'Macaquinhos', 'confeccoes'].map(
                 (item) => (
                   <Route
+                    key={item}
                     path={`/${item}`}
                     exact
                     render={(props) => (
@@ -80,6 +82,7 @@ ReactDOM.render(
 
               {['bolsas', 'acessorios', 'chapeus'].map((item) => (
                 <Route
+                  key={item}
                   path={`/${item}`}
                   exact
                   render={(props) => (
@@ -158,7 +161,6 @@ ReactDOM.render(
                 render={(props) => <Produto {...props} />}
               />
               <Route path="/carrinho" component={Carrinho} />
-              <Route path="/testeGabriel" component={TesteGabriel} />
               <Route
                 path="/login"
                 component={Login}

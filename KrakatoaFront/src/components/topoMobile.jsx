@@ -22,10 +22,7 @@ const useStyles = makeStyles(() => ({
   colorCart:{
     color: '#44323D'
   },
-  colorPrimary: {
-    color: 'white',
-    backgroundColor: '#44323D',
-  },
+
 }));
 
 const StyledBadge = withStyles(() => ({}))(Badge);
@@ -55,12 +52,9 @@ const TopoMobile = () => {
                     vertical: 'top',
                     horizontal: 'right',
                   }}
-                  classes={{
-                    colorPrimary: classes.colorPrimary,
-                  }}
                   badgeContent={quantidadeProdutos}
                   showZero
-                  color="primary"
+                  color="secondary"
                 >
                   <Carrinho style={{height:30, width:30}} className={classes.colorCart}  fontSize="large" />
                 </StyledBadge>
@@ -69,7 +63,7 @@ const TopoMobile = () => {
           </div>
             
       </Box>
-    <Divider fullWidth style={{marginTop:2}}/>
+    <Divider style={{marginTop:2}}/>
     </Container>
   );
 };

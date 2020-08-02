@@ -4,19 +4,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import withAnimation from '../higherComponents/withAnimation';
 import withNav from '../higherComponents/withNav';
 
-const useStyles = makeStyles((theme) => ({
-  Fundo: {
-    backgroundColor: theme.palette.background.color,
-    AlignItems: 'center',
-  },
-}));
+
 
 const Politicas = () => {
-  const classes = useStyles();
   return (
     <>
       <Container maxWidth="lg" style={{ marginBottom: 64 }}>
-        <Typography variant="h1" style={{ paddingBottom: 20 }}>
+        <Typography variant="h1" style={{paddingTop:20, paddingBottom: 20 }}>
           Trocas e Cancelamento
         </Typography>
         <Typography variant="h6" style={{ paddingBottom: 10 }}>

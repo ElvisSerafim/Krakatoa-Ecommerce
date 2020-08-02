@@ -106,7 +106,7 @@ const MinhaConta = () => {
               borderRadius: 10,
               borderBottom: 32,
             }}
-            fullWidth
+            
           >
             <Typography
               className={classes.texto}

@@ -99,9 +99,8 @@ const Produtos = ({ title, products }) => {
 
 
       <>
-        {ProdutosOrder.map((value) => (
-
-          <Grid data-aos="fade-up" data-aos-once="true" key={value.id} item lg={3} md={4} sm={6} xs={6}>
+        {ProdutosOrder.map((value, index) => (
+          <Grid data-aos="fade-up" data-aos-once="true" key={index} item lg={3} md={4} sm={6} xs={6}>
             <Produto produto={value} update={() => { }} title={lower} />
           </Grid>
         ))}
