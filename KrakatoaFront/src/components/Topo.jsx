@@ -19,11 +19,6 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     marginTop: '2%',
   },
-
-  colorPrimary: {
-    color: 'white',
-    backgroundColor: '#44323D',
-  },
 }));
 
 const StyledBadge = withStyles(() => ({}))(Badge);
@@ -59,12 +54,9 @@ const Topo = () => {
                       vertical: 'top',
                       horizontal: 'right',
                     }}
-                    classes={{
-                      colorPrimary: classes.colorPrimary,
-                    }}
                     badgeContent={quantidadeProdutos}
                     showZero
-                    color="primary"
+                    color="secondary"
                   >
                     <Carrinho color="primary" fontSize="large" />
                   </StyledBadge>

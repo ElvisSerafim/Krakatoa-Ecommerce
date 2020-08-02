@@ -92,7 +92,6 @@ export default function CustomizedTables({
     setTotal(auxiliar);
     actualTotal(auxiliar);
   };
-  console.log(allProducts);
   return (
     <TableContainer className={classes.table}>
       <Table className={classes.table} aria-label="customized table">

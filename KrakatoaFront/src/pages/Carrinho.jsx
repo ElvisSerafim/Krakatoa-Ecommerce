@@ -156,9 +156,9 @@ const Carrinho = () => {
         </div>
       ) : (
         <>
-          <Grid spacing={2} style={{ marginTop: 64, marginBottom: 64 }}>
+          <Grid style={{ marginTop: 64, marginBottom: 64 }}>
             {/* Table dos Produtos */}
-            <Hidden smDown="true">
+            <Hidden smDown={true}>
               <Grid
                 container
                 item
@@ -176,7 +176,7 @@ const Carrinho = () => {
               </Grid>
             </Hidden>
             {/* Display Celular */}
-            <Hidden mdUp="true">
+            <Hidden mdUp={true}>
               <ListItem atualizarTotal={atualizarTotalList} />
             </Hidden>
             {/* Continuar comprando e Limpar */}
@@ -297,7 +297,7 @@ const Carrinho = () => {
                 md={12}
                 sm={12}
                 xs={12}
-                classname={classes.GridCell}
+                className={classes.GridCell}
               >
                 <Paper className={classes.Paper}>
                   <Grid item lg={12} md={12} sm={12} xm={12}>
@@ -396,7 +396,7 @@ const Carrinho = () => {
                         color="primary"
                         fullWidth
                         style={styles.borderHeight}
-                        href="/endereco"
+                        
                       >
                         Checkout
                       </Button>

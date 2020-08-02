@@ -129,12 +129,12 @@ const Checkout = () => {
         vertical="top"
         horizontal="right"
       />
-      <Grid container xs={12} justify="center" style={{ marginTop: 20 }}>
+      <Grid item container xs={12} justify="center" style={{ marginTop: 20 }}>
         <Paper
           elevation={3}
           style={{ backgroundColor: '#D2C9C7', height: 710, width: '95%' }}
         >
-          <Grid xs={12}>
+          <Grid item xs={12}>
             <Typography
               variant="h1"
               style={{
@@ -149,7 +149,7 @@ const Checkout = () => {
           </Grid>
           {pag == 0 ? (
             <>
-              <Grid container justify="center" xs={12}>
+              <Grid container item justify="center" xs={12}>
                 <FormControl variant="outlined" style={{ width: '77%' }}>
                   <InputLabel style={{ color: '#44323D' }}>
                     Bandeira do cartão
@@ -169,6 +169,7 @@ const Checkout = () => {
               </Grid>
               <Grid
                 container
+                item
                 justify="center"
                 style={{ paddingTop: 10 }}
                 xs={12}
@@ -189,6 +190,7 @@ const Checkout = () => {
                 </FormControl>
               </Grid>
               <Grid
+                item
                 xs={12}
                 style={{ paddingTop: 10 }}
                 container
@@ -204,6 +206,7 @@ const Checkout = () => {
                 />
               </Grid>
               <Grid
+                item
                 xs={12}
                 style={{ paddingTop: 10 }}
                 container
@@ -219,7 +222,7 @@ const Checkout = () => {
                   label="Numero do cartão *"
                 />
               </Grid>
-              <Grid xs={12} container justify="center">
+              <Grid item xs={12} container justify="center">
                 <InputMask
                   mask="99/9999"
                   onChange={(event) => setData(event.target.value)}
@@ -239,6 +242,7 @@ const Checkout = () => {
                 </InputMask>
               </Grid>
               <Grid
+                item
                 xs={12}
                 style={{ paddingTop: 10 }}
                 container
@@ -264,6 +268,7 @@ const Checkout = () => {
                 Total: R${total / 100}
               </Typography>
               <Grid
+                item
                 xs={12}
                 style={{ paddingTop: 10 }}
                 container
@@ -322,7 +327,7 @@ const Checkout = () => {
           ) : (
             //1234567890123450
             <>
-              <Grid xs={12}>
+              <Grid item xs={12}>
                 <Typography
                   variant="h1"
                   style={{
@@ -334,7 +339,7 @@ const Checkout = () => {
                   Estatus da transação: {code}
                 </Typography>
               </Grid>
-              <Grid xs={12}>
+              <Grid item xs={12}>
                 <Typography
                   variant="h1"
                   style={{
@@ -346,7 +351,7 @@ const Checkout = () => {
                   Código do pagamento: {tid}
                 </Typography>
               </Grid>
-              <Grid xs={12}>
+              <Grid item xs={12}>
                 <Typography
                   variant="h1"
                   style={{

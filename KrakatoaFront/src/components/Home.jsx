@@ -44,7 +44,7 @@ const Home = () => {
     fade: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 1,
     autoplay: true,
     autoplaySpeed: 2000,
     arrows: true,

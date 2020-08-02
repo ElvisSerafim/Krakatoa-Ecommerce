@@ -19,9 +19,8 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import api from '../Services/ApiService';
-import { setUser, setToken, loadUser } from '../reducers/user';
+import {  setToken, loadUser } from '../reducers/user';
 import Alerta from './Alerta';
-import Estilos from '../Estilos';
 
 const useStyles = makeStyles((theme) => ({
   inputLabel: {
@@ -190,10 +189,6 @@ const Login = () => {
     }
   };
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
   const handleCloseModal = () => {
     setOpen(false);
   };
@@ -214,7 +209,7 @@ const Login = () => {
         vertical="top"
         horizontal="right"
       />
-      <Grid container lg={12} md={12} sm={12} xs={12} justify="center">
+      <Grid container item lg={12} md={12} sm={12} xs={12} justify="center">
         <Modal
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
@@ -236,7 +231,6 @@ const Login = () => {
                 Cadastro
               </h2>
               <FormControl
-                fullwidth
                 variant="filled"
                 style={{ width: '100%', backgroundColor: 'white' }}
               >
@@ -249,17 +243,15 @@ const Login = () => {
                 <FilledInput
                   id="filled-adornment-password"
                   value={emailCadastro}
-                  color="textSecondary"
                   style={{ width: '100%', color: 'black' }}
                   onChange={(event) => {
                     setEmailCadastro(event.target.value);
                   }}
                 />
-                <InputAdornment position="end" />
+                <InputAdornment children={false} position="end" />
               </FormControl>
               <div style={{ paddingTop: 10 }}>
                 <FormControl
-                  fullwidth
                   variant="filled"
                   style={{ width: '100%', backgroundColor: 'white' }}
                 >
@@ -272,7 +264,6 @@ const Login = () => {
                   <FilledInput
                     id="filled-adornment-password"
                     value={nome}
-                    color="textSecondary"
                     style={{ width: '100%', color: 'black' }}
                     onChange={(event) => {
                       setNome(event.target.value);
@@ -283,7 +274,6 @@ const Login = () => {
               </div>
               <div style={{ paddingTop: 10 }}>
                 <FormControl
-                  fullwidth
                   variant="filled"
                   style={{ width: '100%', backgroundColor: 'white' }}
                 >
@@ -296,7 +286,6 @@ const Login = () => {
                   <FilledInput
                     id="filled-adornment-password"
                     value={password}
-                    color="textSecondary"
                     style={{ width: '100%', color: 'black' }}
                     onChange={(event) => {
                       setPassword(event.target.value);
@@ -307,7 +296,6 @@ const Login = () => {
               </div>
               <div style={{ paddingTop: 10 }}>
                 <FormControl
-                  fullwidth
                   variant="filled"
                   style={{ width: '100%', backgroundColor: 'white' }}
                 >
@@ -320,7 +308,6 @@ const Login = () => {
                   <FilledInput
                     id="filled-adornment-password"
                     value={confirmPassword}
-                    color="textSecondary"
                     style={{ width: '100%', color: 'black' }}
                     onChange={(event) => {
                       setConfirmPassword(event.target.value);
@@ -353,10 +340,9 @@ const Login = () => {
           Entrar
         </Typography>
       </Grid>
-      <Grid container lg={12} md={12} sm={12} xs={12} justify="center">
+      <Grid container item lg={12} md={12} sm={12} xs={12} justify="center">
         <div style={styles.email}>
           <FormControl
-            fullwidth
             variant="filled"
             style={{ width: '100%', backgroundColor: 'white' }}
           >
@@ -369,17 +355,16 @@ const Login = () => {
             <FilledInput
               id="filled-adornment-password"
               value={email}
-              color="textSecondary"
               style={{ width: '100%', color: 'black' }}
               onChange={(event) => {
                 setEmail(event.target.value);
               }}
             />
-            <InputAdornment position="end" />
+            <InputAdornment children={false} position="end"/>
           </FormControl>
         </div>
       </Grid>
-      <Grid container justify="center" lg={12} md={12} sm={12} xs={12}>
+      <Grid container item  justify="center" lg={12} md={12} sm={12} xs={12}>
         <div style={styles.senha}>
           <FormControl
             variant="filled"
@@ -395,7 +380,6 @@ const Login = () => {
               id="filled-adornment-password"
               type={values.showPassword ? 'text' : 'password'}
               value={values.password}
-              color="textSecondary"
               style={{ width: '100%', color: 'black' }}
               onChange={handleChange('password')}
               endAdornment={(
@@ -422,8 +406,8 @@ const Login = () => {
             <a href="/cangas" style={{ decoration: 'none' }}>
               <Typography
                 variant="body2"
-                color="textSecondary"
                 style={{ fontSize: '1.0em' }}
+                color='textSecondary'
               >
                 Perdeu a senha?
               </Typography>
@@ -431,8 +415,8 @@ const Login = () => {
 
             <Typography
               variant="body2"
-              color="textSecondary"
               style={{ fontSize: '1.0em', cursor: 'pointer' }}
+              color='textSecondary'
               onClick={() => {
                 setOpen(true);
               }}
@@ -442,7 +426,7 @@ const Login = () => {
           </div>
         </div>
       </Grid>
-      <Grid container lg={12} md={12} sm={12} xs={12} justify="center">
+      <Grid item container lg={12} md={12} sm={12} xs={12} justify="center">
         <div style={styles.botaoEntrar}>
           <Button variant="contained" color="primary" fullWidth onClick={login}>
             Entrar

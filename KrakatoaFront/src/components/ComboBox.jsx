@@ -81,7 +81,7 @@ class ComboBox extends Component {
             >
               <option style={styles.selectInput} value="" />
               {items.map((item) => (
-                <option style={styles.selectInput} value={item}>
+                <option style={styles.selectInput} key={item} value={item}>
                   {item}
                 </option>
               ))}
