@@ -55,7 +55,7 @@ const ContatoComp = () => {
           enviar(data);
         })}
       >
-        <Grid container spacing={1} direction="row" justify="flex-start">
+        <Grid container spacing={1} justify="flex-start">
           <Grid item lg={4} md={4} sm={12} xs={12}>
             <TextField
               required

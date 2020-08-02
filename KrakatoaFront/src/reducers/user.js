@@ -31,7 +31,10 @@ const slice = createSlice({
     },
     userDetails: (user, action) => {
       user.user.nome = action.payload.nome;
-      user.user.telefone = action.payload.tel;
+      user.user.telefone = action.payload.telefone;
+    },
+    userEndereco: (user, action) => {
+      user.user.endereco = action.payload;
     },
   },
 });
@@ -45,6 +48,7 @@ export const {
   userRequested,
   logout,
   userDetails,
+  userEndereco,
 } = slice.actions;
 
 export const loadUser = (token) =>

@@ -32,7 +32,7 @@ const Topo = () => {
   }, [cartProducts]);
   return (
     <>
-      <Hidden mdDown>
+      <Hidden smDown>
         <Container maxWidth="lg">
           <Box className={classes.Top}>
             <Box className={classes.box}>
@@ -66,7 +66,7 @@ const Topo = () => {
           </Box>
         </Container>
       </Hidden>
-      <Hidden lgUp>
+      <Hidden mdUp>
         <TopoMobile />
       </Hidden>
     </>

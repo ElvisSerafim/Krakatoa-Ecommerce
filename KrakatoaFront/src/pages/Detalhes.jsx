@@ -2,11 +2,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* Pagina de Contato
  */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { Grid, Typography, Button, Paper } from '@material-ui/core/';
 import InputMask from 'react-input-mask';
 import { useSelector, useDispatch } from 'react-redux';
+import { useForm, Controller } from 'react-hook-form';
 import ContaComp from '../components/ContaComp';
 import Alerta from '../components/Alerta';
 import api from '../Services/ApiService';
@@ -39,46 +40,48 @@ const styles = {
 };
 
 function Detalhes() {
-  const [pass, setPass] = useState('');
-  const [newPass, setNewPass] = useState('');
-  const [nome, setNome] = useState('');
-  const [tel, setTel] = useState('');
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('error');
-  const [, setOpenAlert] = useState(false);
 
-  const usuario = useSelector((state) => state.user.user);
-  const tokenUser = useSelector((state) => state.user.token);
+  const Redux = useSelector((state) => state.user);
+  const { token, user: usuario } = Redux;
 
-  useEffect(() => {
-    setNome(usuario.nome);
-    setTel(usuario.telefone);
-  }, []);
+  const { register, handleSubmit, control } = useForm({
+    defaultValues: {
+      nome: usuario.nome,
+      telefone: usuario.telefone,
+    },
+  });
 
   const dispatch = useDispatch();
-  const enviar = async () => {
+  const enviar = async (data) => {
     try {
-      if (tel === '') throw new Error('Telefone Vazio');
-
-      const data = {
-        nome,
-        password: pass,
-        newPassword: newPass,
-        telefone: tel,
-        token: tokenUser,
-      };
-      const request = await api.AtualizaUsuario(data);
+      if (data.telefone === '') throw new Error('Telefone Vazio');
+      if (data.nome === '') throw new Error('Nome Vazio');
+      if (data.password) {
+        if (!data.newPassword) {
+          throw new Error('Senha Nova Vazio');
+        }
+        if (data.newPassword !== data.password) {
+          throw new Error('Senhas Diferentes');
+        }
+        if (data.password.length < 8 || data.newPassword < 8) {
+          throw new Error('As senhas devem possuir 8 caracteres');
+        }
+      }
+      const request = await api.AtualizaUsuario({ ...data, token });
       if (request) {
-        const SendRedux = { nome, tel };
-        setOpenAlert(true);
+        const { nome, telefone } = data;
+        const SendRedux = { nome, telefone };
         dispatch(userDetails(SendRedux));
+        setOpen(true);
         setMessage('Dados Alterados com Sucesso');
         setStatus('success');
       }
     } catch (error) {
-      setOpenAlert(true);
-      setMessage('Falha na mudança');
+      setOpen(true);
+      setMessage(error.message);
       setStatus('error');
     }
   };
@@ -127,116 +130,85 @@ function Detalhes() {
             elevation={3}
             style={{ backgroundColor: '#D2C9C7', padding: 30 }}
           >
-            <Grid
-              item
-              container
-              lg={12}
-              md={12}
-              sm={12}
-              xs={12}
-              spacing={2}
-              justify="space-around"
+            <form
+              onSubmit={handleSubmit((data) => {
+                enviar(data);
+              })}
             >
-              <Grid item lg={6} md={6} sm={12} xs={12}>
-                <TextField
-                  variant="filled"
-                  id="passwordOld"
-                  type="password"
-                  label="Senha Atual"
-                  value={pass}
-                  fullWidth
-                  onChange={(event) => {
-                    setPass(event.target.value);
-                  }}
-                />
+              <Grid
+                item
+                container
+                lg={12}
+                md={12}
+                sm={12}
+                xs={12}
+                spacing={2}
+                justify="space-around"
+              >
+                <Grid item lg={6} md={6} sm={12} xs={12}>
+                  <TextField
+                    variant="filled"
+                    name="password"
+                    id="Password"
+                    label="Senha Atual"
+                    fullWidth
+                    inputRef={register}
+                  />
+                </Grid>
+                <Grid item lg={6} md={6} sm={12} xs={12}>
+                  <TextField
+                    name="nome"
+                    id="Nome"
+                    label="Nome"
+                    fullWidth
+                    variant="filled"
+                    inputRef={register}
+                  />
+                </Grid>
+                <Grid item lg={6} md={6} sm={12} xs={12}>
+                  <TextField
+                    name="newPassword"
+                    id="newPassword"
+                    label="Nova Senha"
+                    fullWidth
+                    variant="filled"
+                    inputRef={register}
+                  />
+                </Grid>
+                <Grid item lg={6} md={6} sm={12} xs={12}>
+                  <Controller
+                    as={InputMask}
+                    control={control}
+                    name="telefone"
+                    id="telefone"
+                    mask="(99)99999-9999"
+                    maskChar=" "
+                  >
+                    {() => (
+                      <TextField
+                        name="telefone"
+                        id="telefone"
+                        variant="filled"
+                        id="outlined-name"
+                        inputRef={register}
+                        fullWidth
+                        label="Telefone"
+                      />
+                    )}
+                  </Controller>
+                </Grid>
+                <Grid item lg={12} container justify="flex-end">
+                  <Button
+                    style={styles.botao}
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                  >
+                    Salvar
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item lg={6} md={6} sm={12} xs={12}>
-                <TextField
-                  variant="filled"
-                  id="name"
-                  color="primary"
-                  label="Nome"
-                  fullWidth
-                  value={nome}
-                  onChange={(event) => {
-                    setNome(event.target.value);
-                  }}
-                />
-              </Grid>
-              <Grid item lg={6} md={6} sm={12} xs={12}>
-                <TextField
-                  variant="filled"
-                  id="passwordNew"
-                  type="password"
-                  fullWidth
-                  label="Nova Senha"
-                  value={newPass}
-                  onChange={(event) => {
-                    setNewPass(event.target.value);
-                  }}
-                />
-              </Grid>
-
-              <Grid item lg={6} md={6} sm={12} xs={12}>
-                <InputMask
-                  mask="(99)99999-9999"
-                  value={tel}
-                  disabled={false}
-                  maskChar=" "
-                  onChange={(event) => {
-                    setTel(event.target.value);
-                  }}
-                >
-                  {() => (
-                    <TextField
-                      variant="filled"
-                      id="outlined-name"
-                      fullWidth
-                      label="Telefone"
-                    />
-                  )}
-                </InputMask>
-              </Grid>
-              <Grid item lg={12} container justify="flex-end">
-                <Button
-                  style={styles.botao}
-                  onClick={() => {
-                    enviar();
-                    setOpen(true);
-                    setStatus('success');
-                    switch (true) {
-                      case newPass.length > 0:
-                        if (pass === '') setMessage('Senha vazio');
-                        setStatus('success');
-                        setMessage('Alterações salvas!');
-
-                        break;
-                      case nome.length === 0:
-                        setStatus('error');
-                        setMessage('Você deve botar seu nome!');
-                        break;
-                      case tel.replace(/[^0-9]/g, '').length !== 11 &&
-                        tel !== '&366&':
-                        setStatus('error');
-                        setMessage(
-                          'Você deve inserir um número de telefone válido com DDD',
-                        );
-                        break;
-                      default:
-                        setMessage('Alterações salvas!');
-                        setStatus('success');
-                        // ATUALIZAR O NOME DO USARIO
-                        // ATUALIZAR O TELEFONE DO USARIO
-                        break;
-                    }
-                  }}
-                  variant="contained"
-                  color="primary"
-                >
-                  SALVAR
-                </Button>
-              </Grid>
-            </Grid>
+            </form>
           </Paper>
         </Grid>
       </Grid>
