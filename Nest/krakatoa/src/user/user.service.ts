@@ -201,6 +201,8 @@ export class UserService {
       numero,
       complemento,
       cpf,
+      nome,
+      telefone,
     } = updateUserDto;
 
     if (!UserUp.endereco) {
@@ -249,6 +251,15 @@ export class UserService {
       UserUp.endereco = endereco;
     }
 
+    UserUp.cpf = cpf !== UserUp.cpf ? cpf : UserUp.cpf;
+    if (nome) {
+      UserUp.nome = nome !== UserUp.nome ? nome : UserUp.nome;
+    }
+
+    if (telefone) {
+      UserUp.telefone =
+        telefone !== UserUp.telefone ? telefone : UserUp.telefone;
+    }
     UserUp.cpf = cpf !== UserUp.cpf ? cpf : UserUp.cpf;
 
     const save = await UserUp.save();

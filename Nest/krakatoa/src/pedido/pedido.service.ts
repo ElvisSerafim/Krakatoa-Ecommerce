@@ -74,6 +74,10 @@ export class PedidoService {
                   Email: user.email,
                   Name: user.nome,
                 },
+                {
+                  Email: 'lubinha2@hotmail.com',
+                  Name: 'Luciana',
+                },
               ],
               TemplateID: 1602088,
               TemplateLanguage: true,
@@ -112,36 +116,3 @@ export class PedidoService {
     }
   }
 }
-/* const {
-          preco,
-          nome,
-          categoria,
-          tipo,
-          imagens,
-          tamanho,
-          _id,
-        } = ProdutoEncontrado;
-        const Filtrado = {
-          preco,
-          nome,
-          categoria,
-          tipo,
-          imagens,
-          tamanho,
-          _id,
-        }; */
-
-/* 
-        CPF: user.cpf,
-        Email: user.email,
-        Telefone: user.telefone, */
-
-/*        Dados do Comprador:
-
-Nome: {{var:Nome:""}} 
-
-CPF: {{var:CPF:""}}
-
-Email: {{var:Email:""}}
-
-Telefone: {{var:Telefone:""}} */

@@ -63,7 +63,7 @@ export class UserController {
   @UseGuards(AuthGuard())
   @Get()
   async GetUser(@GetUser() user: User): Promise<userResponse> {
-    const { telefone, nome, pedidos, email, endereco } = user;
+    const { telefone, nome, pedidos, email, endereco, cpf } = user;
     const UserResponse: userResponse = {
       telefone,
       nome,
