@@ -403,7 +403,7 @@ const Login = () => {
               justifyContent: 'space-between',
             }}
           >
-            <a href="/cangas" style={{ decoration: 'none' }}>
+            <a href="/recuperarSenha" style={{ textDecoration: 'none', decoration: 'none' }}>
               <Typography
                 variant="body2"
                 style={{ fontSize: '1.0em' }}
