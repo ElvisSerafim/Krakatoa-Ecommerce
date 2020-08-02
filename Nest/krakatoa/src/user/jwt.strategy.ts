@@ -11,7 +11,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: 'testando12',
+      secretOrKey:
+        '2e97eb810387ab8e9c4d399e2daa2a78564e4d8a352c0b2e34968acd25ad8b24a940898397bbef69ef1c16c5c7efdca6',
     });
   }
   async validate(payload: JwtPayload): Promise<User> {
