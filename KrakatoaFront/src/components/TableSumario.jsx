@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -51,12 +51,9 @@ export default function CustomizedTables({ totalSumario, actualTotal }) {
   const classes = useStyles();
   const [quantity, setQuantity] = useState([]);
   const [total, setTotal] = useState([]);
-  const [products, setProducts] = useState([]);
-  const dispatch = useDispatch();
   const allProducts = useSelector((state) => state.productsCart);
 
   useEffect(() => {
-    setProducts(allProducts);
     const quantidades = [];
     const totais = [];
     allProducts.map((item) => {

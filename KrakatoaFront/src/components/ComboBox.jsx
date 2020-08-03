@@ -50,7 +50,6 @@ class ComboBox extends Component {
       label,
       style,
     } = this.props;
-    const { orderBy } = this.state;
     return (
       <div>
         <MuiThemeProvider theme={theme}>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography } from '@material-ui/core/';
-import { useDispatch } from 'react-redux';
 import SobreCompomente from '../components/Sobre';
 import withAnimation from '../higherComponents/withAnimation';
 import withNav from '../higherComponents/withNav';

@@ -4,7 +4,6 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
-import { useDispatch } from 'react-redux';
 import ContatoComp from '../components/Contato';
 
 import fb from '../img/fb.png';

@@ -3,10 +3,10 @@
 // Reducer do Carrinho da loja
 
 import { createSlice } from '@reduxjs/toolkit';
-
+const initialState = [];
 const cart = createSlice({
   name: 'cart',
-  initialState: [],
+  initialState,
   reducers: {
     addCart: (state, action) => {
       let posicao = null;
@@ -29,11 +29,7 @@ const cart = createSlice({
         state.push(action.payload);
       }
     },
-    removeAllProducts: (state) => {
-      /* Não funciona */
-      const initialState = [];
-      Object.assign(state, initialState);
-    },
+    removeAllProducts: state => initialState,
     productsUpdate: (state, action) => {
       let index = null;
       state.forEach((item, i) => {

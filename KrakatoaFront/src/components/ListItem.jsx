@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { produce } from 'immer';
 import {
   productsUpdate,
-  removerCart,
-  removeprodutosCart,
+  removerCart
 } from '../reducers/productsCart';
 import ItemMobile from './ItemMobile';
 import { Grid } from '@material-ui/core';
