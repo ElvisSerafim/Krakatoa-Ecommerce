@@ -18,7 +18,6 @@ import Detalhes from './pages/Detalhes';
 import MyAddress from './pages/MyAddress';
 import Pedidos from './pages/Pedidos';
 import Politicas from './pages/Politicas';
-import TesteGabriel from './pages/testeGabriel';
 import RecuperarSenha from './pages/RecuperarSenha';
 import RedefinirSenha from './pages/RedefinirSenha';
 
@@ -166,7 +165,6 @@ ReactDOM.render(
                 render={(props) => <Produto {...props} />}
               />
               <Route path="/carrinho" component={Carrinho} />
-              <Route path="/testeGabriel" component={TesteGabriel} />
               <Route path="/recuperarSenha" component={RecuperarSenha} />
               <Route path="/redefinirSenha" component={RedefinirSenha} />
               <Route

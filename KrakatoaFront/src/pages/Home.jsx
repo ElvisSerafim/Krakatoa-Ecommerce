@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* Pagina de Inicio */
 
-import React, { useEffect, useState, lazy, Suspense } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, Button } from '@material-ui/core/';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -86,9 +86,9 @@ const Home = () => {
         arrayAuxNovidades.push(item);
       }
       if (
-        item.categoria === 'vestidos'
-        || item.categoria === 'batas'
-        || item.categoria === 'macaquinhos'
+        item.categoria === 'vestidos' ||
+        item.categoria === 'batas' ||
+        item.categoria === 'macaquinhos'
       ) {
         arrayList.push(item);
       }
@@ -119,7 +119,9 @@ const Home = () => {
             style={{ paddingTop: 20 }}
             item
             lg={12}
-            md={2}
+            md={12}
+            sm={12}
+            xm={12}
           >
             <Promos />
           </Grid>
@@ -180,15 +182,22 @@ const Home = () => {
             <Button
               variant="contained"
               color="secondary"
-              onClick={()=> {
-                history.push("/confeccoes");
+              onClick={() => {
+                history.push('/confeccoes');
               }}
               style={Themes.palette.accent}
             >
               VEJA TODOS
             </Button>
           </Grid>
-          <Grid data-aos="fade-down" data-aos-once="true" item lg={12} md={12} sm={12}>
+          <Grid
+            data-aos="fade-down"
+            data-aos-once="true"
+            item
+            lg={12}
+            md={12}
+            sm={12}
+          >
             <Typography
               color="secondary"
               style={{
@@ -202,7 +211,15 @@ const Home = () => {
             </Typography>
           </Grid>
 
-          <Grid data-aos="fade-down" data-aos-once="true" item lg={3} md={3} sm={3} xs={12}>
+          <Grid
+            data-aos="fade-down"
+            data-aos-once="true"
+            item
+            lg={3}
+            md={3}
+            sm={3}
+            xs={12}
+          >
             <div style={styles.deli}>
               <img
                 style={{ padding: '25px 0px 0px 15px' }}
@@ -221,7 +238,15 @@ const Home = () => {
               Entrega rápida e eficiente em sua casa.
             </Typography>
           </Grid>
-          <Grid data-aos="fade-down" data-aos-once="true" item lg={3} md={3} sm={3} xs={12}>
+          <Grid
+            data-aos="fade-down"
+            data-aos-once="true"
+            item
+            lg={3}
+            md={3}
+            sm={3}
+            xs={12}
+          >
             <div style={styles.pag}>
               <img
                 style={{ padding: '17px 0px 0px 16px' }}
@@ -245,7 +270,15 @@ const Home = () => {
               bandeiras do país!
             </Typography>
           </Grid>
-          <Grid data-aos="fade-down" data-aos-once="true" item lg={3} md={3} sm={3} xs={12}>
+          <Grid
+            data-aos="fade-down"
+            data-aos-once="true"
+            item
+            lg={3}
+            md={3}
+            sm={3}
+            xs={12}
+          >
             <div style={styles.money}>
               <img
                 style={{ padding: '22px 0px 0px 20px' }}
@@ -268,7 +301,15 @@ const Home = () => {
               Site 100% confiável. Seu produto é enviado assim que autorizado.
             </Typography>
           </Grid>
-          <Grid data-aos="fade-down" data-aos-once="true" item lg={3} md={3} sm={3} xs={12}>
+          <Grid
+            data-aos="fade-down"
+            data-aos-once="true"
+            item
+            lg={3}
+            md={3}
+            sm={3}
+            xs={12}
+          >
             <div style={styles.pqKraka}>
               <img
                 style={{ padding: '20px 0px 0px 17px' }}
@@ -306,7 +347,14 @@ const Home = () => {
 
           <Hidden smDown>
             {productsNovidades.map((item) => (
-              <Grid data-aos="fade-up" data-aos-once="true" item lg={3} md={3} sm={3}>
+              <Grid
+                data-aos="fade-up"
+                data-aos-once="true"
+                item
+                lg={3}
+                md={3}
+                sm={3}
+              >
                 <Produto
                   produto={item}
                   update={() => {}}
@@ -351,9 +399,13 @@ const Home = () => {
               md={12}
               sm={12}
             >
-              <Button variant="contained"onClick={ ()=> {
-                  history.push("/cangas");
-              }} color="secondary">
+              <Button
+                variant="contained"
+                onClick={() => {
+                  history.push('/cangas');
+                }}
+                color="secondary"
+              >
                 VEJA TODOS
               </Button>
             </Grid>

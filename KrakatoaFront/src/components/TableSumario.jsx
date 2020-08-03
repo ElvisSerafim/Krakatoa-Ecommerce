@@ -42,8 +42,11 @@ const useStyles = makeStyles((theme) => ({
     height: 70,
   },
   large: {
-    width: theme.spacing(11),
-    height: theme.spacing(11),
+    objectPosition: 'top',
+    borderRadius: 100,
+    objectFit: 'cover',
+    width: theme.spacing(14),
+    height: theme.spacing(14),
   },
 }));
 
@@ -82,10 +85,14 @@ export default function CustomizedTables({ totalSumario, actualTotal }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {allProducts.map((row, i,index) => (
+            {allProducts.map((row, i, index) => (
               <StyledTableRow key={index}>
                 <StyledTableCell component="th" scope="row">
-                  <Avatar src={row.ImageUrl} className={classes.large} />
+                  <img
+                    src={row.ImageUrl}
+                    alt={row.nome}
+                    className={classes.large}
+                  />
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row">
                   <div style={{ ...Estilos.flexRowCENTER2 }}>{row.nome}</div>
