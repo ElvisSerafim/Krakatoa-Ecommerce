@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import './ListProducts.css';
-import { Grid, Button } from '@material-ui/core';
 import Produto from '../components/Produto';
-import { useDispatch, useSelector } from 'react-redux';
 import ArrowBackIosRoundedIcon from '@material-ui/icons/ArrowBackIosRounded';
 import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounded';
-import { FormatListNumberedRounded } from '@material-ui/icons';
 // list of items
 
 // All items component

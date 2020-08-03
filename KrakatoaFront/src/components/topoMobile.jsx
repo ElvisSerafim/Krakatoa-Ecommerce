@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Container, Grid , Divider} from '@material-ui/core/';
+import { Box, Container, Divider} from '@material-ui/core/';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Carrinho from '@material-ui/icons/ShoppingCartOutlined';
-import SearchIcon from '@material-ui/icons/Search';
 import Badge from '@material-ui/core/Badge';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import SearchDrawer from './SearchDrawer';
 import Logo from './Logo';
 import IconButton from '@material-ui/core/IconButton';
 import Drawer2 from './Drawer';
-import Drawer from '@material-ui/core/Drawer';
 
 const useStyles = makeStyles(() => ({
   box: {

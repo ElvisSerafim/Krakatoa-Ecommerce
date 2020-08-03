@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect } from 'react';
 import { useSelector} from 'react-redux';
 import {
     Typography,
     Avatar,
     ListItem,
-    ListItemText,
     ListItemAvatar,
     List,
     Divider
 } from '@material-ui/core/';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import {makeStyles } from '@material-ui/core/styles';
 
 const styles = {
     text: {
@@ -33,15 +32,12 @@ const useStyles = makeStyles((theme) => ({
 
 const SumarioMobile = ({ actualTotal }) => {
     const allProducts = useSelector((state) => state.productsCart);
-    const [products, setProducts] = useState([]);
-    const [total, setTotal] = useState([]);
+    
     const classes = useStyles();
     useEffect(() => {
-        setProducts(allProducts);
         const totais = [];
         allProducts.map((item) => {
             totais.push(item.preco * item.quantidadePedido);
-            setTotal(totais);
         });
         actualTotal(totais);
     }, [allProducts]);

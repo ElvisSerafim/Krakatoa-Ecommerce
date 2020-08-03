@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
 /* Pagina de Inicio */
 
-import React, { useEffect, useState, lazy, Suspense } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, Button } from '@material-ui/core/';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import Aos from 'aos';
@@ -19,7 +19,6 @@ import deli from '../img/deli.png';
 import pqKraka from '../img/pqKraka.png';
 import money from '../img/money.png';
 import pag from '../img/pagarIcone.png';
-import { addCart } from '../reducers/productsCart';
 import withAnimation from '../higherComponents/withAnimation';
 import 'aos/dist/aos.css';
 
@@ -59,31 +58,32 @@ const styles = {
 };
 
 const Home = () => {
-  const [products, setProducts] = useState([]);
+  const [produtosCangasCelular, setProdutosCangasCelular] = useState([]);
   const [productsNovidades, setProductsNovidades] = useState([]);
   const [produtosMaisProcurados, setProductsMaisProcurados] = useState([]);
-  const [open, setOpen] = useState(false);
   const stateProdutos = useSelector((state) => state.products);
   const { list, loading } = stateProdutos;
-  const dispatch = useDispatch();
   const history = useHistory();
-  const fechar = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setOpen(false);
-  };
+ 
   useEffect(() => {
     Aos.init({ duration: 2000 });
     const arrayList = [];
     const arrayAux = [];
+    const arrayCangasCelular = [];
     const arrayAuxNovidades = [];
     list.map((item, i) => {
       if (i > 6 && arrayAux.length <= 3) {
         arrayAux.push(item);
       }
-      if (i > 10 && arrayAuxNovidades.length <= 3) {
-        arrayAuxNovidades.push(item);
+      if (arrayAuxNovidades.length <= 3) {
+        if(item.tipo === 'cangas'){
+          arrayAuxNovidades.push(item);
+        }
+      }
+      if(arrayCangasCelular.length <= 10){
+        if(item.tipo === 'cangas'){
+          arrayCangasCelular.push(item);
+        }
       }
       if (
         item.categoria === 'vestidos'
@@ -94,15 +94,11 @@ const Home = () => {
       }
     });
     setProductsMaisProcurados(arrayList);
-    setProducts(arrayAux);
     setProductsNovidades(arrayAuxNovidades);
+    setProdutosCangasCelular(arrayCangasCelular);
   }, [loading === true]);
 
-  const addItemCart = (productCart) => {
-    productCart.quantidade = 1;
-    dispatch(addCart(productCart));
-    setOpen(true);
-  };
+ 
 
   return (
     <>
@@ -145,7 +141,7 @@ const Home = () => {
 
           <Hidden mdUp>
             <div style={styles.scrollbarMobile}>
-              {products.map((item) => (
+              {produtosCangasCelular.map((item) => (
                 <Grid
                   data-aos="fade-left"
                   data-aos-once="true"
@@ -159,7 +155,9 @@ const Home = () => {
                     produto={item}
                     update={() => {}}
                     title={item.tipo}
-                    addItem={addItemCart}
+                    addItem={()=> {
+                      
+                    }}
                   />
                 </Grid>
               ))}
@@ -181,7 +179,11 @@ const Home = () => {
               variant="contained"
               color="secondary"
               onClick={()=> {
-                history.push("/confeccoes");
+                if(window.screen.width >= 864){
+                  history.push("/confeccoes");
+                }else {
+                  history.push("/cangas");
+                }
               }}
               style={Themes.palette.accent}
             >
@@ -311,7 +313,9 @@ const Home = () => {
                   produto={item}
                   update={() => {}}
                   title={item.tipo}
-                  addItem={addItemCart}
+                  addItem={()=> {
+                      
+                  }}
                 />
               </Grid>
             ))}
@@ -319,7 +323,7 @@ const Home = () => {
 
           <Hidden mdUp>
             <div style={styles.scrollbarMobile}>
-              {productsNovidades.map((item) => (
+              {produtosMaisProcurados.map((item) => (
                 <Grid
                   data-aos="fade-up"
                   data-aos-once="true"
@@ -333,7 +337,9 @@ const Home = () => {
                     produto={item}
                     update={() => {}}
                     title={item.tipo}
-                    addItem={addItemCart}
+                    addItem={()=> {
+
+                    }}
                   />
                 </Grid>
               ))}
@@ -351,8 +357,12 @@ const Home = () => {
               md={12}
               sm={12}
             >
-              <Button variant="contained"onClick={ ()=> {
-                  history.push("/cangas");
+              <Button variant="contained" onClick={ ()=> {
+                  if(window.screen.width >= 864){
+                    history.push("/cangas");
+                  }else {
+                    history.push("/confeccoes");
+                  }
               }} color="secondary">
                 VEJA TODOS
               </Button>

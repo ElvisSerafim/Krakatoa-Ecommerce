@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container, Typography } from '@material-ui/core/';
-import { makeStyles } from '@material-ui/core/styles';
 import withAnimation from '../higherComponents/withAnimation';
 import withNav from '../higherComponents/withNav';
 

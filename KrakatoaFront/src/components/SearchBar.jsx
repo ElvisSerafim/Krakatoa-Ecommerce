@@ -3,10 +3,8 @@ import { makeStyles } from '@material-ui/core/';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { useDispatch } from 'react-redux';
-import { withRouter, useHistory } from 'react-router-dom';
-import IconButton from '@material-ui/core/IconButton';
+import {useHistory} from 'react-router-dom';
 import { sendSearch } from '../reducers/search';
-import withAnimation from '../higherComponents/withAnimation';
 
 const useStyles = makeStyles((theme) => ({
   search: {

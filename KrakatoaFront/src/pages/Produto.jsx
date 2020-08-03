@@ -103,10 +103,7 @@ const ProdutoPage = ({ match }) => {
   const [quantity, setQuantity] = useState(1);
   const [isCanga, setIsCanga] = useState(false);
   const [type, setType] = useState('');
-  const [posicao, setPosicao] = useState();
   const [allProducts, setAllProducts] = useState([]);
-  const [produtosTipo, setProdutosTipo] = useState([]);
-  const [ready, setReady] = useState(false);
   const [sizes, setSizes] = useState([]);
   const [descricao, setDescricao] = useState([]);
   const [size, setSize] = useState('');
@@ -114,6 +111,8 @@ const ProdutoPage = ({ match }) => {
   const [fotos, setFotos] = useState([]);
   const [fotosMobile, setFotosMobile] = useState([]);
   const [open, setOpen] = useState(false);
+  const [statusAlerta, setStatusAlerta] = useState('error');
+  const [mensagem, setMensagem] = useState('Selecione Tamanho');
   const dispatch = useDispatch();
 
   const produtosT = useSelector((state) => state.products.list);
@@ -150,14 +149,11 @@ const ProdutoPage = ({ match }) => {
   };
 
   const getProduto = (produtos) => {
-    let tipo;
     let descricaoProduto = [];
     produtos.map((item, i) => {
       if (item._id === match.params.id) {
-        tipo = item.tipo;
         setType(item.tipo);
         setSizes(item.tamanho);
-        setPosicao(i);
         if (item.imagens.length !== 0) {
           setFotoAtual(
             `https://testekrakatoa.tk/imgs/${item.categoria}/${item.imagens[0]}.jpg`,
@@ -174,7 +170,6 @@ const ProdutoPage = ({ match }) => {
         if (item.tipo === 'cangas') setIsCanga(true);
       }
     });
-    setReady(true);
   };
   useEffect(() => {
     (async () => getProduto(produtosT))();
@@ -194,24 +189,35 @@ const ProdutoPage = ({ match }) => {
   };
 
   const addItemCart = (produto, quantidade) => {
-    const productCart = produce(produto, (newState) => {
-      newState.quantidadePedido = quantidade;
-      newState.tamanhoEscolhido = size;
-      newState.produto_id = product._id;
-      newState.cartId = generateSafeId();
-      newState.ImageUrl = fotoAtual;
-    });
+    if(size !== ''){
 
-    dispatch(addCart(productCart));
-    setQuantity(1);
-    setSize('');
-    const data = {
-      id: product._id,
-      img: fotoAtual,
-    };
-    console.log(data);
-    dispatch(setImage(data));
-  };
+      const productCart = produce(produto, (newState) => {
+        newState.quantidadePedido = quantidade;
+        newState.tamanhoEscolhido = size;
+        newState.produto_id = product._id;
+        newState.cartId = generateSafeId();
+        newState.ImageUrl = fotoAtual;
+      });
+  
+      dispatch(addCart(productCart));
+      setQuantity(1);
+      setSize('');
+      setStatusAlerta('success');
+      setMensagem('Produto Adicionado !')
+      setOpen(true);
+      const data = {
+        id: product._id,
+        img: fotoAtual,
+      };
+      dispatch(setImage(data));
+    }else {
+      setStatusAlerta('error');
+      setMensagem('Selecione um tamanho !');
+      setOpen(true);
+    }
+
+  }
+    
 
   const classes = useStyles();
 
@@ -319,11 +325,11 @@ const ProdutoPage = ({ match }) => {
                 </div>
 
                 <Alerta
-                  message="Produto adicionado!"
+                  message={mensagem}
                   vertical="top"
                   horizontal="right"
                   handleClose={handleClose}
-                  status="success"
+                  status={statusAlerta}
                   openAlert={open}
                 />
                 <div style={{ ...Estilos.flexColumnStandard, marginTop: 40 }}>
@@ -372,11 +378,11 @@ const ProdutoPage = ({ match }) => {
 
         <Hidden mdUp>
           <Alerta
-            message="Produto adicionado!"
+            message={mensagem}
             vertical="top"
             horizontal="right"
             handleClose={handleClose}
-            status="success"
+            status={statusAlerta}
             openAlert={open}
           />
           <div
