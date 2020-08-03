@@ -2,7 +2,7 @@
 import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { Provider, useSelector, useDispatch } from 'react-redux';
+import { Provider } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import WebFont from 'webfontloader';
@@ -11,7 +11,7 @@ import { store, persistor } from './store';
 import theme from './themes';
 import { PrivateRoute } from './Services/auth';
 import withNav from './higherComponents/withNav';
-import Endereco from './pages/Endereco2';
+import Endereco from './pages/Endereco';
 import Sumario from './pages/Sumario';
 import Checkout from './pages/Checkout';
 import Detalhes from './pages/Detalhes';
@@ -37,21 +37,24 @@ const Login = lazy(() => import('./pages/Login'));
 const MinhaConta = lazy(() => import('./pages/MinhaConta'));
 const Carrinho = lazy(() => import('./pages/Carrinho'));
 
-const Suspended = () => <div style={{width: '100%'}}><LinearProgress color="secondary" /></div>;
+const Suspended = () => (
+  <div style={{ width: '100%' }}>
+    <LinearProgress color="secondary" />
+  </div>
+);
 const NewComponent = withNav(Suspended);
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
-          <Suspense fallback={<NewComponent/>}>
+          <Suspense fallback={<NewComponent />}>
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/sobre" component={Sobre} />
               <Route path="/contato" component={Contato} />
               <Route
                 path="/cangas"
-                
                 exact
                 render={(props) => (
                   <Produtos {...props} tipo="cangas" categoria="Cangas" />
