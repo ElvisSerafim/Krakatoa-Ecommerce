@@ -28,7 +28,7 @@ const ApiService = {
   },
   Login: async (data) => {
     try {
-      const url = 'https://testekrakatoa.tk/api2/user/login';
+      const url = `${URL}user/login`;
       const requestInfo = {
         method: 'POST',
         body: JSON.stringify(data),
@@ -49,7 +49,7 @@ const ApiService = {
   },
   AtualizaUsuario: async (data) => {
     try {
-      const url = 'https://testekrakatoa.tk/api2/user/detalhes';
+      const url = `${URL}user/detalhes`;
       const { token } = data;
       const requestInfo = {
         method: 'PUT',
@@ -70,7 +70,7 @@ const ApiService = {
   },
   UsuarioEndereco: async (data) => {
     try {
-      const url = 'https://testekrakatoa.tk/api2/user/';
+      const url = `${URL}user/`;
       const { token } = data;
       const requestInfo = {
         method: 'PUT',
@@ -89,10 +89,10 @@ const ApiService = {
       return error;
     }
   },
-  ApagarUsuario: async (data) => {
+  /* ApagarUsuario: async (data) => {
     const { token } = data;
     const Authorization = `Bearer ${token}`;
-    const url = 'https://testekrakatoa.tk/api2/user';
+    const url = `${URL}user'`;
     const requestInfo = {
       method: 'DELETE',
       headers: new Headers({
@@ -102,7 +102,7 @@ const ApiService = {
     };
     const res = await fetch(url, requestInfo);
     if (res.ok) return res.json();
-  },
+  }, */
   Contato: async (data) => {
     try {
       const requestInfo = {
@@ -112,10 +112,7 @@ const ApiService = {
           'Content-Type': 'application/json',
         }),
       };
-      const request = await fetch(
-        'https://testekrakatoa.tk/api2/contato',
-        requestInfo,
-      );
+      const request = await fetch(`${URL}contato`, requestInfo);
       if (request.ok) {
         const res = 'Mensagem Enviada';
         return res;
@@ -168,7 +165,7 @@ const ApiService = {
   },
   getUsuario: async (data) => {
     try {
-      const url = 'https://testekrakatoa.tk/api2/user/';
+      const url = `${URL}user/`;
       const { token } = data;
       const requestInfo = {
         method: 'GET',
@@ -197,7 +194,7 @@ const ApiService = {
           'Content-Type': 'application/json',
         }),
       };
-      const url = 'https://testekrakatoa.tk/api2/pedidos';
+      const url = `${URL}pedidos`;
       const request = await fetch(url, requestInfo);
 
       if (request.ok) {
@@ -220,10 +217,49 @@ const ApiService = {
           'Content-Type': 'application/json',
         }),
       };
-      const url = 'https://testekrakatoa.tk/api2/pedidos/';
+      const url = `${URL}pedidos/`;
       const request = await fetch(url, requestInfo);
       if (request.ok) {
         return request.json();
+      }
+      throw new Error('Não foi possivel acessar o servidor');
+    } catch (error) {
+      return 'Não foi possivel acessar o servidor';
+    }
+  },
+  RecuperarSenha: async (data) => {
+    try {
+      const requestInfo = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      };
+      const url = `${URL}user/forgot`;
+      const request = await fetch(url, requestInfo);
+      if (request.ok) {
+        return 'ok';
+      }
+      throw new Error('Não foi possivel acessar o servidor');
+    } catch (error) {
+      return 'Não foi possivel acessar o servidor';
+    }
+  },
+  RedefinirSenha: async (data) => {
+    try {
+      const requestInfo = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      };
+      const url = `${URL}user/recover`;
+      const request = await fetch(url, requestInfo);
+      if (request.ok) {
+        const response = await request.json();
+        return response;
       }
       throw new Error('Não foi possivel acessar o servidor');
     } catch (error) {

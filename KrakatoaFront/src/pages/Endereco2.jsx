@@ -24,7 +24,7 @@ const Endereco = ({ location }) => {
   const [numero, setNumero] = useState('');
   const [complemento, setComplemento] = useState('');
   const [message, setMessage] = useState('');
-  const [status, setStatus] = useState('error');
+  const [status, setStatus] = useState('');
   const [open, setOpen] = useState(false);
   const [pricePac, setpricePac] = useState('');
   const [priceSedex, setpriceSedex] = useState('');
