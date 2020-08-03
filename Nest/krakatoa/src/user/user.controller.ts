@@ -42,7 +42,7 @@ export class UserController {
     await this.userService.Forgot(email);
   }
 
-  @Post('/recover/:id')
+  @Post('/recover')
   async Recover(
     @Body('token') id: string,
     @Body('newPassword') newPassword: string,
