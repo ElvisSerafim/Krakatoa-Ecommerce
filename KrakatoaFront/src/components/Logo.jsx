@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Box, Hidden, makeStyles } from '@material-ui/core/';
+import { Typography, Box, makeStyles } from '@material-ui/core/';
 import logo from '../img/logo192.png';
 const useStyles = makeStyles((theme) => ({
   mobile: {

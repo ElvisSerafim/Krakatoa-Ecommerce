@@ -21,6 +21,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import api from '../Services/ApiService';
 import {  setToken, loadUser } from '../reducers/user';
 import Alerta from './Alerta';
+import Cadastro from './Cadastro';
 
 const useStyles = makeStyles((theme) => ({
   inputLabel: {
@@ -141,53 +142,7 @@ const Login = () => {
     }
   };
 
-  const cadastro = async () => {
-    if (emailCadastro === '') {
-      setOpenAlert(true);
-      setMessage('Email vazio');
-      setStatus('error');
-      throw new Error('Email Vazio');
-    }
-    if (nome === '') {
-      setOpenAlert(true);
-      setMessage('Nome Vazio');
-      setStatus('error');
-      throw new Error('Nome Vazio');
-    }
-    if (password === '') {
-      setOpenAlert(true);
-      setMessage('Senha vazia');
-      setStatus('error');
-      throw new Error('Senha Vazia');
-    }
-    if (confirmPassword === '') {
-      setOpenAlert(true);
-      setMessage('Confirmar senha !');
-      setStatus('error');
-      throw new Error('Senha não confirmada');
-    }
-
-    if (password !== confirmPassword) {
-      setOpenAlert(true);
-      setMessage('Senhas não coincidem !');
-      setStatus('error');
-      throw new Error('Senhas Diferentes !');
-    }
-
-    const lower = emailCadastro.toLowerCase();
-    const data = {
-      email: lower,
-      password,
-      nome,
-    };
-    const request = await api.Cadastro(data);
-    console.log(request);
-    if (request.length > 5) {
-      dispatch(setToken(request));
-      dispatch(loadUser(request));
-      return history.push('/conta/');
-    }
-  };
+  
 
   const handleCloseModal = () => {
     setOpen(false);
@@ -210,127 +165,7 @@ const Login = () => {
         horizontal="right"
       />
       <Grid container item lg={12} md={12} sm={12} xs={12} justify="center">
-        <Modal
-          aria-labelledby="transition-modal-title"
-          aria-describedby="transition-modal-description"
-          className={classes.modal}
-          open={open}
-          onClose={handleCloseModal}
-          closeAfterTransition
-          BackdropComponent={Backdrop}
-          BackdropProps={{
-            timeout: 500,
-          }}
-        >
-          <Fade in={open}>
-            <div className={classes.paper}>
-              <h2
-                style={{ color: 'white', fontFamily: 'Poppins' }}
-                id="transition-modal-title"
-              >
-                Cadastro
-              </h2>
-              <FormControl
-                variant="filled"
-                style={{ width: '100%', backgroundColor: 'white' }}
-              >
-                <InputLabel
-                  style={{ width: '100%', color: 'black' }}
-                  htmlFor="filled-adornment-password"
-                >
-                  Email
-                </InputLabel>
-                <FilledInput
-                  id="filled-adornment-password"
-                  value={emailCadastro}
-                  style={{ width: '100%', color: 'black' }}
-                  onChange={(event) => {
-                    setEmailCadastro(event.target.value);
-                  }}
-                />
-                <InputAdornment children={false} position="end" />
-              </FormControl>
-              <div style={{ paddingTop: 10 }}>
-                <FormControl
-                  variant="filled"
-                  style={{ width: '100%', backgroundColor: 'white' }}
-                >
-                  <InputLabel
-                    style={{ width: '100%', color: 'black' }}
-                    htmlFor="filled-adornment-password"
-                  >
-                    Nome
-                  </InputLabel>
-                  <FilledInput
-                    id="filled-adornment-password"
-                    value={nome}
-                    style={{ width: '100%', color: 'black' }}
-                    onChange={(event) => {
-                      setNome(event.target.value);
-                    }}
-                  />
-                  <InputAdornment position="end" />
-                </FormControl>
-              </div>
-              <div style={{ paddingTop: 10 }}>
-                <FormControl
-                  variant="filled"
-                  style={{ width: '100%', backgroundColor: 'white' }}
-                >
-                  <InputLabel
-                    style={{ width: '100%', color: 'black' }}
-                    htmlFor="filled-adornment-password"
-                  >
-                    Senha
-                  </InputLabel>
-                  <FilledInput
-                    id="filled-adornment-password"
-                    value={password}
-                    style={{ width: '100%', color: 'black' }}
-                    onChange={(event) => {
-                      setPassword(event.target.value);
-                    }}
-                  />
-                  <InputAdornment position="end" />
-                </FormControl>
-              </div>
-              <div style={{ paddingTop: 10 }}>
-                <FormControl
-                  variant="filled"
-                  style={{ width: '100%', backgroundColor: 'white' }}
-                >
-                  <InputLabel
-                    style={{ width: '100%', color: 'black' }}
-                    htmlFor="filled-adornment-password"
-                  >
-                    Confirmar Senha
-                  </InputLabel>
-                  <FilledInput
-                    id="filled-adornment-password"
-                    value={confirmPassword}
-                    style={{ width: '100%', color: 'black' }}
-                    onChange={(event) => {
-                      setConfirmPassword(event.target.value);
-                    }}
-                  />
-                  <InputAdornment position="end" />
-                </FormControl>
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'flex-end',
-                  paddingTop: 10,
-                }}
-              >
-                <Button variant="contained" color="primary" onClick={cadastro}>
-                  Cadastre-se
-                </Button>
-              </div>
-            </div>
-          </Fade>
-        </Modal>
+          <Cadastro open={open} handleCloseModal={handleCloseModal} setMessage={setMessage} setStatus={setStatus} setOpenAlert={setStatus} />
 
         <Typography
           style={{ paddingTop: 60, color: 'white' }}

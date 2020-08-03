@@ -1,6 +1,6 @@
 /* Pagina de Sobre
  */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
   Table,
@@ -48,14 +48,6 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-const setData = (data) => {
-  if (data !== undefined) {
-    const stringData = data.toString();
-    const arrayString = stringData.split('T');
-    return arrayString[0];
-  }
-  return '';
-};
 
 const PedidosMobile = ({ theme, pedidos }) => {
   const classes = useStyles();

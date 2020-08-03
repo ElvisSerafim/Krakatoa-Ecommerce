@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
+
 import { useSelector } from 'react-redux';
 import { removeAllProducts } from '../reducers/productsCart';
+import InputMask from 'react-input-mask';
+import { useLocation } from 'react-router-dom';
+
 import {
   InputLabel,
   FormControl,
@@ -19,16 +23,15 @@ import {
   Box,
   TextField,
 } from '@material-ui/core/';
-import InputMask from 'react-input-mask';
-
-import { useLocation } from 'react-router-dom';
+import Estilos from '../Estilos';
 import Checkout2 from '../components/Checkout';
+
 import visa from '../img/visa.png';
 import elo from '../img/elo.png';
 import Alerta from '../components/Alerta';
 import hipercard from '../img/hipercard.png';
 import mastercard from '../img/mastercard.png';
-import { credito, debito, boleto } from '../Services/pagar.js';
+import { credito, debito } from '../Services/pagar.js';
 import withAnimation from '../higherComponents/withAnimation';
 import api from '../Services/ApiService';
 import withNav from '../higherComponents/withNav';
@@ -119,11 +122,7 @@ function getStepContent(
   let dado;
   let generateSafeId = require('generate-safe-id');
   let id;
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-  };
+
   const pagar = async () => {
     id = generateSafeId();
     if (cartao === 'CreditCard') {
