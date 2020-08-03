@@ -38,8 +38,9 @@ class ListProducts extends Component {
         this.data = [];
     }
 
-
- 
+    componentDidMount(){
+        this.forceUpdate();
+    }
 
     render() {
         const menu = this.menuItems;
@@ -55,13 +56,13 @@ class ListProducts extends Component {
                     wheel={false}
                     ref={this.childRef}
                     onLastItemVisible={() => {
-                        if(this.data.length > 0){
+                        if (this.data.length > 0) {
                             clearInterval(this.data[0]);
                         }
                         this.data[0] = setInterval(this.childRef.current.handleArrowClick, 5000);
                     }}
                     onFirstItemVisible={() => {
-                        if(this.data.length > 0){
+                        if (this.data.length > 0) {
                             clearInterval(this.data[0]);
                         }
                         this.data[0] = setInterval(this.childRef.current.handleArrowClickRight, 5000);

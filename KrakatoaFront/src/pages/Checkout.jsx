@@ -69,6 +69,7 @@ function getSteps() {
 function getStepContent(
   allProducts,
   frete,
+  token,
   produtosPedidos,
   classes,
   setCode,
@@ -127,7 +128,7 @@ function getStepContent(
           metodo: "cartaoCredito",
           idPedido: id,
           idPagamento: dado.payment.paymentId,
-          token: sessionStorage.getItem('token'),
+          token: token,
 
         }
         const request = await api.enviarPedido(dataa);
@@ -149,7 +150,7 @@ function getStepContent(
         metodo: "cartaoDebito",
         idPedido: id,
         idPagamento: dado.payment.paymentId,
-        token: sessionStorage.getItem('token'),
+        token: token,
 
       }
       const request = await api.enviarPedido(dataa);
@@ -508,6 +509,7 @@ const Checkout = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const [total, setTotal] = useState(0);
   const steps = getSteps();
+  const token = useSelector((state) => state.user.token);
   const [frete, setFrete] = useState(location.state.frete);
   useEffect(() => {
     let totalAux = location.state.total;
@@ -622,6 +624,7 @@ const Checkout = () => {
                     {getStepContent(
                       allProducts,
                       frete,
+                      token,
                       produtosPedidos,
                       classes,
                       setCode,
