@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import {
   Grid,
   Card,
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     height: 373,
-    backgroundImage: 'http://64.227.106.165/imgs/sobre/card.jpg'
+    backgroundImage: 'http://64.227.106.165/imgs/sobre/card.jpg',
   },
   txt: {
     padding: 5,
@@ -61,20 +61,16 @@ const Promos = () => {
   return (
     <div>
       <Grid container spacing={2} direction="row" justify="space-between">
-
         {data.map((elem) => (
           <Grid
             item
             lg={elem.size}
-            md={4}
-            sm={4}
+            md={6}
+            sm={12}
             xs={12}
             key={data.indexOf(elem)}
           >
-            <Card
-              style={styles.root}
-              className={classes.card}
-            >
+            <Card style={styles.root} className={classes.card}>
               <CardActionArea>
                 <CardMedia
                   component="img"
@@ -90,14 +86,14 @@ const Promos = () => {
                   >
                     {elem.title}
                   </Typography>
-                  </div>
+                </div>
               </CardContent>
             </Card>
           </Grid>
         ))}
-          </Grid>
-    </div >
+      </Grid>
+    </div>
   );
-}
+};
 
 export default Promos;

@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable no-param-reassign */
 /* Pagina de Inicio */
 
@@ -64,7 +65,7 @@ const Home = () => {
   const stateProdutos = useSelector((state) => state.products);
   const { list, loading } = stateProdutos;
   const history = useHistory();
- 
+
   useEffect(() => {
     Aos.init({ duration: 2000 });
     const arrayList = [];
@@ -76,12 +77,12 @@ const Home = () => {
         arrayAux.push(item);
       }
       if (arrayAuxNovidades.length <= 3) {
-        if(item.tipo === 'cangas'){
+        if (item.tipo === 'cangas') {
           arrayAuxNovidades.push(item);
         }
       }
-      if(arrayCangasCelular.length <= 10){
-        if(item.tipo === 'cangas'){
+      if (arrayCangasCelular.length <= 10) {
+        if (item.tipo === 'cangas') {
           arrayCangasCelular.push(item);
         }
       }
@@ -98,8 +99,6 @@ const Home = () => {
     setProdutosCangasCelular(arrayCangasCelular);
   }, [loading === true]);
 
- 
-
   return (
     <>
       <Topo />
@@ -115,7 +114,9 @@ const Home = () => {
             style={{ paddingTop: 20 }}
             item
             lg={12}
-            md={2}
+            md={12}
+            sm={12}
+            xm={12}
           >
             <Promos />
           </Grid>
@@ -155,9 +156,7 @@ const Home = () => {
                     produto={item}
                     update={() => {}}
                     title={item.tipo}
-                    addItem={()=> {
-                      
-                    }}
+                    addItem={() => {}}
                   />
                 </Grid>
               ))}
@@ -178,11 +177,11 @@ const Home = () => {
             <Button
               variant="contained"
               color="secondary"
-              onClick={()=> {
-                if(window.screen.width >= 864){
-                  history.push("/confeccoes");
-                }else {
-                  history.push("/cangas");
+              onClick={() => {
+                if (window.screen.width >= 864) {
+                  history.push('/confeccoes');
+                } else {
+                  history.push('/cangas');
                 }
               }}
               style={Themes.palette.accent}
@@ -190,7 +189,14 @@ const Home = () => {
               VEJA TODOS
             </Button>
           </Grid>
-          <Grid data-aos="fade-down" data-aos-once="true" item lg={12} md={12} sm={12}>
+          <Grid
+            data-aos="fade-down"
+            data-aos-once="true"
+            item
+            lg={12}
+            md={12}
+            sm={12}
+          >
             <Typography
               color="secondary"
               style={{
@@ -204,7 +210,15 @@ const Home = () => {
             </Typography>
           </Grid>
 
-          <Grid data-aos="fade-down" data-aos-once="true" item lg={3} md={3} sm={3} xs={12}>
+          <Grid
+            data-aos="fade-down"
+            data-aos-once="true"
+            item
+            lg={3}
+            md={3}
+            sm={3}
+            xs={12}
+          >
             <div style={styles.deli}>
               <img
                 style={{ padding: '25px 0px 0px 15px' }}
@@ -223,7 +237,15 @@ const Home = () => {
               Entrega rápida e eficiente em sua casa.
             </Typography>
           </Grid>
-          <Grid data-aos="fade-down" data-aos-once="true" item lg={3} md={3} sm={3} xs={12}>
+          <Grid
+            data-aos="fade-down"
+            data-aos-once="true"
+            item
+            lg={3}
+            md={3}
+            sm={3}
+            xs={12}
+          >
             <div style={styles.pag}>
               <img
                 style={{ padding: '17px 0px 0px 16px' }}
@@ -247,7 +269,15 @@ const Home = () => {
               bandeiras do país!
             </Typography>
           </Grid>
-          <Grid data-aos="fade-down" data-aos-once="true" item lg={3} md={3} sm={3} xs={12}>
+          <Grid
+            data-aos="fade-down"
+            data-aos-once="true"
+            item
+            lg={3}
+            md={3}
+            sm={3}
+            xs={12}
+          >
             <div style={styles.money}>
               <img
                 style={{ padding: '22px 0px 0px 20px' }}
@@ -270,7 +300,15 @@ const Home = () => {
               Site 100% confiável. Seu produto é enviado assim que autorizado.
             </Typography>
           </Grid>
-          <Grid data-aos="fade-down" data-aos-once="true" item lg={3} md={3} sm={3} xs={12}>
+          <Grid
+            data-aos="fade-down"
+            data-aos-once="true"
+            item
+            lg={3}
+            md={3}
+            sm={3}
+            xs={12}
+          >
             <div style={styles.pqKraka}>
               <img
                 style={{ padding: '20px 0px 0px 17px' }}
@@ -308,14 +346,19 @@ const Home = () => {
 
           <Hidden smDown>
             {productsNovidades.map((item) => (
-              <Grid data-aos="fade-up" data-aos-once="true" item lg={3} md={3} sm={3}>
+              <Grid
+                data-aos="fade-up"
+                data-aos-once="true"
+                item
+                lg={3}
+                md={3}
+                sm={3}
+              >
                 <Produto
                   produto={item}
                   update={() => {}}
                   title={item.tipo}
-                  addItem={()=> {
-                      
-                  }}
+                  addItem={() => {}}
                 />
               </Grid>
             ))}
@@ -337,9 +380,7 @@ const Home = () => {
                     produto={item}
                     update={() => {}}
                     title={item.tipo}
-                    addItem={()=> {
-
-                    }}
+                    addItem={() => {}}
                   />
                 </Grid>
               ))}
@@ -357,13 +398,17 @@ const Home = () => {
               md={12}
               sm={12}
             >
-              <Button variant="contained" onClick={ ()=> {
-                  if(window.screen.width >= 864){
-                    history.push("/cangas");
-                  }else {
-                    history.push("/confeccoes");
+              <Button
+                variant="contained"
+                onClick={() => {
+                  if (window.screen.width >= 864) {
+                    history.push('/cangas');
+                  } else {
+                    history.push('/confeccoes');
                   }
-              }} color="secondary">
+                }}
+                color="secondary"
+              >
                 VEJA TODOS
               </Button>
             </Grid>
