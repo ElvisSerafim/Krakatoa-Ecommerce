@@ -30,7 +30,7 @@ const useStyles = makeStyles({
     minHeight: 500,
     width: '100%',
     objectFit: 'cover',
-    '@media (max-width: 360px)': {
+    '@media (max-width: 500px)': {
       marginTop: 32,
       maxHeight: 200,
       minHeight: 200,

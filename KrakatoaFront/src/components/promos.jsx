@@ -73,12 +73,11 @@ const Promos = () => {
             <Card style={styles.root} className={classes.card}>
               <CardActionArea>
                 <CardMedia
+                  style={{ maxHeight: 300 }}
                   component="img"
-                  image="http://64.227.106.165/imgs/sobre/card.jpg"
+                  image="https://testekrakatoa.tk/imgs/sobre/card.jpg"
                 />
-              </CardActionArea>
-              <CardContent>
-                <div>
+                <CardContent>
                   <Typography
                     variant="h5"
                     component="h2"
@@ -86,8 +85,8 @@ const Promos = () => {
                   >
                     {elem.title}
                   </Typography>
-                </div>
-              </CardContent>
+                </CardContent>
+              </CardActionArea>
             </Card>
           </Grid>
         ))}

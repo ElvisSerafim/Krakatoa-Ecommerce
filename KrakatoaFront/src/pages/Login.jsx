@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Box } from '@material-ui/core/';
+import { Box } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import Login from '../components/Login';
 import withAnimation from '../higherComponents/withAnimation';
@@ -17,14 +17,6 @@ const LoginPage = () => {
   const classes = useStyles();
   return (
     <>
-      <Typography
-        variant="h3"
-        color="primary"
-        style={{ fontStyle: 'normal', marginTop: 0 }}
-        gutterBottom
-      >
-        MINHA CONTA
-      </Typography>
       <Box className={classes.Fundo}>
         <Login />
       </Box>

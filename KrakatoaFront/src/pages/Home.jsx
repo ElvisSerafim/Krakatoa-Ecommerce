@@ -87,9 +87,9 @@ const Home = () => {
         }
       }
       if (
-        item.categoria === 'vestidos'
-        || item.categoria === 'batas'
-        || item.categoria === 'macaquinhos'
+        item.categoria === 'vestidos' ||
+        item.categoria === 'batas' ||
+        item.categoria === 'macaquinhos'
       ) {
         arrayList.push(item);
       }
