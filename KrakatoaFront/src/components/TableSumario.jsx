@@ -8,7 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Typography, Avatar, Paper } from '@material-ui/core/';
+import { Typography, Paper } from '@material-ui/core/';
 import Estilos from '../Estilos';
 
 const StyledTableCell = withStyles((theme) => ({
