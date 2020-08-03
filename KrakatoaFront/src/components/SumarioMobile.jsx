@@ -51,15 +51,15 @@ const SumarioMobile = ({ actualTotal }) => {
                 {allProducts.map((row, i,index) => (
                     <ListItem key={index}>
                         <ListItemAvatar>
-                            <Avatar src={row.Imageurl} className={classes.large} />
+                            <Avatar src={row.ImageUrl} className={classes.large} />
                         </ListItemAvatar>
 
-                        <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: 10 }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: 20 }}>
                             <div style={{ display: 'flex', flexDirection: 'column' }}>
                                 <Typography style={styles.text}>
                                     {row.nome}
                                 </Typography>
-                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
+                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                                     <Typography style={styles.text}>
                                         Tam: {row.tamanhoEscolhido}
                                     </Typography>

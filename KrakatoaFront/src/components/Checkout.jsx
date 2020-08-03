@@ -25,6 +25,7 @@ const useStyles = makeStyles(() => ({
 }));
 const Checkout = () => {
   const allProducts = useSelector((state) => state.productsCart);
+  const token = useSelector((state) => state.user.token);
   const [produtosPedidos, setProdutosPedidos] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -82,7 +83,7 @@ const Checkout = () => {
           metodo: 'cartaoCredito',
           idPedido: id,
           idPagamento: dado.payment.paymentId,
-          token: sessionStorage.getItem('token'),
+          token: token,
         };
         const request = await api.enviarPedido(dataa);
         console.log(request);
@@ -108,7 +109,7 @@ const Checkout = () => {
         metodo: 'cartaoCredito',
         idPedido: id,
         idPagamento: dado.payment.paymentId,
-        token: sessionStorage.getItem('token'),
+        token: token,
       };
       const request = await api.enviarPedido(dataa);
       console.log(request);

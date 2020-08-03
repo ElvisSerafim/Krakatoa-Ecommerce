@@ -161,6 +161,7 @@ const Sumario = ({ location }) => {
   const [urlDelivery, setUrl] = useState('');
   const [pagamento, setPag] = useState('Nenhum');
   const products = useSelector((state) => state.productsCart);
+  const token = useSelector((state) => state.user.token);
   const dispatch = useDispatch();
   const history = useHistory();
   let dado;
@@ -192,7 +193,7 @@ const Sumario = ({ location }) => {
       metodo: 'boleto',
       idPedido: id,
       idPagamento: dado.payment.paymentId,
-      token: sessionStorage.getItem('token'),
+      token: token,
     };
     const request = await api.enviarPedido(dataa);
     console.log(request);

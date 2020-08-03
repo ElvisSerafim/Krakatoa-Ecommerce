@@ -4,6 +4,7 @@
 import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { Container, Grid, Typography, Button } from '@material-ui/core/';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import Aos from 'aos';
 import ListProducts from '../components/ListProducts';
@@ -65,6 +66,7 @@ const Home = () => {
   const stateProdutos = useSelector((state) => state.products);
   const { list, loading } = stateProdutos;
   const dispatch = useDispatch();
+  const history = useHistory();
   const fechar = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -178,6 +180,9 @@ const Home = () => {
             <Button
               variant="contained"
               color="secondary"
+              onClick={()=> {
+                history.push("/confeccoes");
+              }}
               style={Themes.palette.accent}
             >
               VEJA TODOS
@@ -346,7 +351,9 @@ const Home = () => {
               md={12}
               sm={12}
             >
-              <Button variant="contained" color="secondary">
+              <Button variant="contained"onClick={ ()=> {
+                  history.push("/cangas");
+              }} color="secondary">
                 VEJA TODOS
               </Button>
             </Grid>
