@@ -83,7 +83,12 @@ const Produtos = ({ title, products }) => {
       className={classes.GridContainer}
     >
       {habilityOrder && (
-        <Grid data-aos="fade-left" data-aos-once="true" container style={{ flexDirection: 'row-reverse' }}>
+        <Grid
+          data-aos="fade-left"
+          data-aos-once="true"
+          container
+          style={{ flexDirection: 'row-reverse' }}
+        >
           <ComboBox
             onChange={(event) => {
               setOrderBy(event.target.value);
@@ -97,13 +102,43 @@ const Produtos = ({ title, products }) => {
         </Grid>
       )}
 
-
       <>
-        {ProdutosOrder.map((value, index) => (
-          <Grid data-aos="fade-up" data-aos-once="true" key={index} item lg={3} md={4} sm={6} xs={6}>
-            <Produto produto={value} update={() => { }} title={lower} />
-          </Grid>
-        ))}
+        {ProdutosOrder.length > 2
+          ? ProdutosOrder.map((value, index) => (
+              <>
+                <Grid
+                  data-aos="fade-up"
+                  data-aos-once="true"
+                  key={index}
+                  item
+                  lg={3}
+                  md={4}
+                  sm={6}
+                  xs={6}
+                  style={{ width: '100%', height: '100%' }}
+                >
+                  <Produto produto={value} update={() => {}} title={lower} />
+                </Grid>
+              </>
+            ))
+          : ProdutosOrder.map((value, index) => (
+              <>
+                <Grid
+                  data-aos="fade-up"
+                  data-aos-once="true"
+                  key={index}
+                  item
+                  lg={6}
+                  md={4}
+                  sm={6}
+                  xs={6}
+                  style={{ width: '100%', height: '100%' }}
+                >
+                  <Produto produto={value} update={() => {}} title={lower} />
+                </Grid>
+              </>
+            ))}
+        {}
       </>
     </Grid>
   );
