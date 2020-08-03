@@ -15,11 +15,7 @@ import {
   MenuItem,
 } from '@material-ui/core/';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  Link,
-  Redirect,
-  useHistory,
-} from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import { removeAllProducts } from '../reducers/productsCart';
 import api from '../Services/ApiService';
@@ -28,7 +24,7 @@ import Pac from '../img/Pac.svg';
 import Sedex from '../img/Sedex.svg';
 import SumarioMobile from '../components/SumarioMobile';
 import TableSumario from '../components/TableSumario';
-import { boleto } from '../Services/pagar.js';
+import { boleto } from '../Services/pagar';
 import withAnimation from '../higherComponents/withAnimation';
 import withNav from '../higherComponents/withNav';
 
@@ -68,7 +64,7 @@ const styles = {
     paddingTop: '60px',
     fontSize: '2em',
     fontWeight: 'bold',
-    color:'#44323D'
+    color: '#44323D',
   },
   entrega: {
     color: '#C8C8C8',
@@ -155,9 +151,6 @@ const Sumario = ({ location }) => {
   const [open, setOpen] = useState(false);
   const [status, Setstatus] = useState('error');
   const [msg, setMsg] = useState('Erro');
-  const [totalFrete, setTotalFrete] = useState(0);
-  const [total, setTotal] = useState(0);
-  const [cep, setCep] = useState('');
   const [urlDelivery, setUrl] = useState('');
   const [pagamento, setPag] = useState('Nenhum');
   const products = useSelector((state) => state.productsCart);
@@ -255,17 +248,6 @@ const Sumario = ({ location }) => {
             horizontal="right"
           />
           <Hidden smDown>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}
-            >
-              <Typography variant="h3" color="primary">
-                Sumário
-              </Typography>
-            </div>
             <div style={styles.flexColumn}>
               <div style={styles.flexRow}>
                 <Grid item lg={12} container>

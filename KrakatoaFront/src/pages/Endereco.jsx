@@ -1,615 +1,476 @@
-import React, { PureComponent } from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import {
-  Typography,
-  Box,
-  Button,
-  Grid,
-  Hidden,
-  makeStyles,
-} from '@material-ui/core/';
+import React, { useEffect, useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { Typography, Box, Button, Grid, TextField } from '@material-ui/core/';
+import { useSelector } from 'react-redux';
 import InputMask from 'react-input-mask';
-import {
-  createMuiTheme,
-  MuiThemeProvider,
-  withStyles,
-} from '@material-ui/core/styles';
-import red from '@material-ui/core/colors/red';
-import { Link } from 'react-router-dom';
-import cartBlank from '../img/cartBlank.svg';
-import delivery from '../img/delivery.svg';
-import TextFieldM from '@material-ui/core/TextField';
-import payment from '../img/payment.svg';
-import Sedex from '../img/Sedex.svg';
-import Pac from '../img/Pac.svg';
+import { useForm, Controller } from 'react-hook-form';
 import api from '../Services/ApiService';
 import Alerta from '../components/Alerta';
-import Estilos from '../Estilos';
 import withAnimation from '../higherComponents/withAnimation';
 import withNav from '../higherComponents/withNav';
 
-const styles = {
-  title: {
-    fontSize: '2.5em',
-    color: '#FF5757',
-    fontWeight: '700',
-    paddingTop: 20,
-  },
-  hrstyle: {
-    color: 'red',
-    backgroundColor: 'red',
-    height: 0.5,
-    width: '60px',
-    borderColor: 'red',
-  },
-  boxStyle: {
-    m: 1,
-    border: 3,
-    padding: '40px',
-  },
-};
+const Endereco = ({ location, history }) => {
+  const Redux = useSelector((state) => state.user);
+  const { token, user: usuario } = Redux;
 
-const useStyles = (theme) => ({
-  inputLabel: {
-    color: '#44323D',
-  },
-});
+  const [message, setMessage] = useState('');
+  const [status, setStatus] = useState('');
+  const [open, setOpen] = useState(false);
+  const [pricePac, setpricePac] = useState('');
+  const [priceSedex, setpriceSedex] = useState('');
+  const [priceFrete, setpriceFrete] = useState('');
+  const [diasUteisPac, setDiasUteisPac] = useState('');
+  const [diasUteisSedex, setDiasUteisSedex] = useState('');
+  const [deliverySelected, setDeliverySelected] = useState('');
+  const [opacityPac, setOpacityPac] = useState(0.5);
+  const [opacitySedex, setOpacitySedex] = useState(0.5);
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: red[600],
+  const { register, handleSubmit, control, setValue } = useForm({
+    defaultValues: {
+      estado: usuario.endereco.estado,
+      nome: usuario.nome,
+      telefone: usuario.telefone,
+      cep: usuario.endereco.cep,
+      cpf: usuario.cpf,
+      bairro: usuario.endereco.bairro,
+      cidade: usuario.endereco.cidade,
+      rua: usuario.endereco.rua,
+      numero: usuario.endereco.numero,
+      complemento: usuario.endereco.complemento,
     },
-  },
-});
-let path = '';
+  });
 
-class Endereco extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      pricePac: '0,00',
-      priceSedex: '0,00',
-      diasUteisPac: '0',
-      diasUteisSedex: '0',
-      deliverySelected: '',
-      priceFrete: '',
-      opacityPac: 0.5,
-      opacitySedex: 0.5,
-      borderColorPac: 'black',
-      borderColorSedex: 'black',
-      cep: ' ',
-      telefone: ' ',
-      bairro: ' ',
-      rua: ' ',
-      nome: ' ',
-      sobrenome: ' ',
-      cpf: ' ',
-      cidade: ' ',
-      numero: ' ',
-      complemento: ' ',
-      estado: ' ',
-      status: 'error',
-      message: '',
-      open: false,
-    };
-  }
-
-  enviar = async () => {
+  const enviar = async (data) => {
     try {
-      const token =
-        localStorage.getItem('token') !== null
-          ? localStorage.getItem('token')
-          : sessionStorage.getItem('token');
-      if (!token) throw new Error('Acesso não autorizado');
-      const {
-        cep,
-        telefone,
-        bairro,
-        rua,
-        nome,
-        sobrenome,
-        cpf,
-        cidade,
-        numero,
-        complemento,
-        status,
-        message,
-        estado,
-        open,
-      } = this.state;
-      const nomeCompleto = [nome, sobrenome].join(' ');
-      const data = {
-        cep,
-        bairro,
-        rua,
-        cidade,
-        numero,
-        complemento,
-        estado,
-        cpf,
-        celular: telefone,
-        nome: nomeCompleto,
-        token,
-      };
-      this.setState({ open: true });
-      this.setState({ status: 'error' });
       switch (true) {
-        case nome.length === 0 || nome === ' ':
-          this.setState({ message: 'Insira seu nome!' });
-          break;
-        case sobrenome.length === 0 || sobrenome === ' ':
-          this.setState({ message: 'Insira seu sobrenome!' });
-          break;
-        case telefone.toString().length !== 14:
-          this.setState({
-            message: 'Você deve inserir um número de telefone válido com DDD',
-          });
-          break;
-        case cpf.length !== 11:
-          this.setState({ message: 'CPF inválido!' });
-          console.log(cpf)
-          break;
-        case cep.length !== 8:
-          this.setState({ message: 'CEP inválido!' });
-          break;
-        case bairro.length === 0 || bairro === ' ':
-          this.setState({ message: 'Insira seu bairro!' });
-          console.log(cep+ ' ' +cep.length)
-          break;
-        case cidade.length === 0 || cidade === ' ':
-          this.setState({ message: 'Insira sua cidade!' });
-          break;
-        case numero.length === 0 || numero === ' ':
-          this.setState({ message: 'Insira o número da sua casa!' });
-          break;
-        case rua.length === 0 || rua === ' ':
-          this.setState({ message: 'Insira sua rua!' });
-          break;
+        case data.nome.length === 0:
+          throw new Error('Insira seu nome!');
+        case data.telefone.toString().length !== 14:
+          throw new Error(
+            'Você deve inserir um número de telefone válido com DDD',
+          );
+        case data.cpf.length !== 14:
+          throw new Error('CPF inválido!');
+        case data.cep.length !== 8:
+          throw new Error('CEP inválido!');
+        case data.bairro.length === 0:
+          throw new Error('Insira seu bairro!');
+        case data.cidade.length === 0:
+          throw new Error('Insira sua cidade!');
+        case data.numero.length === 0:
+          throw new Error('Insira o número da sua casa!');
+        case data.rua.length === 0:
+          throw new Error('Insira sua rua!');
+        case deliverySelected === '':
+          throw new Error('Escolha uma Forma de Entrega');
         default:
-          this.setState({ status: 'success' });
-          this.setState({ message: 'Boas compras!' });
           break;
       }
-      const request = await api.UsuarioEndereco(data);
+      const request = await api.UsuarioEndereco({ data, token });
+      if (request) {
+        setOpen(true);
+        setStatus('success');
+        setMessage('Boas compras!');
+        const {
+          telefone,
+          bairro,
+          rua,
+          cpf,
+          cidade,
+          numero,
+          complemento,
+          nome,
+        } = data;
+        setTimeout(() => {
+          history.push({
+            pathname: '/sumario',
+            state: {
+              totalPedido: location.state.totalPedido,
+              cepEndereco: location.state.cepEndereco,
+              entregaSelecionada: deliverySelected,
+              totalFrete: priceFrete,
+              endereco: {
+                telefone,
+                bairro,
+                rua,
+                cpf,
+                cidade,
+                numero,
+                complemento,
+                nome,
+              },
+            },
+          });
+        }, 1500);
+      }
     } catch (error) {
-      console.log(error);
+      setOpen(true);
+      setStatus('error');
+      setMessage(error.message);
     }
   };
 
-  componentDidMount() {
-    if (this.props.location.state != undefined) {
-      this.getInformaçõesCep(this.props.location.state.cepEndereco);
-      this.getInformaçõesLocal(this.props.location.state.cepEndereco);
-    }
-  }
-
-
-
-  getInformaçõesLocal = async (cep) =>{
-    console.log(cep);
-    const requestLocal = await api.getLocalEntrega(cep);
-    console.log(requestLocal);
-    this.setState({ cep: cep });
-    this.setState({ bairro: requestLocal.bairro });
-    this.setState({ rua: requestLocal.logradouro });
-    this.setState({ cidade: requestLocal.localidade });
-    this.setState({ estado: requestLocal.uf });
-  }
-  getInformaçõesCep = async (cep) => {
+  const getInformaçõesLocal = async (localCep) => {
+    const requestLocal = await api.getLocalEntrega(localCep);
+    setValue('cep', localCep);
+    setValue('bairro', requestLocal.bairro);
+    setValue('cidade', requestLocal.localidade);
+    setValue('rua', requestLocal.logradouro);
+    setValue('estado', requestLocal.uf);
+  };
+  const getDadosFrete = async (localCep) => {
     const data = {
       cepOrigem: '41610200',
-      cepDestino: cep,
+      cepDestino: localCep,
       valorDeclarado: 500,
       codigoServico: 41106,
     };
     const data2 = {
       cepOrigem: '41610200',
-      cepDestino: cep,
+      cepDestino: localCep,
       valorDeclarado: 500,
       codigoServico: 40010,
     };
     const request = await api.CalcPrazoPreco(data);
     console.log(request);
-    this.setState({ pricePac: request[0].valor });
+    setpricePac(request[0].valor);
 
     const request2 = await api.CalcPrazoPreco(data2);
     console.log(request2);
-    this.setState({ priceSedex: request2[0].valor });
+    setpriceSedex(request2[0].valor);
 
     const data3 = {
       cepOrigem: '41610200',
-      cepDestino: cep,
+      cepDestino: localCep,
     };
     const request3 = await api.CalcPrazo(data3);
-    this.setState({ diasUteisSedex: request3[0].prazoEntrega });
-    this.setState({ diasUteisPac: request3[1].prazoEntrega });
     console.log(request3);
+    setDiasUteisSedex(request3[0].prazoEntrega);
+    setDiasUteisPac(request3[1].prazoEntrega);
   };
 
-  render() {
-    const handleClose = (event, reason) => {
-      if (reason === 'clickaway') {
-        return;
-      }
-      this.setState({ open: false });
-    };
-    const { location, classes } = this.props;
+  useEffect(() => {
+    try {
+      getDadosFrete(location.state.cepEndereco);
+      getInformaçõesLocal(location.state.cepEndereco);
+    } catch (error) {
+      setOpen(true);
+      setStatus('error');
+      setMessage('Erro em Calcular o Frete');
+    }
+  }, [location]);
 
-    return (
-      <>
-        {location.state == undefined ? (
-          <Redirect
-            to={{
-              pathname: '/carrinho',
-            }}
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
+  return (
+    <>
+      {location.state === undefined ? (
+        <Redirect
+          to={{
+            pathname: '/carrinho',
+          }}
+        />
+      ) : (
+        <>
+          <Alerta
+            openAlert={open}
+            message={message}
+            status={status}
+            handleClose={handleClose}
+            vertical="top"
+            horizontal="right"
           />
-        ) : (
-          <>
-            <Alerta
-              openAlert={this.state.open}
-              message={this.state.message}
-              status={this.state.status}
-              handleClose={handleClose}
-              vertical="top"
-              horizontal="right"
-            />
-            <Grid item lg={12} md={12} sm={12}>
-              <Typography style={styles.title}>Endereço</Typography>
-            </Grid>
-
-            <Grid item lg={12} md={12} sm={12} justify="flex-end" container>
-              <div style={Estilos.flexRowCENTER2}>
-                <a href="/carrinho">
-                  <img src={cartBlank} alt="Carinho" />
-                </a>
-                <hr style={styles.hrstyle} />
-                <a href="/endereco">
-                  <img src={delivery} alt="Endereço" />
-                </a>
-                <hr style={styles.hrstyle} />
-                <img src={payment} alt="React Logo" />
-              </div>
-            </Grid>
-            <Grid item lg={12} container direction="row" justify="center">
-              <Grid item lg={3} md={12} sm={12}>
-                <TextFieldM
-                  variant="filled"
-                  label="Nome"
-                  style={{ width: '100%', marginTop: 10 }}
-                  onChange={(e) => {
-                    this.setState({ nome: e.target.value });
-                  }}
-                />
-              </Grid>
-              <Grid item lg={1}></Grid>
-              <Grid item lg={3} md={12} sm={12}>
-                <TextFieldM
-                  variant="filled"
-                  style={{ width: '100%', marginTop: 10 }}
-                  label="Sobrenome"
-                  onChange={(e) => {
-                    this.setState({ sobrenome: e.target.value });
-                  }}
-                />
-              </Grid>
-              <Grid item lg={1}></Grid>
-              <Grid item lg={3} md={12} sm={12}>
-                <InputMask
-                  mask="(99)99999-9999"
-                  disabled={false}
-                  maskChar=" "
-                  onChange={(e) => {
-                    this.setState({ telefone: e.target.value });
-                  }}
-                >
-                  {() => (
-                    <TextFieldM
-                      variant="filled"
-                      id="outlined-name"
-                      numberOnly
-                      style={{
-                        width: '100%',
-                        marginTop: 10,
-                      }}
-                      label="Celular"
-                    />
-                  )}
-                </InputMask>
-              </Grid>
-            </Grid>
-            <Grid item lg={12} container direction="row" justify="center">
-              <Grid item lg={3} md={12} sm={12}>
-              <InputMask
-                  mask="999.999.999-99"
-                  disabled={false}
-                  maskChar=" "
-                  onChange={(e) => {
-                    let cpf = e.target.value.replace('.','');
-                    cpf = cpf.replace('.','')
-                    cpf = cpf.replace('-','')
-                    cpf = cpf.replace(' ','')
-                    this.setState({ cpf: cpf });
-                  }}
-                >
-                  {() => (
-                    <TextFieldM
-                      variant="filled"
-                      id="outlined-name"
-                      style={{
-                        width: '100%',
-                        marginTop: 10,
-                      }}
-                      label="CPF"
-                    />
-                  )}
-                </InputMask>
-              </Grid>
-              <Grid item lg={1}></Grid>
-              <Grid item lg={3} md={12} sm={12}>
-              <InputMask
-                  mask="99999-999"
-                  disabled={false}
-                  maskChar=" "
-                  value={this.state.cep}
-                  onChange={(e) => {
-                    let cep = e.target.value.replace('-','');
-                    cep = cep.replace(' ','')
-                    if(cep !== this.state.cep && cep.length === 8){
-                      this.getInformaçõesCep(cep);
-                      this.getInformaçõesLocal(cep);
-                    }
-                    this.setState({ cep: cep });
-                  }}
-                >
-                  {() => (
-                    <TextFieldM
-                      variant="filled"
-                      style={{
-                        width: '100%',
-                        marginTop: 10,
-                      }}
-                      label="CEP"
-                    />
-                  )}
-                </InputMask>
-              </Grid>
-              <Grid item lg={1}></Grid>
-              <Grid item lg={3} md={12} sm={12}>
-                <TextFieldM
-                  variant="filled"
-                  style={{ width: '100%', marginTop: 10 }}
-                  label="Bairro"
-                  value={this.state.bairro}
-                  onChange={(e) => {
-                    this.setState({ bairro: e.target.value });
-                  }}
-                />
-              </Grid>
-            </Grid>
-            <Grid item lg={12} container direction="row" justify="center">
-              <Grid item lg={3} md={12} sm={12}>
-                <TextFieldM
-                  variant="filled"
-                  style={{ width: '100%', marginTop: 10 }}
-                  label="Cidade"
-                  value={this.state.cidade}
-                  onChange={(e) => {
-                    this.setState({ cidade: e.target.value });
-                  }}
-                />
-              </Grid>
-              <Grid item lg={1}></Grid>
-              <Grid item lg={3} md={12} sm={12}>
-                <TextFieldM
-                  variant="filled"
-                  style={{ width: '100%', marginTop: 10 }}
-                  label="Rua"
-                  value={this.state.rua}
-                  onChange={(e) => {
-                    this.setState({ rua: e.target.value });
-                  }}
-                />
-              </Grid>
-              <Grid item lg={1}></Grid>
-              <Grid item lg={3} md={12} sm={12}>
-                <TextFieldM
-                  variant="filled"
-                  style={{ width: '100%', marginTop: 10 }}
-                  label="Numero"
-                  onChange={(e) => {
-                    this.setState({ numero: e.target.value });
-                  }}
-                  numberOnly
-                />
-              </Grid>
-            </Grid>
-
-            <Grid item lg={12} container direction="row" justify="center">
-              <Grid item lg={3} md={12} sm={12}>
-                <TextFieldM
-                  variant="filled"
-                  style={{ width: '100%', marginTop: 10 }}
-                  label="Complemento"
-                  onChange={(e) => {
-                    this.setState({ complemento: e.target.value });
-                  }}
-                />
-              </Grid>
-              <Grid item lg={1}></Grid>
-              <Grid item lg={3} md={12} sm={12}>
-              <InputMask
-                  mask="aa"
-                  disabled={false}
-                  maskChar=" "
-                  value={this.state.estado}
-                  onChange={(e) => {
-                    this.setState({ estado: e.target.value });
-                  }}
-                >
-                  {() => (
-                    <TextFieldM
-                      variant="filled"
-                      id="outlined-name"
-                      style={{
-                        width: '100%',
-                        marginTop: 10,
-                      }}
-                      label="Estado"
-                    />
-                  )}
-                </InputMask>
-              </Grid>
-              <Grid item lg={1} />
-              <Grid item lg={3} md={12} sm={12} />
-            </Grid>
-            <Grid item container lg={12} md={12} sm={12} justify="center">
-              <p
-                style={{
-                  fontFamily: 'Poppins',
-                  fontWeight: 'bold',
-                }}
+          <form
+            onSubmit={handleSubmit((data) => {
+              enviar(data);
+            })}
+          >
+            <Grid container spacing={2} style={{ marginTop: 16 }}>
+              <Grid
+                item
+                lg={6}
+                md={6}
+                sm={12}
+                xm={12}
+                spacing={3}
+                container
+                direction="row"
+                justify="center"
               >
-                Tipo de entrega
-              </p>
-            </Grid>
-            <Grid
-              item
-              lg={12}
-              container
-              md={12}
-              sm={12}
-              justify="center"
-              alignItems="center"
-            >
-              <Grid item lg={2} md={6} sm={4}>
-                <Box
-                  onClick={() => {
-                    this.setState({ deliverySelected: 'Pac' });
-                    this.setState({ borderColorPac: 'red' });
-                    this.setState({ opacityPac: 1 });
-                    this.setState({ opacitySedex: 0.5 });
-                    this.setState({ borderColorSedex: 'black' });
-                    this.setState({ priceFrete: this.state.pricePac });
-                  }}
-                  display="flex"
-                  style={{ cursor: 'pointer', opacity: this.state.opacityPac}}
-                  flexDirection="column"
-                  height="55%"
-                  alignItems="center"
-                  borderColor={this.state.borderColorPac}
-                  borderRadius={16}
-                  {...styles.boxStyle}
-                >
-                  <div style={{ paddingBottom: '15px' }}>
-                    <img src={Pac} alt="React Logo" />
-                  </div>
-                  <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
-                    {this.state.pricePac}
-                  </p>
-                  <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
-                    {this.state.diasUteisPac} dias úteis
-                  </p>
-                </Box>
-              </Grid>
-
-              <Grid item lg={2} md={6} sm={4}>
-                <Box
-                  onClick={() => {
-                    this.setState({ deliverySelected: 'Sedex' });
-                    this.setState({ borderColorSedex: 'red' });
-                    this.setState({ opacitySedex: 1 });
-                    this.setState({ opacityPac: 0.5 });
-                    this.setState({ borderColorPac: 'black' });
-                    this.setState({ priceFrete: this.state.priceSedex });
-                  }}
-                  style={{ cursor: 'pointer', opacity: this.state.opacitySedex }}
-                  display="flex"
-                  borderColor={this.state.borderColorSedex}
-                  height="55%"
-                  borderRadius={16}
-                  flexDirection="column"
-                  alignItems="center"
-                  {...styles.boxStyle}
-                >
-                  <div style={{ paddingBottom: '15px' }}>
-                    <img src={Sedex} alt="React Logo" />
-                  </div>
-                  <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
-                    {this.state.priceSedex}
-                  </p>
-                  <p style={{ fontFamily: 'Poppins', fontWeight: 'bold' }}>
-                    {this.state.diasUteisSedex} dias úteis
-                  </p>
-                </Box>
-              </Grid>
-            </Grid>
-            <Grid
-              item
-              justify="center"
-              alignItems="center"
-              container
-              lg={12}
-              md={12}
-              sm={12}
-            >
-              <Grid item lg={1} md={12}>
-                <MuiThemeProvider theme={theme}>
-                  <div
-                    style={{
-                      ...Estilos.flexRowStandard,
-                      marginTop: '20px',
-                      justifyContent: 'flex-end',
-                      fontFamily: 'Poppins',
-                    }}
+                {/* Nome */}
+                <Grid item lg={6} md={6} sm={6} xm={12}>
+                  <TextField
+                    label="Nome"
+                    name="nome"
+                    id="Nome"
+                    type="text"
+                    placeholder="Digite Seu Nome"
+                    fullWidth
+                    variant="filled"
+                    inputRef={register}
+                  />
+                </Grid>
+                {/* Telefone */}
+                <Grid item lg={6} md={6} sm={6} xm={12}>
+                  <Controller
+                    as={InputMask}
+                    control={control}
+                    name="telefone"
+                    mask="(99)99999-9999"
+                    maskChar=" "
                   >
-                    <Link
-                    style={{
-                      textDecoration: 'none',
-                    }}
-                      to={{
-                        pathname: '/sumario',
-                        state: {
-                          totalPedido: location.state.totalPedido,
-                          cepEndereco: location.state.cepEndereco,
-                          entregaSelecionada: this.state.deliverySelected,
-                          totalFrete: this.state.priceFrete,
-                          endereco: {
-                            telefone: this.state.telefone,
-                            bairro: this.state.bairro,
-                            rua: this.state.rua,
-                            cpf: this.state.cpf,
-                            cidade: this.state.cidade,
-                            numero: this.state.numero,
-                            complemento: this.state.complemento,
-                            nome: this.state.nome + ' ' + this.state.sobrenome,
-                          },
-                        },
+                    {() => (
+                      <TextField
+                        label="Telefone"
+                        id="Telefone"
+                        type="text"
+                        placeholder="Digite Seu Telefone"
+                        variant="filled"
+                        numberOnly
+                        fullWidth
+                      />
+                    )}
+                  </Controller>
+                </Grid>
+                {/* CPF */}
+                <Grid item lg={6} md={6} sm={6} xm={12}>
+                  <Controller
+                    as={InputMask}
+                    control={control}
+                    mask="999.999.999-99"
+                    name="cpf"
+                    maskChar=" "
+                  >
+                    {() => (
+                      <TextField
+                        label="CPF"
+                        id="CPF"
+                        type="text"
+                        placeholder="Digite Seu CPF"
+                        variant="filled"
+                        fullWidth
+                      />
+                    )}
+                  </Controller>
+                </Grid>
+                {/* CEP */}
+                <Grid item lg={6} md={6} sm={6} xm={12}>
+                  <Controller
+                    control={control}
+                    as={InputMask}
+                    mask="99999-999"
+                    disabled={false}
+                    maskChar=" "
+                    name="cep"
+                  >
+                    {() => (
+                      <TextField
+                        label="CEP"
+                        id="CEP"
+                        type="text"
+                        placeholder="Digite Seu CEP"
+                        variant="filled"
+                        fullWidth
+                      />
+                    )}
+                  </Controller>
+                </Grid>
+                {/* Bairro */}
+                <Grid item lg={6} md={6} sm={6} xm={12}>
+                  <Controller
+                    as={TextField}
+                    control={control}
+                    label="Bairro"
+                    name="bairro"
+                    id="Bairro"
+                    type="text"
+                    placeholder="Digite Seu Bairro"
+                    variant="filled"
+                    fullWidth
+                  />
+                </Grid>
+                {/* Cidade */}
+                <Grid item lg={6} md={6} sm={6} xm={12}>
+                  <Controller
+                    as={TextField}
+                    control={control}
+                    label="Cidade"
+                    name="cidade"
+                    id="Cidade"
+                    type="text"
+                    placeholder="Digite Seu Cidade"
+                    variant="filled"
+                    fullWidth
+                  />
+                </Grid>
+                {/* Rua */}
+                <Grid item lg={6} md={6} sm={6} xm={12}>
+                  <Controller
+                    as={TextField}
+                    control={control}
+                    label="Rua"
+                    name="rua"
+                    id="Rua"
+                    type="text"
+                    placeholder="Digite Seu Rua"
+                    variant="filled"
+                    fullWidth
+                  />
+                </Grid>
+                {/* Numero */}
+                <Grid item lg={6} md={6} sm={6} xm={12}>
+                  <Controller
+                    as={TextField}
+                    control={control}
+                    label="Numero"
+                    name="numero"
+                    id="Numero"
+                    type="text"
+                    placeholder="Digite Seu Numero"
+                    variant="filled"
+                    fullWidth
+                    numberOnly
+                  />
+                </Grid>
+                {/* Complemento */}
+                <Grid item lg={6} md={6} sm={6} xm={12}>
+                  <Controller
+                    as={TextField}
+                    control={control}
+                    TextField
+                    label="Complemento"
+                    name="complemento"
+                    id="Complemento"
+                    type="text"
+                    placeholder="Digite Seu Complemento"
+                    variant="filled"
+                    fullWidth
+                  />
+                </Grid>
+                {/* Estado */}
+                <Grid item lg={6} md={6} sm={6} xm={12}>
+                  <Controller
+                    as={InputMask}
+                    control={control}
+                    mask="aa"
+                    name="estado"
+                    maskChar=" "
+                  >
+                    {() => (
+                      <TextField
+                        label="Estado"
+                        id="Estado"
+                        type="text"
+                        placeholder="Digite Seu Estado"
+                        variant="filled"
+                        fullWidth
+                      />
+                    )}
+                  </Controller>
+                </Grid>
+              </Grid>
+              <Grid container item lg={6} md={6} sm={12} xm={12}>
+                <Grid item lg={12} md={12} sm={12} xm={12}>
+                  <Typography
+                    color="secondary"
+                    variant="h4"
+                    style={{ textAlign: 'center' }}
+                  >
+                    Tipo de entrega
+                  </Typography>
+                </Grid>
+                <Grid
+                  item
+                  lg={12}
+                  container
+                  md={12}
+                  sm={12}
+                  justify="center"
+                  alignItems="center"
+                >
+                  <Grid item lg={6} md={6} sm={4}>
+                    <Box
+                      onClick={() => {
+                        setDeliverySelected('Pac');
+                        setOpacitySedex(0.5);
+                        setOpacityPac(1);
+                        setpriceFrete(pricePac);
+                      }}
+                      display="flex"
+                      style={{
+                        cursor: 'pointer',
+                        opacity: opacityPac,
+                      }}
+                      flexDirection="column"
+                      alignItems="center"
+                      borderRadius={16}
+                    >
+                      <Typography>Pac</Typography>
+                      <Typography>{diasUteisPac} dias úteis</Typography>
+                      <Typography>{pricePac}</Typography>
+                    </Box>
+                  </Grid>
+
+                  <Grid item lg={6} md={6} sm={4}>
+                    <Box
+                      onClick={() => {
+                        setDeliverySelected('Sedex');
+                        setOpacitySedex(1);
+                        setOpacityPac(0.5);
+                        setpriceFrete(priceSedex);
+                      }}
+                      style={{
+                        cursor: 'pointer',
+                        opacity: opacitySedex,
+                        border: 3,
+                        padding: 40,
+                      }}
+                      display="flex"
+                      borderRadius={16}
+                      flexDirection="column"
+                      alignItems="center"
+                    >
+                      <Typography>Sedex</Typography>
+                      <Typography>{diasUteisSedex} dias úteis</Typography>
+                      <Typography>{priceSedex}</Typography>
+                    </Box>
+                  </Grid>
+                </Grid>
+                <Grid
+                  item
+                  justify="center"
+                  alignItems="center"
+                  container
+                  lg={12}
+                  md={12}
+                  sm={12}
+                >
+                  <Grid item lg={2} md={2}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                      style={{
+                        width: 120,
+                        height: 50,
+                        textDecoration: 'none',
                       }}
                     >
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        style={{
-                          width: 120,
-                          height: 50,
-                          textDecoration: 'none',
-                        }}
-                        onClick={() => {
-                          this.enviar();
-                        }}
-                      >
-                        Continuar
-                      </Button>
-                    </Link>
-                  </div>
-                </MuiThemeProvider>
+                      Continuar
+                    </Button>
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
-          </>
-        )}
-      </>
-    );
-  }
-}
+          </form>
+        </>
+      )}
+    </>
+  );
+};
 export default withNav(withAnimation(Endereco));
