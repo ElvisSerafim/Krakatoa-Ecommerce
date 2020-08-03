@@ -27,16 +27,16 @@ const Endereco = ({ location, history }) => {
 
   const { register, handleSubmit, control, setValue } = useForm({
     defaultValues: {
-      estado: usuario.endereco.estado,
-      nome: usuario.nome,
-      telefone: usuario.telefone,
-      cep: usuario.endereco.cep,
-      cpf: usuario.cpf,
-      bairro: usuario.endereco.bairro,
-      cidade: usuario.endereco.cidade,
-      rua: usuario.endereco.rua,
-      numero: usuario.endereco.numero,
-      complemento: usuario.endereco.complemento,
+      telefone: usuario.telefone ? usuario.telefone : '',
+      nome: usuario.nome ? usuario.nome : '',
+      estado: usuario.endereco ? usuario.endereco.estado : '',
+      cep: usuario.endereco ? usuario.endereco.cep : '',
+      cpf: usuario.cpf ? usuario.cpf : '',
+      bairro: usuario.endereco ? usuario.endereco.bairro : '',
+      cidade: usuario.endereco ? usuario.endereco.cidade : '',
+      rua: usuario.endereco ? usuario.endereco.rua : '',
+      numero: usuario.endereco ? usuario.endereco.numero : '',
+      complemento: usuario.endereco ? usuario.endereco.complemento : '',
     },
   });
 

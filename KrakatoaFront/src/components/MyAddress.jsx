@@ -15,17 +15,16 @@ const MyAddress = () => {
   const dispatch = useDispatch();
   const Redux = useSelector((state) => state.user);
   const { token, user: usuario } = Redux;
-
   const { register, handleSubmit, control } = useForm({
     defaultValues: {
-      estado: usuario.endereco.estado,
-      cep: usuario.endereco.cep,
-      cpf: usuario.endereco.cpf,
-      bairro: usuario.endereco.bairro,
-      cidade: usuario.endereco.cidade,
-      rua: usuario.endereco.rua,
-      numero: usuario.endereco.numero,
-      complemento: usuario.endereco.complemento,
+      estado: usuario.endereco ? usuario.endereco.estado : '',
+      cep: usuario.endereco ? usuario.endereco.cep : '',
+      cpf: usuario.cpf ? usuario.cpf : '',
+      bairro: usuario.endereco ? usuario.endereco.bairro : '',
+      cidade: usuario.endereco ? usuario.endereco.cidade : '',
+      rua: usuario.endereco ? usuario.endereco.rua : '',
+      numero: usuario.endereco ? usuario.endereco.numero : '',
+      complemento: usuario.endereco ? usuario.endereco.complemento : '',
     },
   });
 
