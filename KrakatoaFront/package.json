@@ -16,6 +16,7 @@
     "cielo": "^2.3.1",
     "cleave.js": "^1.5.10",
     "clsx": "^1.1.0",
+    "frete": "^0.2.4",
     "generate-safe-id": "^1.0.3",
     "immer": "^7.0.7",
     "jsonwebtoken": "^8.5.1",

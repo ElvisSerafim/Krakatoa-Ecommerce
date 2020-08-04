@@ -66,7 +66,7 @@ export default function CustomizedTables({ totalSumario, actualTotal }) {
   }, [allProducts]);
 
   return (
-    <Paper style={{ width: '100%', height: '100%' }}>
+    <Paper style={{ backgroundColor: '#D2C9C7', width: '100%', height: '100%' }}>
       <TableContainer className={classes.table}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
