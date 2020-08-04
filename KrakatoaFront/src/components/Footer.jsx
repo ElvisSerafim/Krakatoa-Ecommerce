@@ -133,7 +133,7 @@ const Footer = () => {
                     Quem Somos
                   </Typography>
                 </a>
-                <a href="/tipo/entrega" style={{ textDecoration: 'none' }}>
+                <a href="/prazoEntrega" style={{ textDecoration: 'none' }}>
                   <Typography variant="h6" color="textSecondary">
                     Prazo de Entrega
                   </Typography>
@@ -143,7 +143,7 @@ const Footer = () => {
                     Nossas Políticas
                   </Typography>
                 </a>
-                <a href="/tipo/pagamento" style={{ textDecoration: 'none' }}>
+                <a href="/revenda" style={{ textDecoration: 'none' }}>
                   <Typography variant="h6" color="textSecondary">
                     Revenda
                   </Typography>

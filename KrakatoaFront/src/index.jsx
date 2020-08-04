@@ -18,6 +18,8 @@ import Detalhes from './pages/Detalhes';
 import MyAddress from './pages/MyAddress';
 import Pedidos from './pages/Pedidos';
 import Politicas from './pages/Politicas';
+import Revenda from './pages/Revenda';
+import PrazoEntrega from './pages/PrazoEntrega';
 import RecuperarSenha from './pages/RecuperarSenha';
 import RedefinirSenha from './pages/RedefinirSenha';
 
@@ -51,6 +53,8 @@ ReactDOM.render(
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/sobre" component={Sobre} />
+              <Route path="/prazoEntrega" component={PrazoEntrega} />
+              <Route path="/revenda" component={Revenda} />
               <Route path="/contato" component={Contato} />
               <Route
                 path="/cangas"

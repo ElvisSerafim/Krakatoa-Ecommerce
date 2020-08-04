@@ -335,6 +335,9 @@ const Sumario = ({ location }) => {
                         state: {
                           totalPedido: location.state.totalPedido,
                           cepEndereco: location.state.cepEndereco,
+                          dadosCep: location.state.dadosCep,
+                          altura: location.state.altura,
+                          peso: location.state.pesoTotal
                         },
                       }}
                     >
