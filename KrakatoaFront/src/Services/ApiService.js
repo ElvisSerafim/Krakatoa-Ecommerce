@@ -1,7 +1,6 @@
 /* eslint-disable quote-props */
 /* eslint-disable consistent-return */
 const URL = 'https://testekrakatoa.tk/api2/';
-const frete = require('frete');
 
 const ApiService = {
   Cadastro: async (data) => {

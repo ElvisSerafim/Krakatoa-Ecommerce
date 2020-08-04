@@ -28,15 +28,6 @@ const Politicas = () => {
         </Typography>
 
         <Typography variant="h6" style={{ paddingBottom: 10 }}>
-          Você pode solicitar a troca ou devolução dos seus produtos em até 7
-          dias corridos, a partir do recebimento do pedido. Entre em contato com
-          a nossa Central de Relacionamento, através do e-mail
-          atendimento@krakatoacangas.com.br, ou por tel (71) 3375-3856,
-          informando o interesse em devolução ou troca do produto e solicite
-          também uma reserva do novo produto que lhe interessa.
-        </Typography>
-
-        <Typography variant="h6" style={{ paddingBottom: 10 }}>
           O produto enviado não deve ter indícios de uso ou avarias e deve
           seguir etiquetas afixadas. Caso o produto não chegue em boas condições
           de uso, a KRAKATOA poderá recusá-lo, devolvendo o mesmo para o
