@@ -61,7 +61,7 @@ const ApiService = {
       };
       const request = await fetch(url, requestInfo);
       if (request.ok) {
-        return request.json();
+        return 'ok';
       }
       throw new Error('Não foi possivel alterar seus dados');
     } catch (error) {
@@ -82,7 +82,7 @@ const ApiService = {
       };
       const request = await fetch(url, requestInfo);
       if (request.ok) {
-        return request.json();
+        return 'ok';
       }
       throw new Error('Não foi possivel continuar com a compra');
     } catch (error) {
