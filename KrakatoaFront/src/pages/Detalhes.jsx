@@ -71,7 +71,7 @@ function Detalhes() {
         }
       }
       const request = await api.AtualizaUsuario({ ...data, token });
-      if (request) {
+      if (request === 'ok') {
         const { nome, telefone } = data;
         const SendRedux = { nome, telefone };
         dispatch(userDetails(SendRedux));
