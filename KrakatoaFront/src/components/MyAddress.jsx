@@ -39,7 +39,7 @@ const MyAddress = () => {
       if (data.estado === '') throw new Error('Estado Vazio');
       if (data.complemento === '') throw new Error('Complemento Vazio');
       const request = await api.UsuarioEndereco({ ...data, token });
-      if (request) {
+      if (request === 'ok') {
         dispatch(userEndereco(data));
         setOpen(true);
         setMessage('Dados Alterados com Sucesso');
@@ -84,13 +84,14 @@ const MyAddress = () => {
             <Controller
               as={InputMask}
               control={control}
-              name="cep"
               mask="99999-999"
+              name="cep"
               maskChar=" "
             >
               {() => (
                 <TextField
                   required
+                  name="cep"
                   label="CEP"
                   id="CEP"
                   type="text"
@@ -165,26 +166,17 @@ const MyAddress = () => {
             />
           </Grid>
           <Grid item lg={6} md={6} sm={6} xs={6}>
-            <Controller
-              as={InputMask}
-              control={control}
+            <TextField
+              required
               name="numero"
-              mask="999"
-              maskChar=" "
-            >
-              {() => (
-                <TextField
-                  required
-                  label="Numero"
-                  id="Numero"
-                  type="text"
-                  placeholder="Digite Seu Numero"
-                  fullWidth
-                  variant="filled"
-                  inputRef={register}
-                />
-              )}
-            </Controller>
+              label="Numero"
+              id="Numero"
+              type="text"
+              placeholder="Digite Seu Numero"
+              variant="filled"
+              fullWidth
+              inputRef={register}
+            />
           </Grid>
           <Grid item lg={6} md={6} sm={6} xs={6}>
             <TextField
@@ -210,6 +202,7 @@ const MyAddress = () => {
               {() => (
                 <TextField
                   required
+                  name="estado"
                   label="Estado"
                   id="Estado"
                   type="text"

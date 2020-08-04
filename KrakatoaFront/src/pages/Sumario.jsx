@@ -150,6 +150,8 @@ const Sumario = ({ location }) => {
   const [open, setOpen] = useState(false);
   const [status, Setstatus] = useState('error');
   const [msg, setMsg] = useState('Erro');
+  const [valorFrete, setFrete] = useState('');
+  const [urlDelivery, setUrl] = useState('');
   const [pagamento, setPag] = useState('Nenhum');
   const products = useSelector((state) => state.productsCart);
   const token = useSelector((state) => state.user.token);
@@ -157,7 +159,7 @@ const Sumario = ({ location }) => {
   const history = useHistory();
   let dado;
 
-  const frete = parseFloat(location.state.totalFrete.replace(',', '.'));
+  const frete = parseFloat(valorFrete.replace(',', '.'));
   const price = (totalFinal + frete) * 100;
   const boletopag = async () => {
     const id = generateSafeId();
@@ -202,7 +204,12 @@ const Sumario = ({ location }) => {
     });
 
     setProdutosPedidos(arrayAux);
+    if (location.state !== undefined) {
+      setFrete(location.state.totalFrete);
+    }
+
   }, [products]);
+
 
   const atualizarTotal = (total) => {
     let auxTotal = 0;
@@ -342,7 +349,7 @@ const Sumario = ({ location }) => {
                       {location.state.entregaSelecionada}
                     </Typography>
                     <Typography style={styles.price} id="price">
-                      {location.state.totalFrete}
+                      {valorFrete}
                     </Typography>
                     <Typography style={styles.entrega} id="entregaTipo">
                       {location.state.entregaSelecionada}
@@ -469,7 +476,7 @@ const Sumario = ({ location }) => {
                     Total
                   </Typography>
                   <Typography style={styles.text}>
-                    R$ {totalFinal + frete}
+                    R$ {price/100}
                   </Typography>
                 </div>
                 <Divider />

@@ -31,7 +31,7 @@ import elo from '../img/elo.png';
 import Alerta from '../components/Alerta';
 import hipercard from '../img/hipercard.png';
 import mastercard from '../img/mastercard.png';
-import { credito, debito } from '../Services/pagar.js';
+import { credito, debito, cancelar } from '../Services/pagar.js';
 import withAnimation from '../higherComponents/withAnimation';
 import api from '../Services/ApiService';
 import withNav from '../higherComponents/withNav';
@@ -127,7 +127,7 @@ function getStepContent(
     id = generateSafeId();
     if (cartao === 'CreditCard') {
       dado = await credito(nome, total, numero, nome, data, cvv, id, flag);
-      if (dado.payment.returnCode == 4 || dado.payment.returnCode == 6) {
+      if (dado.payment.returnCode == 0|| dado.payment.returnCode ==11) {
         setCode('Sucesso, volte sempre!');
         setTid(dado.payment.paymentId);
         //Enviar Pedido
@@ -141,14 +141,14 @@ function getStepContent(
           idPagamento: dado.payment.paymentId,
           token: token,
         };
-        const request = await api.enviarPedido(dataa);
-        console.log(request);
+       // const request = await api.enviarPedido(dataa);
       } else {
         setCode('Ocorreu um erro na transação');
         setTid('Transação falha');
       }
     } else if (cartao === 'DebitCard') {
-      dado = await debito(nome, total, numero, nome, data, cvv, id, flag);
+      dado = await debito(nome, 100, numero, nome, data, cvv, id, flag);
+      console.log(dado);
       window.open(dado.payment.authenticationUrl);
       setCode(
         'Você será redirecionado para a pagina do seu provedor para terminar o pagamento',
@@ -164,8 +164,8 @@ function getStepContent(
         idPagamento: dado.payment.paymentId,
         token: token,
       };
-      const request = await api.enviarPedido(dataa);
-      console.log(request);
+    //  const request = await api.enviarPedido(dataa);
+     // console.log(request);
     }
   };
 
@@ -336,6 +336,9 @@ function getStepContent(
                 }}
               >
                 Próximo
+              </Button>
+              <Button onClick={cancelar}>
+              CANCELAR
               </Button>
             </Grid>
           </Grid>

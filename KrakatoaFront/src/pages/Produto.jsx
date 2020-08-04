@@ -197,8 +197,38 @@ const ProdutoPage = ({ match }) => {
         newState.produto_id = product._id;
         newState.cartId = generateSafeId();
         newState.ImageUrl = fotoAtual;
+
+        if(product.tipo === 'cangas'){
+          newState.peso = 250;
+        }
+        switch(product.categoria){
+
+          case 'batas':
+            newState.peso = 145;
+            break;
+          case 'vestidos': 
+            newState.peso = 200;
+            break;
+          case 'macaquinhos': 
+            newState.peso = 255;
+            break;
+          case 'chapeus':
+            newState.peso = 80;
+            break;
+          case 'bolsas':
+            if(size === 'Pequena' || size === 'Pequeno'){
+              newState.peso = 120;
+            }else {
+              newState.peso = 350;
+            }
+            break;
+          case 'shorts':
+            newState.peso = 80;
+            break;
+          default:
+            break;
+        }
       });
-  
       dispatch(addCart(productCart));
       setQuantity(1);
       setSize('');
