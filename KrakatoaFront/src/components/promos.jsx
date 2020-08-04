@@ -27,12 +27,12 @@ const styles = {
 const data = [
   {
     quarter: 'card',
-    title: 'Coleção de Verão!',
+    title: 'Loren Ipsum',
     size: 6,
   },
   {
     quarter: 'card2',
-    title: 'Kangas \n a Partir de \n R$29,99',
+    title: 'Loren Ipsum',
     size: 5,
   },
 ];
