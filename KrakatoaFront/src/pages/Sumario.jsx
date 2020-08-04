@@ -13,6 +13,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Paper,
 } from '@material-ui/core/';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, Redirect, useHistory } from 'react-router-dom';
@@ -20,8 +21,6 @@ import Hidden from '@material-ui/core/Hidden';
 import { removeAllProducts } from '../reducers/productsCart';
 import api from '../Services/ApiService';
 import Alerta from '../components/Alerta';
-import Pac from '../img/Pac.svg';
-import Sedex from '../img/Sedex.svg';
 import SumarioMobile from '../components/SumarioMobile';
 import TableSumario from '../components/TableSumario';
 import { boleto } from '../Services/pagar';
@@ -187,7 +186,7 @@ const Sumario = ({ location }) => {
       metodo: 'boleto',
       idPedido: id,
       idPagamento: dado.payment.paymentId,
-      token: token,
+      token,
     };
     const request = await api.enviarPedido(dataa);
     console.log(request);
@@ -205,7 +204,6 @@ const Sumario = ({ location }) => {
     });
 
     setProdutosPedidos(arrayAux);
-
     if (location.state !== undefined) {
       if (location.state.entregaSelecionada === 'Pac') {
         setUrl(Pac);
@@ -214,6 +212,7 @@ const Sumario = ({ location }) => {
       }
       setFrete(location.state.totalFrete);
     }
+
   }, [products]);
 
 
@@ -252,84 +251,79 @@ const Sumario = ({ location }) => {
             horizontal="right"
           />
           <Hidden smDown>
-            <div style={styles.flexColumn}>
-              <div style={styles.flexRow}>
+            <div style={{ ...styles.flexRow, marginTop: 32 }}>
+              <Grid item lg={12} container>
                 <Grid item lg={12} container>
-                  <Grid item lg={12} container>
-                    <TableSumario
-                      actualTotal={atualizarTotal}
-                      totalSumario={totalFinal}
-                    />
-                  </Grid>
-                  <Grid
-                    lg={12}
-                    style={{ marginTop: 32 }}
-                    container
-                    justify="center"
-                    item
-                  >
-                    <FormControl variant="outlined" style={{ width: '77%' }}>
-                      <InputLabel style={{ color: '#44323D' }}>
-                        Formas de pagamento
-                      </InputLabel>
-                      <Select
-                        onChange={handleChangePagamento}
-                        value={pagamento}
-                        label="Formas de pagamento"
-                      >
-                        <MenuItem value="Nenhum" />
-                        <MenuItem value="CARTAO">
-                          Cartão de crédito/débito
-                        </MenuItem>
-                        <MenuItem value="BOLETO">Boleto</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Grid>
+                  <TableSumario
+                    actualTotal={atualizarTotal}
+                    totalSumario={totalFinal}
+                  />
                 </Grid>
-                <div
+                <Grid
+                  lg={12}
+                  style={{ marginTop: 32 }}
+                  container
+                  justify="center"
+                  item
+                >
+                  <FormControl variant="outlined" style={{ width: '77%' }}>
+                    <InputLabel style={{ color: '#44323D' }}>
+                      Formas de pagamento
+                    </InputLabel>
+                    <Select
+                      onChange={handleChangePagamento}
+                      value={pagamento}
+                      label="Formas de pagamento"
+                    >
+                      <MenuItem value="Nenhum" />
+                      <MenuItem value="CARTAO">
+                        Cartão de crédito/débito
+                      </MenuItem>
+                      <MenuItem value="BOLETO">Boleto</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+              </Grid>
+              <div
+                style={{
+                  paddingLeft: 60,
+                  alignItems: 'center',
+                }}
+              >
+                <Paper
+                  elevation={4}
                   style={{
-                    paddingLeft: 60,
-                    alignContent: 'center',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    textAlign: 'inherit',
+                    width: '100%',
+                    textAlign: 'center',
+                    padding: 16,
+                    marginLeft: 60,
+                    backgroundColor: '#D2C9C7',
                   }}
                 >
                   <div style={{ marginBottom: 40 }}>
-                    <Typography
-                      style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
-                    >
-                      Endereço de entrega:
-                    </Typography>
+                    <Typography variant="h1">Dados de entrega:</Typography>
 
                     <div style={{ marginTop: 10 }}>
-                      <Typography
-                        style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
-                      >
+                      <Typography style={{ marginTop: 10 }} variant="h1">
                         {location.state.endereco.nome}
                       </Typography>
-                      <Typography
-                        style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
-                      >
-                        {location.state.endereco.rua},{' '}
-                        {location.state.endereco.bairro}, Numero°{' '}
-                        {location.state.endereco.numero}
+                      <Typography style={{ marginTop: 10 }} variant="h1">
+                        {location.state.endereco.telefone}
                       </Typography>
-                      <Typography
-                        style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
-                      >
+                      <Typography style={{ marginTop: 5 }} variant="h1">
+                        {location.state.endereco.rua}
+                      </Typography>
+                      <Typography style={{ marginTop: 5 }} variant="h1">
+                        {location.state.endereco.bairro}
+                      </Typography>
+                      <Typography style={{ marginTop: 5 }} variant="h1">
+                        Numero° {location.state.endereco.numero}
+                      </Typography>
+                      <Typography style={{ marginTop: 5 }} variant="h1">
                         {location.state.endereco.cidade}
                       </Typography>
-                      <Typography
-                        style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
-                      >
+                      <Typography style={{ marginTop: 5 }} variant="h1">
                         {location.state.endereco.complemento}
-                      </Typography>
-                      <Typography
-                        style={{ fontWeight: 'bold', fontFamily: 'Poppins' }}
-                      >
-                        {location.state.endereco.telefone}
                       </Typography>
                     </div>
                   </div>
@@ -340,7 +334,7 @@ const Sumario = ({ location }) => {
                     alignItems="center"
                   >
                     <Link
-                      style={{ textDecoration: 'none' }}
+                      style={{ textDecoration: 'none', width: '100%' }}
                       to={{
                         pathname: '/endereco',
                         state: {
@@ -355,57 +349,40 @@ const Sumario = ({ location }) => {
                     </Link>
                   </Box>
 
-                  <Box
-                    style={{ cursor: 'pointer', marginTop: 15 }}
-                    display="flex"
-                    borderColor="#44323D"
-                    borderRadius={16}
-                    flexDirection="column"
-                    alignItems="center"
-                    {...styles.boxStyle}
-                  >
-                    <img
-                      src={urlDelivery}
-                      id="entregaImg"
-                      style={styles.img}
-                      alt="imagem da entrega"
-                    />
+                  <Box display="flex" flexDirection="column">
+                    <Typography style={styles.price} id="Entrega">
+                      {location.state.entregaSelecionada}
+                    </Typography>
                     <Typography style={styles.price} id="price">
                       {valorFrete}
                     </Typography>
                     <Typography style={styles.entrega} id="entregaTipo">
                       {location.state.entregaSelecionada}
                     </Typography>
-                    <div style={styles.escolhido}>
-                      <Typography style={styles.escolhidoTypo}>
-                        ESCOLHIDO
-                      </Typography>
-                    </div>
                   </Box>
-                  <div style={{ width: 200, marginTop: 30 }}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      fullWidth
-                      onClick={() => {
-                        if (pagamento === 'BOLETO') {
-                          boletopag();
-                          history.push('/');
-                        } else if (pagamento === 'CARTAO') {
-                          history.push({
-                            pathname: '/checkout',
-                            state: { total: price, frete },
-                          });
-                        } else {
-                          setMsg('Por favor, insira uma forma de pagamento');
-                          setOpen(true);
-                        }
-                      }}
-                    >
-                      Concluir
-                    </Button>
-                  </div>
-                </div>
+
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={() => {
+                      if (pagamento === 'BOLETO') {
+                        boletopag();
+                        history.push('/');
+                      } else if (pagamento === 'CARTAO') {
+                        history.push({
+                          pathname: '/checkout',
+                          state: { total: price, frete },
+                        });
+                      } else {
+                        setMsg('Por favor, insira uma forma de pagamento');
+                        setOpen(true);
+                      }
+                    }}
+                  >
+                    Concluir
+                  </Button>
+                </Paper>
               </div>
             </div>
           </Hidden>

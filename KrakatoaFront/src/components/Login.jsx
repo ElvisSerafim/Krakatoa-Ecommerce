@@ -9,9 +9,7 @@ import {
   InputLabel,
   InputAdornment,
   FilledInput,
-  Backdrop,
-  Fade,
-  Modal,
+  Container,
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
@@ -19,7 +17,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import api from '../Services/ApiService';
-import {  setToken, loadUser } from '../reducers/user';
+import { setToken, loadUser } from '../reducers/user';
 import Alerta from './Alerta';
 import Cadastro from './Cadastro';
 
@@ -81,10 +79,7 @@ const styles = {
 
 const Login = () => {
   const [email, setEmail] = useState('');
-  const [emailCadastro, setEmailCadastro] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [nome, setNome] = useState('');
   const [message, setMessage] = useState('');
   const [openAlert, setOpenAlert] = useState(false);
   const [open, setOpen] = useState(false);
@@ -137,12 +132,10 @@ const Login = () => {
       throw new Error('Checar Email e Senha');
     } catch (error) {
       setOpenAlert(true);
-      setMessage('Checar Email e Senha');
+      setMessage(error.message);
       setStatus('error');
     }
   };
-
-  
 
   const handleCloseModal = () => {
     setOpen(false);
@@ -165,7 +158,13 @@ const Login = () => {
         horizontal="right"
       />
       <Grid container item lg={12} md={12} sm={12} xs={12} justify="center">
-          <Cadastro open={open} handleCloseModal={handleCloseModal} setMessage={setMessage} setStatus={setStatus} setOpenAlert={setStatus} />
+        <Cadastro
+          open={open}
+          handleCloseModal={handleCloseModal}
+          setMessage={setMessage}
+          setStatus={setStatus}
+          setOpenAlert={setStatus}
+        />
 
         <Typography
           style={{ paddingTop: 60, color: 'white' }}
@@ -175,99 +174,109 @@ const Login = () => {
           Entrar
         </Typography>
       </Grid>
-      <Grid container item lg={12} md={12} sm={12} xs={12} justify="center">
-        <div style={styles.email}>
-          <FormControl
-            variant="filled"
-            style={{ width: '100%', backgroundColor: 'white' }}
-          >
-            <InputLabel
-              style={{ width: '100%', color: 'black' }}
-              htmlFor="filled-adornment-password"
+      <Container maxWidth="xs">
+        <Grid container item lg={12} md={12} sm={12} xs={12} justify="center">
+          <div style={styles.email}>
+            <FormControl
+              variant="filled"
+              style={{ width: '100%', backgroundColor: 'white' }}
             >
-              Email
-            </InputLabel>
-            <FilledInput
-              id="filled-adornment-password"
-              value={email}
-              style={{ width: '100%', color: 'black' }}
-              onChange={(event) => {
-                setEmail(event.target.value);
+              <InputLabel
+                style={{ width: '100%', color: 'black' }}
+                htmlFor="filled-adornment-password"
+              >
+                Email
+              </InputLabel>
+              <FilledInput
+                id="filled-adornment-password"
+                value={email}
+                style={{ width: '100%', color: 'black' }}
+                onChange={(event) => {
+                  setEmail(event.target.value);
+                }}
+              />
+              <InputAdornment position="end" />
+            </FormControl>
+          </div>
+        </Grid>
+        <Grid container item justify="center" lg={12} md={12} sm={12} xs={12}>
+          <div style={styles.senha}>
+            <FormControl
+              variant="filled"
+              style={{ width: '100%', backgroundColor: 'white' }}
+            >
+              <InputLabel
+                style={{ width: '100%', color: 'black' }}
+                htmlFor="filled-adornment-password"
+              >
+                Senha
+              </InputLabel>
+              <FilledInput
+                id="filled-adornment-password"
+                type={values.showPassword ? 'text' : 'password'}
+                value={values.password}
+                style={{ width: '100%', color: 'black' }}
+                onChange={handleChange('password')}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
               }}
-            />
-            <InputAdornment children={false} position="end"/>
-          </FormControl>
-        </div>
-      </Grid>
-      <Grid container item  justify="center" lg={12} md={12} sm={12} xs={12}>
-        <div style={styles.senha}>
-          <FormControl
-            variant="filled"
-            style={{ width: '100%', backgroundColor: 'white' }}
-          >
-            <InputLabel
-              style={{ width: '100%', color: 'black' }}
-              htmlFor="filled-adornment-password"
             >
-              Senha
-            </InputLabel>
-            <FilledInput
-              id="filled-adornment-password"
-              type={values.showPassword ? 'text' : 'password'}
-              value={values.password}
-              style={{ width: '100%', color: 'black' }}
-              onChange={handleChange('password')}
-              endAdornment={(
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              )}
-            />
-          </FormControl>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            <a href="/recuperarSenha" style={{ textDecoration: 'none', decoration: 'none' }}>
+              <a
+                href="/recuperarSenha"
+                style={{ textDecoration: 'none', decoration: 'none' }}
+              >
+                <Typography
+                  variant="body2"
+                  style={{ fontSize: '1.0em' }}
+                  color="textSecondary"
+                >
+                  Perdeu a senha?
+                </Typography>
+              </a>
+
               <Typography
                 variant="body2"
-                style={{ fontSize: '1.0em' }}
-                color='textSecondary'
+                style={{ fontSize: '1.0em', cursor: 'pointer' }}
+                color="textSecondary"
+                onClick={() => {
+                  setOpen(true);
+                }}
               >
-                Perdeu a senha?
+                Cadastrar-se
               </Typography>
-            </a>
-
-            <Typography
-              variant="body2"
-              style={{ fontSize: '1.0em', cursor: 'pointer' }}
-              color='textSecondary'
-              onClick={() => {
-                setOpen(true);
-              }}
-            >
-              Cadastrar-se
-            </Typography>
+            </div>
           </div>
-        </div>
-      </Grid>
-      <Grid item container lg={12} md={12} sm={12} xs={12} justify="center">
-        <div style={styles.botaoEntrar}>
-          <Button variant="contained" color="primary" fullWidth onClick={login}>
-            Entrar
-          </Button>
-        </div>
-      </Grid>
+        </Grid>
+        <Grid item container lg={12} md={12} sm={12} xs={12} justify="center">
+          <div style={styles.botaoEntrar}>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={login}
+            >
+              Entrar
+            </Button>
+          </div>
+        </Grid>
+      </Container>
     </>
   );
 };

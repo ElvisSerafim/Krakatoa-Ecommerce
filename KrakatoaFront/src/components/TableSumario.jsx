@@ -8,7 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Typography, Avatar, Paper } from '@material-ui/core/';
+import { Typography, Paper } from '@material-ui/core/';
 import Estilos from '../Estilos';
 
 const StyledTableCell = withStyles((theme) => ({
@@ -42,8 +42,11 @@ const useStyles = makeStyles((theme) => ({
     height: 70,
   },
   large: {
-    width: theme.spacing(11),
-    height: theme.spacing(11),
+    objectPosition: 'top',
+    borderRadius: 100,
+    objectFit: 'cover',
+    width: theme.spacing(14),
+    height: theme.spacing(14),
   },
 }));
 
@@ -79,10 +82,14 @@ export default function CustomizedTables({ totalSumario, actualTotal }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {allProducts.map((row, i,index) => (
+            {allProducts.map((row, i, index) => (
               <StyledTableRow key={index}>
                 <StyledTableCell component="th" scope="row">
-                  <Avatar src={row.ImageUrl} className={classes.large} />
+                  <img
+                    src={row.ImageUrl}
+                    alt={row.nome}
+                    className={classes.large}
+                  />
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row">
                   <div style={{ ...Estilos.flexRowCENTER2 }}>{row.nome}</div>
