@@ -1,9 +1,9 @@
 var cielo_1 = require('cielo');
 var cieloParams = {
-    merchantId: '7a8b7c9c-4bb7-4caf-b967-f7192ab0cf72',
-    merchantKey: 'WTXTZZSTBSBGCKSYAJBIOZJXJDRBNMAEHQEGTKNJ',
-    sandbox: true,
-    debug: true // Opcional - Exibe os dados enviados na requisição para a Cielo
+    merchantId: '6250f814-b45a-45a3-b221-d69b2e822871',
+    merchantKey: 'eZjnxnJZdw7dm78T0NJOeMo9va5z4AaKQKpq3fje',
+    sandbox: false,
+    debug: false // Opcional - Exibe os dados enviados na requisição para a Cielo
 };
 var cielo = new cielo_1.Cielo(cieloParams);
 const credito = (nome, amount, cardNumber, holder, exp,cv, id, bandeira)=>{
@@ -45,8 +45,8 @@ const debito = (nome, amount, cardNumber, holder, exp, cv, id, bandeira)=> {
         merchantOrderId: id,
         payment: {  
             type: cielo_1.EnumCardType.DEBIT,
+            Authenticate:true,
             amount: amount,
-            provider: "Simulado",
             returnUrl: "https://testekrakatoa.tk",
        debitCard:{  
           cardNumber: cardNumber,
@@ -54,7 +54,7 @@ const debito = (nome, amount, cardNumber, holder, exp, cv, id, bandeira)=> {
           expirationDate: exp,
           securityCode: cv,
           brand: bandeira
-      }
+          }
         }
     }
 
@@ -107,6 +107,19 @@ const boleto = (amount,nome, cpf, rua,
     })
     return status;
 }
- 
+const cancelar = ()=>{
+  const cancelarParams = {
+    paymentId: 'a7811dfb-b55a-4859-a068-8a7f83e86669',
+    amount: 1, // Caso o valor não seja definido, cancela a venda no valor total
+  };
+  
+  cielo.creditCard.cancelTransaction(cancelarParams)
+    .then((data) => {
+        return console.log(data);
+    })
+    .catch((err) => {
+        return console.error('ERRO', err);
+    })
+}
 
-export {credito,debito,boleto};
+export {cancelar,credito,debito,boleto};

@@ -68,7 +68,7 @@ const Endereco = ({ location, history }) => {
           throw new Error(
             'Você deve inserir um número de telefone válido com DDD',
           );
-        case data.cpf.length !== 14:
+        case data.cpf.length !== 11:
           throw new Error('CPF inválido!');
         case cepEnvio.length !== 8:
           throw new Error('CEP inválido!');

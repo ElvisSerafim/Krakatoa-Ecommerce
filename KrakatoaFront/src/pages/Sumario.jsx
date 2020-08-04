@@ -205,7 +205,6 @@ const Sumario = ({ location }) => {
 
     setProdutosPedidos(arrayAux);
     if (location.state !== undefined) {
-      
       setFrete(location.state.totalFrete);
     }
 

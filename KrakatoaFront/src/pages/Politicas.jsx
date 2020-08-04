@@ -3,28 +3,17 @@ import { Container, Typography } from '@material-ui/core/';
 import withAnimation from '../higherComponents/withAnimation';
 import withNav from '../higherComponents/withNav';
 
-
-
 const Politicas = () => {
   return (
     <>
-      <Container maxWidth="lg" style={{ marginBottom: 64 }}>
-        <Typography variant="h1" style={{paddingTop:20, paddingBottom: 20 }}>
+      <Container maxWidth="lg" style={{ marginBottom: 64, marginTop: 64 }}>
+        <Typography variant="h1" style={{ paddingTop: 20, paddingBottom: 20 }}>
           Trocas e Cancelamento
         </Typography>
         <Typography variant="h6" style={{ paddingBottom: 10 }}>
           Nossa política de troca e devolução tem o compromisso de garantir a
           satisfação de nossos clientes, e para isso foi criada com base no
           Código de Defesa do Consumidor.
-        </Typography>
-
-        <Typography variant="h6" style={{ paddingBottom: 10 }}>
-          Você pode solicitar a troca ou devolução dos seus produtos em até 7
-          dias corridos, a partir do recebimento do pedido. Entre em contato com
-          a nossa Central de Relacionamento, através do e-mail
-          atendimento@krakatoacangas.com.br, ou por tel (71) 3375-3856,
-          informando o interesse em devolução ou troca do produto e solicite
-          também uma reserva do novo produto que lhe interessa.
         </Typography>
 
         <Typography variant="h6" style={{ paddingBottom: 10 }}>
@@ -77,16 +66,16 @@ const Politicas = () => {
           produtos serão devolvidos para o cliente nas seguintes situações:
         </Typography>
         <Typography variant="h6">
-          • ¤ Ausência de defeito (não constatação do dano apontado pelo
+          • Ausência de defeito (não constatação do dano apontado pelo
           cliente).
         </Typography>
 
         <Typography variant="h6">
-          • ¤ Indícios de uso inadequado do produto.
+          • Indícios de uso inadequado do produto.
         </Typography>
 
         <Typography variant="h6" style={{ paddingBottom: 10 }}>
-          • ¤ Indícios de dano acidental ou provocado.
+          • Indícios de dano acidental ou provocado.
         </Typography>
 
         <Typography variant="h6" style={{ paddingBottom: 20 }}>
@@ -119,13 +108,13 @@ const Politicas = () => {
         </Typography>
 
         <Typography variant="h6">
-          • ¤ Caso a compra tenha sido efetuada por deposito o estorno será
+          • Caso a compra tenha sido efetuada por deposito o estorno será
           feito na conta bancária do cliente, no prazo de até 48 H após a
           solicitação.
         </Typography>
 
         <Typography variant="h6" style={{ paddingBottom: 20 }}>
-          • ¤ Em casos excepcionais, em que não possa ser feito o estorno no
+          • Em casos excepcionais, em que não possa ser feito o estorno no
           cartão de crédito do cliente, será feito o estorno via deposito em
           conta em prazo de até 5 dias uteis, após solicitação.
         </Typography>
@@ -137,18 +126,18 @@ const Politicas = () => {
           iniciativa da KRAKATOA será automático nas seguintes situações:
         </Typography>
         <Typography variant="h6">
-          • ¤ Impossibilidade de execução do débito correspondente à compra no
+          • Impossibilidade de execução do débito correspondente à compra no
           cartão de crédito.
         </Typography>
         <Typography variant="h6">
-          • ¤ Inconsistência de dados preenchidos no pedido.
+          • Inconsistência de dados preenchidos no pedido.
         </Typography>
         <Typography variant="h6">
-          • ¤ Não pagamento do boleto bancário.
+          • Não pagamento do boleto bancário.
         </Typography>
-        <Typography variant="h6">• ¤ Ausência / Erro em estoque</Typography>
+        <Typography variant="h6">• Ausência / Erro em estoque</Typography>
         <Typography variant="h6">
-          • ¤ No caso de erro de estoque , entramos em contato com cliente
+          • No caso de erro de estoque , entramos em contato com cliente
           oferencendo a troca por outra mercadoria, caso não tenhamos sucesso no
           contato em 24H o pedido é automaticamente cancelado.
         </Typography>

@@ -69,8 +69,7 @@ const Checkout = () => {
     id = generateSafeId();
     if (cartao === 'CreditCard') {
       dado = await credito(nome, total, numero, nome, data, cvv, id, flag);
-
-      if (dado.payment.returnCode == 4 || dado.payment.returnCode == 6) {
+      if (dado.payment.returnCode == 0 || dado.payment.returnCode == 11) {
         setPag(1);
         setCode('Sucesso, volte sempre!');
         setTid(dado.payment.paymentId);
@@ -86,7 +85,6 @@ const Checkout = () => {
           token: token,
         };
         const request = await api.enviarPedido(dataa);
-        console.log(request);
         dispatch(removeAllProducts());
       } else {
         setCode('Ocorreu um erro na transação');
@@ -112,7 +110,6 @@ const Checkout = () => {
         token: token,
       };
       const request = await api.enviarPedido(dataa);
-      console.log(request);
     }
   };
   return (
