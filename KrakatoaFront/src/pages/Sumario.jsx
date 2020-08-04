@@ -205,11 +205,7 @@ const Sumario = ({ location }) => {
 
     setProdutosPedidos(arrayAux);
     if (location.state !== undefined) {
-      if (location.state.entregaSelecionada === 'Pac') {
-        setUrl(Pac);
-      } else {
-        setUrl(Sedex);
-      }
+      
       setFrete(location.state.totalFrete);
     }
 
@@ -340,6 +336,9 @@ const Sumario = ({ location }) => {
                         state: {
                           totalPedido: location.state.totalPedido,
                           cepEndereco: location.state.cepEndereco,
+                          dadosCep: location.state.dadosCep,
+                          altura: location.state.altura,
+                          peso: location.state.pesoTotal
                         },
                       }}
                     >

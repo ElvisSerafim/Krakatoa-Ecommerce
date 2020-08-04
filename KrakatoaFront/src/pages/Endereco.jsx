@@ -25,6 +25,7 @@ const Endereco = ({ location, history }) => {
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('');
   const [open, setOpen] = useState(false);
+  const [dadosEntrega, setDadosEntrega] = useState('');
   const [pricePac, setpricePac] = useState('');
   const [priceSedex, setpriceSedex] = useState('');
   const [priceFrete, setpriceFrete] = useState('');
@@ -111,6 +112,9 @@ const Endereco = ({ location, history }) => {
             state: {
               totalPedido: location.state.totalPedido,
               cepEndereco: cepEnvio,
+              dadosCep: dadosEntrega,
+              altura: location.state.altura,
+              peso: location.state.pesoTotal,
               entregaSelecionada: deliverySelected,
               totalFrete: priceFrete,
               endereco: {
@@ -156,6 +160,7 @@ const Endereco = ({ location, history }) => {
       altura: location.state.altura
     };
     const request = await api.CalcPrazoPreco(data);
+    setDadosEntrega(request);
     setDiasUteisSedex(request.tempo[0].prazoEntrega);
     setDiasUteisPac(request.tempo[1].prazoEntrega);
     setpriceSedex(request.sedex[0].valor);
@@ -166,6 +171,7 @@ const Endereco = ({ location, history }) => {
   useEffect(() => {
     try {
       getInformaçõesLocal(location.state.cepEndereco);
+      setDadosEntrega(location.state.dadosCep);
       setDiasUteisSedex(location.state.dadosCep.tempo[0].prazoEntrega);
       setDiasUteisPac(location.state.dadosCep.tempo[1].prazoEntrega);
       setpriceSedex(location.state.dadosCep.sedex[0].valor);
