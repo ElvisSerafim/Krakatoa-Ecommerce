@@ -101,8 +101,6 @@ const Home = () => {
 
   return (
     <>
-      <Topo />
-      <Navbar />
       <Grid item lg={12} md={12}>
         <HomeComp />
       </Grid>
@@ -415,7 +413,6 @@ const Home = () => {
           </Grid>
         </Grid>
       </Container>
-      <Footer />
     </>
   );
 };
