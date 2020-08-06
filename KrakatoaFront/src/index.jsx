@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import LinearProgress from '@material-ui/core/LinearProgress';
+
 import { Provider } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -10,18 +10,11 @@ import { PersistGate } from 'redux-persist/lib/integration/react';
 import { store, persistor } from './store';
 import theme from './themes';
 import { PrivateRoute } from './Services/auth';
-import withNav from './higherComponents/withNav';
-import Endereco from './pages/Endereco';
-import Sumario from './pages/Sumario';
-import Checkout from './pages/Checkout';
-import Detalhes from './pages/Detalhes';
-import MyAddress from './pages/MyAddress';
-import Pedidos from './pages/Pedidos';
-import Politicas from './pages/Politicas';
-import Revenda from './pages/Revenda';
-import PrazoEntrega from './pages/PrazoEntrega';
-import RecuperarSenha from './pages/RecuperarSenha';
-import RedefinirSenha from './pages/RedefinirSenha';
+
+import Topo from './components/Topo';
+import Navbar from './components/Nav';
+import Footer from './components/Footer';
+import Loading from './components/Loading';
 
 WebFont.load({
   google: {
@@ -36,20 +29,27 @@ const Sobre = lazy(() => import('./pages/Sobre'));
 const Contato = lazy(() => import('./pages/Contato'));
 const Login = lazy(() => import('./pages/Login'));
 const MinhaConta = lazy(() => import('./pages/MinhaConta'));
+const Sumario = lazy(() => import('./pages/Sumario'));
+const Detalhes = lazy(() => import('./pages/Detalhes'));
+const MyAddress = lazy(() => import('./pages/MyAddress'));
+const Pedidos = lazy(() => import('./pages/Pedidos'));
 const Carrinho = lazy(() => import('./pages/Carrinho'));
+const PrazoEntrega = lazy(() => import('./pages/PrazoEntrega'));
+const Endereco = lazy(() => import('./pages/Endereco'));
+const RecuperarSenha = lazy(() => import('./pages/RecuperarSenha'));
+const RedefinirSenha = lazy(() => import('./pages/RedefinirSenha'));
+const Checkout = lazy(() => import('./pages/Checkout'));
+const Politicas = lazy(() => import('./pages/Politicas'));
+const Revenda = lazy(() => import('./pages/Revenda'));
 
-const Suspended = () => (
-  <div style={{ width: '100%' }}>
-    <LinearProgress color="secondary" />
-  </div>
-);
-const NewComponent = withNav(Suspended);
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
-          <Suspense fallback={<NewComponent />}>
+          <Topo />
+          <Navbar />
+          <Suspense fallback={<Loading />}>
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/sobre" component={Sobre} />
@@ -193,6 +193,7 @@ ReactDOM.render(
               {/* <Route component={NotFound} /> */}
             </Switch>
           </Suspense>
+          <Footer />
         </BrowserRouter>
       </PersistGate>
     </Provider>

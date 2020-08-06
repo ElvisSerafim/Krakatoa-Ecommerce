@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Typography, Box, Button, Grid, TextField, Backdrop, CircularProgress, makeStyles } from '@material-ui/core/';
+import {
+  Typography,
+  Box,
+  Button,
+  Grid,
+  TextField,
+  Backdrop,
+  CircularProgress,
+  makeStyles,
+} from '@material-ui/core/';
 import { useSelector } from 'react-redux';
 import InputMask from 'react-input-mask';
 import { useForm, Controller } from 'react-hook-form';
@@ -15,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
     color: '#fff',
   },
 }));
-
 
 const Endereco = ({ location, history }) => {
   const Redux = useSelector((state) => state.user);
@@ -61,6 +69,7 @@ const Endereco = ({ location, history }) => {
       } else {
         cepEnvio = data.cep;
       }
+      console.log(data);
       switch (true) {
         case data.nome.length === 0:
           throw new Error('Insira seu nome!');
@@ -68,7 +77,7 @@ const Endereco = ({ location, history }) => {
           throw new Error(
             'Você deve inserir um número de telefone válido com DDD',
           );
-        case data.cpf.length !== 11:
+        case data.cpf.toString().length !== 14:
           throw new Error('CPF inválido!');
         case cepEnvio.length !== 8:
           throw new Error('CEP inválido!');
@@ -128,8 +137,9 @@ const Endereco = ({ location, history }) => {
                 nome,
               },
             },
-          }), 2000);
-
+          }),
+          2000,
+        );
       }
     } catch (error) {
       setOpen(true);
@@ -152,12 +162,11 @@ const Endereco = ({ location, history }) => {
     setValue('estado', requestLocal.uf);
   };
   const getDadosFrete = async (cepCalcular) => {
-
     const data = {
       cepDestino: cepCalcular,
       valorDeclarado: location.state.totalPedido,
       peso: location.state.peso,
-      altura: location.state.altura
+      altura: location.state.altura,
     };
     const request = await api.CalcPrazoPreco(data);
     setDadosEntrega(request);
@@ -183,8 +192,6 @@ const Endereco = ({ location, history }) => {
     }
   }, [location]);
 
-
-
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -201,311 +208,310 @@ const Endereco = ({ location, history }) => {
           }}
         />
       ) : (
-          <>
-            <Alerta
-              openAlert={open}
-              message={message}
-              status={status}
-              handleClose={handleClose}
-              vertical="top"
-              horizontal="right"
-            />
-            <Backdrop className={classes.backdrop} open={openBackdrop}>
-              <CircularProgress color="inherit" />
-            </Backdrop>
-            <form
-              onSubmit={handleSubmit((data) => {
-                if (data.cep.length === 9) {
-                  const cep = data.cep.replace('-', '');
-                  if (cep !== location.state.cepEndereco) {
-                    console.log('Entrei');
-                    getDadosFrete(cep);
-                  }
+        <>
+          <Alerta
+            openAlert={open}
+            message={message}
+            status={status}
+            handleClose={handleClose}
+            vertical="top"
+            horizontal="right"
+          />
+          <Backdrop className={classes.backdrop} open={openBackdrop}>
+            <CircularProgress color="inherit" />
+          </Backdrop>
+          <form
+            onSubmit={handleSubmit((data) => {
+              if (data.cep.length === 9) {
+                const cep = data.cep.replace('-', '');
+                if (cep !== location.state.cepEndereco) {
+                  console.log('Entrei');
+                  getDadosFrete(cep);
                 }
-                enviar(data);
-              })}
-            >
-              <Grid container spacing={2} style={{ marginTop: 16 }}>
+              }
+              enviar(data);
+            })}
+          >
+            <Grid container spacing={2} style={{ marginTop: 16 }}>
+              <Grid
+                item
+                lg={6}
+                md={6}
+                sm={12}
+                xm={12}
+                spacing={3}
+                container
+                direction="row"
+                justify="center"
+              >
+                {/* Nome */}
+                <Grid item lg={6} md={6} sm={6} xm={12}>
+                  <TextField
+                    label="Nome"
+                    name="nome"
+                    id="Nome"
+                    type="text"
+                    placeholder="Digite Seu Nome"
+                    fullWidth
+                    variant="filled"
+                    inputRef={register}
+                  />
+                </Grid>
+                {/* Telefone */}
+                <Grid item lg={6} md={6} sm={6} xm={12}>
+                  <Controller
+                    as={InputMask}
+                    control={control}
+                    name="telefone"
+                    mask="(99)99999-9999"
+                    maskChar=" "
+                  >
+                    {() => (
+                      <TextField
+                        label="Telefone"
+                        id="Telefone"
+                        type="text"
+                        placeholder="Digite Seu Telefone"
+                        variant="filled"
+                        numberOnly
+                        fullWidth
+                      />
+                    )}
+                  </Controller>
+                </Grid>
+                {/* CPF */}
+                <Grid item lg={6} md={6} sm={6} xm={12}>
+                  <Controller
+                    as={InputMask}
+                    control={control}
+                    mask="999.999.999-99"
+                    name="cpf"
+                    maskChar=" "
+                  >
+                    {() => (
+                      <TextField
+                        label="CPF"
+                        id="CPF"
+                        type="text"
+                        placeholder="Digite Seu CPF"
+                        variant="filled"
+                        fullWidth
+                      />
+                    )}
+                  </Controller>
+                </Grid>
+                {/* CEP */}
+                <Grid item lg={6} md={6} sm={6} xm={12}>
+                  <Controller
+                    control={control}
+                    as={InputMask}
+                    mask="99999-999"
+                    disabled={false}
+                    maskChar=" "
+                    name="cep"
+                  >
+                    {() => (
+                      <TextField
+                        label="CEP"
+                        id="CEP"
+                        type="text"
+                        placeholder="Digite Seu CEP"
+                        variant="filled"
+                        fullWidth
+                      />
+                    )}
+                  </Controller>
+                </Grid>
+                {/* Bairro */}
+                <Grid item lg={6} md={6} sm={6} xm={12}>
+                  <Controller
+                    as={TextField}
+                    control={control}
+                    label="Bairro"
+                    name="bairro"
+                    id="Bairro"
+                    type="text"
+                    placeholder="Digite Seu Bairro"
+                    variant="filled"
+                    fullWidth
+                  />
+                </Grid>
+                {/* Cidade */}
+                <Grid item lg={6} md={6} sm={6} xm={12}>
+                  <Controller
+                    as={TextField}
+                    control={control}
+                    label="Cidade"
+                    name="cidade"
+                    id="Cidade"
+                    type="text"
+                    placeholder="Digite Seu Cidade"
+                    variant="filled"
+                    fullWidth
+                  />
+                </Grid>
+                {/* Rua */}
+                <Grid item lg={6} md={6} sm={6} xm={12}>
+                  <Controller
+                    as={TextField}
+                    control={control}
+                    label="Rua"
+                    name="rua"
+                    id="Rua"
+                    type="text"
+                    placeholder="Digite Seu Rua"
+                    variant="filled"
+                    fullWidth
+                  />
+                </Grid>
+                {/* Numero */}
+                <Grid item lg={6} md={6} sm={6} xm={12}>
+                  <Controller
+                    as={TextField}
+                    control={control}
+                    label="Numero"
+                    name="numero"
+                    id="Numero"
+                    type="text"
+                    placeholder="Digite Seu Numero"
+                    variant="filled"
+                    fullWidth
+                    numberOnly
+                  />
+                </Grid>
+                {/* Complemento */}
+                <Grid item lg={6} md={6} sm={6} xm={12}>
+                  <Controller
+                    as={TextField}
+                    control={control}
+                    TextField
+                    label="Complemento"
+                    name="complemento"
+                    id="Complemento"
+                    type="text"
+                    placeholder="Digite Seu Complemento"
+                    variant="filled"
+                    fullWidth
+                  />
+                </Grid>
+                {/* Estado */}
+                <Grid item lg={6} md={6} sm={6} xm={12}>
+                  <Controller
+                    as={InputMask}
+                    control={control}
+                    mask="aa"
+                    name="estado"
+                    maskChar=" "
+                  >
+                    {() => (
+                      <TextField
+                        label="Estado"
+                        id="Estado"
+                        type="text"
+                        placeholder="Digite Seu Estado"
+                        variant="filled"
+                        fullWidth
+                      />
+                    )}
+                  </Controller>
+                </Grid>
+              </Grid>
+              <Grid container item lg={6} md={6} sm={12} xm={12}>
+                <Grid item lg={12} md={12} sm={12} xm={12}>
+                  <Typography
+                    color="secondary"
+                    variant="h4"
+                    style={{ textAlign: 'center' }}
+                  >
+                    Tipo de entrega
+                  </Typography>
+                </Grid>
                 <Grid
                   item
-                  lg={6}
-                  md={6}
-                  sm={12}
-                  xm={12}
-                  spacing={3}
+                  lg={12}
                   container
-                  direction="row"
+                  md={12}
+                  sm={12}
                   justify="center"
+                  alignItems="center"
                 >
-                  {/* Nome */}
-                  <Grid item lg={6} md={6} sm={6} xm={12}>
-                    <TextField
-                      label="Nome"
-                      name="nome"
-                      id="Nome"
-                      type="text"
-                      placeholder="Digite Seu Nome"
-                      fullWidth
-                      variant="filled"
-                      inputRef={register}
-                    />
-                  </Grid>
-                  {/* Telefone */}
-                  <Grid item lg={6} md={6} sm={6} xm={12}>
-                    <Controller
-                      as={InputMask}
-                      control={control}
-                      name="telefone"
-                      mask="(99)99999-9999"
-                      maskChar=" "
+                  <Grid item lg={6} md={6} sm={4}>
+                    <Box
+                      onClick={() => {
+                        setDeliverySelected('Pac');
+                        setOpacitySedex(0.5);
+                        setOpacityPac(1);
+                        setpriceFrete(pricePac);
+                      }}
+                      display="flex"
+                      style={{
+                        cursor: 'pointer',
+                        opacity: opacityPac,
+                      }}
+                      flexDirection="column"
+                      alignItems="center"
+                      borderRadius={16}
                     >
-                      {() => (
-                        <TextField
-                          label="Telefone"
-                          id="Telefone"
-                          type="text"
-                          placeholder="Digite Seu Telefone"
-                          variant="filled"
-                          numberOnly
-                          fullWidth
-                        />
-                      )}
-                    </Controller>
+                      <Typography>Pac</Typography>
+                      <Typography>{diasUteisPac} dias úteis</Typography>
+                      <Typography>{pricePac}</Typography>
+                    </Box>
                   </Grid>
-                  {/* CPF */}
-                  <Grid item lg={6} md={6} sm={6} xm={12}>
-                    <Controller
-                      as={InputMask}
-                      control={control}
-                      mask="999.999.999-99"
-                      name="cpf"
-                      maskChar=" "
 
+                  <Grid item lg={6} md={6} sm={4}>
+                    <Box
+                      onClick={() => {
+                        setDeliverySelected('Sedex');
+                        setOpacitySedex(1);
+                        setOpacityPac(0.5);
+                        setpriceFrete(priceSedex);
+                      }}
+                      style={{
+                        cursor: 'pointer',
+                        opacity: opacitySedex,
+                        border: 3,
+                        padding: 40,
+                      }}
+                      display="flex"
+                      borderRadius={16}
+                      flexDirection="column"
+                      alignItems="center"
                     >
-                      {() => (
-                        <TextField
-                          label="CPF"
-                          id="CPF"
-                          type="text"
-                          placeholder="Digite Seu CPF"
-                          variant="filled"
-                          fullWidth
-                        />
-                      )}
-                    </Controller>
-                  </Grid>
-                  {/* CEP */}
-                  <Grid item lg={6} md={6} sm={6} xm={12}>
-                    <Controller
-                      control={control}
-                      as={InputMask}
-                      mask="99999-999"
-                      disabled={false}
-                      maskChar=" "
-                      name="cep"
-                    >
-                      {() => (
-                        <TextField
-                          label="CEP"
-                          id="CEP"
-                          type="text"
-                          placeholder="Digite Seu CEP"
-                          variant="filled"
-                          fullWidth
-                        />
-                      )}
-                    </Controller>
-                  </Grid>
-                  {/* Bairro */}
-                  <Grid item lg={6} md={6} sm={6} xm={12}>
-                    <Controller
-                      as={TextField}
-                      control={control}
-                      label="Bairro"
-                      name="bairro"
-                      id="Bairro"
-                      type="text"
-                      placeholder="Digite Seu Bairro"
-                      variant="filled"
-                      fullWidth
-                    />
-                  </Grid>
-                  {/* Cidade */}
-                  <Grid item lg={6} md={6} sm={6} xm={12}>
-                    <Controller
-                      as={TextField}
-                      control={control}
-                      label="Cidade"
-                      name="cidade"
-                      id="Cidade"
-                      type="text"
-                      placeholder="Digite Seu Cidade"
-                      variant="filled"
-                      fullWidth
-                    />
-                  </Grid>
-                  {/* Rua */}
-                  <Grid item lg={6} md={6} sm={6} xm={12}>
-                    <Controller
-                      as={TextField}
-                      control={control}
-                      label="Rua"
-                      name="rua"
-                      id="Rua"
-                      type="text"
-                      placeholder="Digite Seu Rua"
-                      variant="filled"
-                      fullWidth
-                    />
-                  </Grid>
-                  {/* Numero */}
-                  <Grid item lg={6} md={6} sm={6} xm={12}>
-                    <Controller
-                      as={TextField}
-                      control={control}
-                      label="Numero"
-                      name="numero"
-                      id="Numero"
-                      type="text"
-                      placeholder="Digite Seu Numero"
-                      variant="filled"
-                      fullWidth
-                      numberOnly
-                    />
-                  </Grid>
-                  {/* Complemento */}
-                  <Grid item lg={6} md={6} sm={6} xm={12}>
-                    <Controller
-                      as={TextField}
-                      control={control}
-                      TextField
-                      label="Complemento"
-                      name="complemento"
-                      id="Complemento"
-                      type="text"
-                      placeholder="Digite Seu Complemento"
-                      variant="filled"
-                      fullWidth
-                    />
-                  </Grid>
-                  {/* Estado */}
-                  <Grid item lg={6} md={6} sm={6} xm={12}>
-                    <Controller
-                      as={InputMask}
-                      control={control}
-                      mask="aa"
-                      name="estado"
-                      maskChar=" "
-                    >
-                      {() => (
-                        <TextField
-                          label="Estado"
-                          id="Estado"
-                          type="text"
-                          placeholder="Digite Seu Estado"
-                          variant="filled"
-                          fullWidth
-                        />
-                      )}
-                    </Controller>
+                      <Typography>Sedex</Typography>
+                      <Typography>{diasUteisSedex} dias úteis</Typography>
+                      <Typography>{priceSedex}</Typography>
+                    </Box>
                   </Grid>
                 </Grid>
-                <Grid container item lg={6} md={6} sm={12} xm={12}>
-                  <Grid item lg={12} md={12} sm={12} xm={12}>
-                    <Typography
-                      color="secondary"
-                      variant="h4"
-                      style={{ textAlign: 'center' }}
+                <Grid
+                  item
+                  justify="center"
+                  alignItems="center"
+                  container
+                  lg={12}
+                  md={12}
+                  sm={12}
+                >
+                  <Grid item lg={2} md={2}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                      style={{
+                        width: 120,
+                        height: 50,
+                        textDecoration: 'none',
+                      }}
                     >
-                      Tipo de entrega
-                  </Typography>
-                  </Grid>
-                  <Grid
-                    item
-                    lg={12}
-                    container
-                    md={12}
-                    sm={12}
-                    justify="center"
-                    alignItems="center"
-                  >
-                    <Grid item lg={6} md={6} sm={4}>
-                      <Box
-                        onClick={() => {
-                          setDeliverySelected('Pac');
-                          setOpacitySedex(0.5);
-                          setOpacityPac(1);
-                          setpriceFrete(pricePac);
-                        }}
-                        display="flex"
-                        style={{
-                          cursor: 'pointer',
-                          opacity: opacityPac,
-                        }}
-                        flexDirection="column"
-                        alignItems="center"
-                        borderRadius={16}
-                      >
-                        <Typography>Pac</Typography>
-                        <Typography>{diasUteisPac} dias úteis</Typography>
-                        <Typography>{pricePac}</Typography>
-                      </Box>
-                    </Grid>
-
-                    <Grid item lg={6} md={6} sm={4}>
-                      <Box
-                        onClick={() => {
-                          setDeliverySelected('Sedex');
-                          setOpacitySedex(1);
-                          setOpacityPac(0.5);
-                          setpriceFrete(priceSedex);
-                        }}
-                        style={{
-                          cursor: 'pointer',
-                          opacity: opacitySedex,
-                          border: 3,
-                          padding: 40,
-                        }}
-                        display="flex"
-                        borderRadius={16}
-                        flexDirection="column"
-                        alignItems="center"
-                      >
-                        <Typography>Sedex</Typography>
-                        <Typography>{diasUteisSedex} dias úteis</Typography>
-                        <Typography>{priceSedex}</Typography>
-                      </Box>
-                    </Grid>
-                  </Grid>
-                  <Grid
-                    item
-                    justify="center"
-                    alignItems="center"
-                    container
-                    lg={12}
-                    md={12}
-                    sm={12}
-                  >
-                    <Grid item lg={2} md={2}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                        style={{
-                          width: 120,
-                          height: 50,
-                          textDecoration: 'none',
-                        }}
-                      >
-                        Continuar
+                      Continuar
                     </Button>
-                    </Grid>
                   </Grid>
                 </Grid>
               </Grid>
-            </form>
-          </>
-        )}
+            </Grid>
+          </form>
+        </>
+      )}
     </>
   );
 };

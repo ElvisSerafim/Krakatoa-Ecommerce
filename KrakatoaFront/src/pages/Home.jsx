@@ -11,15 +11,8 @@ import Aos from 'aos';
 import ListProducts from '../components/ListProducts';
 import Promos from '../components/promos';
 import Produto from '../components/Produto';
-import Navbar from '../components/Nav';
-import Topo from '../components/Topo';
 import HomeComp from '../components/Home';
-import Footer from '../components/Footer';
 import Themes from '../themes';
-import deli from '../img/deli.png';
-import pqKraka from '../img/pqKraka.png';
-import money from '../img/money.png';
-import pag from '../img/pagarIcone.png';
 import withAnimation from '../higherComponents/withAnimation';
 import 'aos/dist/aos.css';
 
@@ -101,8 +94,6 @@ const Home = () => {
 
   return (
     <>
-      <Topo />
-      <Navbar />
       <Grid item lg={12} md={12}>
         <HomeComp />
       </Grid>
@@ -189,147 +180,7 @@ const Home = () => {
               VEJA TODOS
             </Button>
           </Grid>
-          <Grid
-            data-aos="fade-down"
-            data-aos-once="true"
-            item
-            lg={12}
-            md={12}
-            sm={12}
-          >
-            <Typography
-              color="secondary"
-              style={{
-                textAlign: 'center',
-                paddingBottom: '40px',
-                paddingTop: 70,
-              }}
-              variant="h5"
-            >
-              Por que Krakatoa?
-            </Typography>
-          </Grid>
 
-          <Grid
-            data-aos="fade-down"
-            data-aos-once="true"
-            item
-            lg={3}
-            md={3}
-            sm={3}
-            xs={12}
-          >
-            <div style={styles.deli}>
-              <img
-                style={{ padding: '25px 0px 0px 15px' }}
-                alt="Entrega"
-                src={deli}
-              />
-            </div>
-            <Typography
-              color="secondary"
-              variant="h1"
-              style={{ paddingTop: 30 }}
-            >
-              ENTREGA
-            </Typography>
-            <Typography color="secondary">
-              Entrega rápida e eficiente em sua casa.
-            </Typography>
-          </Grid>
-          <Grid
-            data-aos="fade-down"
-            data-aos-once="true"
-            item
-            lg={3}
-            md={3}
-            sm={3}
-            xs={12}
-          >
-            <div style={styles.pag}>
-              <img
-                style={{ padding: '17px 0px 0px 16px' }}
-                alt="Pagamento"
-                src={pag}
-              />
-            </div>
-            <Typography
-              color="secondary"
-              variant="h1"
-              style={{ paddingTop: 30 }}
-            >
-              PAGAMENTO
-            </Typography>
-            <Typography color="secondary">
-              Variados tipos de pagamentos.
-            </Typography>
-            <Typography color="secondary" style={{ paddingBottom: 10 }}>
-              {' '}
-              Desde boleto até cartões de crédito e débito das principais
-              bandeiras do país!
-            </Typography>
-          </Grid>
-          <Grid
-            data-aos="fade-down"
-            data-aos-once="true"
-            item
-            lg={3}
-            md={3}
-            sm={3}
-            xs={12}
-          >
-            <div style={styles.money}>
-              <img
-                style={{ padding: '22px 0px 0px 20px' }}
-                alt="Segurança"
-                src={money}
-              />
-            </div>
-            <Typography
-              color="secondary"
-              variant="h1"
-              style={{ paddingTop: 30 }}
-            >
-              SEGURANÇA
-            </Typography>
-            <Typography color="secondary">
-              Aqui sua compra é garantida!
-            </Typography>
-            <Typography color="secondary">
-              {' '}
-              Site 100% confiável. Seu produto é enviado assim que autorizado.
-            </Typography>
-          </Grid>
-          <Grid
-            data-aos="fade-down"
-            data-aos-once="true"
-            item
-            lg={3}
-            md={3}
-            sm={3}
-            xs={12}
-          >
-            <div style={styles.pqKraka}>
-              <img
-                style={{ padding: '20px 0px 0px 17px' }}
-                alt="Produtos"
-                src={pqKraka}
-              />
-            </div>
-            <Typography
-              color="secondary"
-              variant="h1"
-              style={{ paddingTop: 30 }}
-            >
-              VARIEDADE
-            </Typography>
-            <Typography color="secondary">
-              Aqui temos diversos produtos
-            </Typography>
-            <Typography color="secondary">
-              para todos os gostos das nossas clientes!
-            </Typography>
-          </Grid>
           <Grid
             data-aos="fade-right"
             data-aos-once="true"
@@ -415,7 +266,6 @@ const Home = () => {
           </Grid>
         </Grid>
       </Container>
-      <Footer />
     </>
   );
 };

@@ -11,7 +11,6 @@ import {
   TableHead,
   TableRow,
   Table,
-  Paper
 } from '@material-ui/core/';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Quantity from './Quantity';
@@ -22,33 +21,28 @@ const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: '#D2C9C7',
     color: theme.palette.secondary.main,
-    borderColor: theme.palette.secondary.main,
-    fontWeight: 700
+    fontWeight: 'bold',
   },
   body: {
-    borderColor: theme.palette.secondary.main,
     backgroundColor: '#D2C9C7',
-    color: theme.palette.secondary.main,
+    color: theme.palette.common.white,
     fontSize: 20,
   },
 }))(TableCell);
 
-const StyledTableRow = withStyles((theme) => ({
+const StyledTableRow = withStyles(() => ({
   root: {
     minWidth: 600,
     '&:nth-of-type(odd)': {
       backgroundColor: '#9e9e9e',
     },
-    borderColor: theme.palette.secondary.main,
-    color: theme.palette.secondary.main,
   },
 }))(TableRow);
 
 const useStyles = makeStyles({
   table: {
     minWidth: 600,
-    borderRadius: 10,
-    fontFamily: 'Poppins',
+    borderRadius: '0px 0px 10px 10px',
   },
   tableHead: {
     height: 100,
@@ -99,141 +93,144 @@ export default function CustomizedTables({
     actualTotal(auxiliar);
   };
   return (
-    <Paper style={{ backgroundColor: '#D2C9C7', width: '100%', height: '100%' }}>
-      <TableContainer className={classes.table}>
-        <Table className={classes.table} aria-label="customized table">
-          <TableHead>
-            <TableRow className={classes.tableHead}>
-              <StyledTableCell align="center">Produtos</StyledTableCell>
-              <StyledTableCell align="center">Preço</StyledTableCell>
-              <StyledTableCell align="center">Quantidade</StyledTableCell>
-              <StyledTableCell align="center">Total</StyledTableCell>
-              <StyledTableCell align="center" />
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {allProducts.map((row, i) => (
-              <StyledTableRow key={row._id}>
-                <StyledTableCell component="th" scope="row">
-                  <Box display="flex" alignContent="center">
-                    {row.isCanga ? (
-                      <div
-                        style={{
-                          display: 'flex',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          width: 100,
-                          height: 150,
-                        }}
-                      >
-                        <img
-                          src={row.ImageUrl}
-                          style={{
-                            transform: 'rotate(90deg)',
-                            width: '150px',
-                            height: '100px',
-                            borderRadius: 5,
-                          }}
-                          alt="Imagem produto"
-                        />
-                      </div>
-                    ) : (
-                        <div style={{ width: '100px', height: '150px' }}>
-                          <img
-                            src={row.ImageUrl}
-                            style={{
-                              width: '100%',
-                              height: '100%',
-                              borderRadius: 5,
-                            }}
-                            alt="Imagem produto"
-                          />
-                        </div>
-                      )}
+    <TableContainer className={classes.table}>
+      <Table className={classes.table} aria-label="customized table">
+        <TableHead>
+          <TableRow className={classes.tableHead}>
+            <StyledTableCell align="center">Produtos</StyledTableCell>
+            <StyledTableCell align="center">Preço</StyledTableCell>
+            <StyledTableCell align="center">Quantidade</StyledTableCell>
+            <StyledTableCell align="center">Total</StyledTableCell>
+            <StyledTableCell align="center" />
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {allProducts.map((row, i) => (
+            <StyledTableRow key={row._id}>
+              <StyledTableCell component="th" scope="row">
+                <Box display="flex" alignContent="center">
+                  {row.isCanga ? (
                     <div
                       style={{
-                        ...Estilos.flexColumnCENTER2,
-                        paddingLeft: '40px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: 100,
+                        height: 150,
                       }}
                     >
-                      {row.nome}
-                      <Typography
+                      <img
+                        src={row.ImageUrl}
                         style={{
-                          fontWeight: 'bold',
-                          fontSize: 16,
-                          paddingTop: 10,
+                          transform: 'rotate(90deg)',
+                          width: '150px',
+                          height: '100px',
+                          borderRadius: 5,
                         }}
-                      >
-                        Tamanho: {row.tamanhoEscolhido}
-                      </Typography>
+                        alt="Imagem produto"
+                      />
                     </div>
-                  </Box>
-                </StyledTableCell>
-
-                <StyledTableCell align="right">
-                  <div style={Estilos.flexRowCENTER2}>
-                    <p>R$</p>
-                    <p>{row.preco}</p>
+                  ) : (
+                    <div style={{ width: '100px', height: '150px' }}>
+                      <img
+                        src={row.ImageUrl}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          borderRadius: 5,
+                        }}
+                        alt="Imagem produto"
+                      />
+                    </div>
+                  )}
+                  <div
+                    style={{
+                      ...Estilos.flexColumnCENTER2,
+                      paddingLeft: '40px',
+                    }}
+                  >
+                    <Typography
+                      color="secondary"
+                      style={{ fontWeight: 'bold' }}
+                    >
+                      {row.nome}
+                    </Typography>
+                    <Typography
+                      style={{
+                        fontWeight: 'bold',
+                        fontSize: 16,
+                        paddingTop: 10,
+                      }}
+                      color="secondary"
+                    >
+                      Tamanho: {row.tamanhoEscolhido}
+                    </Typography>
                   </div>
-                </StyledTableCell>
+                </Box>
+              </StyledTableCell>
 
-                <StyledTableCell align="center">
-                  <div style={Estilos.flexRowCENTER2}>
-                    <Quantity
-                      onClickPlus={() => {
-                        const aux = [...quantity];
-                        aux[i]++;
+              <StyledTableCell align="right">
+                <div style={Estilos.flexRowCENTER2}>
+                  <Typography color="secondary" style={{ fontWeight: 'bold' }}>
+                    {' '}
+                    R${row.preco}
+                  </Typography>
+                </div>
+              </StyledTableCell>
+
+              <StyledTableCell align="center">
+                <div style={Estilos.flexRowCENTER2}>
+                  <Quantity
+                    onClickPlus={() => {
+                      const aux = [...quantity];
+                      aux[i]++;
+                      setQuantity(aux);
+                      const totally = [...total];
+                      totally[i] = row.preco * aux[i];
+                      setTotal(totally);
+                      actualTotal(totally);
+                      updateTotal(i);
+                    }}
+                    onClickMinus={() => {
+                      const aux = [...quantity];
+                      aux[i]--;
+                      const comparator = aux[i];
+                      if (comparator >= 1) {
                         setQuantity(aux);
                         const totally = [...total];
-                        totally[i] = row.preco * aux[i];
+                        const newTotal = totally[i] - row.preco;
+                        totally[i] = newTotal;
                         setTotal(totally);
                         actualTotal(totally);
-                        updateTotal(i);
-                      }}
-                      onClickMinus={() => {
-                        const aux = [...quantity];
-                        aux[i]--;
-                        const comparator = aux[i];
-                        if (comparator >= 1) {
-                          setQuantity(aux);
-                          const totally = [...total];
-                          const newTotal = totally[i] - row.preco;
-                          totally[i] = newTotal;
-                          setTotal(totally);
-                          actualTotal(totally);
-                          updateSubTotal(i);
-                        }
-                      }}
-                      quantidade={quantity[i]}
-                    />
-                  </div>
-                </StyledTableCell>
+                        updateSubTotal(i);
+                      }
+                    }}
+                    quantidade={quantity[i]}
+                  />
+                </div>
+              </StyledTableCell>
 
-                <StyledTableCell align="center">
-                  <div style={Estilos.flexRowCENTER2}>
-                    <p>R$</p>
-                    <div style={{ width: 20 }}>
-                      <p>{total[i]}</p>
-                    </div>
-                  </div>
-                </StyledTableCell>
+              <StyledTableCell align="center">
+                <Typography color="secondary" style={{ fontWeight: 'bold' }}>
+                  R$ {total[i]}
+                </Typography>
+              </StyledTableCell>
 
-                <StyledTableCell align="right">
-                  <Box style={{ cursor: 'pointer', padding: 20 }}>
-                    <HighlightOffIcon
-                      style={{ height: 30, width: 30 }}
-                      onClick={() => {
-                        removerItem(allProducts[i]);
-                        updateRemoveTotal(i);
-                      }}
-                    />
-                  </Box>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Paper>
+              <StyledTableCell align="right">
+                <Box style={{ cursor: 'pointer', padding: 20 }}>
+                  <HighlightOffIcon
+                    style={{ height: 30, width: 30, color: '#44323D' }}
+                    onClick={() => {
+                      removerItem(allProducts[i]);
+                      updateRemoveTotal(i);
+                    }}
+                  />
+                </Box>
+              </StyledTableCell>
+            </StyledTableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }

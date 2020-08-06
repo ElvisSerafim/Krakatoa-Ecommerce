@@ -1,10 +1,11 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import Produto from './Produto';
 import Aos from 'aos';
+import Produto from './Produto';
 import 'aos/dist/aos.css';
 import ComboBox from './ComboBox';
 
@@ -104,12 +105,12 @@ const Produtos = ({ title, products }) => {
 
       <>
         {ProdutosOrder.length > 2
-          ? ProdutosOrder.map((value, index) => (
+          ? ProdutosOrder.map((value) => (
               <>
                 <Grid
                   data-aos="fade-up"
                   data-aos-once="true"
-                  key={index}
+                  key={value._id}
                   item
                   lg={3}
                   md={4}
@@ -121,12 +122,12 @@ const Produtos = ({ title, products }) => {
                 </Grid>
               </>
             ))
-          : ProdutosOrder.map((value, index) => (
+          : ProdutosOrder.map((value) => (
               <>
                 <Grid
                   data-aos="fade-up"
                   data-aos-once="true"
-                  key={index}
+                  key={value._id}
                   item
                   lg={6}
                   md={4}
@@ -144,4 +145,4 @@ const Produtos = ({ title, products }) => {
   );
 };
 
-export default Produtos;
+export default React.memo(Produtos);

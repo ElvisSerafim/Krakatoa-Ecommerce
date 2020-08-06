@@ -37,4 +37,4 @@ const Quantity = ({ onClickPlus, onClickMinus, quantidade = 0 }) => (
   </div>
 );
 
-export default Quantity;
+export default React.memo(Quantity);
