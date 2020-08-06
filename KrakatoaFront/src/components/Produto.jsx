@@ -8,9 +8,12 @@ import {
   CardActionArea,
   CardMedia,
   CardContent,
+  
 } from '@material-ui/core/';
+import Skeleton from '@material-ui/lab/Skeleton';
 import { makeStyles } from '@material-ui/core/styles';
 import withAnimation from '../higherComponents/withAnimation';
+import { useSelector, useDispatch } from 'react-redux';
 
 const useStyles = makeStyles({
   root: {
@@ -41,11 +44,15 @@ const useStyles = makeStyles({
       transition: '.2s ease-out',
     },
   },
+  skeleton: {
+    height: 200
+  }
 });
 
 const CardMediaMod = withAnimation(CardMedia);
 
 const Produto = ({ produto, title }) => {
+  const loading = useSelector((state) => state.products.loading);
   const { _id, nome, preco } = produto;
   const [Imageurl, setImageurl] = useState('');
   const classes = useStyles();
@@ -76,12 +83,15 @@ const Produto = ({ produto, title }) => {
     <a href={`/${produto.categoria}/${_id}`} style={{ textDecoration: 'none' }}>
       <Card className={classes.root}>
         <CardActionArea>
-          <CardMediaMod
-            className={classes.media}
-            image={Imageurl}
-            title={nome}
-            component="img"
-          />
+          {loading === true ? (
+            <Skeleton animation="wave" variant="rect" className={classes.skeleton} />
+          ) : (
+              <CardMediaMod
+                className={classes.media}
+                image={Imageurl}
+                title={nome}
+                component="img"
+          />)}
 
           <div>
             <CardContent

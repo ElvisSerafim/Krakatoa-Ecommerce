@@ -42,7 +42,7 @@ const Topo = () => {
               <Box style={{ minWidth: '200px', maxWidth: '100%' }}>
                 <SearchBar />
               </Box>
-              <Box>
+              <div style={{display: 'flex', flexDirection:'row', justifyContent: 'space-between'}}>
                 <a href="/conta/">
                   <IconButton aria-label="conta">
                     <Conta color="primary" fontSize="large" />
@@ -63,7 +63,7 @@ const Topo = () => {
                     </StyledBadge>
                   </IconButton>
                 </a>
-              </Box>
+              </div>
             </Box>
           </Box>
         </Container>

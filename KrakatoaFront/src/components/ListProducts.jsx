@@ -33,12 +33,18 @@ class ListProducts extends Component {
         this.menuItems = Menu(this.props.list);
         this.childRef = React.createRef();
         this.data = [];
+        this.state = {
+            loading: this.props.produtos.loading
+        }
     }
 
-    componentDidMount(){
-        this.forceUpdate();
-    }
-
+    componentWillReceiveProps = (nextProps) => {
+        if (nextProps.produtos.loading !== this.props.produtos.loading) {
+          this.forceUpdate();
+          this.setState({loading: false});
+        }
+      }
+    
     render() {
         const menu = this.menuItems;
         return (
