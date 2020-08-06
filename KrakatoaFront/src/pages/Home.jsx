@@ -136,7 +136,7 @@ const Home = () => {
 
           <Hidden smDown>
             <Grid data-aos="fade-left" data-aos-once="true" container lg={12}>
-              <ListProducts list={produtosMaisProcurados} />
+              <ListProducts produtos={stateProdutos} list={produtosMaisProcurados} />
             </Grid>
           </Hidden>
 

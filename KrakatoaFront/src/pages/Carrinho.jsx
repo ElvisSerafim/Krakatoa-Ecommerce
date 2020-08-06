@@ -8,6 +8,9 @@ import {
   Paper,
   TextField,
   Hidden,
+  CircularProgress,
+  Fade
+
 } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import { useForm } from 'react-hook-form';
@@ -96,6 +99,7 @@ const styles = {
 };
 
 const Carrinho = ({ history }) => {
+  const [loading, setLoading] = useState(false);
   const [totalFinal, setFinalTotal] = useState(0);
   const [totalFrete, setTotalFrete] = useState(0);
   const [total, setTotal] = useState(0);
@@ -150,11 +154,12 @@ const Carrinho = ({ history }) => {
     } else {
       setAltura(48);
     }
-    setPesoTotal(totalPeso/1000);
+    setPesoTotal(totalPeso / 1000);
 
   }, [totalFinal, totalFrete]);
 
   const calcularPrazo = async () => {
+    setLoading(true);
     try {
 
       const data = {
@@ -167,6 +172,7 @@ const Carrinho = ({ history }) => {
       const val = parseFloat(request.sedex[0].valor.replace(',', '.'));
       setTotalFrete(val);
       setDadosCep(request);
+      setLoading(false);
     } catch (error) {
       setMessage('Cep vazio');
       setStatus('error');
@@ -318,144 +324,159 @@ const Carrinho = ({ history }) => {
                         xs={12}
                         style={{ height: '100%' }}
                       >
-                        <Typography variant="h5" color="textSecondary">
-                          Frete:
-                      </Typography>
-                        <Typography variant="h5" color="textSecondary">
-                          R$ {totalFrete}
-                        </Typography>
+                        <div style={{ display: 'flex', flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                          <div style={{ display: 'flex', flexDirection: 'row' }}>
+                            <Typography variant="h5" color="textSecondary">
+                              Frete:
+                            </Typography>
+                            <Typography variant="h5" color="textSecondary">
+                              R$ {totalFrete}
+                            </Typography>
+                          </div>
+                          <Fade
+                            in={loading}
+                            style={{
+                              transitionDelay: loading ? '800ms' : '0ms',
+                            }}
+                            unmountOnExit
+                          >
+                            <CircularProgress color="primary" />
+                          </Fade>
+
+                        </div>
+                        
                       </Grid>
-                      <Grid item lg={12} md={12} sm={12} xs={12}>
-                        <TextField
-                          required
-                          variant="filled"
-                          type="Cep"
-                          color="secondary"
-                          name="cep"
-                          inputRef={register}
-                          style={{ backgroundColor: 'white' }}
-                          label="Cep"
-                          fullWidth
-                          value={cep}
-                          placeholder="Insira seu CEP"
-                          onChange={(event) => {
-                            setCep(event.target.value);
-                          }}
-                        />
-                      </Grid>
-                      <Grid
-                        item
-                        lg={12}
-                        md={12}
-                        sm={12}
-                        xs={12}
-                        container
-                        justify="flex-end"
-                      >
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          onClick={calcularPrazo}
-                          fullWidth
-                          style={styles.borderHeight}
+                        <Grid item lg={12} md={12} sm={12} xs={12}>
+                          <TextField
+                            required
+                            variant="filled"
+                            type="Cep"
+                            color="secondary"
+                            name="cep"
+                            inputRef={register}
+                            style={{ backgroundColor: 'white' }}
+                            label="Cep"
+                            fullWidth
+                            value={cep}
+                            placeholder="Insira seu CEP"
+                            onChange={(event) => {
+                              setCep(event.target.value);
+                            }}
+                          />
+                        </Grid>
+                        <Grid
+                          item
+                          lg={12}
+                          md={12}
+                          sm={12}
+                          xs={12}
+                          container
+                          justify="flex-end"
                         >
-                          Calcular
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={calcularPrazo}
+                            fullWidth
+                            style={styles.borderHeight}
+                          >
+                            Calcular
                       </Button>
-                      </Grid>
+                        </Grid>
                     </Paper>
                   </Grid>
-                  {/* InfoCompra */}
-                  <Grid
-                    item
-                    lg={5}
-                    md={12}
-                    sm={12}
-                    xs={12}
-                    className={classes.GridCell}
-                  >
-                    <Paper className={classes.Paper}>
-                      <Grid item lg={12} md={12} sm={12} xm={12}>
-                        <Typography variant="h5" color="textSecondary">
-                          Total no Carrinho:
+                    {/* InfoCompra */}
+                    <Grid
+                      item
+                      lg={5}
+                      md={12}
+                      sm={12}
+                      xs={12}
+                      className={classes.GridCell}
+                    >
+                      <Paper className={classes.Paper}>
+                        <Grid item lg={12} md={12} sm={12} xm={12}>
+                          <Typography variant="h5" color="textSecondary">
+                            Total no Carrinho:
                       </Typography>
-                      </Grid>
-                      {/* Total PreFrete */}
-                      <Grid
-                        item
-                        lg={12}
-                        md={12}
-                        sm={12}
-                        xm={12}
-                        container
-                        justify="space-around"
-                      >
-                        <Grid item lg={6} md={6} sm={6} xs={6}>
-                          <Typography variant="h5" color="textSecondary">
-                            SubTotal:
-                        </Typography>
                         </Grid>
-                        <Grid item lg={6} md={6} sm={6} xs={6}>
-                          <Typography variant="h5" color="textSecondary">
-                            R$
+                        {/* Total PreFrete */}
+                        <Grid
+                          item
+                          lg={12}
+                          md={12}
+                          sm={12}
+                          xm={12}
+                          container
+                          justify="space-around"
+                        >
+                          <Grid item lg={6} md={6} sm={6} xs={6}>
+                            <Typography variant="h5" color="textSecondary">
+                              SubTotal:
+                        </Typography>
+                          </Grid>
+                          <Grid item lg={6} md={6} sm={6} xs={6}>
+                            <Typography variant="h5" color="textSecondary">
+                              R$
                           {totalFinal.toFixed(2)}
-                          </Typography>
+                            </Typography>
+                          </Grid>
                         </Grid>
-                      </Grid>
 
-                      {/* Entrega */}
-                      <Grid
-                        item
-                        lg={12}
-                        md={12}
-                        sm={12}
-                        xm={12}
-                        container
-                        justify="space-around"
-                      >
-                        <Grid item lg={6} md={6} sm={6} xs={6}>
-                          <Typography variant="h5" color="textSecondary">
-                            Entrega:
+                        {/* Entrega */}
+                        <Grid
+                          item
+                          lg={12}
+                          md={12}
+                          sm={12}
+                          xm={12}
+                          container
+                          justify="space-around"
+                        >
+                          <Grid item lg={6} md={6} sm={6} xs={6}>
+                            <Typography variant="h5" color="textSecondary">
+                              Entrega:
                         </Typography>
+                          </Grid>
+                          <Grid item lg={6} md={6} sm={6} xs={6}>
+                            <Typography variant="h5" color="textSecondary">
+                              R${totalFrete.toFixed(2)}
+                            </Typography>
+                          </Grid>
                         </Grid>
-                        <Grid item lg={6} md={6} sm={6} xs={6}>
-                          <Typography variant="h5" color="textSecondary">
-                            R${totalFrete.toFixed(2)}
-                          </Typography>
-                        </Grid>
-                      </Grid>
 
-                      {/* Total PosFrete */}
-                      <Grid
-                        item
-                        lg={12}
-                        md={12}
-                        sm={12}
-                        xm={12}
-                        container
-                        justify="space-around"
-                      >
-                        <Grid item lg={6} md={6} sm={6} xs={6}>
-                          <Typography variant="h5" color="textSecondary">
-                            Total:
+                        {/* Total PosFrete */}
+                        <Grid
+                          item
+                          lg={12}
+                          md={12}
+                          sm={12}
+                          xm={12}
+                          container
+                          justify="space-around"
+                        >
+                          <Grid item lg={6} md={6} sm={6} xs={6}>
+                            <Typography variant="h5" color="textSecondary">
+                              Total:
                         </Typography>
-                        </Grid>
-                        <Grid item lg={6} md={6} sm={6} xs={6}>
-                          <Typography variant="h5" color="textSecondary">
-                            R$
+                          </Grid>
+                          <Grid item lg={6} md={6} sm={6} xs={6}>
+                            <Typography variant="h5" color="textSecondary">
+                              R$
                           {total.toFixed(2)}
-                          </Typography>
+                            </Typography>
+                          </Grid>
                         </Grid>
-                      </Grid>
-                      {/* Botão */}
-                      <Grid
-                        item
-                        lg={12}
-                        md={12}
-                        sm={12}
-                        xm={12}
-                        style={{ marginTop: 16 }}
-                      >
-                        {/* <Link
+                        {/* Botão */}
+                        <Grid
+                          item
+                          lg={12}
+                          md={12}
+                          sm={12}
+                          xm={12}
+                          style={{ marginTop: 16 }}
+                        >
+                          {/* <Link
                         to={{
                           pathname: '/endereco',
                           state: {
@@ -465,25 +486,25 @@ const Carrinho = ({ history }) => {
                         }}
                         style={{ textDecoration: 'none' }}
                       > */}
-                        <Button
-                          type="submit"
-                          variant="contained"
-                          color="primary"
-                          fullWidth
-                          style={styles.borderHeight}
-                        >
-                          Checkout
+                          <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            fullWidth
+                            style={styles.borderHeight}
+                          >
+                            Checkout
                       </Button>
-                        {/* </Link> */}
-                      </Grid>
-                    </Paper>
+                          {/* </Link> */}
+                        </Grid>
+                      </Paper>
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
             </form>
           </>
         )}
-    </>
-  );
+          </>
+        );
 };
 export default withNav(withAnimation(Carrinho));

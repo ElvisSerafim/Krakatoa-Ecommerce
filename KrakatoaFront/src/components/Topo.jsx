@@ -42,26 +42,29 @@ const Topo = () => {
               <Box style={{ minWidth: '200px', maxWidth: '100%' }}>
                 <SearchBar />
               </Box>
-              <a href="/conta/">
-                <IconButton aria-label="conta">
-                  <Conta color="primary" fontSize="large" />
-                </IconButton>
-              </a>
-              <a href="/carrinho">
-                <IconButton aria-label="carrinho">
-                  <StyledBadge
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    badgeContent={quantidadeProdutos}
-                    showZero
-                    color="secondary"
-                  >
-                    <Carrinho color="primary" fontSize="large" />
-                  </StyledBadge>
-                </IconButton>
-              </a>
+              <div style={{display: 'flex', flexDirection:'row', justifyContent: 'space-between'}}>
+                <a href="/conta/">
+                  <IconButton aria-label="conta">
+                    <Conta color="primary" fontSize="large" />
+                  </IconButton>
+                </a>
+                <a href="/carrinho">
+                  <IconButton aria-label="carrinho">
+                    <StyledBadge
+                      anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }}
+                      badgeContent={quantidadeProdutos}
+                      showZero
+                      color="secondary"
+                    >
+                      <Carrinho color="primary" fontSize="large" />
+                    </StyledBadge>
+                  </IconButton>
+                </a>
+              </div>
+
             </Box>
           </Box>
         </Container>
