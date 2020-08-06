@@ -5,7 +5,7 @@
 /* eslint-disable react/prop-types */
 /* Produto em Si */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Grid, Typography, Button, Paper } from '@material-ui/core/';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
@@ -117,7 +117,7 @@ const ProdutoPage = ({ match }) => {
 
   const produtosT = useSelector((state) => state.products.list);
 
-  const relacionados = () => {
+  const relacionados = useCallback(() => {
     const newProdutosRelacionados = [];
     const produtosType = [];
     const produtos = JSON.parse(JSON.stringify(produtosT));
@@ -146,7 +146,7 @@ const ProdutoPage = ({ match }) => {
       }
     }
     setAllProducts(newProdutosRelacionados);
-  };
+  }, [product]);
 
   const getProduto = (produtos) => {
     let descricaoProduto = [];
@@ -189,8 +189,7 @@ const ProdutoPage = ({ match }) => {
   };
 
   const addItemCart = (produto, quantidade) => {
-    if(size !== ''){
-
+    if (size !== '') {
       const productCart = produce(produto, (newState) => {
         newState.quantidadePedido = quantidade;
         newState.tamanhoEscolhido = size;
@@ -198,27 +197,26 @@ const ProdutoPage = ({ match }) => {
         newState.cartId = generateSafeId();
         newState.ImageUrl = fotoAtual;
 
-        if(product.tipo === 'cangas'){
+        if (product.tipo === 'cangas') {
           newState.peso = 250;
         }
-        switch(product.categoria){
-
+        switch (product.categoria) {
           case 'batas':
             newState.peso = 145;
             break;
-          case 'vestidos': 
+          case 'vestidos':
             newState.peso = 200;
             break;
-          case 'macaquinhos': 
+          case 'macaquinhos':
             newState.peso = 255;
             break;
           case 'chapeus':
             newState.peso = 80;
             break;
           case 'bolsas':
-            if(size === 'Pequena' || size === 'Pequeno'){
+            if (size === 'Pequena' || size === 'Pequeno') {
               newState.peso = 120;
-            }else {
+            } else {
               newState.peso = 350;
             }
             break;
@@ -233,21 +231,19 @@ const ProdutoPage = ({ match }) => {
       setQuantity(1);
       setSize('');
       setStatusAlerta('success');
-      setMensagem('Produto Adicionado !')
+      setMensagem('Produto Adicionado !');
       setOpen(true);
       const data = {
         id: product._id,
         img: fotoAtual,
       };
       dispatch(setImage(data));
-    }else {
+    } else {
       setStatusAlerta('error');
       setMensagem('Selecione um tamanho !');
       setOpen(true);
     }
-
-  }
-    
+  };
 
   const classes = useStyles();
 

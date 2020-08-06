@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import LinearProgress from '@material-ui/core/LinearProgress';
+
 import { Provider } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -10,10 +10,11 @@ import { PersistGate } from 'redux-persist/lib/integration/react';
 import { store, persistor } from './store';
 import theme from './themes';
 import { PrivateRoute } from './Services/auth';
-import withNav from './higherComponents/withNav';
+
 import Topo from './components/Topo';
 import Navbar from './components/Nav';
 import Footer from './components/Footer';
+import Loading from './components/Loading';
 
 WebFont.load({
   google: {
@@ -41,12 +42,6 @@ const Checkout = lazy(() => import('./pages/Checkout'));
 const Politicas = lazy(() => import('./pages/Politicas'));
 const Revenda = lazy(() => import('./pages/Revenda'));
 
-const Suspended = () => (
-  <div style={{ width: '100%' }}>
-    <LinearProgress color="secondary" />
-  </div>
-);
-const NewComponent = withNav(Suspended);
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
     <Provider store={store}>
@@ -54,7 +49,7 @@ ReactDOM.render(
         <BrowserRouter>
           <Topo />
           <Navbar />
-          <Suspense fallback={<NewComponent />}>
+          <Suspense fallback={<Loading />}>
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/sobre" component={Sobre} />

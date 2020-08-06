@@ -1,7 +1,8 @@
 import React from 'react';
 import { Typography, Box, makeStyles } from '@material-ui/core/';
 import logo from '../img/logo192.png';
-const useStyles = makeStyles((theme) => ({
+
+const useStyles = makeStyles(() => ({
   mobile: {
     '@media (max-width:1024px)': {
       height: 50,

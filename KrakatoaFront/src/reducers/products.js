@@ -3,6 +3,7 @@
 /* eslint-disable implicit-arrow-linebreak */
 import { createSlice } from '@reduxjs/toolkit';
 import { apiCallBegan } from '../store/api';
+import { createSelector } from 'reselect';
 
 const url = '/produto';
 
@@ -35,6 +36,13 @@ const productsPage = createSlice({
     },
   },
 });
+
+const selectProducts = (state) => state.products;
+
+export const productsSelector = createSelector(
+  [selectProducts],
+  (products) => products.list,
+);
 
 export default productsPage.reducer;
 export const {
