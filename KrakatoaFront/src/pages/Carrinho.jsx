@@ -139,7 +139,7 @@ const Carrinho = ({ history }) => {
     ValorFinal = totalFinal + totalFrete;
     setTotal(ValorFinal);
 
-    var totalPeso = 0;
+    let totalPeso = 0;
     products.map((item, i) => {
       totalPeso += item.peso;
     });
@@ -159,7 +159,7 @@ const Carrinho = ({ history }) => {
         cepDestino: cep,
         valorDeclarado: totalFinal,
         peso: pesoTotal,
-        altura: altura,
+        altura,
       };
       const request = await api.CalcPrazoPreco(data);
       const val = parseFloat(request.sedex[0].valor.replace(',', '.'));
@@ -237,11 +237,16 @@ const Carrinho = ({ history }) => {
                   xs={12}
                   style={{ marginTop: 64 }}
                 >
-                  <Table
-                    products={products}
-                    actualTotal={atualizarTotal}
-                    removerItem={removerProduct}
-                  />
+                  <Paper
+                    elevation={2}
+                    style={{ backgroundColor: '#D2C9C7', width: '100%' }}
+                  >
+                    <Table
+                      products={products}
+                      actualTotal={atualizarTotal}
+                      removerItem={removerProduct}
+                    />
+                  </Paper>
                 </Grid>
               </Hidden>
               {/* Display Celular */}
