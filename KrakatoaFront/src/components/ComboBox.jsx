@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* Vestidos,Batas,Shorts,Kangas */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { InputLabel, Select, FormControl } from '@material-ui/core';
 import {
   createMuiTheme,
@@ -31,13 +31,9 @@ const theme = createMuiTheme({
   },
 });
 
-class ComboBox extends Component {
+class ComboBox extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      orderBy: '',
-      count: 0,
-    };
   }
 
   render() {
@@ -97,4 +93,4 @@ ComboBox.propTypes = {
   classes: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(ComboBox);
+export default withStyles(styles)(React.memo(ComboBox));
