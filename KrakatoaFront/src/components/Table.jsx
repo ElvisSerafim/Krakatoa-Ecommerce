@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import {useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   Typography,
   Box,
@@ -19,11 +19,11 @@ import Estilos from '../Estilos';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.secondary.main,
     color: theme.palette.common.white,
   },
   body: {
-    backgroundColor: '#44323D',
+    backgroundColor: '#D2C9C7',
     color: theme.palette.common.white,
     fontSize: 20,
   },
@@ -42,7 +42,6 @@ const useStyles = makeStyles({
   table: {
     minWidth: 600,
     borderRadius: 10,
-    fontFamily: 'Poppins',
   },
   tableHead: {
     height: 100,
@@ -149,13 +148,19 @@ export default function CustomizedTables({
                       paddingLeft: '40px',
                     }}
                   >
-                    {row.nome}
+                    <Typography
+                      color="secondary"
+                      style={{ fontWeight: 'bold' }}
+                    >
+                      {row.nome}
+                    </Typography>
                     <Typography
                       style={{
                         fontWeight: 'bold',
                         fontSize: 16,
                         paddingTop: 10,
                       }}
+                      color="secondary"
                     >
                       Tamanho: {row.tamanhoEscolhido}
                     </Typography>
@@ -165,8 +170,10 @@ export default function CustomizedTables({
 
               <StyledTableCell align="right">
                 <div style={Estilos.flexRowCENTER2}>
-                  <p>R$</p>
-                  <p>{row.preco}</p>
+                  <Typography color="secondary" style={{ fontWeight: 'bold' }}>
+                    {' '}
+                    R${row.preco}
+                  </Typography>
                 </div>
               </StyledTableCell>
 
@@ -203,18 +210,15 @@ export default function CustomizedTables({
               </StyledTableCell>
 
               <StyledTableCell align="center">
-                <div style={Estilos.flexRowCENTER2}>
-                  <p>R$</p>
-                  <div style={{ width: 20 }}>
-                    <p>{total[i]}</p>
-                  </div>
-                </div>
+                <Typography color="secondary" style={{ fontWeight: 'bold' }}>
+                  R$ {total[i]}
+                </Typography>
               </StyledTableCell>
 
               <StyledTableCell align="right">
                 <Box style={{ cursor: 'pointer', padding: 20 }}>
                   <HighlightOffIcon
-                    style={{ height: 30, width: 30 }}
+                    style={{ height: 30, width: 30, color: '#44323D' }}
                     onClick={() => {
                       removerItem(allProducts[i]);
                       updateRemoveTotal(i);
