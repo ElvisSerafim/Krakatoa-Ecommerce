@@ -21,7 +21,7 @@ const api = ({ dispatch }) => (next) => async (action) => {
     const response = await axios.request({
       baseURL: 'https://testekrakatoa.tk/api2/',
       url,
-      timeout: 2000,
+      timeout: 5000,
       method,
       data,
       headers,

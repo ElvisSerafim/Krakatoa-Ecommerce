@@ -13,8 +13,9 @@ import Estilos from '../Estilos';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.secondary.main,
-    color: theme.palette.common.white,
+    backgroundColor: '#D2C9C7',
+    fontWeight: 'bold',
+    color: theme.palette.secondary.main,
   },
   body: {
     backgroundColor: '#D2C9C7',
@@ -69,7 +70,9 @@ export default function CustomizedTables({ totalSumario, actualTotal }) {
   }, [allProducts]);
 
   return (
-    <Paper style={{ backgroundColor: '#D2C9C7', width: '100%', height: '100%' }}>
+    <Paper
+      style={{ backgroundColor: '#D2C9C7', width: '100%', height: '100%' }}
+    >
       <TableContainer className={classes.table}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>

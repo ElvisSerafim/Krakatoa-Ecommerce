@@ -19,8 +19,9 @@ import Estilos from '../Estilos';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.secondary.main,
-    color: theme.palette.common.white,
+    backgroundColor: '#D2C9C7',
+    color: theme.palette.secondary.main,
+    fontWeight: 'bold',
   },
   body: {
     backgroundColor: '#D2C9C7',
@@ -41,7 +42,7 @@ const StyledTableRow = withStyles(() => ({
 const useStyles = makeStyles({
   table: {
     minWidth: 600,
-    borderRadius: 10,
+    borderRadius: '0px 0px 10px 10px',
   },
   tableHead: {
     height: 100,
