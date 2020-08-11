@@ -324,8 +324,8 @@ const ProdutoPage = ({ match }) => {
             >
               <div style={styles.quad2inside}>
                 <Typography
-                  style={{ fontStyle: 'normal', margin: 0 }}
-                  variant="h3"
+                  style={{ fontStyle: 'normal',fontSize: '35px', margin: 0 }}
+                  variant="h4"
                   color="secondary"
                 >
                   {product.nome}
