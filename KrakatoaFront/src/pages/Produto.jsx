@@ -264,7 +264,8 @@ const ProdutoPage = ({ match }) => {
                     <img
                       src={`https://testekrakatoa.tk/imgs/${product.categoria}/${item}.jpg`}
                       style={{
-                        display: 'none',
+                        ...styles.img,
+                        transform: 'rotate(90deg)',
                       }}
                       alt="produto"
                     />
@@ -294,8 +295,10 @@ const ProdutoPage = ({ match }) => {
                   src={fotoAtual}
                   style={{
                     ...styles.img,
-                    width: 680,
-                    height: 380,
+                    maxWidth: 680,
+                    maxHeight: 380,
+                    minWidth: 600,
+                    minHeight: 300,
                     transform: 'rotate(90deg)',
                   }}
                   alt="produto"

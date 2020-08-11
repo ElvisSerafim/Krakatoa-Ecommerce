@@ -26,13 +26,13 @@ const styles = {
 
 const data = [
   {
-    quarter: 'card',
-    title: 'Loren Ipsum',
+    quarter: 'card5',
+    title: 'Corra para Krakatoa',
     size: 6,
   },
   {
-    quarter: 'card2',
-    title: 'Loren Ipsum',
+    quarter: 'card6',
+    title: 'E venha conhecer nossos Produtos!',
     size: 5,
   },
 ];
@@ -48,7 +48,9 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     height: 373,
-    backgroundImage: 'http://64.227.106.165/imgs/sobre/card.jpg',
+    '@media (max-width: 400px)': {
+      height: 300,
+    },
   },
   txt: {
     padding: 5,
@@ -73,9 +75,9 @@ const Promos = () => {
             <Card style={styles.root} className={classes.card}>
               <CardActionArea>
                 <CardMedia
-                  style={{ maxHeight: 300 }}
+                  style={{ maxHeight: 300, objectPosition: 'top' }}
                   component="img"
-                  image="https://testekrakatoa.tk/imgs/sobre/card.jpg"
+                  image={`https://testekrakatoa.tk/imgs/sobre/${elem.quarter}.jpg`}
                 />
                 <CardContent>
                   <Typography
