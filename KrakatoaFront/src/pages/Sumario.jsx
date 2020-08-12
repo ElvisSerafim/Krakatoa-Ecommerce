@@ -168,15 +168,16 @@ const Sumario = ({ location }) => {
       location.state.endereco.nome,
       location.state.endereco.cpf,
       location.state.endereco.rua,
-      33,
+      location.state.endereco.numero,
       location.state.endereco.complemento,
-      location.state.endereco.cep,
+      location.state.cepEndereco,
       location.state.endereco.cidade,
-      'BA',
+      location.state.endereco.state,
       'BRA',
       location.state.endereco.bairro,
-      123,
+      id,
     );
+    console.log(dado);
     window.open(dado.payment.url);
     const dataa = {
       precoTotal: price,
@@ -188,8 +189,8 @@ const Sumario = ({ location }) => {
       idPagamento: dado.payment.paymentId,
       token,
     };
-    const request = await api.enviarPedido(dataa);
-    console.log(request);
+   // const request = await api.enviarPedido(dataa);
+    //console.log(request);
     dispatch(removeAllProducts());
   };
 

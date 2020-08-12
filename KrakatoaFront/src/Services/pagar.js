@@ -72,7 +72,7 @@ const boleto = (amount,nome, cpf, rua,
     numeroCasa, complemento, cep, cidade, estadoAbreviacao,
      paisAbreviacao, bairro, id) => {
     const vendaParams = { 
-    merchantOrderId: id,
+    merchantOrderId: '123qad',
     customer: {
       name: nome,
       identity: cpf,
@@ -90,11 +90,10 @@ const boleto = (amount,nome, cpf, rua,
     payment: {
       type: 'Boleto',
       amount: amount,
-      provider: 'Bradesco',
+      provider: 'Bradesco2',
       assignor: 'Krakatoa Cangas',
       demonstrative: 'Compra de protudo(s) na Krakatoa Cangas',
       identification: '07046452000153',
-      instructions: 'Aceitar somente até a data de vencimento, após essa data juros de 1% ao dia.'
     }
   }
   var status=
@@ -109,7 +108,7 @@ const boleto = (amount,nome, cpf, rua,
 }
 const cancelar = ()=>{
   const cancelarParams = {
-    paymentId: 'a7811dfb-b55a-4859-a068-8a7f83e86669',
+    paymentId: "a059e639-80d8-4adf-9436-986974fc543f",
     amount: 1, // Caso o valor não seja definido, cancela a venda no valor total
   };
   
@@ -122,4 +121,17 @@ const cancelar = ()=>{
     })
 }
 
-export {cancelar,credito,debito,boleto};
+const consulta = ()=>{
+  const consultaParams = {
+    paymentId: "d9b79393-a1a6-4c05-9b19-87fee4d4ce92"
+  };
+  cielo.consult.paymentId(consultaParams)
+  .then((data) => {
+      console.log(data)
+  })
+  .catch((err) => {
+      console.log(err);
+  })
+}
+
+export {consulta,cancelar,credito,debito,boleto};

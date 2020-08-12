@@ -61,6 +61,7 @@ const Checkout = () => {
   const [open, setOpen] = useState(false);
   const [status, Setstatus] = useState('error');
   const [msg, setMsg] = useState('Erro');
+  const [returnMsg, setReturn]=useState('Aguarde...')
   const [total, setTotal] = useState(0);
   let dado;
   let generateSafeId = require('generate-safe-id');
@@ -361,6 +362,18 @@ const Checkout = () => {
                   Grave esse código!
                 </Typography>
               </Grid>
+              <Grid item xs={12}>
+                      <Typography
+                        variant="h1"
+                        style={{
+                          paddingTop: 20,
+                          color: '#8C0705',
+                          textAlign: 'center',
+                        }}
+                      >
+                       Resposta do provedor: {returnMsg}
+                      </Typography>
+                    </Grid>
             </>
           )}
         </Paper>

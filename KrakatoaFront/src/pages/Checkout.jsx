@@ -31,7 +31,7 @@ import elo from '../img/elo.png';
 import Alerta from '../components/Alerta';
 import hipercard from '../img/hipercard.png';
 import mastercard from '../img/mastercard.png';
-import { credito, debito, cancelar } from '../Services/pagar.js';
+import { credito, debito, cancelar, consulta } from '../Services/pagar.js';
 import withAnimation from '../higherComponents/withAnimation';
 import api from '../Services/ApiService';
 import withNav from '../higherComponents/withNav';
@@ -118,6 +118,7 @@ function getStepContent(
   setM,
   setH,
   setE,
+  setReturn
 ) {
   let dado;
   let generateSafeId = require('generate-safe-id');
@@ -126,8 +127,8 @@ function getStepContent(
   const pagar = async () => {
     id = generateSafeId();
     if (cartao === 'CreditCard') {
-      dado = await credito(nome, total, numero, nome, data, cvv, id, flag);
-      if (dado.payment.returnCode == 0|| dado.payment.returnCode ==11) {
+      dado = await credito(nome,total, numero, nome, data, cvv, id, flag);
+      if (dado.payment.returnCode == 0|| dado.payment.returnCode == 11) {
         setCode('Sucesso, volte sempre!');
         setTid(dado.payment.paymentId);
         //Enviar Pedido
@@ -141,19 +142,19 @@ function getStepContent(
           idPagamento: dado.payment.paymentId,
           token: token,
         };
-       // const request = await api.enviarPedido(dataa);
+        const request = await api.enviarPedido(dataa);
       } else {
         setCode('Ocorreu um erro na transação');
         setTid('Transação falha');
       }
     } else if (cartao === 'DebitCard') {
-      dado = await debito(nome, 100, numero, nome, data, cvv, id, flag);
-      console.log(dado);
+      dado = await debito(nome, total, numero, nome, data, cvv, id, flag);
       window.open(dado.payment.authenticationUrl);
       setCode(
         'Você será redirecionado para a pagina do seu provedor para terminar o pagamento',
       );
       setTid(dado.payment.paymentId);
+      setReturn(dado.payment.returnMessage);
       let dataa = {
         precoTotal: total,
         frete: frete,
@@ -164,8 +165,7 @@ function getStepContent(
         idPagamento: dado.payment.paymentId,
         token: token,
       };
-    //  const request = await api.enviarPedido(dataa);
-     // console.log(request);
+    const request = await api.enviarPedido(dataa);
     }
   };
 
@@ -339,6 +339,10 @@ function getStepContent(
               </Button>
               <Button onClick={cancelar}>
               CANCELAR
+              </Button>
+
+              <Button onClick={consulta}>
+              consultar
               </Button>
             </Grid>
           </Grid>
@@ -625,6 +629,7 @@ const Checkout = () => {
   const [masterElev, setMasterElev] = useState(3);
   const [activeStep, setActiveStep] = React.useState(0);
   const [total, setTotal] = useState(0);
+  const [returnMsg, setReturn] = useState('Aguarde...');
   const steps = getSteps();
   const token = useSelector((state) => state.user.token);
   const [frete, setFrete] = useState(location.state.frete);
@@ -744,6 +749,18 @@ const Checkout = () => {
                         Grave esse código!
                       </Typography>
                     </Grid>
+                    <Grid item lg={12}>
+                      <Typography
+                        variant="h1"
+                        style={{
+                          paddingTop: 20,
+                          color: '#8C0705',
+                          textAlign: 'center',
+                        }}
+                      >
+                       Resposta do provedor: {returnMsg}
+                      </Typography>
+                    </Grid>
                   </Grid>
                 </>
               ) : (
@@ -785,6 +802,7 @@ const Checkout = () => {
                     setMasterElev,
                     setHiperElev,
                     setEloElev,
+                    setReturn
                   )}
                 </>
               )}
