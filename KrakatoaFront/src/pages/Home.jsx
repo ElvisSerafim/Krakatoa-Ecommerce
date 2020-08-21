@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 /* Pagina de Inicio */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { Container, Grid, Typography, Button } from '@material-ui/core/';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -58,7 +58,6 @@ const Home = () => {
   const stateProdutos = useSelector((state) => state.products);
   const { list, loading } = stateProdutos;
   const history = useHistory();
-
   useEffect(() => {
     Aos.init({ duration: 2000 });
     const arrayList = [];
@@ -90,7 +89,7 @@ const Home = () => {
     setProductsMaisProcurados(arrayList);
     setProductsNovidades(arrayAuxNovidades);
     setProdutosCangasCelular(arrayCangasCelular);
-  }, [loading === true]);
+  }, [loading === true, list]);
 
   return (
     <>
@@ -127,7 +126,10 @@ const Home = () => {
 
           <Hidden smDown>
             <Grid data-aos="fade-left" data-aos-once="true" container lg={12}>
-              <ListProducts produtos={stateProdutos} list={produtosMaisProcurados} />
+              <ListProducts
+                produtos={stateProdutos}
+                list={produtosMaisProcurados}
+              />
             </Grid>
           </Hidden>
 

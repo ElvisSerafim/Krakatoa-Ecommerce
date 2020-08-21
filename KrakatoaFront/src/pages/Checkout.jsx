@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
-import { removeAllProducts } from '../reducers/productsCart';
 import InputMask from 'react-input-mask';
 import { useLocation } from 'react-router-dom';
 
@@ -23,7 +22,6 @@ import {
   Box,
   TextField,
 } from '@material-ui/core/';
-import Estilos from '../Estilos';
 import Checkout2 from '../components/Checkout';
 
 import visa from '../img/visa.png';
@@ -118,7 +116,7 @@ function getStepContent(
   setM,
   setH,
   setE,
-  setReturn
+  setReturn,
 ) {
   let dado;
   let generateSafeId = require('generate-safe-id');
@@ -127,8 +125,8 @@ function getStepContent(
   const pagar = async () => {
     id = generateSafeId();
     if (cartao === 'CreditCard') {
-      dado = await credito(nome,total, numero, nome, data, cvv, id, flag);
-      if (dado.payment.returnCode == 0|| dado.payment.returnCode == 11) {
+      dado = await credito(nome, total, numero, nome, data, cvv, id, flag);
+      if (dado.payment.returnCode === 0 || dado.payment.returnCode === 11) {
         setCode('Sucesso, volte sempre!');
         setTid(dado.payment.paymentId);
         //Enviar Pedido
@@ -165,7 +163,7 @@ function getStepContent(
         idPagamento: dado.payment.paymentId,
         token: token,
       };
-    const request = await api.enviarPedido(dataa);
+      const request = await api.enviarPedido(dataa);
     }
   };
 
@@ -337,13 +335,9 @@ function getStepContent(
               >
                 Próximo
               </Button>
-              <Button onClick={cancelar}>
-              CANCELAR
-              </Button>
+              <Button onClick={cancelar}>CANCELAR</Button>
 
-              <Button onClick={consulta}>
-              consultar
-              </Button>
+              <Button onClick={consulta}>consultar</Button>
             </Grid>
           </Grid>
         </>
@@ -437,7 +431,7 @@ function getStepContent(
                 style={{ color: 'white', backgroundColor: '#44323D' }}
                 variant="contained"
                 onClick={() => {
-                  if (nome.length == 0) {
+                  if (nome.length === 0) {
                     setStatus('error');
                     setMsg('Por favor, insira o nome que está no cartão');
                     setOpen(true);
@@ -445,13 +439,13 @@ function getStepContent(
                     setStatus('error');
                     setMsg('Por favor, insira o número do cartão');
                     setOpen(true);
-                  } else if (data.length != 7) {
+                  } else if (data.length !== 7) {
                     setStatus('error');
                     setMsg(
                       'Por favor, insira uma data de expiração válida do cartão',
                     );
                     setOpen(true);
-                  } else if (data.indexOf('/') == -1) {
+                  } else if (data.indexOf('/') === -1) {
                     setStatus('error');
                     setMsg(
                       'Por favor, insira uma barra para separar o mês e o ano',
@@ -758,7 +752,7 @@ const Checkout = () => {
                           textAlign: 'center',
                         }}
                       >
-                       Resposta do provedor: {returnMsg}
+                        Resposta do provedor: {returnMsg}
                       </Typography>
                     </Grid>
                   </Grid>
@@ -802,7 +796,7 @@ const Checkout = () => {
                     setMasterElev,
                     setHiperElev,
                     setEloElev,
-                    setReturn
+                    setReturn,
                   )}
                 </>
               )}

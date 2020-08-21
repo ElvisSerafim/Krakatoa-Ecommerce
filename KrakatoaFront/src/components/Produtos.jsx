@@ -14,9 +14,8 @@ const useStyles = makeStyles({
     '@media (min-width: 1024px)': {
       justifyContent: 'flex-start',
     },
-    width: '100%',
     justifyContent: 'space-between',
-    marginTop: 60,
+    marginTop: 32,
   },
 });
 
@@ -75,13 +74,13 @@ const Produtos = ({ title, products }) => {
 
     setProdutos(arrayAux);
   };
-
   return (
     <Grid
       container
       justify="space-evenly"
       spacing={2}
       className={classes.GridContainer}
+      alignContent="center"
     >
       {habilityOrder && (
         <Grid
@@ -95,7 +94,7 @@ const Produtos = ({ title, products }) => {
               setOrderBy(event.target.value);
               ordenar(event.target.value);
             }}
-            style={{ maxWidth: 300, marginBottom: 36 }}
+            style={{ maxWidth: 300, marginBottom: 32 }}
             value={orderBy}
             items={['Mais vendidos', 'Menor Preço', 'Maior Preço']}
             label="Ordenar por: "
@@ -116,7 +115,6 @@ const Produtos = ({ title, products }) => {
                   md={4}
                   sm={6}
                   xs={6}
-                  style={{ width: '100%', height: '100%' }}
                 >
                   <Produto produto={value} update={() => {}} title={lower} />
                 </Grid>
@@ -130,16 +128,14 @@ const Produtos = ({ title, products }) => {
                   key={value._id}
                   item
                   lg={6}
-                  md={4}
+                  md={6}
                   sm={6}
                   xs={6}
-                  style={{ width: '100%', height: '100%' }}
                 >
                   <Produto produto={value} update={() => {}} title={lower} />
                 </Grid>
               </>
             ))}
-        {}
       </>
     </Grid>
   );

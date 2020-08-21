@@ -4,17 +4,12 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useSelector } from 'react-redux';
 import { Box } from '@material-ui/core/';
-import { makeStyles } from '@material-ui/core/styles';
 import { useSpring, animated } from 'react-spring';
 import withAnimation from '../higherComponents/withAnimation';
 import withNav from '../higherComponents/withNav';
-import Loading from '../components/Loading';
+import LoadingComp from '../components/Loading';
 
 const ListaProdutos = lazy(() => import('../components/Produtos'));
-
-const useStyles = makeStyles((theme) => ({
-  margin: theme.spacing(2),
-}));
 
 const Produtos = ({ categoria, tipo }) => {
   const [product, setProduct] = useState([]);
@@ -69,9 +64,8 @@ const Produtos = ({ categoria, tipo }) => {
       }
     };
     getProducts();
-  }, [loading === true, tipo, categoria, search]);
+  }, [loading === true, tipo, categoria, search, list]);
 
-  const classes = useStyles();
   const { o } = useSpring({
     from: { o: 0 },
   });
@@ -90,9 +84,8 @@ const Produtos = ({ categoria, tipo }) => {
           style={{
             opacity: o.interpolate([0.1, 0.2, 0.6, 1], [1, 0.1, 0.5, 1]),
           }}
-          className={classes.margin}
         >
-          <Suspense fallback={Loading}>
+          <Suspense fallback={LoadingComp}>
             <ListaProdutos products={product} name={tipo} title={categoria} />
           </Suspense>
         </animated.div>
