@@ -8,7 +8,6 @@ import {
   CardActionArea,
   CardMedia,
   CardContent,
-  
 } from '@material-ui/core/';
 import Skeleton from '@material-ui/lab/Skeleton';
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,16 +18,19 @@ const useStyles = makeStyles({
   root: {
     maxWidth: 250,
     '@media (max-width: 640px)': {
-      width: 270,
+      width: 160,
     },
     '@media (max-width: 360px)': {
-      width: 155,
+      width: 140,
+    },
+    '@media (max-width: 280px)': {
+      width: 120,
     },
   },
 
   nameProduct: {
     display: 'flex',
-    minHeight: 52,
+    minHeight: 50,
     '@media (max-width: 360px)': {
       minHeight: 90,
     },
@@ -43,10 +45,13 @@ const useStyles = makeStyles({
       transform: 'scale(1.1)',
       transition: '.2s ease-out',
     },
+    '@media (max-width: 500px)': {
+      maxHeight: 200,
+    },
   },
   skeleton: {
-    height: 200
-  }
+    height: 300,
+  },
 });
 
 const CardMediaMod = withAnimation(CardMedia);
@@ -68,7 +73,7 @@ const Produto = ({ produto, title }) => {
         );
       }
     }
-  }, [produto]);
+  }, [produto, title]);
   const FuncCapitalize = (str) => {
     str = str.split(' ');
     for (let i = 0, x = str.length; i < x; i++) {
@@ -84,14 +89,19 @@ const Produto = ({ produto, title }) => {
       <Card className={classes.root}>
         <CardActionArea>
           {loading === true ? (
-            <Skeleton animation="wave" variant="rect" className={classes.skeleton} />
+            <Skeleton
+              animation="wave"
+              variant="rect"
+              className={classes.skeleton}
+            />
           ) : (
-              <CardMediaMod
-                className={classes.media}
-                image={Imageurl}
-                title={nome}
-                component="img"
-          />)}
+            <CardMediaMod
+              className={classes.media}
+              image={Imageurl}
+              title={nome}
+              component="img"
+            />
+          )}
 
           <div>
             <CardContent

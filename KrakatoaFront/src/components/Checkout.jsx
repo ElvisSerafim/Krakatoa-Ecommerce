@@ -146,7 +146,7 @@ const Checkout = () => {
               Pagamento
             </Typography>
           </Grid>
-          {pag == 0 ? (
+          {pag === 0 ? (
             <>
               <Grid container item justify="center" xs={12}>
                 <FormControl variant="outlined" style={{ width: '77%' }}>

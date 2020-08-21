@@ -19,7 +19,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import { removeAllProducts } from '../reducers/productsCart';
-import api from '../Services/ApiService';
 import Alerta from '../components/Alerta';
 import SumarioMobile from '../components/SumarioMobile';
 import TableSumario from '../components/TableSumario';
@@ -151,7 +150,6 @@ const Sumario = ({ location }) => {
   const [status, Setstatus] = useState('error');
   const [msg, setMsg] = useState('Erro');
   const [valorFrete, setFrete] = useState('');
-  const [urlDelivery, setUrl] = useState('');
   const [pagamento, setPag] = useState('Nenhum');
   const products = useSelector((state) => state.productsCart);
   const token = useSelector((state) => state.user.token);
@@ -177,7 +175,6 @@ const Sumario = ({ location }) => {
       location.state.endereco.bairro,
       id,
     );
-    console.log(dado);
     window.open(dado.payment.url);
     const dataa = {
       precoTotal: price,
@@ -189,8 +186,6 @@ const Sumario = ({ location }) => {
       idPagamento: dado.payment.paymentId,
       token,
     };
-   // const request = await api.enviarPedido(dataa);
-    //console.log(request);
     dispatch(removeAllProducts());
   };
 
@@ -208,9 +203,7 @@ const Sumario = ({ location }) => {
     if (location.state !== undefined) {
       setFrete(location.state.totalFrete);
     }
-
-  }, [products]);
-
+  }, [products,location.state]);
 
   const atualizarTotal = (total) => {
     let auxTotal = 0;
@@ -338,7 +331,7 @@ const Sumario = ({ location }) => {
                           cepEndereco: location.state.cepEndereco,
                           dadosCep: location.state.dadosCep,
                           altura: location.state.altura,
-                          peso: location.state.pesoTotal
+                          peso: location.state.pesoTotal,
                         },
                       }}
                     >
@@ -479,9 +472,7 @@ const Sumario = ({ location }) => {
                   <Typography color="primary" variant="h5">
                     Total
                   </Typography>
-                  <Typography style={styles.text}>
-                    R$ {price/100}
-                  </Typography>
+                  <Typography style={styles.text}>R$ {price / 100}</Typography>
                 </div>
                 <Divider />
               </div>

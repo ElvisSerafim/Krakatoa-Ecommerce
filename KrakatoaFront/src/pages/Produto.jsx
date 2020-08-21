@@ -146,7 +146,7 @@ const ProdutoPage = ({ match }) => {
       }
     }
     setAllProducts(newProdutosRelacionados);
-  }, [product]);
+  }, [product, produtosT, type]);
 
   const getProduto = (produtos) => {
     let descricaoProduto = [];
@@ -167,7 +167,10 @@ const ProdutoPage = ({ match }) => {
         setDescricao(descricaoProduto);
         setProduct(item);
 
-        if (item.tipo === 'cangas') setIsCanga(true);
+        if (item.tipo === 'cangas') {
+          setIsCanga(true);
+          setSize('Único');
+        }
       }
     });
   };
@@ -260,27 +263,16 @@ const ProdutoPage = ({ match }) => {
             <div style={styles.marginDiv}>
               {fotos.map((item) => (
                 <div style={styles.foto}>
-                  {isCanga ? (
-                    <img
-                      src={`https://testekrakatoa.tk/imgs/${product.categoria}/${item}.jpg`}
-                      style={{
-                        ...styles.img,
-                        transform: 'rotate(90deg)',
-                      }}
-                      alt="produto"
-                    />
-                  ) : (
-                    <img
-                      src={`https://testekrakatoa.tk/imgs/${product.categoria}/${item}.jpg`}
-                      onClick={() => {
-                        setFotoAtual(
-                          `https://testekrakatoa.tk/imgs/${product.categoria}/${item}.jpg`,
-                        );
-                      }}
-                      style={styles.img}
-                      alt="produto"
-                    />
-                  )}
+                  <img
+                    src={`https://testekrakatoa.tk/imgs/${product.categoria}/${item}.jpg`}
+                    onClick={() => {
+                      setFotoAtual(
+                        `https://testekrakatoa.tk/imgs/${product.categoria}/${item}.jpg`,
+                      );
+                    }}
+                    style={styles.img}
+                    alt={product.nome}
+                  />
                 </div>
               ))}
             </div>
@@ -327,7 +319,7 @@ const ProdutoPage = ({ match }) => {
             >
               <div style={styles.quad2inside}>
                 <Typography
-                  style={{ fontStyle: 'normal',fontSize: '35px', margin: 0 }}
+                  style={{ fontStyle: 'normal', fontSize: '35px', margin: 0 }}
                   variant="h4"
                   color="secondary"
                 >

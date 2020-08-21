@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useRef } from 'react';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import './ListProducts.css';
 import Produto from '../components/Produto';
@@ -9,71 +9,47 @@ import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounde
 // All items component
 // Important! add unique key
 export const Menu = (list) => {
-    return (
-        list.map((item) => (
-            <div className="menu-item" key={item.nome}>
-                <Produto
-                    produto={item}
-                    update={() => { }}
-                    title={item.tipo}
-                    addItem={() => {
+  return list.map((item) => (
+    <div className="menu-item" key={item.nome}>
+      <Produto
+        produto={item}
+        update={() => {}}
+        title={item.tipo}
+        addItem={() => {}}
+      />
+    </div>
+  ));
+};
 
-                    }}
-                />
-            </div>
-        ))
-    )
-}
-
-
-class ListProducts extends Component {
-    constructor(props) {
-        super(props);
-        // call it again if items count changes
-        this.menuItems = Menu(this.props.list);
-        this.childRef = React.createRef();
-        this.data = [];
-        this.state = {
-            loading: this.props.produtos.loading
-        }
-    }
-
-    componentWillReceiveProps = (nextProps) => {
-        if (nextProps.produtos.loading !== this.props.produtos.loading) {
-          this.forceUpdate();
-          this.setState({loading: false});
-        }
-      }
-    
-    render() {
-        const menu = this.menuItems;
-        return (
-
-            <div style={{ width: '100%' }}>
-                <ScrollMenu
-                    data={menu}
-                    arrowLeft={<ArrowBackIosRoundedIcon />}
-                    arrowRight={<ArrowForwardIosRoundedIcon />}
-                    dragging={false}
-                    hideSingleArrow={true}
-                    wheel={false}
-                    ref={this.childRef}
-                    onLastItemVisible={() => {
-                        if (this.data.length > 0) {
-                            clearInterval(this.data[0]);
-                        }
-                        this.data[0] = setInterval(this.childRef.current.handleArrowClick, 5000);
-                    }}
-                    onFirstItemVisible={() => {
-                        if (this.data.length > 0) {
-                            clearInterval(this.data[0]);
-                        }
-                        this.data[0] = setInterval(this.childRef.current.handleArrowClickRight, 5000);
-                    }}
-                />
-            </div>
-        );
-    }
-}
+const ListProducts = ({ list }) => {
+  const Ref = useRef();
+  const menu = Menu(list);
+  let data = [];
+  return (
+    <div style={{ width: '100%' }}>
+      <ScrollMenu
+        data={menu}
+        arrowLeft={<ArrowBackIosRoundedIcon />}
+        arrowRight={<ArrowForwardIosRoundedIcon />}
+        dragging={false}
+        hideSingleArrow={true}
+        wheel={false}
+        ref={Ref}
+        onLastItemVisible={() => {
+          if (data.length > 0) {
+            clearInterval(data[0]);
+          }
+          data[0] = setInterval(Ref.current.handleArrowClick, 5000);
+        }}
+        onFirstItemVisible={() => {
+          if (data.length > 0) {
+            clearInterval(data[0]);
+          }
+          data[0] = setInterval(Ref.current.handleArrowClickRight, 5000);
+        }}
+      />
+    </div>
+  );
+};
 
 export default ListProducts;

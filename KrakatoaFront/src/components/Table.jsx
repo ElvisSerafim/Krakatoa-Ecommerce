@@ -71,7 +71,7 @@ export default function CustomizedTables({
       return null;
     });
     actualTotal(totais);
-  }, [allProducts]);
+  }, [allProducts, actualTotal]);
 
   const updateTotal = (index) => {
     let produtosCarrinho = JSON.parse(JSON.stringify(allProducts));

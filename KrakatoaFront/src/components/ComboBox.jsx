@@ -32,10 +32,6 @@ const theme = createMuiTheme({
 });
 
 class ComboBox extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       children,

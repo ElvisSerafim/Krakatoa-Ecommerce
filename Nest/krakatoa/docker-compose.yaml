@@ -1,0 +1,17 @@
+version: "3"
+services:
+  redis:
+    build:
+      dockerfile: ./docker/redis.dockerfile
+      context: "."
+    image: redis:latest
+    container_name: "redis-Krakatoa"
+    ports:
+      - 6379:6379
+    networks:
+      - krakatoa-dev
+
+  
+networks:
+  krakatoa-dev:
+    driver: bridge
