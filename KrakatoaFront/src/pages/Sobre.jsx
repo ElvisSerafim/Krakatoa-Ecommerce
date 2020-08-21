@@ -31,7 +31,7 @@ const Sobre = () => {
         com produtos originais do Sudoeste Asiático. Nossas peças são
         exclusivas e produzidas cuidadosamente a mão, uma a uma, utilizando
         técnicas milenares de pintura e tingimento. A qualidade e o bom
-        gosto de nossos produtos conquistou não somente o mercado
+        gosto de nossos produtos conquistaram não somente o mercado
         atacadista/varejista bahiano como também o nacional. Venha nos
         conhecer e conferir !
       </Typography>
