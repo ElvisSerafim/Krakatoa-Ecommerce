@@ -10,12 +10,11 @@ import {
 import { ProdutoService } from './produto.service';
 import { CreateProdutoDto } from './dto/create-produto.dto';
 import { UpdateProdutoDto } from './dto/update-produto.dto';
-import { QueryProdutoDto } from './dto/query-produto.dto';
 import { Produto } from './schemas/produto.schema';
 
 @Controller('produto')
 export class ProdutoController {
-  constructor(private produtoService: ProdutoService) {}
+  constructor(private produtoService: ProdutoService) { }
   @Post()
   async CreateProduto(
     @Body() createProdutoDto: CreateProdutoDto,
