@@ -116,7 +116,7 @@ const ProdutoPage = ({ match }) => {
   const dispatch = useDispatch();
 
   const produtosT = useSelector((state) => state.products.list);
-
+  const productsCart = useSelector((state) => state.productsCart);
   const relacionados = useCallback(() => {
     const newProdutosRelacionados = [];
     const produtosType = [];
@@ -191,8 +191,41 @@ const ProdutoPage = ({ match }) => {
     setOpen(false);
   };
 
+   const verificarProdutosCarrinho = (produto, quantidade) => {
+	var quantidadeProdutosCart = 0;
+	var retorno = true;
+	productsCart.map((item) => {
+		if (item.nome === produto.nome){
+			quantidadeProdutosCart = quantidadeProdutosCart + item.quantidadePedido;
+		}
+	})
+  
+	if(type === 'cangas' || type === 'confeccoes'){
+           if((quantidadeProdutosCart + quantidade) > 4){
+		setStatusAlerta('error');
+		setMensagem('Quantidade máxima excedida ! 4 é máximo permitido desse produto no carrinho');
+		retorno = false;
+	   }
+	}
+
+	if( type === 'bolsas' || type === 'acessorios'){ 
+		if((quantidadeProdutosCart + quantidade) > 2){
+			setStatusAlerta('error');
+			setMensagem('Quantidade máxima excedida ! 2 é número máximo permitido desse produto no carrinho');
+			retorno = false;
+		}
+	}
+    return retorno;
+};
+
+
+
+
   const addItemCart = (produto, quantidade) => {
+    
     if (size !== '') {
+      const flagCart =  verificarProdutosCarrinho(produto, quantidade);
+      
       const productCart = produce(produto, (newState) => {
         newState.quantidadePedido = quantidade;
         newState.tamanhoEscolhido = size;
@@ -230,17 +263,22 @@ const ProdutoPage = ({ match }) => {
             break;
         }
       });
-      dispatch(addCart(productCart));
-      setQuantity(1);
-      setSize('');
-      setStatusAlerta('success');
-      setMensagem('Produto Adicionado !');
-      setOpen(true);
-      const data = {
-        id: product._id,
-        img: fotoAtual,
-      };
-      dispatch(setImage(data));
+
+      if(flagCart === false){
+	 setOpen(true);
+      }else{
+      	dispatch(addCart(productCart));
+      	setQuantity(1);
+      	setSize('');
+      	setStatusAlerta('success');
+      	setMensagem('Produto Adicionado !');
+      	setOpen(true);
+      	const data = {
+           id: product._id,
+           img: fotoAtual,
+      	};
+      	dispatch(setImage(data));
+       }
     } else {
       setStatusAlerta('error');
       setMensagem('Selecione um tamanho !');
@@ -359,8 +397,17 @@ const ProdutoPage = ({ match }) => {
                       <Quantity
                         onClickPlus={() => {
                           let aux = quantity;
-                          aux += 1;
-                          setQuantity(aux);
+                          aux++;
+ 			  const comparator = aux;
+			  if(type == 'cangas' || type === 'confeccoes'){
+			     if(comparator <= 4){
+				setQuantity(aux);
+			     }
+			  }else if (type === 'bolsas' || type === 'acessorios'){
+			     if(comparator <= 2){
+				setQuantity(aux);
+			     }
+			  }
                         }}
                         quantidade={quantity}
                         onClickMinus={() => {
@@ -434,8 +481,17 @@ const ProdutoPage = ({ match }) => {
                   quantidade={quantity}
                   onClickPlus={() => {
                     let aux = quantity;
-                    aux += 1;
-                    setQuantity(aux);
+                    aux++;
+		    const comparator = aux;
+	             if(type == 'cangas' || type === 'confeccoes'){
+			     if(comparator <= 4){
+				setQuantity(aux);
+			     }
+		    }else if (type === 'bolsas' || type === 'acessorios'){
+			     if(comparator <= 2){
+				setQuantity(aux);
+			     }
+		    }
                   }}
                   onClickMinus={() => {
                     let aux = quantity;
