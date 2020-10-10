@@ -7,7 +7,7 @@ import { Typography, Grid, Box, Paper } from '@material-ui/core';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Quantity from './Quantity';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   DivItem: {
     display: 'flex',
     borderRadius: '4.8px',

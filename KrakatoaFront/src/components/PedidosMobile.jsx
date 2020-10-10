@@ -12,8 +12,8 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Estilo from '../Estilos';
 import moment from 'moment';
+import Estilo from '../Estilos';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -56,125 +56,125 @@ const PedidosMobile = ({ theme, pedidos }) => {
     <>
       {pedidos.length === 0 ? (
         <Typography
-        variant="h5"
-        style={{
-          fontWeight: 'bold',
-          marginTop: '20px',
-        }}
-        color="primary"
-      >
-        Sem pedidos
-      </Typography>
+          variant="h5"
+          style={{
+            fontWeight: 'bold',
+            marginTop: '20px',
+          }}
+          color="primary"
+        >
+          Sem pedidos
+        </Typography>
       ) : (
-          <div className={classes.root}>
-            {pedidos.map((item, i) => (
-              <div style={{ marginTop: '10px' }}>
-                <ExpansionPanel className={classes.cor}>
-                  <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                  >
+        <div className={classes.root}>
+          {pedidos.forEach((item, i) => (
+            <div style={{ marginTop: '10px' }}>
+              <ExpansionPanel className={classes.cor}>
+                <ExpansionPanelSummary
+                  expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <div style={Estilo.flexRowSPACEBTW}>
+                    <Typography className={classes.heading}>
+                      Pedido {i + 1}
+                    </Typography>
+                    <Typography className={classes.heading}>
+                      Data: {moment(item.createdAt).format('DD/MM/YYYY')}
+                    </Typography>
+                  </div>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                  <div style={Estilo.flexColumnStandard}>
                     <div style={Estilo.flexRowSPACEBTW}>
-                      <Typography className={classes.heading}>
-                        Pedido {i + 1}
-                      </Typography>
-                      <Typography className={classes.heading}>
-                        Data: {moment(item.createdAt).format('DD/MM/YYYY')}
-                      </Typography>
+                      <Typography>Frete: {item.frete}</Typography>
+                      <Typography>Total: R$ {item.precoTotal / 100}</Typography>
                     </div>
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails>
-                    <div style={Estilo.flexColumnStandard}>
-                      <div style={Estilo.flexRowSPACEBTW}>
-                        <Typography>Frete: {item.frete}</Typography>
-                        <Typography>Total: R$ {item.precoTotal / 100}</Typography>
-                      </div>
-                      <div style={{ color: 'white' }}>
-                        <ExpansionPanel className={classes.cor}>
-                          <ExpansionPanelSummary
-                            expandIcon={
-                              <ExpandMoreIcon style={{ color: 'white' }} />
+                    <div style={{ color: 'white' }}>
+                      <ExpansionPanel className={classes.cor}>
+                        <ExpansionPanelSummary
+                          expandIcon={
+                            <ExpandMoreIcon style={{ color: 'white' }} />
                             }
-                            aria-controls="panel1a-content"
-                            id="panel1a-header"
+                          aria-controls="panel1a-content"
+                          id="panel1a-header"
+                        >
+                          <div style={Estilo.flexColumnCENTER}>
+                            <Typography className={classes.heading}>
+                              Produtos
+                            </Typography>
+                          </div>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                          <Table
+                            className={classes.table}
+                            aria-label="customized table"
                           >
-                            <div style={Estilo.flexColumnCENTER}>
-                              <Typography className={classes.heading}>
-                                Produtos
-                        </Typography>
-                            </div>
-                          </ExpansionPanelSummary>
-                          <ExpansionPanelDetails>
-                            <Table
-                              className={classes.table}
-                              aria-label="customized table"
-                            >
-                              <TableBody>
-                                {item.produtos.map((row, i) => (
-                                  <StyledTableRow>
+                            <TableBody>
+                              {item.produtos.map((row) => (
+                                <StyledTableRow>
+                                  <div
+                                    style={{
+                                      backgroundColor: 'white',
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      marginBottom: '10px',
+                                      border: 'solid',
+                                      borderRadius: 10,
+                                      padding: '5px',
+                                    }}
+                                  >
                                     <div
                                       style={{
-                                        backgroundColor: 'white',
+                                        fontFamily: 'Poppins',
                                         display: 'flex',
-                                        flexDirection: 'column',
-                                        marginBottom: '10px',
-                                        border: 'solid',
-                                        borderRadius: 10,
-                                        padding: '5px',
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
                                       }}
                                     >
-                                      <div
-                                        style={{
-                                          fontFamily: 'Poppins',
-                                          display: 'flex',
-                                          flexDirection: 'row',
-                                          justifyContent: 'space-between',
-                                        }}
-                                      >
-                                        <p style={{ margin: 0 }}>
-                                          {row.Produto_id.nome}
-                                        </p>
-                                        <p style={{ margin: 0 }}>
-                                          Qnt: {row.quantidadePedido}
-                                        </p>
-                                      </div>
-                                      <div
-                                        style={{
-                                          fontFamily: 'Poppins',
-                                          display: 'flex',
-                                          flexDirection: 'row',
-                                          justifyContent: 'center',
-                                        }}
-                                      >
-                                        <p>Tam: {row.tamanhoEscolhido}</p>
-                                      </div>
-                                      <div style={Estilo.flexColumnCENTER}>
-                                        <p
-                                          style={{
-                                            margin: 0,
-                                            fontFamily: 'Poppins',
-                                          }}
-                                        >
-                                          Preço: R$
-                                    {row.Produto_id.preco * row.quantidadePedido}
-                                        </p>
-                                      </div>
+                                      <p style={{ margin: 0 }}>
+                                        {row.Produto_id.nome}
+                                      </p>
+                                      <p style={{ margin: 0 }}>
+                                        Qnt: {row.quantidadePedido}
+                                      </p>
                                     </div>
-                                  </StyledTableRow>
-                                ))}
-                              </TableBody>
-                            </Table>
-                          </ExpansionPanelDetails>
-                        </ExpansionPanel>
-                      </div>
+                                    <div
+                                      style={{
+                                        fontFamily: 'Poppins',
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'center',
+                                      }}
+                                    >
+                                      <p>Tam: {row.tamanhoEscolhido}</p>
+                                    </div>
+                                    <div style={Estilo.flexColumnCENTER}>
+                                      <p
+                                        style={{
+                                          margin: 0,
+                                          fontFamily: 'Poppins',
+                                        }}
+                                      >
+                                        Preço: R$
+                                        {row.Produto_id.preco * row.quantidadePedido}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </StyledTableRow>
+                              ))}
+                            </TableBody>
+                          </Table>
+                        </ExpansionPanelDetails>
+                      </ExpansionPanel>
                     </div>
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
-              </div>
-            ))}
-          </div>
-        )}
+                  </div>
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+            </div>
+          ))}
+        </div>
+      )}
 
     </>
   );

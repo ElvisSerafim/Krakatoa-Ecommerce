@@ -105,37 +105,37 @@ const Produtos = ({ title, products }) => {
       <>
         {ProdutosOrder.length > 2
           ? ProdutosOrder.map((value) => (
-              <>
-                <Grid
-                  data-aos="fade-up"
-                  data-aos-once="true"
-                  key={value._id}
-                  item
-                  lg={3}
-                  md={4}
-                  sm={6}
-                  xs={6}
-                >
-                  <Produto produto={value} update={() => {}} title={lower} />
-                </Grid>
-              </>
-            ))
+            <>
+              <Grid
+                data-aos="fade-up"
+                data-aos-once="true"
+                key={value._id}
+                item
+                lg={3}
+                md={4}
+                sm={6}
+                xs={6}
+              >
+                <Produto produto={value} update={() => {}} title={lower} />
+              </Grid>
+            </>
+          ))
           : ProdutosOrder.map((value) => (
-              <>
-                <Grid
-                  data-aos="fade-up"
-                  data-aos-once="true"
-                  key={value._id}
-                  item
-                  lg={6}
-                  md={6}
-                  sm={6}
-                  xs={6}
-                >
-                  <Produto produto={value} update={() => {}} title={lower} />
-                </Grid>
-              </>
-            ))}
+            <>
+              <Grid
+                data-aos="fade-up"
+                data-aos-once="true"
+                key={value._id}
+                item
+                lg={6}
+                md={6}
+                sm={6}
+                xs={6}
+              >
+                <Produto produto={value} update={() => {}} title={lower} />
+              </Grid>
+            </>
+          ))}
       </>
     </Grid>
   );

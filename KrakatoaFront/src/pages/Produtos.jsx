@@ -49,8 +49,7 @@ const Produtos = ({ categoria, tipo }) => {
         }
       } else if (categoria.toUpperCase() !== tipo.toUpperCase()) {
         const ProdutosCategoria = list.filter(
-          (produto) =>
-            produto.categoria.toUpperCase() === categoria.toUpperCase(),
+          (produto) => produto.categoria.toUpperCase() === categoria.toUpperCase(),
         );
         setProduct(ProdutosCategoria);
       } else {

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { produce } from 'immer';
+import { Grid } from '@material-ui/core';
 import {
   productsUpdate,
-  removerCart
+  removerCart,
 } from '../reducers/productsCart';
 import ItemMobile from './ItemMobile';
-import { Grid } from '@material-ui/core';
 
 const ListItem = ({ atualizarTotal }) => {
   const [total, setTotal] = useState(0);
@@ -15,7 +15,7 @@ const ListItem = ({ atualizarTotal }) => {
 
   useEffect(() => {
     let aux = 0;
-    produtosCart.map((item, i) => {
+    produtosCart.forEach((item) => {
       aux += item.preco * item.quantidadePedido;
     });
     setTotal(aux);

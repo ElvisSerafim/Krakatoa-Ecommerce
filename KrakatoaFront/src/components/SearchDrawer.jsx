@@ -7,7 +7,8 @@ import IconButton from '@material-ui/core/IconButton';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import SearchIcon from '@material-ui/icons/Search';
-import SearchBar from './SearchBar'
+import SearchBar from './SearchBar';
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
   },
   drawerPaper: {
-    width: "100",
+    width: '100%',
     backgroundColor: '#44323D',
   },
   svg: {
@@ -69,8 +70,8 @@ export default function PersistentDrawerLeft() {
         edge="start"
         className={classes.menuButton}
       >
-          <SearchIcon color='secondary' style={{height:30, width:30}}/>
-        
+        <SearchIcon color="secondary" style={{ height: 30, width: 30 }} />
+
       </IconButton>
       <Drawer
         className={classes.drawer}
@@ -92,7 +93,7 @@ export default function PersistentDrawerLeft() {
         </div>
         <Divider />
         <List>
-                <SearchBar style={{color:'white'}}/>
+          <SearchBar style={{ color: 'white' }} />
         </List>
       </Drawer>
     </div>

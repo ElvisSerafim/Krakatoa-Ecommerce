@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeAllProducts } from '../reducers/productsCart';
 import InputMask from 'react-input-mask';
 import { useLocation } from 'react-router-dom';
 import {
@@ -15,9 +14,11 @@ import {
   Button,
   TextField,
 } from '@material-ui/core/';
+import { removeAllProducts } from '../reducers/productsCart';
 import { credito, debito } from '../Services/pagar';
 import api from '../Services/ApiService';
-import Alerta from '../components/Alerta';
+import Alerta from './Alerta';
+
 const useStyles = makeStyles(() => ({
   inputLabel: {
     color: '#44323D',
@@ -29,10 +30,10 @@ const Checkout = () => {
   const [produtosPedidos, setProdutosPedidos] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
-    let totalAux = location.state.total;
-    let arrayAux = [];
+    const totalAux = location.state.total;
+    const arrayAux = [];
     allProducts.map((item) => {
-      let produto = {};
+      const produto = {};
       produto.quantidadePedido = item.quantidadePedido;
       produto.tamanhoEscolhido = item.tamanhoEscolhido;
       produto.produto_id = item.produto_id;
@@ -61,21 +62,21 @@ const Checkout = () => {
   const [open, setOpen] = useState(false);
   const [status, Setstatus] = useState('error');
   const [msg, setMsg] = useState('Erro');
-  const [returnMsg, setReturn]=useState('Aguarde...')
+  const [returnMsg, setReturn] = useState('Aguarde...');
   const [total, setTotal] = useState(0);
   let dado;
-  let generateSafeId = require('generate-safe-id');
+  const generateSafeId = require('generate-safe-id');
   let id;
   const pagar = async () => {
     id = generateSafeId();
     if (cartao === 'CreditCard') {
       dado = await credito(nome, total, numero, nome, data, cvv, id, flag);
-      if (dado.payment.returnCode == 0 || dado.payment.returnCode == 11) {
+      if (dado.payment.returnCode === 0 || dado.payment.returnCode === 11) {
         setPag(1);
         setCode('Sucesso, volte sempre!');
         setTid(dado.payment.paymentId);
 
-        let dataa = {
+        const dataa = {
           precoTotal: total,
           frete: location.state.frete,
           data: '12/12/2122',
@@ -83,7 +84,7 @@ const Checkout = () => {
           metodo: 'cartaoCredito',
           idPedido: id,
           idPagamento: dado.payment.paymentId,
-          token: token,
+          token,
         };
         const request = await api.enviarPedido(dataa);
         dispatch(removeAllProducts());
@@ -91,7 +92,7 @@ const Checkout = () => {
         setCode('Ocorreu um erro na transação');
         setTid('Transação falha');
       }
-    } else if (cartao == 'DebitCard') {
+    } else if (cartao === 'DebitCard') {
       dado = await debito(nome, total, numero, nome, data, cvv, id, flag);
       window.open(dado.payment.authenticationUrl);
       setPag(1);
@@ -100,7 +101,7 @@ const Checkout = () => {
       );
       setTid(dado.payment.paymentId);
 
-      let dataa = {
+      const dataa = {
         precoTotal: total,
         frete: location.state.frete,
         data: '12/12/2122',
@@ -108,7 +109,7 @@ const Checkout = () => {
         metodo: 'cartaoCredito',
         idPedido: id,
         idPagamento: dado.payment.paymentId,
-        token: token,
+        token,
       };
       const request = await api.enviarPedido(dataa);
     }
@@ -158,11 +159,11 @@ const Checkout = () => {
                     value={flag}
                     label="Bandeira do cartão"
                   >
-                    <MenuItem value={'Nenhum'}></MenuItem>
-                    <MenuItem value={'VISA'}>Visa</MenuItem>
-                    <MenuItem value={'MASTER'}>Mastercard</MenuItem>
-                    <MenuItem value={'HIPERCARD'}>Hipercard</MenuItem>
-                    <MenuItem value={'ELO'}>Elo</MenuItem>
+                    <MenuItem value="Nenhum" />
+                    <MenuItem value="VISA">Visa</MenuItem>
+                    <MenuItem value="MASTER">Mastercard</MenuItem>
+                    <MenuItem value="HIPERCARD">Hipercard</MenuItem>
+                    <MenuItem value="ELO">Elo</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -182,9 +183,9 @@ const Checkout = () => {
                     value={cartao}
                     label="Meio de pagamento"
                   >
-                    <MenuItem value={'Nenhum'}></MenuItem>
-                    <MenuItem value={'CreditCard'}>Crédito</MenuItem>
-                    <MenuItem value={'DebitCard'}>Débito</MenuItem>
+                    <MenuItem value="Nenhum" />
+                    <MenuItem value="CreditCard">Crédito</MenuItem>
+                    <MenuItem value="DebitCard">Débito</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -288,27 +289,27 @@ const Checkout = () => {
                       Setstatus('error');
                       setMsg('Por favor, insira o tipo de cartão');
                       setOpen(true);
-                    } else if (nome.length == 0) {
+                    } else if (nome.length === 0) {
                       Setstatus('error');
                       setMsg('Por favor, insira o nome que está no cartão');
                       setOpen(true);
-                    } else if (numero.toString().length != 16) {
+                    } else if (numero.toString().length !== 16) {
                       Setstatus('error');
                       setMsg('Por favor, insira um número de cartão válido');
                       setOpen(true);
-                    } else if (data.length != 7) {
+                    } else if (data.length !== 7) {
                       Setstatus('error');
                       setMsg(
                         'Por favor, insira uma data de expiração válida do cartão',
                       );
                       setOpen(true);
-                    } else if (data.indexOf('/') == -1) {
+                    } else if (data.indexOf('/') === -1) {
                       Setstatus('error');
                       setMsg(
                         'Por favor, insira uma barra para separar o mês e o ano',
                       );
                       setOpen(true);
-                    } else if (cvv.toString().length != '3') {
+                    } else if (cvv.toString().length !== '3') {
                       Setstatus('error');
                       setMsg(
                         'Por favor, insira um código de segurança válido!',
@@ -324,7 +325,7 @@ const Checkout = () => {
               </Grid>
             </>
           ) : (
-            //1234567890123450
+            // 1234567890123450
             <>
               <Grid item xs={12}>
                 <Typography
@@ -363,17 +364,17 @@ const Checkout = () => {
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                      <Typography
-                        variant="h1"
-                        style={{
-                          paddingTop: 20,
-                          color: '#8C0705',
-                          textAlign: 'center',
-                        }}
-                      >
-                       Resposta do provedor: {returnMsg}
-                      </Typography>
-                    </Grid>
+                <Typography
+                  variant="h1"
+                  style={{
+                    paddingTop: 20,
+                    color: '#8C0705',
+                    textAlign: 'center',
+                  }}
+                >
+                  Resposta do provedor: {returnMsg}
+                </Typography>
+              </Grid>
             </>
           )}
         </Paper>

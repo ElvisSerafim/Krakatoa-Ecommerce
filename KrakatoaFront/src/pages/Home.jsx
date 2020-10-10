@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 /* Pagina de Inicio */
 
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, Button } from '@material-ui/core/';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -79,9 +79,9 @@ const Home = () => {
         }
       }
       if (
-        item.categoria === 'vestidos' ||
-        item.categoria === 'batas' ||
-        item.categoria === 'macaquinhos'
+        item.categoria === 'vestidos'
+        || item.categoria === 'batas'
+        || item.categoria === 'macaquinhos'
       ) {
         arrayList.push(item);
       }
@@ -147,9 +147,9 @@ const Home = () => {
                 >
                   <Produto
                     produto={item}
-                    update={() => {}}
+                    update={() => { }}
                     title={item.tipo}
-                    addItem={() => {}}
+                    addItem={() => { }}
                   />
                 </Grid>
               ))}
@@ -209,9 +209,9 @@ const Home = () => {
               >
                 <Produto
                   produto={item}
-                  update={() => {}}
+                  update={() => { }}
                   title={item.tipo}
-                  addItem={() => {}}
+                  addItem={() => { }}
                 />
               </Grid>
             ))}
@@ -231,9 +231,9 @@ const Home = () => {
                 >
                   <Produto
                     produto={item}
-                    update={() => {}}
+                    update={() => { }}
                     title={item.tipo}
-                    addItem={() => {}}
+                    addItem={() => { }}
                   />
                 </Grid>
               ))}

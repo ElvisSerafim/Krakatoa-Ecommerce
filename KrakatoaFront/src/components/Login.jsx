@@ -79,7 +79,6 @@ const styles = {
 
 const Login = () => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [openAlert, setOpenAlert] = useState(false);
   const [open, setOpen] = useState(false);
@@ -217,7 +216,7 @@ const Login = () => {
                 value={values.password}
                 style={{ width: '100%', color: 'black' }}
                 onChange={handleChange('password')}
-                endAdornment={
+                endAdornment={(
                   <InputAdornment position="end">
                     <IconButton
                       aria-label="toggle password visibility"
@@ -228,7 +227,7 @@ const Login = () => {
                       {values.showPassword ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
                   </InputAdornment>
-                }
+                )}
               />
             </FormControl>
             <div

@@ -46,7 +46,7 @@ const StyledTabs = withStyles({
       backgroundColor: '#44323D',
     },
   },
-})((props) => <Tabs value={false} {...props} TabIndicatorProps={{ children: <span />  }} />);
+})((props) => <Tabs value={false} {...props} TabIndicatorProps={{ children: <span /> }} />);
 
 const StyledTab = withStyles((theme) => ({
   root: {
@@ -123,7 +123,6 @@ const NavBar = () => {
                   label="Contato"
                   href="/contato"
                 />
-                
                 <Menu
                   {...bindMenu(popupStateConfec)}
                   getContentAnchorEl={null}

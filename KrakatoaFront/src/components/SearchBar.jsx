@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { useDispatch } from 'react-redux';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { sendSearch } from '../reducers/search';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   inputInput: {
     fontFamily: 'Poppins',
     color: theme.palette.background.color,
-    '@media (max-width:1024px)':{
+    '@media (max-width:1024px)': {
       color: 'white',
     },
     padding: theme.spacing(1, 1, 1, 0),

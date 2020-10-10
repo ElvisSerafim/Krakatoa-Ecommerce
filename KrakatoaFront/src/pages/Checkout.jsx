@@ -29,7 +29,7 @@ import elo from '../img/elo.png';
 import Alerta from '../components/Alerta';
 import hipercard from '../img/hipercard.png';
 import mastercard from '../img/mastercard.png';
-import { credito, debito, cancelar, consulta } from '../Services/pagar.js';
+import { credito, debito, cancelar, consulta } from '../Services/pagar';
 import withAnimation from '../higherComponents/withAnimation';
 import api from '../Services/ApiService';
 import withNav from '../higherComponents/withNav';
@@ -119,7 +119,7 @@ function getStepContent(
   setReturn,
 ) {
   let dado;
-  let generateSafeId = require('generate-safe-id');
+  const generateSafeId = require('generate-safe-id');
   let id;
 
   const pagar = async () => {
@@ -129,16 +129,16 @@ function getStepContent(
       if (dado.payment.returnCode === 0 || dado.payment.returnCode === 11) {
         setCode('Sucesso, volte sempre!');
         setTid(dado.payment.paymentId);
-        //Enviar Pedido
-        let dataa = {
+        // Enviar Pedido
+        const dataa = {
           precoTotal: total,
-          frete: frete,
+          frete,
           data: '12/12/2122',
           produtos: produtosPedidos,
           metodo: 'cartaoCredito',
           idPedido: id,
           idPagamento: dado.payment.paymentId,
-          token: token,
+          token,
         };
         const request = await api.enviarPedido(dataa);
       } else {
@@ -153,15 +153,15 @@ function getStepContent(
       );
       setTid(dado.payment.paymentId);
       setReturn(dado.payment.returnMessage);
-      let dataa = {
+      const dataa = {
         precoTotal: total,
-        frete: frete,
+        frete,
         data: '12/12/2122',
         produtos: produtosPedidos,
         metodo: 'cartaoDebito',
         idPedido: id,
         idPagamento: dado.payment.paymentId,
-        token: token,
+        token,
       };
       const request = await api.enviarPedido(dataa);
     }
@@ -204,6 +204,7 @@ function getStepContent(
                     setH(3);
                     setE(3);
                   }}
+                  alt="Cartão Visa"
                   style={{ padding: 5 }}
                   src={visa}
                 />
@@ -227,6 +228,7 @@ function getStepContent(
                     setH(3);
                     setE(3);
                   }}
+                  alt="Cartão MasterCard"
                   src={mastercard}
                   style={{ padding: 5 }}
                 />
@@ -250,12 +252,13 @@ function getStepContent(
                     setH(0);
                     setE(3);
                   }}
+                  alt="Cartão HiperCard"
                   src={hipercard}
                   style={{ padding: 5 }}
                 />
               </Paper>
             </Grid>
-            <Grid item lg={2} item>
+            <Grid item lg={2}>
               <Paper
                 elevation={e}
                 style={{
@@ -274,12 +277,13 @@ function getStepContent(
                     setE(0);
                   }}
                   src={elo}
+                  alt="Cartão Elo"
                   style={{ padding: 8 }}
                 />
               </Paper>
             </Grid>
           </Grid>
-          <Grid item container lg={12} justify="center"></Grid>
+          <Grid item container lg={12} justify="center" />
           <Grid
             item
             container
@@ -296,15 +300,15 @@ function getStepContent(
                 value={cartao}
                 label="Tipo de cartão"
               >
-                <MenuItem value={'CreditCard'}>CRÉDITO</MenuItem>
-                <MenuItem value={'DebitCard'}>DÉBITO</MenuItem>
+                <MenuItem value="CreditCard">CRÉDITO</MenuItem>
+                <MenuItem value="DebitCard">DÉBITO</MenuItem>
               </Select>
             </FormControl>
           </Grid>
           <div style={{ paddingTop: 20 }} />
           <Grid item lg={12} justify="space-between" container>
-            <Grid item lg={1} container item></Grid>
-            <Grid item lg={2} container item>
+            <Grid item lg={1} container />
+            <Grid item lg={2} container>
               <Button
                 style={{ color: '#44323D' }}
                 disabled
@@ -313,12 +317,12 @@ function getStepContent(
                 Voltar
               </Button>
             </Grid>
-            <Grid item lg={4} container item>
+            <Grid item lg={4} container>
               <Button
                 style={{ color: 'white', backgroundColor: '#44323D' }}
                 variant="contained"
                 onClick={() => {
-                  if (cartao != 'CreditCard' && cartao != 'DebitCard') {
+                  if (cartao !== 'CreditCard' && cartao !== 'DebitCard') {
                     setStatus('error');
                     setMsg(
                       'Por favor, selecione o tipo do seu cartão: crédito ou débito',
@@ -417,8 +421,8 @@ function getStepContent(
             </Grid>
           </Box>
           <Grid item lg={12} justify="space-between" container>
-            <Grid item lg={1} container item></Grid>
-            <Grid item lg={2} container item>
+            <Grid item lg={1} container />
+            <Grid item lg={2} container>
               <Button
                 style={{ fontWeight: 'bold', color: '#44323D' }}
                 onClick={handleBack}
@@ -426,7 +430,7 @@ function getStepContent(
                 Voltar
               </Button>
             </Grid>
-            <Grid item lg={4} container item>
+            <Grid item lg={4} container>
               <Button
                 style={{ color: 'white', backgroundColor: '#44323D' }}
                 variant="contained"
@@ -435,7 +439,7 @@ function getStepContent(
                     setStatus('error');
                     setMsg('Por favor, insira o nome que está no cartão');
                     setOpen(true);
-                  } else if (numero.toString().length != 16) {
+                  } else if (numero.toString().length !== 16) {
                     setStatus('error');
                     setMsg('Por favor, insira o número do cartão');
                     setOpen(true);
@@ -451,7 +455,7 @@ function getStepContent(
                       'Por favor, insira uma barra para separar o mês e o ano',
                     );
                     setOpen(true);
-                  } else if (cvv.toString().length != '3') {
+                  } else if (cvv.toString().length !== '3') {
                     setStatus('error');
                     setMsg('Por favor, insira um código de segurança válido!');
                     setOpen(true);
@@ -482,7 +486,7 @@ function getStepContent(
             </Typography>
             <div style={{ height: 20 }} />
             <Grid item container lg={12} style={{ paddingLeft: 60 }}>
-              <Grid item lg={6} item container>
+              <Grid item lg={6} container>
                 <Typography
                   style={{
                     fontWeight: 'bold',
@@ -494,7 +498,7 @@ function getStepContent(
                   BANDEIRA : {flag}
                 </Typography>
               </Grid>
-              <Grid item lg={6} item container>
+              <Grid item lg={6} container>
                 <Typography
                   style={{
                     fontWeight: 'bold',
@@ -506,7 +510,7 @@ function getStepContent(
                   TIPO DE CARTÃO : {cartao}
                 </Typography>
               </Grid>
-              <Grid item lg={6} item container>
+              <Grid item lg={6} container>
                 <Typography
                   style={{
                     fontWeight: 'bold',
@@ -518,7 +522,7 @@ function getStepContent(
                   NOME NO CARTÃO : {nome}
                 </Typography>
               </Grid>
-              <Grid item lg={6} item container>
+              <Grid item lg={6} container>
                 <Typography
                   style={{
                     fontWeight: 'bold',
@@ -530,7 +534,7 @@ function getStepContent(
                   NÚMERO DO CARTÃO : {numero}
                 </Typography>
               </Grid>
-              <Grid item lg={6} item container>
+              <Grid item lg={6} container>
                 <Typography
                   style={{
                     fontWeight: 'bold',
@@ -542,7 +546,7 @@ function getStepContent(
                   CÓDIGO DE SEGURANÇA : {cvv}
                 </Typography>
               </Grid>
-              <Grid item lg={6} item container>
+              <Grid item lg={6} container>
                 <Typography
                   style={{
                     fontWeight: 'bold',
@@ -563,8 +567,8 @@ function getStepContent(
             justify="space-between"
             container
           >
-            <Grid item lg={1} container item></Grid>
-            <Grid item lg={2} container item>
+            <Grid item lg={1} container />
+            <Grid item lg={2} container>
               <Button
                 style={{ fontWeight: 'bold', color: '#44323D' }}
                 onClick={handleBack}
@@ -577,7 +581,7 @@ function getStepContent(
             >
               Total: R${total / 100}
             </Typography>
-            <Grid item lg={4} container item>
+            <Grid item lg={4} container>
               <Button
                 style={{ color: 'white', backgroundColor: '#44323D' }}
                 variant="contained"
@@ -629,10 +633,10 @@ const Checkout = () => {
   const [frete, setFrete] = useState(location.state.frete);
 
   useEffect(() => {
-    let totalAux = location.state.total;
-    let arrayAux = [];
-    allProducts.map((item, i) => {
-      let produto = {};
+    const totalAux = location.state.total;
+    const arrayAux = [];
+    allProducts.forEach((item) => {
+      const produto = {};
       produto.quantidadePedido = item.quantidadePedido;
       produto.tamanhoEscolhido = item.tamanhoEscolhido;
       produto.produto_id = item.produto_id;
@@ -677,7 +681,7 @@ const Checkout = () => {
               style={{ backgroundColor: '#D2C9C7', height: 600, width: '62%' }}
             >
               <Grid item lg={12}>
-                <div style={{ height: 30 }}></div>
+                <div style={{ height: 30 }} />
               </Grid>
               <Grid item lg={12} container justify="center" alignItems="center">
                 <div className={classes.root}>

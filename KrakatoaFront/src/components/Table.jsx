@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
@@ -74,16 +75,16 @@ export default function CustomizedTables({
   }, [allProducts, actualTotal]);
 
   const updateTotal = (index) => {
-    let produtosCarrinho = JSON.parse(JSON.stringify(allProducts));
-    let produtoAtualizado = produtosCarrinho[index];
-    produtoAtualizado.quantidadePedido++;
+    const copiaProdutosCarrinho = JSON.parse(JSON.stringify(allProducts));
+    const produtoAtualizado = copiaProdutosCarrinho[index];
+    produtoAtualizado.quantidadePedido += 1;
     dispatch(productsUpdate(produtoAtualizado));
   };
 
   const updateSubTotal = (index) => {
-    let produtosCarrinho = JSON.parse(JSON.stringify(allProducts));
-    let produtoAtualizado = produtosCarrinho[index];
-    produtoAtualizado.quantidadePedido--;
+    const produtosCarrinho = JSON.parse(JSON.stringify(allProducts));
+    const produtoAtualizado = produtosCarrinho[index];
+    produtoAtualizado.quantidadePedido -= 1;
     dispatch(productsUpdate(produtoAtualizado));
   };
   const updateRemoveTotal = (i) => {
@@ -183,7 +184,7 @@ export default function CustomizedTables({
                   <Quantity
                     onClickPlus={() => {
                       const aux = [...quantity];
-                      aux[i]++;
+                      aux[i] += 1;
                       setQuantity(aux);
                       const totally = [...total];
                       totally[i] = row.preco * aux[i];
@@ -193,7 +194,7 @@ export default function CustomizedTables({
                     }}
                     onClickMinus={() => {
                       const aux = [...quantity];
-                      aux[i]--;
+                      aux[i] -= 1;
                       const comparator = aux[i];
                       if (comparator >= 1) {
                         setQuantity(aux);
