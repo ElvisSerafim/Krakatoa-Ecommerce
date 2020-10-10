@@ -148,7 +148,7 @@ const ApiService = {
   CalcPrazoPreco: async (data) => {
     try {
       console.log('entrei');
-      console.log(data);  
+      console.log(data);
       const requestInfo = {
         method: 'POST',
         body: JSON.stringify(data),
@@ -166,125 +166,125 @@ const ApiService = {
       return 'Não foi possivel acessar o servidor';
     }
   },
-    getUsuario: async (data) => {
-      try {
-        const url = `${URL}user/`;
-        const { token } = data;
-        const requestInfo = {
-          method: 'GET',
-          headers: new Headers({
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          }),
-        };
-        const request = await fetch(url, requestInfo);
-        if (request.ok) {
-          const response = await request.json();
-          return response;
-        }
-        throw new Error('Não foi possivel accessar seus dados');
-      } catch (error) {
-        return error;
+  getUsuario: async (data) => {
+    try {
+      const url = `${URL}user/`;
+      const { token } = data;
+      const requestInfo = {
+        method: 'GET',
+        headers: new Headers({
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        }),
+      };
+      const request = await fetch(url, requestInfo);
+      if (request.ok) {
+        const response = await request.json();
+        return response;
       }
-    },
+      throw new Error('Não foi possivel accessar seus dados');
+    } catch (error) {
+      return error;
+    }
+  },
 
-      getPedidos: async (token) => {
-        try {
-          const requestInfo = {
-            method: 'GET',
-            headers: new Headers({
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/json',
-            }),
-          };
-          const url = `${URL}pedidos`;
-          const request = await fetch(url, requestInfo);
+  getPedidos: async (token) => {
+    try {
+      const requestInfo = {
+        method: 'GET',
+        headers: new Headers({
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        }),
+      };
+      const url = `${URL}pedidos`;
+      const request = await fetch(url, requestInfo);
 
-          if (request.ok) {
-            return request.json();
-          }
-          throw new Error('Não foi possivel acessar o servidor');
-        } catch (error) {
-          return 'Não foi possivel acessar o servidor';
-        }
-      },
+      if (request.ok) {
+        return request.json();
+      }
+      throw new Error('Não foi possivel acessar o servidor');
+    } catch (error) {
+      return 'Não foi possivel acessar o servidor';
+    }
+  },
 
-        enviarPedido: async (data) => {
-          try {
-            const Authorization = `Bearer ${data.token}`;
-            const requestInfo = {
-              method: 'POST',
-              body: JSON.stringify(data),
-              headers: new Headers({
-                Authorization,
-                'Content-Type': 'application/json',
-              }),
-            };
-            const url = `${URL}pedidos/`;
-            const request = await fetch(url, requestInfo);
-            if (request.ok) {
-              return request.json();
-            }
-            throw new Error('Não foi possivel acessar o servidor');
-          } catch (error) {
-            return 'Não foi possivel acessar o servidor';
-          }
-        },
-          RecuperarSenha: async (data) => {
-            try {
-              const requestInfo = {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: new Headers({
-                  'Content-Type': 'application/json',
-                }),
-              };
-              const url = `${URL}user/forgot`;
-              const request = await fetch(url, requestInfo);
-              if (request.ok) {
-                return 'ok';
-              }
-              throw new Error('Não foi possivel acessar o servidor');
-            } catch (error) {
-              return 'Não foi possivel acessar o servidor';
-            }
-          },
-            RedefinirSenha: async (data) => {
-              try {
-                const requestInfo = {
-                  method: 'POST',
-                  body: JSON.stringify(data),
-                  headers: new Headers({
-                    'Content-Type': 'application/json',
-                  }),
-                };
-                const url = `${URL}user/recover`;
-                const request = await fetch(url, requestInfo);
-                if (request.ok) {
-                  const response = await request.json();
-                  return response;
-                }
-                throw new Error('Não foi possivel acessar o servidor');
-              } catch (error) {
-                return 'Não foi possivel acessar o servidor';
-              }
-            },
+  enviarPedido: async (data) => {
+    try {
+      const Authorization = `Bearer ${data.token}`;
+      const requestInfo = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          Authorization,
+          'Content-Type': 'application/json',
+        }),
+      };
+      const url = `${URL}pedidos/`;
+      const request = await fetch(url, requestInfo);
+      if (request.ok) {
+        return request.json();
+      }
+      throw new Error('Não foi possivel acessar o servidor');
+    } catch (error) {
+      return 'Não foi possivel acessar o servidor';
+    }
+  },
+  RecuperarSenha: async (data) => {
+    try {
+      const requestInfo = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      };
+      const url = `${URL}user/forgot`;
+      const request = await fetch(url, requestInfo);
+      if (request.ok) {
+        return 'ok';
+      }
+      throw new Error('Não foi possivel acessar o servidor');
+    } catch (error) {
+      return 'Não foi possivel acessar o servidor';
+    }
+  },
+  RedefinirSenha: async (data) => {
+    try {
+      const requestInfo = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      };
+      const url = `${URL}user/recover`;
+      const request = await fetch(url, requestInfo);
+      if (request.ok) {
+        const response = await request.json();
+        return response;
+      }
+      throw new Error('Não foi possivel acessar o servidor');
+    } catch (error) {
+      return 'Não foi possivel acessar o servidor';
+    }
+  },
 
-              getLocalEntrega: async (cep) => {
-                try {
-                  const requestInfo = {
-                    method: 'GET',
-                    headers: new Headers({
-                      'Content-Type': 'application/json',
-                    }),
-                  };
-                  const url = `https://viacep.com.br/ws/${cep}/json/`;
-                  const request = await fetch(url, requestInfo);
-                  return request.json();
-                } catch (error) {
-                  return 'Não foi possivel acessar o servidor';
-                }
-              },
+  getLocalEntrega: async (cep) => {
+    try {
+      const requestInfo = {
+        method: 'GET',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+      };
+      const url = `https://viacep.com.br/ws/${cep}/json/`;
+      const request = await fetch(url, requestInfo);
+      return request.json();
+    } catch (error) {
+      return 'Não foi possivel acessar o servidor';
+    }
+  },
 };
 
 export default ApiService;

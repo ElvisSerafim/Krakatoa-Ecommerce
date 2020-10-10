@@ -60,7 +60,7 @@ export default function CustomizedTables({ totalSumario, actualTotal }) {
   useEffect(() => {
     const quantidades = [];
     const totais = [];
-    allProducts.map((item) => {
+    allProducts.forEach((item) => {
       quantidades.push(item.quantidadePedido);
       totais.push(item.preco * item.quantidadePedido);
       setTotal(totais);

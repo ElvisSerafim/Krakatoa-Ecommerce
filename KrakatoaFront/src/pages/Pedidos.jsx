@@ -2,7 +2,7 @@
  */
 import React, { useEffect, useState } from 'react';
 import { Grid, Typography, Hidden } from '@material-ui/core/';
-import {useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Lista from '../components/ListaPedidos';
 import ContaComp from '../components/ContaComp';
 import api from '../Services/ApiService';
@@ -40,12 +40,12 @@ const Pedidos = () => {
         <Grid item lg={4} sm={12}>
           <ContaComp />
         </Grid>
-        <Hidden smDown={true}>
+        <Hidden smDown>
           <Grid style={{ width: '100%' }} item lg={8} sm={12}>
             <Lista pedidos={pedidosUsuario} />
           </Grid>
         </Hidden>
-        <Hidden lgUp={true}>
+        <Hidden lgUp>
           <Typography
             variant="h4"
             style={{

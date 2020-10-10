@@ -123,7 +123,7 @@ const Carrinho = ({ history }) => {
 
   const atualizarTotal = (totalMap) => {
     let auxTotal = 0;
-    totalMap.map((item) => {
+    totalMap.forEach((item) => {
       auxTotal += item;
     });
     setFinalTotal(auxTotal);
@@ -143,7 +143,7 @@ const Carrinho = ({ history }) => {
     setTotal(ValorFinal);
 
     let totalPeso = 0;
-    products.map((item, i) => {
+    products.forEach((item) => {
       totalPeso += item.peso;
     });
     if (products.length <= 4) {
@@ -268,7 +268,7 @@ const Carrinho = ({ history }) => {
                 container
                 justify="space-around"
                 alignItems="baseline"
-                /* alignContent="center" */
+                  /* alignContent="center" */
                 style={{ marginTop: 32, marginBottom: 32 }}
               >
                 <Grid

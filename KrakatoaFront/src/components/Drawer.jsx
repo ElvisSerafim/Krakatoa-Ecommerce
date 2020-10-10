@@ -99,9 +99,9 @@ export default function PersistentDrawerLeft() {
         </div>
         <Divider />
         <List>
-          {['Inicio', 'Conta', 'Carrinho', 'Sobre', 'Contato'].map((text, index) => (
-            <a 
-              key={index}
+          {['Inicio', 'Conta', 'Carrinho', 'Sobre', 'Contato'].map((text) => (
+            <a
+              key={text}
               href={`/${text}`}
               style={{ textDecoration: 'none', color: 'white' }}
             >
@@ -127,8 +127,9 @@ export default function PersistentDrawerLeft() {
                   'Turisticas',
                   'Estampada',
                   'Pompom',
-                ].map((text,index) => (
-                  <a key={index}
+                ].map((text) => (
+                  <a
+                    key={text}
                     href={`/cangas/${text}`}
                     style={{ textDecoration: 'none', color: 'white' }}
                   >
@@ -152,10 +153,10 @@ export default function PersistentDrawerLeft() {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <div>
-                {[ 'Vestidos', 'Batas', 'Shorts', 'Macaquinhos'].map(
-                  (text, index) => (
+                {['Vestidos', 'Batas', 'Shorts', 'Macaquinhos'].map(
+                  (text) => (
                     <a
-                      key={index}
+                      key={text}
                       href={`/${text}`}
                       style={{ textDecoration: 'none', color: 'white' }}
                     >
@@ -181,9 +182,9 @@ export default function PersistentDrawerLeft() {
             <ExpansionPanelDetails>
               <div>
                 {['Bolsas', 'Chapeus'].map(
-                  (text, index) => (
+                  (text) => (
                     <a
-                      key={index}
+                      key={text}
                       href={`/${text}`}
                       style={{ textDecoration: 'none', color: 'white' }}
                     >

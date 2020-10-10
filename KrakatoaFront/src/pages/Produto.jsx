@@ -124,10 +124,10 @@ const ProdutoPage = ({ match }) => {
     let count = 0;
     const aux = [];
     let last;
-    produtos.forEach((item, i) => {
+    produtos.forEach((item) => {
       if (item.tipo === product.tipo) {
-        const aux = JSON.parse(JSON.stringify(item));
-        produtosType.push(aux);
+        const copiedItem = JSON.parse(JSON.stringify(item));
+        produtosType.push(copiedItem);
       }
     });
     while (count < 4) {
@@ -150,7 +150,7 @@ const ProdutoPage = ({ match }) => {
 
   const getProduto = (produtos) => {
     let descricaoProduto = [];
-    produtos.map((item, i) => {
+    produtos.forEach((item) => {
       if (item._id === match.params.id) {
         setType(item.tipo);
         setSizes(item.tamanho);
@@ -359,13 +359,13 @@ const ProdutoPage = ({ match }) => {
                       <Quantity
                         onClickPlus={() => {
                           let aux = quantity;
-                          aux++;
+                          aux += 1;
                           setQuantity(aux);
                         }}
                         quantidade={quantity}
                         onClickMinus={() => {
                           let aux = quantity;
-                          aux--;
+                          aux -= 1;
                           const comparator = aux;
                           if (comparator >= 1) {
                             setQuantity(aux);
@@ -434,13 +434,12 @@ const ProdutoPage = ({ match }) => {
                   quantidade={quantity}
                   onClickPlus={() => {
                     let aux = quantity;
-                    aux++;
+                    aux += 1;
                     setQuantity(aux);
                   }}
-                  quantidade={quantity}
                   onClickMinus={() => {
                     let aux = quantity;
-                    aux--;
+                    aux -= 1;
                     const comparator = aux;
                     if (comparator >= 1) {
                       setQuantity(aux);
@@ -534,9 +533,9 @@ const ProdutoPage = ({ match }) => {
                 <Produto
                   produto={value}
                   title={type}
-                  addItem={(product) => {
+                  addItem={(item) => {
                     setOpen(true);
-                    addItemCart(product, 1);
+                    addItemCart(item, 1);
                   }}
                 />
               </Grid>
@@ -557,9 +556,9 @@ const ProdutoPage = ({ match }) => {
                   <Produto
                     produto={value}
                     title={type}
-                    addItem={(product) => {
+                    addItem={(item) => {
                       setOpen(true);
-                      addItemCart(product, 1);
+                      addItemCart(item, 1);
                     }}
                   />
                 </Grid>

@@ -191,7 +191,7 @@ const Sumario = ({ location }) => {
 
   useEffect(() => {
     const arrayAux = [];
-    products.map((item, i) => {
+    products.forEach((item) => {
       const produto = {};
       produto.quantidadePedido = item.quantidadePedido;
       produto.tamanhoEscolhido = item.tamanhoEscolhido;
@@ -203,7 +203,7 @@ const Sumario = ({ location }) => {
     if (location.state !== undefined) {
       setFrete(location.state.totalFrete);
     }
-  }, [products,location.state]);
+  }, [products, location.state]);
 
   const atualizarTotal = (total) => {
     let auxTotal = 0;

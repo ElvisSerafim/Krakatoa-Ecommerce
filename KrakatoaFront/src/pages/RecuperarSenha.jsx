@@ -45,7 +45,11 @@ const RecuperarSenha = () => {
       setTimeout(() => {
         history.push('/redefinirSenha');
       }, 2000);
-    } catch (error) {}
+    } catch (error) {
+      setStatus('error');
+      setMessage('Não Foi possivel enviar o Email!');
+      setOpen(true);
+    }
   };
 
   return (

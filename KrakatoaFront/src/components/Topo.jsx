@@ -42,7 +42,7 @@ const Topo = () => {
               <Box style={{ minWidth: '200px', maxWidth: '100%' }}>
                 <SearchBar />
               </Box>
-              <div style={{display: 'flex', flexDirection:'row', justifyContent: 'space-between'}}>
+              <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                 <a href="/conta/">
                   <IconButton aria-label="conta">
                     <Conta color="primary" fontSize="large" />

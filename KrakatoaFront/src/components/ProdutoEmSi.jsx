@@ -32,13 +32,13 @@ const ProdutoEmSi = ({ addItem }) => {
             <Quantity
               onClickPlus={() => {
                 let aux = quantity;
-                aux++;
+                aux += 1;
                 setQuantity(aux);
               }}
               quantidade={quantity}
               onClickMinus={() => {
                 let aux = quantity;
-                aux--;
+                aux -= 1;
                 const comparator = aux;
                 if (comparator >= 1) {
                   setQuantity(aux);

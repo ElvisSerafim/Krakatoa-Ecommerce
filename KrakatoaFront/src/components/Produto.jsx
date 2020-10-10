@@ -11,8 +11,8 @@ import {
 } from '@material-ui/core/';
 import Skeleton from '@material-ui/lab/Skeleton';
 import { makeStyles } from '@material-ui/core/styles';
-import withAnimation from '../higherComponents/withAnimation';
 import { useSelector, useDispatch } from 'react-redux';
+import withAnimation from '../higherComponents/withAnimation';
 
 const useStyles = makeStyles({
   root: {
@@ -76,7 +76,7 @@ const Produto = ({ produto, title }) => {
   }, [produto, title]);
   const FuncCapitalize = (str) => {
     str = str.split(' ');
-    for (let i = 0, x = str.length; i < x; i++) {
+    for (let i = 0, x = str.length; i < x; i += 1) {
       if (str[i] !== '') {
         str[i] = str[i][0].toUpperCase() + str[i].substr(1);
       }

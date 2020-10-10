@@ -6,8 +6,7 @@ import {
   Body,
   UseGuards,
   Get,
-  Logger,
-  Param,
+  UseFilters,
 } from '@nestjs/common';
 import { UserService, userResponse } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -17,11 +16,12 @@ import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from './get-user.decorator';
 import { DetailsUserDto } from './dto/update-details-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { HttpExceptionFilter } from '../http-exception.filter';
 
+@UseFilters(new HttpExceptionFilter())
 @Controller('user')
 export class UserController {
-  private logger = new Logger('UserController');
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
   @Post()
   async createUser(
