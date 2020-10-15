@@ -126,7 +126,7 @@ function getStepContent(
     id = generateSafeId();
     if (cartao === 'CreditCard') {
       dado = await credito(nome, total, numero, nome, data, cvv, id, flag);
-      if (dado.payment.returnCode === 0 || dado.payment.returnCode === 11) {
+      if (dado.payment.returnCode === '0' || dado.payment.returnCode === '11') {
         setCode('Sucesso, volte sempre!');
         setTid(dado.payment.paymentId);
         // Enviar Pedido
@@ -339,9 +339,6 @@ function getStepContent(
               >
                 Próximo
               </Button>
-              <Button onClick={cancelar}>CANCELAR</Button>
-
-              <Button onClick={consulta}>consultar</Button>
             </Grid>
           </Grid>
         </>
@@ -455,7 +452,7 @@ function getStepContent(
                       'Por favor, insira uma barra para separar o mês e o ano',
                     );
                     setOpen(true);
-                  } else if (cvv.toString().length !== '3') {
+                  } else if (cvv.toString().length !== 3) {
                     setStatus('error');
                     setMsg('Por favor, insira um código de segurança válido!');
                     setOpen(true);

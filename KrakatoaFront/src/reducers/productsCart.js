@@ -29,12 +29,10 @@ const cart = createSlice({
         
         state[posicao].peso = action.payload.peso * state[posicao].quantidadePedido;
         const teste = JSON.parse(JSON.stringify(state[posicao]));
-        console.log(teste);
       } else {
         let newProduct = JSON.parse(JSON.stringify(action.payload));
         newProduct.peso = action.payload.peso * action.payload.quantidadePedido;
         state.push(newProduct);
-        console.log(newProduct);
       }
     },
     removeAllProducts: state => initialState,

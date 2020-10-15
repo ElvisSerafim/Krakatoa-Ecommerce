@@ -1,6 +1,6 @@
 /* eslint-disable quote-props */
 /* eslint-disable consistent-return */
-const URL = 'https://testekrakatoa.tk/api2/';
+const URL = process.env.REACT_APP_URL_API2;
 
 const ApiService = {
   Cadastro: async (data) => {
@@ -133,7 +133,7 @@ const ApiService = {
         }),
       };
       const request = await fetch(
-        'https://testekrakatoa.tk/api/calcPrazo',
+        process.env.REACT_APP_URL_CALCPRAZO,
         requestInfo,
       );
       if (request.ok) {
@@ -147,8 +147,6 @@ const ApiService = {
   },
   CalcPrazoPreco: async (data) => {
     try {
-      console.log('entrei');
-      console.log(data);
       const requestInfo = {
         method: 'POST',
         body: JSON.stringify(data),
@@ -156,11 +154,9 @@ const ApiService = {
           'Content-Type': 'application/json',
         }),
       };
-      console.log(JSON.stringify(data));
-      const url = 'https://testekrakatoa.tk/api/calcFrete';
+      const url = process.env.REACT_APP_URL_CALCFRETE;
       const request = await fetch(url, requestInfo);
       const response = await request.json();
-      console.log(response);
       return response;
     } catch (error) {
       return 'Não foi possivel acessar o servidor';
