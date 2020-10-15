@@ -17,32 +17,11 @@ import { JwtPayload } from './jwt-payload';
 import { compare } from 'bcrypt';
 import * as Jwt from 'jsonwebtoken';
 import { uuid } from 'uuidv4';
+import { tokenDecode } from './../utils/types';
 const mailjet = require('node-mailjet').connect(
   '9b4c4b2356385d8f352b67ad0813b60c',
   '5fa302479fd049e12e0a763f9973aa07',
 );
-export interface userResponse {
-  email: string;
-  nome: string;
-  pedidos: any;
-  telefone: string;
-  endereco?: {
-    cep: string;
-    estado: string;
-    cidade: string;
-    bairro: string;
-    rua: string;
-    numero: string;
-    complemento: string;
-  };
-  cpf?: string;
-}
-
-export interface tokenDecode {
-  email: string;
-  iat: number;
-  exp: number;
-}
 
 @Injectable()
 export class UserService {
@@ -51,7 +30,7 @@ export class UserService {
     @InjectModel(User.name)
     private userModel: Model<User>,
     private jwtService: JwtService,
-  ) {}
+  ) { }
 
   async Recover(
     token: string,
@@ -178,20 +157,11 @@ export class UserService {
     throw new Error('Não foi possivel salvar');
   }
 
-  async DeleteUser(user: User): Promise<void> {
-    const id = user._id;
-    const deleteResult = await this.userModel.deleteOne({ _id: id });
-    if (deleteResult) {
-      return;
-    }
-    throw new Error('Não foi possivel apagar o usuário');
-  }
-
   async UpdateEndeUser(
     user: User,
     updateUserDto: UpdateUserDto,
   ): Promise<void> {
-    let UserUp = user;
+    const UserUp = user;
     const {
       cep,
       estado,
@@ -251,7 +221,6 @@ export class UserService {
       UserUp.endereco = endereco;
     }
 
-    UserUp.cpf = cpf !== UserUp.cpf ? cpf : UserUp.cpf;
     if (nome) {
       UserUp.nome = nome !== UserUp.nome ? nome : UserUp.nome;
     }

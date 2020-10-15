@@ -7,11 +7,11 @@ import { InjectModel } from '@nestjs/mongoose';
 export class ContatoService {
   constructor(
     @InjectModel(Contato.name) private contatoModel: Model<Contato>,
-  ) {}
-  async createContato(createContatoDto: CreateContatoDto): Promise<Contato> {
+  ) { }
+  async createContato(createContatoDto: CreateContatoDto): Promise<void> {
     const createdContato = await new this.contatoModel(createContatoDto);
     if (createdContato) {
-      return createdContato.save();
+      return;
     }
     throw new Error('Não foi possivel salvar o contato');
   }

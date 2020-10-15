@@ -1,9 +1,10 @@
 import * as mongoose from 'mongoose';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { Tamanho } from '../../utils/types';
 
-interface produto {
+export interface produto {
   quantidadePedido: number;
-  tamanhoEscolhido: string;
+  tamanhoEscolhido: Tamanho;
   nomeProduto: string;
   produto_id: string;
   Produto_id: mongoose.Types.ObjectId;

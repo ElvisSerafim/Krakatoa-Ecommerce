@@ -1,4 +1,4 @@
-import { Document, Schema, SchemaTypes } from 'mongoose';
+import { Document, Schema } from 'mongoose';
 import * as NestMongo from '@nestjs/mongoose';
 @NestMongo.Schema({ timestamps: true, toJSON: { virtuals: true } })
 export class Pedido extends Document {

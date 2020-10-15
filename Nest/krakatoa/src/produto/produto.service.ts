@@ -1,33 +1,40 @@
 import { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Produto } from './schemas/produto.schema';
 import { CreateProdutoDto } from './dto/create-produto.dto';
 import { UpdateProdutoDto } from './dto/update-produto.dto';
+import { Tamanho } from '../utils/types';
+import { checkArray, checkNumber, checkString } from '../utils/checker';
 
 @Injectable()
 export class ProdutoService {
   constructor(
-    @InjectModel(Produto.name) private produtoModel: Model<Produto>,
-  ) {}
+    @InjectModel(Produto.name) private readonly produtoModel: Model<Produto>,
+  ) { }
   async CreateProduto(createProdutoDto: CreateProdutoDto): Promise<Produto> {
     const { nome } = createProdutoDto;
     const check = await this.produtoModel.findOne({ nome });
     if (!check) {
       const createdProduto = await new this.produtoModel(createProdutoDto);
+      createdProduto.tamanho.forEach((tamanho, i) => {
+        if (tamanho !== 'Único') {
+          createdProduto.tamanho[i] = tamanho.toUpperCase() as Tamanho;
+        }
+      })
+      createdProduto.quantidade;
       if (createdProduto) {
         return createdProduto.save();
       }
       throw new Error('Não foi possivel Criar Produto');
     }
-    throw new Error('Produto com esse nome já existe');
+    throw new ConflictException('Produto com esse nome já existe');
   }
   async UpdateProduto(
     updateProdutoDto: UpdateProdutoDto,
     id: string,
   ): Promise<Produto> {
     const produto = await this.produtoModel.findById(id);
-    console.log(produto);
 
     if (!produto) {
       throw new Error('Não foi possivel achar o produto');
@@ -41,20 +48,6 @@ export class ProdutoService {
       preco,
       tipo,
     } = updateProdutoDto;
-
-    const checkString = (Novo: string, Antigo: string) => {
-      if (typeof Novo === 'string' && Novo !== Antigo) return true;
-      return false;
-    };
-    const checkNumber = (Novo: number, Antigo: number) => {
-      if (typeof Novo === 'number' && Novo > 0 && Novo !== Antigo) return true;
-      return false;
-    };
-    const checkArray = (Novo: string[], Antigo: string[]) => {
-      if (typeof Novo !== 'undefined' && Novo.length > 0 && Novo !== Antigo)
-        return true;
-      return false;
-    };
 
     produto.nome = checkString(nome, produto.nome) ? nome : produto.nome;
 
@@ -109,3 +102,13 @@ export class ProdutoService {
     return Produtos;
   }
 }
+/*
+
+quantidade = {
+  G:2;
+  M:2;
+  GG:0;
+  P:0;
+}
+
+*/

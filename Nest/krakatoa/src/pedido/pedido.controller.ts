@@ -6,6 +6,7 @@ import {
   Body,
   Param,
   UseGuards,
+  UseFilters,
 } from '@nestjs/common';
 import { PedidoService } from './pedido.service';
 import { PedidoDto } from './dto/pedido.dto';
@@ -13,11 +14,13 @@ import { Pedido } from './schemas/pedido.schema';
 import { User } from '../user/schemas/user.schema';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../user/get-user.decorator';
+import { HttpExceptionFilter } from '../http-exception.filter';
 
 @Controller('pedidos')
+@UseFilters(new HttpExceptionFilter())
 @UseGuards(AuthGuard())
 export class PedidoController {
-  constructor(private pedidoService: PedidoService) {}
+  constructor(private pedidoService: PedidoService) { }
   @Post()
   async CreatePedido(
     @GetUser() user: User,
