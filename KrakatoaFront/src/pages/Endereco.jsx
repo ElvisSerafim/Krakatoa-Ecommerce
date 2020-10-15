@@ -69,7 +69,7 @@ const Endereco = ({ location, history }) => {
       } else {
         cepEnvio = data.cep;
       }
-      console.log(data);
+
       switch (true) {
         case data.nome.length === 0:
           throw new Error('Insira seu nome!');
@@ -77,8 +77,8 @@ const Endereco = ({ location, history }) => {
           throw new Error(
             'Você deve inserir um número de telefone válido com DDD',
           );
-        case data.cpf.toString().length !== 14:
-          throw new Error('CPF inválido!');
+        case data.cpf.toString().replace(/[^0-9a-z]/gi, '').length !== 11:
+          throw new Error('CPF inválido! ' +data.cpf.toString().length);
         case cepEnvio.length !== 8:
           throw new Error('CEP inválido!');
         case data.bairro.length === 0:
@@ -225,7 +225,6 @@ const Endereco = ({ location, history }) => {
               if (data.cep.length === 9) {
                 const cep = data.cep.replace('-', '');
                 if (cep !== location.state.cepEndereco) {
-                  console.log('Entrei');
                   getDadosFrete(cep);
                 }
               }
