@@ -1,7 +1,7 @@
 import { Length, IsEmail } from 'class-validator';
 
 export class CreateContatoDto {
-  @Length(4, 30)
+  @Length(1, 100)
   nome: string;
   @IsEmail()
   email: string;

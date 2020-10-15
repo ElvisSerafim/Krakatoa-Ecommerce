@@ -2,13 +2,13 @@ import {
   Controller,
   Post,
   Put,
-  Delete,
   Body,
   UseGuards,
   Get,
   UseFilters,
 } from '@nestjs/common';
-import { UserService, userResponse } from './user.service';
+import { UserService } from './user.service';
+import { userResponse } from '../utils/types';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { User } from './schemas/user.schema';
@@ -85,10 +85,4 @@ export class UserController {
     return;
   }
 
-  @Delete()
-  @UseGuards(AuthGuard())
-  async DeleteUser(@GetUser() user: User): Promise<void> {
-    await this.userService.DeleteUser(user);
-    return;
-  }
 }

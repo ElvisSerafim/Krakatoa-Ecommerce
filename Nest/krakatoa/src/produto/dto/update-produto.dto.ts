@@ -1,9 +1,10 @@
+import { Categoria, Tipo, Tamanho } from '../../utils/types';
 export class UpdateProdutoDto {
   nome?: string;
   preco?: number;
-  tipo?: string;
-  tamanho?: string[];
+  tipo?: Tipo;
+  tamanho?: Tamanho[];
   imagens?: string[];
-  categoria?: string;
+  categoria?: Categoria;
   descricao?: string;
 }

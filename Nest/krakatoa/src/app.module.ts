@@ -14,6 +14,7 @@ import { ProdutoModule } from './produto/produto.module';
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true,
+        useFindAndModify: false,
       }),
     }),
     UserModule,
@@ -22,4 +23,4 @@ import { ProdutoModule } from './produto/produto.module';
     PedidoModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }

@@ -1,5 +1,6 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { Categoria, Tipo, Tamanho, Quantidade } from '../../utils/types';
 
 @Schema({ timestamps: true, toJSON: { virtuals: true } })
 export class Produto extends Document {
@@ -8,12 +9,12 @@ export class Produto extends Document {
 
   @Prop({ required: true, min: 0 })
   preco: number;
-  /* Fazer um enum */
+
   @Prop({ required: true })
-  tipo: string;
-  /* Fazer um enum */
+  tipo: Tipo;
+
   @Prop({ required: true, default: ['Único'] })
-  tamanho: string[];
+  tamanho: Tamanho[];
 
   @Prop({ required: true, default: false })
   promocao: boolean;
@@ -23,9 +24,9 @@ export class Produto extends Document {
 
   @Prop()
   precoPromo: number;
-  /* Fazer um enum */
+
   @Prop({ required: true })
-  categoria: string;
+  categoria: Categoria;
 
   @Prop({ required: true, min: 10 })
   descricao: string;
@@ -33,8 +34,9 @@ export class Produto extends Document {
   @Prop({ default: 0 })
   vendas: number;
 
-  @Prop({ required: true, min: 1, default: 10 })
-  quantidade: number;
+  @Prop()
+  quantidade: Quantidade;
 }
 
 export const ProdutoSchema = SchemaFactory.createForClass(Produto);
+
