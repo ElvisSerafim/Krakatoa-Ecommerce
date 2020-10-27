@@ -108,7 +108,7 @@ const boleto = (amount,nome, cpf, rua,
 }
 const cancelar = ()=>{
   const cancelarParams = {
-    paymentId: "a059e639-80d8-4adf-9436-986974fc543f",
+    paymentId: "597f5c7d-9ff5-4c29-9158-0cb46d8c104a",
     amount: 1, // Caso o valor não seja definido, cancela a venda no valor total
   };
   
