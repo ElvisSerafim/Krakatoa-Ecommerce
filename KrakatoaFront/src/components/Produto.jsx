@@ -11,8 +11,9 @@ import {
 } from '@material-ui/core/';
 import Skeleton from '@material-ui/lab/Skeleton';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import withAnimation from '../higherComponents/withAnimation';
+
 
 const useStyles = makeStyles({
   root: {
@@ -61,6 +62,7 @@ const Produto = ({ produto, title }) => {
   const { _id, nome, preco } = produto;
   const [Imageurl, setImageurl] = useState('');
   const classes = useStyles();
+
   useEffect(() => {
     if (produto.imagens.length !== 0) {
       if (produto.categoria !== undefined && title !== 'pesquisa') {
@@ -74,6 +76,7 @@ const Produto = ({ produto, title }) => {
       }
     }
   }, [produto, title]);
+
   const FuncCapitalize = (str) => {
     str = str.split(' ');
     for (let i = 0, x = str.length; i < x; i += 1) {
@@ -95,13 +98,13 @@ const Produto = ({ produto, title }) => {
               className={classes.skeleton}
             />
           ) : (
-            <CardMediaMod
-              className={classes.media}
-              image={Imageurl}
-              title={nome}
-              component="img"
-            />
-          )}
+              <CardMediaMod
+                className={classes.media}
+                image={Imageurl}
+                title={nome}
+                component="img"
+              />
+            )}
 
           <div>
             <CardContent

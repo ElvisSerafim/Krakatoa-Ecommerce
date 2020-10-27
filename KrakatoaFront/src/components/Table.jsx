@@ -57,6 +57,7 @@ export default function CustomizedTables({
 }) {
   const classes = useStyles();
   const [quantity, setQuantity] = useState([]);
+  const [quantidadeMax, setQuantidadeMax] = useState(1);
   const [total, setTotal] = useState([]);
   const dispatch = useDispatch();
   const allProducts = products;
@@ -66,6 +67,7 @@ export default function CustomizedTables({
     const totais = [];
     allProducts.map((item) => {
       quantidades.push(item.quantidadePedido);
+      setQuantidadeMax(Number(item.tamanhoEscolhido.replace(/[^0-9]/gi, '')));
       totais.push(item.preco * item.quantidadePedido);
       setTotal(totais);
       setQuantity(quantidades);
@@ -77,8 +79,11 @@ export default function CustomizedTables({
   const updateTotal = (index) => {
     const copiaProdutosCarrinho = JSON.parse(JSON.stringify(allProducts));
     const produtoAtualizado = copiaProdutosCarrinho[index];
-    produtoAtualizado.quantidadePedido += 1;
-    dispatch(productsUpdate(produtoAtualizado));
+    const { quantidadePedido, tamanhoEscolhido } = produtoAtualizado;
+    if (quantidadePedido + 1 <= Number(tamanhoEscolhido.replace(/[^0-9]/gi, ''))) {
+      produtoAtualizado.quantidadePedido += 1;
+      dispatch(productsUpdate(produtoAtualizado));
+    }
   };
 
   const updateSubTotal = (index) => {
@@ -132,18 +137,18 @@ export default function CustomizedTables({
                       />
                     </div>
                   ) : (
-                    <div style={{ width: '100px', height: '150px' }}>
-                      <img
-                        src={row.ImageUrl}
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          borderRadius: 5,
-                        }}
-                        alt="Imagem produto"
-                      />
-                    </div>
-                  )}
+                      <div style={{ width: '100px', height: '150px' }}>
+                        <img
+                          src={row.ImageUrl}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            borderRadius: 5,
+                          }}
+                          alt="Imagem produto"
+                        />
+                      </div>
+                    )}
                   <div
                     style={{
                       ...Estilos.flexColumnCENTER2,
@@ -184,13 +189,15 @@ export default function CustomizedTables({
                   <Quantity
                     onClickPlus={() => {
                       const aux = [...quantity];
-                      aux[i] += 1;
-                      setQuantity(aux);
-                      const totally = [...total];
-                      totally[i] = row.preco * aux[i];
-                      setTotal(totally);
-                      actualTotal(totally);
-                      updateTotal(i);
+                      if (aux[i] + 1 <= Number(row.tamanhoEscolhido.replace(/[^0-9]/gi, ''))) {
+                        aux[i] += 1;
+                        setQuantity(aux);
+                        const totally = [...total];
+                        totally[i] = row.preco * aux[i];
+                        setTotal(totally);
+                        actualTotal(totally);
+                        updateTotal(i);
+                      }
                     }}
                     onClickMinus={() => {
                       const aux = [...quantity];
