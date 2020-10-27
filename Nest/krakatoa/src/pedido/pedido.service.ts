@@ -35,7 +35,7 @@ export class PedidoService {
     const aux = produce(ProdutoAchado.quantidade, draftState => {
       for (const tamanho in draftState) {
         if (Produto.tamanhoEscolhido === tamanho) {
-          draftState[tamanho] = draftState[tamanho] - 1;
+          draftState[tamanho] = draftState[tamanho] - Produto.quantidadePedido;
         }
       }
     })
@@ -60,7 +60,7 @@ export class PedidoService {
         const Found = await this.produtoModel.findById(produto.Produto_id)
         Found.vendas = Found.vendas += 1;
         for (const tamanho in Found.quantidade) {
-          if (Found.quantidade[tamanho] === 0 && produto.tamanhoEscolhido === tamanho) {
+          if ((Found.quantidade[tamanho] === 0 || Found.quantidade[tamanho] - produto.quantidadePedido < 0) && produto.tamanhoEscolhido === tamanho) {
             throw new Error("Não tem unidades no estoque");
           }
         }

@@ -12,6 +12,9 @@ import { CreateProdutoDto } from './dto/create-produto.dto';
 import { UpdateProdutoDto } from './dto/update-produto.dto';
 import { Produto } from './schemas/produto.schema';
 
+/* Base controller -> Respostas padrão*/
+/* Padronizar Erros -> Com uma classe */
+/* Regras de Negocio */
 @Controller('produto')
 export class ProdutoController {
   constructor(private produtoService: ProdutoService) { }
