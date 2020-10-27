@@ -15,7 +15,7 @@ import produce from 'immer';
 import ComboBox from '../components/ComboBox';
 import Produto from '../components/Produto';
 import { addCart } from '../reducers/productsCart';
-import { setImage } from '../reducers/products';
+import { setImage, loadProducts } from '../reducers/products';
 import Estilos from '../Estilos';
 import ProdutoMobile from '../components/ProdutoMobile';
 import Quantity from '../components/Quantity';
@@ -153,7 +153,12 @@ const ProdutoPage = ({ match }) => {
     produtos.forEach((item) => {
       if (item._id === match.params.id) {
         setType(item.tipo);
-        setSizes(item.tamanho);
+        setSizes(Object.entries(item.quantidade).map((quantidade) => {
+          if (quantidade[1] > 0) {
+            return (`${quantidade[0]} : ${quantidade[1]}`);
+          }
+          return (`${quantidade[0]} : Esgotado`);
+        }));
         if (item.imagens.length !== 0) {
           setFotoAtual(
             `https://testekrakatoa.tk/imgs/${item.categoria}/${item.imagens[0]}.jpg`,
@@ -184,6 +189,10 @@ const ProdutoPage = ({ match }) => {
     }
   }, [product]);
 
+  useEffect(() => {
+    dispatch(loadProducts());
+  }, []);
+
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -191,41 +200,31 @@ const ProdutoPage = ({ match }) => {
     setOpen(false);
   };
 
-   const verificarProdutosCarrinho = (produto, quantidade) => {
-	var quantidadeProdutosCart = 0;
-	var retorno = true;
-	productsCart.map((item) => {
-		if (item.nome === produto.nome){
-			quantidadeProdutosCart = quantidadeProdutosCart + item.quantidadePedido;
-		}
-	})
-  
-	if(type === 'cangas' || type === 'confeccoes'){
-           if((quantidadeProdutosCart + quantidade) > 4){
-		setStatusAlerta('error');
-		setMensagem('Quantidade máxima excedida ! 4 é máximo permitido desse produto no carrinho');
-		retorno = false;
-	   }
-	}
+  const verificarProdutosCarrinho = (produto, quantidade) => {
+    let quantidadeProdutosCart = 0;
+    let retorno = true;
+    productsCart.map((item) => {
+      if (item.nome === produto.nome) {
+        quantidadeProdutosCart += item.quantidadePedido;
+      }
+    });
 
-	if( type === 'bolsas' || type === 'acessorios'){ 
-		if((quantidadeProdutosCart + quantidade) > 2){
-			setStatusAlerta('error');
-			setMensagem('Quantidade máxima excedida ! 2 é número máximo permitido desse produto no carrinho');
-			retorno = false;
-		}
-	}
+
+    if ((quantidadeProdutosCart + quantidade) > 4) {
+      setStatusAlerta('error');
+      setMensagem('Quantidade máxima excedida ! 4 é máximo permitido desse produto no carrinho');
+      retorno = false;
+    }
+
     return retorno;
-};
+  };
 
-
-
+  const isDisabled = size.includes('Esgotado') || size.length === 0;
 
   const addItemCart = (produto, quantidade) => {
-    
     if (size !== '') {
-      const flagCart =  verificarProdutosCarrinho(produto, quantidade);
-      
+      const flagCart = verificarProdutosCarrinho(produto, quantidade);
+
       const productCart = produce(produto, (newState) => {
         newState.quantidadePedido = quantidade;
         newState.tamanhoEscolhido = size;
@@ -264,21 +263,21 @@ const ProdutoPage = ({ match }) => {
         }
       });
 
-      if(flagCart === false){
-	 setOpen(true);
-      }else{
-      	dispatch(addCart(productCart));
-      	setQuantity(1);
-      	setSize('');
-      	setStatusAlerta('success');
-      	setMensagem('Produto Adicionado !');
-      	setOpen(true);
-      	const data = {
-           id: product._id,
-           img: fotoAtual,
-      	};
-      	dispatch(setImage(data));
-       }
+      if (flagCart === false) {
+        setOpen(true);
+      } else {
+        dispatch(addCart(productCart));
+        setQuantity(1);
+        setSize('');
+        setStatusAlerta('success');
+        setMensagem('Produto Adicionado !');
+        setOpen(true);
+        const data = {
+          id: product._id,
+          img: fotoAtual,
+        };
+        dispatch(setImage(data));
+      }
     } else {
       setStatusAlerta('error');
       setMensagem('Selecione um tamanho !');
@@ -334,8 +333,8 @@ const ProdutoPage = ({ match }) => {
                   alt="produto"
                 />
               ) : (
-                <img src={fotoAtual} style={styles.img} alt="produto" />
-              )}
+                  <img src={fotoAtual} style={styles.img} alt="produto" />
+                )}
             </div>
           </Grid>
         </Hidden>
@@ -396,18 +395,11 @@ const ProdutoPage = ({ match }) => {
                     <div style={Estilos.flexRowStandard}>
                       <Quantity
                         onClickPlus={() => {
-                          let aux = quantity;
-                          aux++;
- 			  const comparator = aux;
-			  if(type == 'cangas' || type === 'confeccoes'){
-			     if(comparator <= 4){
-				setQuantity(aux);
-			     }
-			  }else if (type === 'bolsas' || type === 'acessorios'){
-			     if(comparator <= 2){
-				setQuantity(aux);
-			     }
-			  }
+                          const aux = quantity + 1;
+                          if (aux > Number(size.replace(/[^0-9]/gi, ''))) {
+                            return (setQuantity(quantity));
+                          }
+                          return setQuantity(aux);
                         }}
                         quantidade={quantity}
                         onClickMinus={() => {
@@ -423,6 +415,7 @@ const ProdutoPage = ({ match }) => {
                         <Button
                           variant="contained"
                           color="primary"
+                          disabled={isDisabled}
                           style={{
                             marginLeft: 70,
                             width: '100%',
@@ -481,17 +474,17 @@ const ProdutoPage = ({ match }) => {
                   quantidade={quantity}
                   onClickPlus={() => {
                     let aux = quantity;
-                    aux++;
-		    const comparator = aux;
-	             if(type == 'cangas' || type === 'confeccoes'){
-			     if(comparator <= 4){
-				setQuantity(aux);
-			     }
-		    }else if (type === 'bolsas' || type === 'acessorios'){
-			     if(comparator <= 2){
-				setQuantity(aux);
-			     }
-		    }
+                    aux += 1;
+                    const comparator = aux;
+                    if (type === 'cangas' || type === 'confeccoes') {
+                      if (comparator <= 4) {
+                        setQuantity(aux);
+                      }
+                    } else if (type === 'bolsas' || type === 'acessorios') {
+                      if (comparator <= 2) {
+                        setQuantity(aux);
+                      }
+                    }
                   }}
                   onClickMinus={() => {
                     let aux = quantity;
@@ -510,6 +503,7 @@ const ProdutoPage = ({ match }) => {
             <Button
               variant="contained"
               color="primary"
+              disabled={isDisabled}
               style={{ width: '100%', maxHeight: '100%' }}
               onClick={() => {
                 setOpen(true);
