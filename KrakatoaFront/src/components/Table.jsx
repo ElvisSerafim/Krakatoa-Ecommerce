@@ -169,7 +169,7 @@ export default function CustomizedTables({
                       }}
                       color="secondary"
                     >
-                      Tamanho: {row.tamanhoEscolhido}
+                      Tamanho: {row.tamanhoEscolhido.replace(/[^a-z]/gi, '')}
                     </Typography>
                   </div>
                 </Box>
