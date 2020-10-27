@@ -92,7 +92,6 @@ export class ProdutoService {
             createdAt: 0,
             updatedAt: 0,
             __v: 0,
-            quantidade: 0,
             vendas: 0,
           },
         },
