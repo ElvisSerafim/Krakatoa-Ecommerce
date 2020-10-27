@@ -125,8 +125,8 @@ function getStepContent(
   const pagar = async () => {
     id = generateSafeId();
     if (cartao === 'CreditCard') {
-      dado = await credito(nome, total, numero, nome, data, cvv, id, flag);
-      if (dado.payment.returnCode === '0' || dado.payment.returnCode === '11') {
+      dado = await credito(nome, 100, numero, nome, data, cvv, id, flag);
+      if (dado.payment.returnCode === '00' || dado.payment.returnCode === '11') {
         setCode('Sucesso, volte sempre!');
         setTid(dado.payment.paymentId);
         // Enviar Pedido
@@ -145,6 +145,7 @@ function getStepContent(
         setCode('Ocorreu um erro na transação');
         setTid('Transação falha');
       }
+      console.log(dado)
     } else if (cartao === 'DebitCard') {
       dado = await debito(nome, total, numero, nome, data, cvv, id, flag);
       window.open(dado.payment.authenticationUrl);
@@ -338,6 +339,9 @@ function getStepContent(
                 }}
               >
                 Próximo
+              </Button>
+              <Button onClick={()=>{cancelar()}}>
+                Cancelar
               </Button>
             </Grid>
           </Grid>
@@ -635,7 +639,8 @@ const Checkout = () => {
     allProducts.forEach((item) => {
       const produto = {};
       produto.quantidadePedido = item.quantidadePedido;
-      produto.tamanhoEscolhido = item.tamanhoEscolhido;
+      produto.tamanhoEscolhido = item.tamanhoEscolhido.includes("Único")?"Único": item.tamanhoEscolhido.replace(/[^a-z]/gi, '');
+
       produto.produto_id = item.produto_id;
       arrayAux.push(produto);
     });
