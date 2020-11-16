@@ -35,7 +35,7 @@ const Checkout = () => {
     allProducts.map((item) => {
       const produto = {};
       produto.quantidadePedido = item.quantidadePedido;
-      produto.tamanhoEscolhido = item.tamanhoEscolhido;
+      produto.tamanhoEscolhido = item.tamanhoEscolhido.replace(/[^a-z]/gi, '');
       produto.produto_id = item.produto_id;
       arrayAux.push(produto);
     });
