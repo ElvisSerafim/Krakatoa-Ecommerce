@@ -155,6 +155,7 @@ const ApiService = {
         }),
       };
       const url = process.env.REACT_APP_URL_CALCFRETE;
+      console.log(url);
       const request = await fetch(url, requestInfo);
       const response = await request.json();
       return response;

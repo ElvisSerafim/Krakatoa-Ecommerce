@@ -636,6 +636,7 @@ const Checkout = () => {
       const produto = {};
       produto.quantidadePedido = item.quantidadePedido;
       produto.tamanhoEscolhido = item.tamanhoEscolhido;
+      produto.nome = item.nome;
       produto.produto_id = item.produto_id;
       arrayAux.push(produto);
     });

@@ -14,7 +14,7 @@ const logger = new Logger('User Module');
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
-      secret: 'testando12',
+      secret: '2e97eb810387ab8e9c4d399e2daa2a78564e4d8a352c0b2e34968acd25ad8b24a940898397bbef69ef1c16c5c7efdca6',
       signOptions: {
         expiresIn: 3600,
       },
@@ -22,9 +22,9 @@ const logger = new Logger('User Module');
     MongooseModule.forFeatureAsync([
       {
         name: User.name,
-        useFactory: async function(): Promise<typeof schema> {
+        useFactory: async function (): Promise<typeof schema> {
           const schema = UserSchema;
-          schema.pre('save', async function(this: User, next) {
+          schema.pre('save', async function (this: User, next) {
             try {
               if (!this.isModified('password')) return next();
               const salt = await genSalt(10);
@@ -46,4 +46,4 @@ const logger = new Logger('User Module');
   providers: [UserService, JwtStrategy],
   exports: [JwtStrategy, PassportModule],
 })
-export class UserModule {}
+export class UserModule { }
