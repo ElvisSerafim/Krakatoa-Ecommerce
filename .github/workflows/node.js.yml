@@ -36,4 +36,3 @@ jobs:
           passphrase : ${{ secrets.PASSPHRASE }}
           source: "html"
           target: "~/"
-    - run: cp -r imgs html
