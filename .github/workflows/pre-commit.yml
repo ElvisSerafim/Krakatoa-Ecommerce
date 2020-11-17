@@ -18,4 +18,3 @@ jobs:
         # By setting this to "false", only errors will be annotated
         reportWarnings: true
         npmInstall: true
-    - uses: pre-commit/action@v2.0.0
