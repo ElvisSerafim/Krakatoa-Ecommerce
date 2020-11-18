@@ -1,7 +1,7 @@
 var cielo_1 = require('cielo');
 var cieloParams = {
-    merchantId: process.env.REACT_APP_MERCHANT_ID,
-    merchantKey: process.env.REACT_APP_MERCHANT_KEY,
+    merchantId: "6250f814-b45a-45a3-b221-d69b2e822871",
+    merchantKey: "eZjnxnJZdw7dm78T0NJOeMo9va5z4AaKQKpq3fje",
     sandbox: false,
     debug: false // Opcional - Exibe os dados enviados na requisição para a Cielo
 };
@@ -47,7 +47,7 @@ const debito = (nome, amount, cardNumber, holder, exp, cv, id, bandeira)=> {
             type: cielo_1.EnumCardType.DEBIT,
             Authenticate:true,
             amount: amount,
-            returnUrl: process.env.REACT_APP_MERCHANT_URL,
+            returnUrl: "https://testekrakatoa.tk",
        debitCard:{  
           cardNumber: cardNumber,
           holder: holder,
@@ -90,10 +90,10 @@ const boleto = (amount,nome, cpf, rua,
     payment: {
       type: 'Boleto',
       amount: amount,
-      provider: process.env.REACT_APP_PROVEDOR_BOLETO,
+      provider: "Bradesco2",
       assignor: 'Krakatoa Cangas',
       demonstrative: 'Compra de protudo(s) na Krakatoa Cangas',
-      identification: process.env.REACT_APP_CNPJ,
+      identification: "07046452000153",
     }
   }
   var status=
