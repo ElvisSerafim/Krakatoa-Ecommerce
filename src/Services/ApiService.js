@@ -1,6 +1,6 @@
 /* eslint-disable quote-props */
 /* eslint-disable consistent-return */
-const URL = process.env.REACT_APP_URL_API2;
+const URL = "https://testekrakatoa.tk/api2/";
 
 const ApiService = {
   Cadastro: async (data) => {
