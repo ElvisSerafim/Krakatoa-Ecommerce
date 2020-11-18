@@ -154,6 +154,7 @@ const ProdutoPage = ({ match }) => {
       if (item._id === match.params.id) {
         setType(item.tipo);
         setSizes(Object.entries(item.quantidade).map((quantidade) => {
+       
           if (quantidade[1] > 0) {
             return (`${quantidade[0]} : ${quantidade[1]}`);
           }
@@ -204,7 +205,20 @@ const ProdutoPage = ({ match }) => {
     let quantidadeProdutosCart = 0;
     let retorno = true;
     productsCart.map((item) => {
+      console.log(item);
       if (item.nome === produto.nome) {
+        if(item.tamanhoEscolhido === size){
+           Object.entries(item.quantidade).map((quantity) => {
+              let copySize = size.split(" ");
+              if(copySize[0] === quantity[0]){
+                if((item.quantidadePedido + quantidade) > quantity[1]){
+                  setStatusAlerta('error');
+                  setMensagem('Quantidade disponivel excedida !');
+                  retorno = false;
+                }
+              }
+             });
+        }
         quantidadeProdutosCart += item.quantidadePedido;
       }
     });
