@@ -12,7 +12,6 @@
     "@testing-library/user-event": "^7.1.2",
     "aos": "^2.3.4",
     "axios": "^0.19.2",
-    "babel-loader": "^8.1.0",
     "cielo": "^2.3.1",
     "cleave.js": "^1.5.10",
     "clsx": "^1.1.0",
@@ -43,16 +42,13 @@
     "redux-persist-expire": "^1.1.0",
     "reselect": "^4.0.0",
     "slick-carousel": "^1.8.1",
-    "snyk": "^1.320.2",
     "webfontloader": "^1.6.28"
   },
   "scripts": {
     "start": "env-cmd -f .env.development react-scripts start",
-    "build": "react-scripts build && mv build html && scp -r ./html gustavo@64.227.106.165:~/",
+    "build": "react-scripts build && mv build html",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "snyk-protect": "snyk protect",
-    "prepare": "yarn run snyk-protect"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
