@@ -133,7 +133,7 @@ const ApiService = {
         }),
       };
       const request = await fetch(
-        process.env.REACT_APP_URL_CALCPRAZO,
+        "https://testekrakatoa.tk/api/calcPrazo",
         requestInfo,
       );
       if (request.ok) {
@@ -154,7 +154,7 @@ const ApiService = {
           'Content-Type': 'application/json',
         }),
       };
-      const url = process.env.REACT_APP_URL_CALCFRETE;
+      const url = "https://testekrakatoa.tk/api/calcFrete";
       console.log(url);
       const request = await fetch(url, requestInfo);
       const response = await request.json();
