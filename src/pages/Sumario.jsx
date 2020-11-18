@@ -161,6 +161,7 @@ const Sumario = ({ location }) => {
   const price = (totalFinal + frete) * 100;
   const boletopag = async () => {
     const id = generateSafeId();
+    console.log(location.state.endereco.estado);
     dado = await boleto(
       price,
       location.state.endereco.nome,
@@ -170,11 +171,13 @@ const Sumario = ({ location }) => {
       location.state.endereco.complemento,
       location.state.cepEndereco,
       location.state.endereco.cidade,
-      location.state.endereco.state,
+      location.state.endereco.estado,
       'BRA',
       location.state.endereco.bairro,
       id,
     );
+
+    console.log(dado);
     window.open(dado.payment.url);
     const dataa = {
       precoTotal: price,

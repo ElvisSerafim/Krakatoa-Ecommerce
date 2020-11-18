@@ -113,6 +113,7 @@ const Endereco = ({ location, history }) => {
           complemento,
           cep,
           nome,
+          estado
         } = data;
 
         setTimeout(
@@ -135,6 +136,7 @@ const Endereco = ({ location, history }) => {
                 numero,
                 complemento,
                 nome,
+                estado
               },
             },
           }),

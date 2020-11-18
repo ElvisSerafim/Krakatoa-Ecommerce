@@ -92,7 +92,7 @@ const boleto = (amount,nome, cpf, rua,
       amount: amount,
       provider: "Bradesco2",
       assignor: 'Krakatoa Cangas',
-      demonstrative: 'Compra de protudo(s) na Krakatoa Cangas',
+      demonstrative: 'Compra de produto(s) na Krakatoa Cangas',
       identification: "07046452000153",
     }
   }
