@@ -108,7 +108,7 @@ const boleto = (amount,nome, cpf, rua,
 }
 const cancelar = ()=>{
   const cancelarParams = {
-    paymentId: "597f5c7d-9ff5-4c29-9158-0cb46d8c104a",
+    paymentId: "d95c7e1c-d3d2-46af-95c6-6035b4375c85",
     amount: 1, // Caso o valor não seja definido, cancela a venda no valor total
   };
   
@@ -123,7 +123,7 @@ const cancelar = ()=>{
 
 const consulta = ()=>{
   const consultaParams = {
-    paymentId: "d9b79393-a1a6-4c05-9b19-87fee4d4ce92"
+    paymentId: "b1864997-06c7-4125-b22e-42f01a757270"
   };
   cielo.consult.paymentId(consultaParams)
   .then((data) => {
