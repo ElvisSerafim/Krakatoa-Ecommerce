@@ -71,7 +71,7 @@ const Checkout = () => {
     id = generateSafeId();
     if (cartao === 'CreditCard') {
       dado = await credito(nome, total, numero, nome, data, cvv, id, flag);
-      if (dado.payment.returnCode === 0 || dado.payment.returnCode === 11) {
+      if (dado.payment.returnCode === '00'|| dado.payment.returnCode === '11') {
         setPag(1);
         setCode('Sucesso, volte sempre!');
         setTid(dado.payment.paymentId);
@@ -92,6 +92,7 @@ const Checkout = () => {
         setCode('Ocorreu um erro na transação');
         setTid('Transação falha');
       }
+      setReturn(dado.payment.returnMessage)
     } else if (cartao === 'DebitCard') {
       dado = await debito(nome, total, numero, nome, data, cvv, id, flag);
       window.open(dado.payment.authenticationUrl);
@@ -309,7 +310,7 @@ const Checkout = () => {
                         'Por favor, insira uma barra para separar o mês e o ano',
                       );
                       setOpen(true);
-                    } else if (cvv.toString().length !== '3') {
+                    } else if (cvv.toString().length != 3) {
                       Setstatus('error');
                       setMsg(
                         'Por favor, insira um código de segurança válido!',

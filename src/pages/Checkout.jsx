@@ -29,7 +29,7 @@ import elo from '../img/elo.png';
 import Alerta from '../components/Alerta';
 import hipercard from '../img/hipercard.png';
 import mastercard from '../img/mastercard.png';
-import { credito, debito, cancelar, consulta } from '../Services/pagar';
+import { credito, debito } from '../Services/pagar';
 import withAnimation from '../higherComponents/withAnimation';
 import api from '../Services/ApiService';
 import withNav from '../higherComponents/withNav';
@@ -125,7 +125,7 @@ function getStepContent(
   const pagar = async () => {
     id = generateSafeId();
     if (cartao === 'CreditCard') {
-      dado = await credito(nome, 100, numero, nome, data, cvv, id, flag);
+      dado = await credito(nome, total, numero, nome, data, cvv, id, flag);
       if (
         dado.payment.returnCode === '00' ||
         dado.payment.returnCode === '11'
@@ -148,7 +148,7 @@ function getStepContent(
         setCode('Ocorreu um erro na transação');
         setTid('Transação falha');
       }
-      console.log(dado);
+      setReturn(dado.payment.returnMessage)
     } else if (cartao === 'DebitCard') {
       dado = await debito(nome, total, numero, nome, data, cvv, id, flag);
       window.open(dado.payment.authenticationUrl);
@@ -342,13 +342,6 @@ function getStepContent(
                 }}
               >
                 Próximo
-              </Button>
-              <Button
-                onClick={() => {
-                  cancelar();
-                }}
-              >
-                Cancelar
               </Button>
             </Grid>
           </Grid>
