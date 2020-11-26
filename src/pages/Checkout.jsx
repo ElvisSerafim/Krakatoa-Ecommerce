@@ -1,6 +1,7 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useState, useEffect } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import InputMask from 'react-input-mask';
 import { useLocation } from 'react-router-dom';
 
@@ -23,13 +24,14 @@ import {
   TextField,
 } from '@material-ui/core/';
 import Checkout2 from '../components/Checkout';
+import { removeAllProducts } from '../reducers/productsCart';
 
 import visa from '../img/visa.png';
 import elo from '../img/elo.png';
 import Alerta from '../components/Alerta';
 import hipercard from '../img/hipercard.png';
 import mastercard from '../img/mastercard.png';
-import { credito, debito } from '../Services/pagar';
+import { credito, debito, cancelar } from '../Services/pagar';
 import withAnimation from '../higherComponents/withAnimation';
 import api from '../Services/ApiService';
 import withNav from '../higherComponents/withNav';
@@ -117,6 +119,7 @@ function getStepContent(
   setH,
   setE,
   setReturn,
+  dispatch,
 ) {
   let dado;
   const generateSafeId = require('generate-safe-id');
@@ -143,12 +146,26 @@ function getStepContent(
           idPagamento: dado.payment.paymentId,
           token,
         };
-        const request = await api.enviarPedido(dataa);
+        try {
+          const request = await api.enviarPedido(dataa);
+          if (!request.ok) {
+            throw Error(request);
+          }
+          setOpen(true);
+          setMsg('Compra efetuada com sucesso!');
+          setStatus('success');
+          dispatch(removeAllProducts());
+        } catch (error) {
+          setOpen(true);
+          setMsg('Ocorreu um erro, seu pagamento sera estornado.');
+          setStatus('error');
+          cancelar(dado.payment.paymentId);
+        }
       } else {
         setCode('Ocorreu um erro na transação');
         setTid('Transação falha');
       }
-      setReturn(dado.payment.returnMessage)
+      setReturn(dado.payment.returnMessage);
     } else if (cartao === 'DebitCard') {
       dado = await debito(nome, total, numero, nome, data, cvv, id, flag);
       window.open(dado.payment.authenticationUrl);
@@ -167,7 +184,21 @@ function getStepContent(
         idPagamento: dado.payment.paymentId,
         token,
       };
-      const request = await api.enviarPedido(dataa);
+      try {
+        const request = await api.enviarPedido(dataa);
+        if (!request.ok) {
+          throw Error(request);
+        }
+        setOpen(true);
+        setMsg('Compra efetuada com sucesso!');
+        setStatus('success');
+        dispatch(removeAllProducts());
+      } catch (error) {
+        setOpen(true);
+        setMsg('Ocorreu um erro, seu pagamento sera estornado.');
+        setStatus('error');
+        cancelar(dado.payment.paymentId);
+      }
     }
   };
 
@@ -605,6 +636,7 @@ function getStepContent(
 }
 const Checkout = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
   const allProducts = useSelector((state) => state.productsCart);
   const [produtosPedidos, setProdutosPedidos] = useState([]);
   const [cartao, setCartao] = React.useState('Nenhum');
@@ -805,6 +837,7 @@ const Checkout = () => {
                     setHiperElev,
                     setEloElev,
                     setReturn,
+                    dispatch,
                   )}
                 </>
               )}

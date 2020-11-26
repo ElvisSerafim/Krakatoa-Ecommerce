@@ -15,7 +15,7 @@ import {
   TextField,
 } from '@material-ui/core/';
 import { removeAllProducts } from '../reducers/productsCart';
-import { credito, debito } from '../Services/pagar';
+import { credito, debito, cancelar } from '../Services/pagar';
 import api from '../Services/ApiService';
 import Alerta from './Alerta';
 
@@ -35,6 +35,7 @@ const Checkout = () => {
     allProducts.map((item) => {
       const produto = {};
       produto.quantidadePedido = item.quantidadePedido;
+      produto.nome = item.nome;
       produto.tamanhoEscolhido = item.tamanhoEscolhido.replace(/[^a-z]/gi, '');
       produto.produto_id = item.produto_id;
       arrayAux.push(produto);
@@ -71,7 +72,10 @@ const Checkout = () => {
     id = generateSafeId();
     if (cartao === 'CreditCard') {
       dado = await credito(nome, total, numero, nome, data, cvv, id, flag);
-      if (dado.payment.returnCode === '00'|| dado.payment.returnCode === '11') {
+      if (
+        dado.payment.returnCode === '00' ||
+        dado.payment.returnCode === '11'
+      ) {
         setPag(1);
         setCode('Sucesso, volte sempre!');
         setTid(dado.payment.paymentId);
@@ -86,13 +90,26 @@ const Checkout = () => {
           idPagamento: dado.payment.paymentId,
           token,
         };
-        const request = await api.enviarPedido(dataa);
-        dispatch(removeAllProducts());
+        try {
+          const request = await api.enviarPedido(dataa);
+          if (!request.ok) {
+            throw Error(request);
+          }
+          setOpen(true);
+          setMsg('Compra efetuada com sucesso!');
+          Setstatus('success');
+          dispatch(removeAllProducts());
+        } catch (error) {
+          setOpen(true);
+          setMsg('Ocorreu um erro, seu pagamento sera estornado.');
+          Setstatus('error');
+          cancelar(dado.payment.paymentId);
+        }
       } else {
         setCode('Ocorreu um erro na transação');
         setTid('Transação falha');
       }
-      setReturn(dado.payment.returnMessage)
+      setReturn(dado.payment.returnMessage);
     } else if (cartao === 'DebitCard') {
       dado = await debito(nome, total, numero, nome, data, cvv, id, flag);
       window.open(dado.payment.authenticationUrl);
@@ -112,7 +129,21 @@ const Checkout = () => {
         idPagamento: dado.payment.paymentId,
         token,
       };
-      const request = await api.enviarPedido(dataa);
+      try {
+        const request = await api.enviarPedido(dataa);
+        if (!request.ok) {
+          throw Error(request);
+        }
+        setOpen(true);
+        setMsg('Compra efetuada com sucesso!');
+        Setstatus('success');
+        dispatch(removeAllProducts());
+      } catch (error) {
+        setOpen(true);
+        setMsg('Ocorreu um erro, seu pagamento sera estornado.');
+        Setstatus('error');
+        cancelar(dado.payment.paymentId);
+      }
     }
   };
   return (
