@@ -15,6 +15,7 @@ import {
   ExpansionPanelDetails,
   Typography,
 } from '@material-ui/core';
+import Pedido from './Pedido';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -49,8 +50,6 @@ const useStyles = makeStyles({
 
 export default function CustomizedTables({ pedidos }) {
   const classes = useStyles();
-  // eslint-disable-next-line no-empty-pattern
-  const [] = useState(pedidos.produtos);
   return (
     <>
       {pedidos.length === 0 ? (
@@ -61,7 +60,6 @@ export default function CustomizedTables({ pedidos }) {
         >
           Sem Pedidos Realizados
         </Typography>
-
       ) : (
         <TableContainer className={classes.table}>
           <Table className={classes.table} aria-label="customized table">
@@ -80,7 +78,7 @@ export default function CustomizedTables({ pedidos }) {
                       id="panel1a-header"
                     >
                       <Typography className={classes.heading}>
-                        Pedido {row.idPedido}
+                        Pedido {row.idPedido.slice(0, 5)}
                       </Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
@@ -89,7 +87,11 @@ export default function CustomizedTables({ pedidos }) {
                         aria-label="customized table"
                       >
                         <TableBody>
-                          <Box display="flex" component="th" justifyContent="space-between">
+                          <Box
+                            display="flex"
+                            component="th"
+                            justifyContent="space-between"
+                          >
                             <Typography className={classes.heading}>
                               Frete: R$ {row.frete}
                             </Typography>
@@ -98,20 +100,7 @@ export default function CustomizedTables({ pedidos }) {
                             </Typography>
                           </Box>
                           {row.produtos.map((item) => (
-                            <StyledTableRow key={item.Produto_id.nome}>
-                              <StyledTableCell component="th" scope="row">
-                                <p>{item.Produto_id.nome}</p>
-                              </StyledTableCell>
-                              <StyledTableCell component="th" scope="row">
-                                <p>Tamanho: {item.tamanhoEscolhido}</p>
-                              </StyledTableCell>
-                              <StyledTableCell component="th" scope="row">
-                                <p>Quantidade: {item.quantidadePedido}</p>
-                              </StyledTableCell>
-                              <StyledTableCell component="th" scope="row">
-                                <p>Preço: R$ {item.Produto_id.preco * item.quantidadePedido}</p>
-                              </StyledTableCell>
-                            </StyledTableRow>
+                            <Pedido item={item} />
                           ))}
                           <Typography
                             variant="body1"

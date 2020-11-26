@@ -133,7 +133,6 @@ function getStepContent(
         dado.payment.returnCode === '00' ||
         dado.payment.returnCode === '11'
       ) {
-        setCode('Sucesso, volte sempre!');
         setTid(dado.payment.paymentId);
         // Enviar Pedido
         const dataa = {
@@ -152,14 +151,17 @@ function getStepContent(
             throw Error(request);
           }
           setOpen(true);
+          setCode('Sucesso, volte sempre!');
           setMsg('Compra efetuada com sucesso!');
           setStatus('success');
           dispatch(removeAllProducts());
         } catch (error) {
           setOpen(true);
+          setCode('Erro, seu pagamento sera estornado.');
           setMsg('Ocorreu um erro, seu pagamento sera estornado.');
           setStatus('error');
-          cancelar(dado.payment.paymentId);
+          const teste = await cancelar(dado.payment.paymentId);
+          console.log(teste);
         }
       } else {
         setCode('Ocorreu um erro na transação');
@@ -222,6 +224,7 @@ function getStepContent(
             alignItems="center"
           >
             <Grid item lg={2} item>
+              <Button onClick={cancelar("92ccf7f1-b082-4b4f-9f8a-12bd2556da50")}>Cancelar</Button>
               <Paper
                 elevation={v}
                 style={{

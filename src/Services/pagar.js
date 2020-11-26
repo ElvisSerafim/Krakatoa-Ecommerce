@@ -13,7 +13,7 @@ const credito = (nome, amount, cardNumber, holder, exp, cv, id, bandeira) => {
     },
     merchantOrderId: id,
     payment: {
-      amount: amount,
+      amount: 100,
       creditCard: {
         brand: bandeira,
         cardNumber: cardNumber,
