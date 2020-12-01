@@ -224,7 +224,6 @@ function getStepContent(
             alignItems="center"
           >
             <Grid item lg={2} item>
-              <Button onClick={cancelar("92ccf7f1-b082-4b4f-9f8a-12bd2556da50")}>Cancelar</Button>
               <Paper
                 elevation={v}
                 style={{
