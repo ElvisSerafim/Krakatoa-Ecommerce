@@ -77,7 +77,7 @@ const Promos = () => {
                 <CardMedia
                   style={{ maxHeight: 300, objectPosition: 'top' }}
                   component="img"
-                  image={`https://testekrakatoa.tk/imgs/sobre/${elem.quarter}.jpg`}
+                  image={`https://krakatoacangas.com.br/imgs/sobre/${elem.quarter}.jpg`}
                 />
                 <CardContent>
                   <Typography

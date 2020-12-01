@@ -1,6 +1,6 @@
 /* eslint-disable quote-props */
 /* eslint-disable consistent-return */
-const URL = "https://testekrakatoa.tk/api2/";
+const URL = "https://krakatoacangas.com.br/api2/";
 
 const ApiService = {
   Cadastro: async (data) => {
@@ -133,7 +133,7 @@ const ApiService = {
         }),
       };
       const request = await fetch(
-        "https://testekrakatoa.tk/api/calcPrazo",
+        "https://krakatoacangas.com.br/api/calcPrazo",
         requestInfo,
       );
       if (request.ok) {
@@ -154,7 +154,7 @@ const ApiService = {
           'Content-Type': 'application/json',
         }),
       };
-      const url = "https://testekrakatoa.tk/api/calcFrete";
+      const url = "https://krakatoacangas.com.br/api/calcFrete";
       console.log(url);
       const request = await fetch(url, requestInfo);
       const response = await request.json();

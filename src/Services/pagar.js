@@ -47,7 +47,7 @@ const debito = (nome, amount, cardNumber, holder, exp, cv, id, bandeira) => {
       type: cielo_1.EnumCardType.DEBIT,
       Authenticate: true,
       amount: amount,
-      returnUrl: "https://testekrakatoa.tk",
+      returnUrl: "https://krakatoacangas.com.br",
       debitCard: {
         cardNumber: cardNumber,
         holder: holder,

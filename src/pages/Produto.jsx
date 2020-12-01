@@ -162,7 +162,7 @@ const ProdutoPage = ({ match }) => {
         }));
         if (item.imagens.length !== 0) {
           setFotoAtual(
-            `https://testekrakatoa.tk/imgs/${item.categoria}/${item.imagens[0]}.jpg`,
+            `https://krakatoacangas.com.br/imgs/${item.categoria}/${item.imagens[0]}.jpg`,
           );
           setFotos(item.imagens);
           setFotosMobile(item.imagens);
@@ -315,10 +315,10 @@ const ProdutoPage = ({ match }) => {
               {fotos.map((item) => (
                 <div style={styles.foto}>
                   <img
-                    src={`https://testekrakatoa.tk/imgs/${product.categoria}/${item}.jpg`}
+                    src={`https://krakatoacangas.com.br/imgs/${product.categoria}/${item}.jpg`}
                     onClick={() => {
                       setFotoAtual(
-                        `https://testekrakatoa.tk/imgs/${product.categoria}/${item}.jpg`,
+                        `https://krakatoacangas.com.br/imgs/${product.categoria}/${item}.jpg`,
                       );
                     }}
                     style={styles.img}
