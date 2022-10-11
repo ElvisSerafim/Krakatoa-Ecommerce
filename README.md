@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Krakatoa
 Esse é o Front End da Loja Krakatoa!
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +69,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+=======
+# Krakatoa-Ecommerce
+Desenvolvimento de um Ecommerce completo para a marca Krakatoa utilizando React.js
+>>>>>>> 08f1d376d36902375eb8785fa78abef409b20c73
