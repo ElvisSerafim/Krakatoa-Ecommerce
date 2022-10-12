@@ -1,7 +1,7 @@
-# Krakatoa-Ecommerce
+# Krakatoa
 Desenvolvimento de um Ecommerce completo para a marca Krakatoa utilizando React.js. 
 
-## Tecnologias: 
+## Tecnologias Utilizadas no projeto: 
 
 - Redux
 - Material UI 
