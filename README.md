@@ -7,3 +7,4 @@ Desenvolvimento de um Ecommerce completo para a marca Krakatoa utilizando React.
 - Material UI 
 - Cielo API
 - React Maps
+- Melhor Envio
